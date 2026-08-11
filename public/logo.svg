@@ -1,0 +1,21 @@
+<svg width="1400" height="340" viewBox="0 0 1400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&amp;family=Plus+Jakarta+Sans:wght@800;900&amp;display=swap');
+    .logo-title {
+      font-family: 'Outfit', 'Plus Jakarta Sans', 'Arial Black', sans-serif;
+      font-weight: 900;
+      font-size: 210px;
+      fill: #C4D600;
+      letter-spacing: 0.04em;
+    }
+    .logo-sub {
+      font-family: 'Plus Jakarta Sans', 'Outfit', 'Arial', sans-serif;
+      font-weight: 800;
+      font-size: 65px;
+      fill: #C4D600;
+      letter-spacing: 0.44em;
+    }
+  </style>
+  <text x="0" y="200" class="logo-title">VANTUM</text>
+  <text x="8" y="295" class="logo-sub">STUDIOS</text>
+</svg>
