@@ -95,6 +95,7 @@ function ClientGlobeComponent({
     let phi = 0;
 
     function init() {
+      if (window.innerWidth < 768) return;
       const width = canvas.offsetWidth || canvas.parentElement?.offsetWidth || 600;
       if (globe) return;
 

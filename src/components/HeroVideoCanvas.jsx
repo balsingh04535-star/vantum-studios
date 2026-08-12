@@ -38,8 +38,9 @@ export default function HeroVideoCanvas({
     first.onload = () => drawFrame(0);
     images[0] = first;
 
-    // Preload the rest
-    for (let i = 1; i < FRAME_COUNT; i++) {
+    // Preload the rest (stepped on mobile for light memory footprint)
+    const step = window.innerWidth < 768 ? 3 : 1;
+    for (let i = 1; i < FRAME_COUNT; i += step) {
       const img = new Image();
       img.src = getFrameSrc(i);
       images[i] = img;

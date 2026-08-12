@@ -15,6 +15,12 @@ export default function SmoothScroll({ children, isLoading }) {
   const location = useLocation();
 
   useEffect(() => {
+    // On mobile touch devices, use native 120Hz kinetic momentum touch scrolling
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 768;
+    if (isTouchDevice) {
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
@@ -24,7 +30,7 @@ export default function SmoothScroll({ children, isLoading }) {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1,
     });
 
     lenisRef.current = lenis;

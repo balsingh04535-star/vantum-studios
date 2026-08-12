@@ -198,7 +198,7 @@ export default function PixelBlastBg({
 
   useEffect(() => {
     const container = mountRef.current;
-    if (!container) return;
+    if (!container || window.innerWidth < 768) return;
 
     let clickIx = 0;
     let raf = 0;

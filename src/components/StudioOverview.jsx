@@ -55,6 +55,18 @@ export default function StudioOverview() {
         });
       }
 
+      if (window.innerWidth < 768) {
+        gsap.set(globe, {
+          clipPath: 'none',
+          position: 'relative',
+          width: '100%',
+          height: 'auto',
+          zIndex: 1,
+          pointerEvents: 'all',
+        });
+        return;
+      }
+
       // ── 2. Globe sheet initial state (fixed overlay sliding up from bottom) ──
       gsap.set(globe, {
         clipPath: 'inset(100% 0% 0% 0%)',
