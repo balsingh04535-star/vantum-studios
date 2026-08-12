@@ -191,9 +191,10 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </header>
 
-      {/* ── TOP CENTER HERO GLOBE ── */}
+      {/* ── TOP CENTER HERO GLOBE (Visible on PC, hidden on mobile) ── */}
       <div
         ref={globeWrapperRef}
+        className="globe-hero-wrapper"
         style={{
           position: 'relative',
           width: 'clamp(320px, 35vw, 520px)',
@@ -629,6 +630,11 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           width: 100%;
           padding: 2.2rem;
           color: #fff;
+        }
+        @media (max-width: 768px) {
+          .globe-hero-wrapper {
+            display: none !important;
+          }
         }
       `}</style>
     </section>
