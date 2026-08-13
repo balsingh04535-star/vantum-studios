@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Crosshair, Eye, X } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Eye, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
@@ -14,7 +14,7 @@ export const selectedWorks = [
     location: 'Tokyo, Japan',
     year: '2026',
     image: '/img1.jpg',
-    rotation: -12,
+    rotation: -14,
     summary: 'Interactive WebGL spatial audio interface with real-time parametric waveform visualization and spatial acoustics.',
     deliverables: ['Creative Direction', 'WebGL Architecture', 'Generative Shaders', 'Audio Engine'],
   },
@@ -27,7 +27,7 @@ export const selectedWorks = [
     location: 'Geneva, Switzerland',
     year: '2026',
     image: '/img4.jpg',
-    rotation: 6,
+    rotation: 7,
     summary: 'High-fashion digital flagship store for next-generation timepiece collectors featuring real-time 3D watch customization.',
     deliverables: ['E-Commerce Architecture', '3D Asset Pipeline', 'Global Headless CMS', 'Motion Graphics'],
   },
@@ -40,7 +40,7 @@ export const selectedWorks = [
     location: 'San Francisco, USA',
     year: '2025',
     image: '/img5.jpg',
-    rotation: -4,
+    rotation: -3,
     summary: 'High-speed AI model training dashboard featuring GPU-accelerated canvas charts and real-time telemetry.',
     deliverables: ['Design System', 'React Performance Optimization', 'Dark Mode UI', 'WebGL Canvas'],
   },
@@ -53,7 +53,7 @@ export const selectedWorks = [
     location: 'Monaco · Europe',
     year: '2025',
     image: '/img8.jpg',
-    rotation: 10,
+    rotation: 12,
     summary: 'Immersive 3D telemetry experience for electric hypercar telemetry stream and real-time aerodynamic simulation.',
     deliverables: ['Custom Canvas Engine', 'Sound Design', 'Realtime Websockets', '3D Graphics'],
   },
@@ -66,7 +66,7 @@ export const selectedWorks = [
     location: 'Milan, Italy',
     year: '2025',
     image: '/work/work1.jpg',
-    rotation: -2,
+    rotation: -4,
     summary: 'Architectural brand direction and digital flagship experience for high-luxury Italian design house.',
     deliverables: ['Spatial Identity', 'Creative Direction', '3D Motion', 'Brand Architecture'],
   },
@@ -88,34 +88,39 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
     if (!track || cards.length === 0) return;
 
     const ctx = gsap.context(() => {
-      // ── 3D Parallax Card Scroller Animation (Reference code (32)/files) ──
+      // ── 3D Ultra-Luxury Parallax Spread Animation ──
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: track,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          scrub: 1,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          scrub: 1.2,
         },
       });
 
-      // Spread outer cards out with 3D rotation and parallax translation
       cards.forEach((card, index) => {
         const factor = index - Math.floor(cards.length / 2);
-        const xOffset = factor * 60; // Spread horizontally
-        const rotOffset = selectedWorks[index].rotation;
+        const targetX = factor * 75; // 3D Horizontal spread
+        const targetRotY = factor * -18; // 3D Perspective Y-Rotation
+        const targetRotZ = selectedWorks[index].rotation;
+        const initialX = factor * -160;
 
         tl.fromTo(
           card,
           {
-            x: factor * -120,
-            rotation: rotOffset * 1.5,
-            scale: 0.85,
-            opacity: 0.6,
+            x: initialX,
+            rotateY: targetRotY * 1.5,
+            rotateZ: targetRotZ * 1.5,
+            scale: 0.82,
+            filter: 'blur(3px)',
+            opacity: 0.5,
           },
           {
-            x: xOffset,
-            rotation: rotOffset,
-            scale: 1,
+            x: targetX,
+            rotateY: targetRotY,
+            rotateZ: targetRotZ,
+            scale: factor === 0 ? 1.08 : 0.95,
+            filter: factor === 0 ? 'blur(0px)' : 'blur(1.5px)',
             opacity: 1,
             ease: 'power2.out',
           },
@@ -235,7 +240,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           position: 'relative',
           width: 'clamp(320px, 35vw, 520px)',
           aspectRatio: '1/1',
-          margin: '1rem auto 1rem auto',
+          margin: '1rem auto 0.5rem auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -280,19 +285,44 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </div>
 
-      {/* ── 3D PARALLAX PREMIUM WORK SCROLLER (Replacing Static Text Block) ── */}
+      {/* ── Editorial Scroller Sub-Header ── */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1280px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1rem',
+          zIndex: 4,
+          padding: '0 0.5rem',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <span style={{ color: '#c4d600', fontSize: '0.75rem' }}>✦</span>
+          <span style={{ fontSize: '0.68rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#c4d600', fontWeight: 600 }}>
+            FEATURED CASE STUDIES // 3D PARALLAX SHOWCASE
+          </span>
+        </div>
+        <span style={{ fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#52525b' }}>
+          [ 01 — 05 ] SCROLL / HOVER TO FOCUS ↘
+        </span>
+      </div>
+
+      {/* ── 3D PARALLAX ULTRA-LUXURY WORK SCROLLER ── */}
       <div
         ref={parallaxTrackRef}
         style={{
           width: '100%',
-          maxWidth: '1300px',
-          margin: '2rem auto 4rem auto',
+          maxWidth: '1350px',
+          margin: '0 auto 4.5rem auto',
           position: 'relative',
           zIndex: 3,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          perspective: '1200px',
+          perspective: '1400px',
+          perspectiveOrigin: '50% 50%',
         }}
       >
         <div className="parallax-scroller-row">
@@ -305,13 +335,20 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             >
               <div className="card-image-wrap">
                 <img src={work.image} alt={work.title} className="card-img" />
+                <div className="card-glow-edge" />
                 <div className="card-overlay">
-                  <div className="card-badge">{work.num} · {work.client}</div>
-                  <div className="card-title-text">{work.title}</div>
-                  <span className="card-view-link">
-                    <span>Explore Case Study</span>
-                    <ArrowUpRight size={14} />
-                  </span>
+                  <div className="card-top-row">
+                    <span className="card-num-tag">{work.num}</span>
+                    <span className="card-category-tag">{work.year}</span>
+                  </div>
+                  <div>
+                    <div className="card-client-text">{work.client}</div>
+                    <div className="card-title-text">{work.title}</div>
+                    <span className="card-view-link">
+                      <span>Explore Project</span>
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -526,28 +563,31 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1.5rem;
+          gap: 1.2rem;
           width: 100%;
-          padding: 2rem 0;
+          padding: 2.5rem 0;
+          transform-style: preserve-3d;
         }
         .parallax-work-card {
-          flex: 0 0 clamp(220px, 22vw, 320px);
+          flex: 0 0 clamp(240px, 24vw, 360px);
           aspect-ratio: 16/10;
-          border-radius: 1.25rem;
+          border-radius: 1.35rem;
           overflow: hidden;
-          background: #121215;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+          background: #111114;
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
           cursor: pointer;
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
           transform-style: preserve-3d;
-          will-change: transform;
+          will-change: transform, filter;
+          position: relative;
         }
         .parallax-work-card:hover {
-          transform: translateY(-12px) scale(1.05) !important;
+          transform: translateY(-16px) scale(1.08) rotateY(0deg) rotateZ(0deg) !important;
+          filter: blur(0px) opacity(1) !important;
           border-color: #c4d600;
-          box-shadow: 0 25px 50px rgba(196, 214, 0, 0.25);
-          z-index: 10;
+          box-shadow: 0 30px 65px rgba(196, 214, 0, 0.28), 0 0 20px rgba(196, 214, 0, 0.15);
+          z-index: 20;
         }
         .card-image-wrap {
           position: relative;
@@ -558,47 +598,85 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          filter: brightness(0.85) contrast(1.05);
-          transition: filter 0.4s ease;
+          filter: brightness(0.85) contrast(1.08);
+          transition: filter 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .parallax-work-card:hover .card-img {
-          filter: brightness(1) contrast(1.05);
+          filter: brightness(1.05) contrast(1.08);
+          transform: scale(1.04);
+        }
+        .card-glow-edge {
+          position: absolute;
+          inset: 0;
+          border-radius: 1.35rem;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          pointer-events: none;
+          transition: border-color 0.4s ease;
+        }
+        .parallax-work-card:hover .card-glow-edge {
+          border-color: rgba(196, 214, 0, 0.5);
         }
         .card-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, transparent 20%, rgba(8, 8, 10, 0.85) 100%);
+          background: linear-gradient(180deg, rgba(8,8,10,0.2) 0%, transparent 30%, rgba(8, 8, 10, 0.92) 100%);
           display: flex;
           flex-direction: column;
-          justify-content: flex-end;
-          padding: 1.2rem;
+          justify-content: space-between;
+          padding: 1.25rem 1.4rem;
         }
-        .card-badge {
-          font-size: 0.65rem;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
+        .card-top-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .card-num-tag {
+          font-size: 0.68rem;
+          letter-spacing: 0.18em;
           color: #c4d600;
           font-weight: 600;
-          margin-bottom: 0.25rem;
+          font-family: var(--font-main);
+          background: rgba(8, 8, 10, 0.6);
+          backdrop-filter: blur(8px);
+          padding: 0.25rem 0.65rem;
+          border-radius: 12px;
+          border: 1px solid rgba(196, 214, 0, 0.3);
+        }
+        .card-category-tag {
+          font-size: 0.68rem;
+          color: #a1a1aa;
+          font-family: var(--font-main);
+          background: rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(8px);
+          padding: 0.25rem 0.65rem;
+          border-radius: 12px;
+        }
+        .card-client-text {
+          font-size: 0.65rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #8e8e93;
+          font-weight: 600;
+          margin-bottom: 0.2rem;
         }
         .card-title-text {
           font-family: var(--font-heading);
-          font-size: 0.95rem;
+          font-size: 1.05rem;
           color: #ffffff;
           font-weight: 500;
-          line-height: 1.2;
-          margin-bottom: 0.5rem;
+          line-height: 1.25;
+          margin-bottom: 0.45rem;
         }
         .card-view-link {
           display: flex;
           align-items: center;
           gap: 0.4rem;
           font-size: 0.72rem;
-          color: #a1a1aa;
+          color: #8e8e93;
           transition: color 0.3s ease;
         }
         .parallax-work-card:hover .card-view-link {
-          color: #ffffff;
+          color: #c4d600;
         }
 
         .editorial-work-showcase {
@@ -756,6 +834,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           .parallax-work-card {
             flex: 0 0 240px;
             transform: none !important;
+            filter: none !important;
           }
         }
       `}</style>
