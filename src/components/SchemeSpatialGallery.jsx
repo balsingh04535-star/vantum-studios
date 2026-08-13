@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
 import AnimateSVGFullPage from './AnimateSVGFullPage';
 import SpotlightSVGPath from './SpotlightSVGPath';
+import FooterSystemInteractive from './FooterSystemInteractive';
 
 export const selectedWorks = [
   {
@@ -235,6 +236,9 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
 
       {/* ── SPOTLIGHT SVG PATH COMPONENT FROM code (36)\files ── */}
       <SpotlightSVGPath />
+
+      {/* ── INTERACTIVE FOOTER SYSTEM FROM code (31)\files ── */}
+      <FooterSystemInteractive />
 
       {/* ── Footer Tagline ── */}
       <footer
