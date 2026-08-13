@@ -55,31 +55,91 @@ export default function StudioOverview() {
         });
       }
 
-      // ── 2. Globe section in document flow ──
-      gsap.set(globe, {
-        position: 'relative',
-        width: '100%',
-        zIndex: 2,
-        pointerEvents: 'all',
-      });
+      if (window.innerWidth < 768) {
+        gsap.set(globe, {
+          clipPath: 'none',
+          position: 'relative',
+          width: '100%',
+          height: 'auto',
+          zIndex: 1,
+          pointerEvents: 'all',
+        });
+        return;
+      }
 
-      // ── 3. Scroll trigger: manifesto reveal animation in document flow ──
+      // ── 2. Globe sheet initial state (fixed overlay sliding up from bottom) ──
+      const setFixedGlobe = () => {
+        gsap.set(globe, {
+          clipPath: 'inset(100% 0% 0% 0%)',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 10,
+          overflow: 'hidden',
+          pointerEvents: 'none',
+        });
+      };
+
+      const setRelativeGlobe = () => {
+        gsap.set(globe, {
+          position: 'relative',
+          top: 'auto',
+          left: 'auto',
+          width: '100%',
+          height: 'auto',
+          zIndex: 1,
+          clipPath: 'none',
+          pointerEvents: 'all',
+          clearProps: 'transform',
+        });
+      };
+
+      setFixedGlobe();
+
+      // ── 3. Scroll trigger: pin manifesto while globe sheet slides up like demo-main ──
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapper,
           start: 'top top',
-          end: 'bottom top',
-          scrub: 0.5,
+          end: '+=1000',
+          scrub: 0.6,
+          pin: manifesto,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            if (self.progress > 0.8) {
+              gsap.set(globe, { pointerEvents: 'all' });
+            } else if (self.progress < 1) {
+              gsap.set(globe, { pointerEvents: 'none' });
+            }
+          },
+          onLeave: () => {
+            setRelativeGlobe();
+          },
+          onEnterBack: () => {
+            setFixedGlobe();
+            gsap.set(globe, { clipPath: 'inset(0% 0% 0% 0%)', pointerEvents: 'all' });
+          },
         }
       });
 
-      // Outgoing Manifesto: subtle scale and fade as you scroll down
+      // Outgoing Manifesto: shrink & fade back (exact demo-main outgoing transition)
       tl.to(manifesto, {
-        y: '-15vh',
-        scale: 0.88,
+        y: '-30vh',
+        scale: 0.8,
         opacity: 0.4,
         duration: 1,
         ease: pageEase,
+        force3D: true,
+      }, 0);
+
+      // Incoming Globe Sheet: slides up covering screen from bottom (exact demo-main incoming transition)
+      tl.to(globe, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1,
+        ease: pageEase,
+        force3D: true,
       }, 0);
 
     }, wrapper);
