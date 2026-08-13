@@ -149,12 +149,14 @@ export default function FooterSystemInteractive() {
 
           gsap.set(container.querySelector('.header-content'), {
             y: -60 + 10 * p,
+            x: -110 * p,
             opacity: p,
           });
         } else {
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
           gsap.set(container.querySelector('.header-content'), {
             y: -60,
+            x: 0,
             opacity: 0,
           });
         }
