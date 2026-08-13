@@ -83,6 +83,9 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
       {/* ── Content 1: Project 1 ── */}
       <div className="content content--left">
         <h3 className="meta">Project 01 — Spatial Audio</h3>
+        <div className="mobile-image-card">
+          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
+        </div>
         <h2 className="type" data-expand-1>
           Gratitude is my<br />
           new response<br />
@@ -102,6 +105,9 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
       {/* ── Content 2: Project 2 ── */}
       <div className="content content--center">
         <h3 className="meta">Project 02 — Cybernetic Horology</h3>
+        <div className="mobile-image-card">
+          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img4.jpg)' }} />
+        </div>
         <h2 className="type" data-expand-2>
           Life's a wild journey;<br />
           embrace the<br />
@@ -123,6 +129,9 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
       {/* ── Content 3: Project 3 ── */}
       <div className="content content--right">
         <h3 className="meta">Project 03 — Neural Compute</h3>
+        <div className="mobile-image-card">
+          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img5.jpg)' }} />
+        </div>
         <h2 className="type" data-expand-3>
           Let the miles unfurl<br />
           like stories each<br />
@@ -142,6 +151,9 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
       {/* ── Content 4: Project 4 ── */}
       <div className="content content--justify">
         <h3 className="meta">Project 04 — Autonomous Telemetry</h3>
+        <div className="mobile-image-card">
+          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img8.jpg)' }} />
+        </div>
         <h2 className="type" data-expand-4>
           Soar above
           <span className="type__expand type__expand--stack">
@@ -325,6 +337,11 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           font-weight: 400;
         }
 
+        /* Hidden on desktop, shown on mobile */
+        .mobile-image-card {
+          display: none;
+        }
+
         @media screen and (min-width: 53em) {
           .content--left {
             grid-template-columns: 1fr 42%;
@@ -385,57 +402,78 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           }
 
         @media (max-width: 768px) {
+          /* ── Section container ── */
           .image-expansion-typography-section {
-            padding: 2rem 1rem 4rem 1rem;
+            padding: 1.5rem 1.25rem 6rem 1.25rem;
           }
+
+          /* ── Each project block stacks vertically ── */
           .content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1.2rem;
-            margin-bottom: 4.5rem;
             padding: 0;
-            grid-template-columns: 100%;
+            margin-bottom: 4.5rem;
+            gap: 0;
+            grid-template-columns: 1fr !important;
+            grid-template-rows: auto !important;
+            grid-template-areas: 'meta' 'type' 'block' !important;
+            text-align: left !important;
+            justify-content: start !important;
+            place-items: start !important;
           }
+
+          /* ── Meta label ── */
           .meta {
-            margin-bottom: 0;
-            font-size: 0.78rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.85rem;
           }
+
+          /* ── Headline typography ── */
           .type {
-            font-size: clamp(2rem, 7.5vw, 2.75rem);
-            line-height: 1.15;
+            font-size: clamp(2.2rem, 9vw, 3rem);
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
             word-break: break-word;
           }
+
+          /* ── On mobile, hide the inline image span inside headline
+                 and show a separate card-style image block below ── */
           .type__expand {
+            display: none !important;
+          }
+
+          /* ── Mobile image card — shown only on mobile ── */
+          .mobile-image-card {
             display: block;
             width: 100%;
-            margin: 0.75rem 0;
-          }
-          .type__expand-img {
-            width: 100% !important;
-            height: clamp(170px, 45vw, 240px) !important;
-            border-radius: 1.25rem !important;
             aspect-ratio: 16/9;
-            margin: 0.5rem 0;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+            background: #d4e0c5;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
           }
-          .type__expand-img-inner {
-            width: 100% !important;
-            height: 100% !important;
+
+          .mobile-image-card-inner {
+            display: block;
+            width: 100%;
+            height: 100%;
             background-size: cover;
+            background-position: center;
           }
-          .anim {
-            display: inline-block;
-            color: #829100;
-          }
+
+          /* ── Body text ── */
           .block {
             max-width: 100%;
-            font-size: 0.85rem;
-            line-height: 1.6;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            text-transform: none;
+            letter-spacing: 0.01em;
             color: #3f3f46;
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
           }
-          .aright {
-            text-align: left;
+
+          .content--right .block {
+            margin-top: 0 !important;
           }
         }
       `}</style>

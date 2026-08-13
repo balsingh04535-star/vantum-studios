@@ -136,9 +136,9 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#ebf5df', // Unified light cream background
+        backgroundColor: '#ebf5df',
         color: '#0f0f0f',
-        padding: '3rem 3.5rem 6rem 3.5rem',
+        padding: 'clamp(1rem, 3vw, 3rem) clamp(1rem, 4vw, 3.5rem) 6rem',
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -163,7 +163,6 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
 
       {/* ── Top Header Navigation Bar ── */}
       <header
-        className="spatial-gallery-header"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -323,17 +322,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       </div>
 
       {/* ── FLOWING SVG TEXT ON PATH (From reference AnimateSVGTextPath-master) ── */}
-      <div className="svg-path-wrapper">
-        <AnimateSVGTextPath
-          text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
-          pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
-          viewBox="0 0 3200 300"
-          idPrefix="curve1"
-          textColor="#0f0f0f"
-          glowColor="#829100"
-          repeatCount={4}
-        />
-      </div>
+      <AnimateSVGTextPath
+        text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
+        pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
+        viewBox="0 0 3200 300"
+        idPrefix="curve1"
+        textColor="#0f0f0f"
+        glowColor="#829100"
+        repeatCount={4}
+      />
 
       {/* ── IMAGE EXPANSION TYPOGRAPHY SHOWCASE (From reference ImageExpansionTypography-main) ── */}
       <ImageExpansionTypography onOpenInquiry={onOpenInquiry} />
@@ -674,12 +671,6 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           color: #fff;
         }
         @media (max-width: 768px) {
-          .spatial-gallery-header {
-            display: none !important;
-          }
-          .svg-path-wrapper {
-            display: none !important;
-          }
           .globe-hero-wrapper {
             display: none !important;
           }
@@ -690,12 +681,17 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             justify-content: flex-start;
             padding: 0.5rem 0;
             gap: 0.75rem;
-            margin-top: 4.5rem;
           }
           .parallax-work-card {
-            flex: 0 0 220px;
+            flex: 0 0 210px;
             aspect-ratio: 16/10;
             transform: none !important;
+          }
+          footer {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
           }
         }
       `}</style>
