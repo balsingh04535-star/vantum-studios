@@ -50,7 +50,7 @@ export default function MasonryShowcaseGrid() {
           trigger: container,
           start: 'top 85%',
           end: 'bottom 15%',
-          scrub: 1.2,
+          scrub: 1.5,
         }
       })
       .fromTo(leftCol, { y: 0 }, { y: -120, ease: 'none' }, 0)   // LEFT moves UP on scroll down
