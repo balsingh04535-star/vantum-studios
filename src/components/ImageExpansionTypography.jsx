@@ -13,20 +13,45 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
     if (!container) return;
 
     const ctx = gsap.context(() => {
-      const typeElements = container.querySelectorAll('.type');
-
       typeElements.forEach((typeEl) => {
         const expandImg = typeEl.querySelector('.type__expand-img');
         const animTexts = typeEl.querySelectorAll('.anim');
         const block = typeEl.closest('.content')?.querySelector('.block');
 
-        // ScrollTrigger to expand image OPEN on scroll and keep it open
-        ScrollTrigger.create({
-          trigger: typeEl,
-          start: 'top 85%',
-          onEnter: () => typeEl.classList.add('type--open'),
-          onEnterBack: () => typeEl.classList.add('type--open'),
-        });
+        if (expandImg) {
+          gsap.fromTo(
+            expandImg,
+            { width: '0%' },
+            {
+              width: '100%',
+              ease: 'power1.inOut',
+              scrollTrigger: {
+                trigger: typeEl,
+                start: 'top 80%',
+                end: 'bottom 35%',
+                scrub: 0.8,
+              },
+            }
+          );
+        }
+
+        if (animTexts.length > 0) {
+          gsap.fromTo(
+            animTexts,
+            { skewX: 0, color: '#0f0f0f' },
+            {
+              skewX: -18,
+              color: '#829100',
+              ease: 'power1.inOut',
+              scrollTrigger: {
+                trigger: typeEl,
+                start: 'top 80%',
+                end: 'bottom 35%',
+                scrub: 0.8,
+              },
+            }
+          );
+        }
 
         if (block) {
           gsap.fromTo(
