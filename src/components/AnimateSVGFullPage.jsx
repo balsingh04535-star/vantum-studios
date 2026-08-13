@@ -368,8 +368,8 @@ export default function AnimateSVGFullPage() {
         .animate-svg-fullpage-root {
           width: 100%;
           min-height: 100vh;
-          background-color: var(--bg-cream);
-          color: #0f0f0f;
+          background-color: #0a0104;
+          color: #ffffff;
           font-family: poynter-oldstyle-display-con, 'Cormorant Garamond', 'Syne', serif;
           position: relative;
           z-index: 2;
@@ -384,13 +384,13 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main a {
           text-decoration: none;
-          color: #52525b;
+          color: #5c5c5c;
           outline: none;
         }
 
         .svgpage-main a:hover,
         .svgpage-main a:focus {
-          color: #0f0f0f;
+          color: #ffffff;
           outline: none;
         }
 
@@ -455,14 +455,14 @@ export default function AnimateSVGFullPage() {
           margin: 0;
           font-weight: 400;
           line-height: 1;
-          color: #0f0f0f;
+          color: #ffffff;
         }
 
         .svgpage-main .intro__hint {
           position: relative;
           text-transform: uppercase;
           margin: 8vh 0 0 0;
-          color: #0f0f0f;
+          color: #ffffff;
         }
 
         .svgpage-main .intro__hint::after {
@@ -499,7 +499,7 @@ export default function AnimateSVGFullPage() {
           text-align: right;
           font-size: 3rem;
           line-height: 1;
-          color: #0f0f0f;
+          color: #ffffff;
         }
 
         .svgpage-main .grid__item-img {
@@ -513,11 +513,11 @@ export default function AnimateSVGFullPage() {
           text-transform: uppercase;
           font-weight: 400;
           margin: 0 0 2.75rem 0;
-          color: #0f0f0f;
+          color: #ffffff;
         }
 
         .svgpage-main .grid__item-description {
-          color: #27272a;
+          color: #504f4f;
           font-family: news-gothic-std, sans-serif;
           line-height: 1.5;
           padding-right: 1rem;
@@ -537,21 +537,21 @@ export default function AnimateSVGFullPage() {
         }
 
         .svgpage-main .svgtext text {
-          fill: #0f0f0f;
+          fill: #fff;
           font-size: 42px;
         }
 
         .svgpage-main .svgtext--1 text {
-          fill: #0f0f0f;
+          fill: #fff;
         }
 
         .svgpage-main .svgtext--2 text {
-          fill: #5b3fa3;
+          fill: #8569c2;
         }
 
         .svgpage-main .svgtext--3 text {
           font-size: 32px;
-          fill: #27272a;
+          fill: #fff;
         }
 
         .svgpage-main .svgtext--4 {
@@ -560,7 +560,7 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .svgtext--4 text {
           font-size: 48px;
-          fill: #829100;
+          fill: #f9e9a4;
         }
 
         @media screen and (min-width: 53em) {
