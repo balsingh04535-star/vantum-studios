@@ -677,12 +677,21 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           .parallax-scroller-row {
             flex-wrap: nowrap;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             justify-content: flex-start;
-            padding: 1rem;
+            padding: 0.5rem 0;
+            gap: 0.75rem;
           }
           .parallax-work-card {
-            flex: 0 0 240px;
+            flex: 0 0 210px;
+            aspect-ratio: 16/10;
             transform: none !important;
+          }
+          footer {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
           }
         }
       `}</style>

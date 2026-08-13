@@ -384,8 +384,42 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             margin-left: auto;
           }
 
+        @media (max-width: 768px) {
+          .image-expansion-typography-section {
+            padding: 3rem 1.25rem 5rem 1.25rem;
+          }
+          .content {
+            padding: 0;
+            margin-bottom: 12vh;
+            gap: 1.2rem;
+          }
+          .type {
+            font-size: clamp(1.75rem, 6.5vw, 2.5rem);
+            line-height: 1.2;
+            word-break: break-word;
+          }
+          .type__expand {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            max-width: 100%;
+          }
+          .type__expand-img {
+            max-width: 100%;
+            height: clamp(50px, 14vw, 75px);
+            border-radius: 1rem;
+          }
+          .type__expand--reveal .type__expand-img-inner {
+            width: 100%;
+          }
+          .block {
+            max-width: 100%;
+            font-size: 0.88rem;
+            line-height: 1.65;
+          }
           .aright {
-            text-align: right;
+            text-align: left;
           }
         }
       `}</style>
