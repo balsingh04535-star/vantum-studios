@@ -12,7 +12,7 @@ const pageEase = CustomEase.create(
   'M0,0 C0.38,0.05 0.48,0.58 0.65,0.82 0.82,1 1,1 1,1'
 );
 
-export default function StudioOverview() {
+export default function StudioOverview({ onOpenInquiry }) {
   const manifestoRef = useRef(null);
   const globeRef = useRef(null);
   const headingRef = useRef(null);
@@ -154,9 +154,9 @@ export default function StudioOverview() {
         </div>
       </section>
 
-      {/* ── GLOBE — starts clipped, transitions in on scroll ── */}
+      {/* ── GLOBE & SHOWCASE GRID ── */}
       <div ref={globeRef}>
-        <SchemeSpatialGallery />
+        <SchemeSpatialGallery onOpenInquiry={onOpenInquiry} />
       </div>
 
       <style>{`

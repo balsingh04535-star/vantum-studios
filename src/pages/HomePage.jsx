@@ -9,7 +9,7 @@ export default function HomePage({ onOpenInquiry }) {
   return (
     <main>
       <Hero onOpenInquiry={onOpenInquiry} />
-      <StudioOverview />
+      <StudioOverview onOpenInquiry={onOpenInquiry} />
       <Footer onOpenInquiry={onOpenInquiry} />
     </main>
   );

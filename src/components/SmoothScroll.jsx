@@ -24,13 +24,14 @@ export default function SmoothScroll({ children, isLoading }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 3.0,
+      easing: (t) => 1 - Math.pow(1 - t, 5),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1,
+      wheelMultiplier: 0.55,
+      touchMultiplier: 1.0,
+      lerp: 0.04,
     });
 
     lenisRef.current = lenis;
