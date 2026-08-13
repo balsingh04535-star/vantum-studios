@@ -145,14 +145,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         overflow: 'hidden',
       }}
     >
-      {/* ── Light Ambient Glow Gradient ── */}
+      {/* ── Light Studio Lighting Gradient ── */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(130, 145, 0, 0.05) 0%, transparent 75%),
-            #ebf5df
+            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(0, 0, 0, 0.03) 0%, transparent 75%),
+            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(130, 145, 0, 0.04) 0%, transparent 70%),
+            var(--bg-cream)
           `,
           pointerEvents: 'none',
           zIndex: 0,
@@ -209,14 +210,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             gap: '0.55rem',
             padding: '0.45rem 1.15rem',
             borderRadius: '20px',
-            border: '1px solid rgba(15, 15, 15, 0.2)',
+            border: '1px solid rgba(15, 15, 15, 0.22)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
             fontWeight: 600,
             color: '#0f0f0f',
             fontFamily: 'var(--font-main)',
             cursor: 'pointer',
-            background: 'rgba(15, 15, 15, 0.03)',
+            background: 'rgba(15, 15, 15, 0.04)',
             backdropFilter: 'blur(8px)',
           }}
         >

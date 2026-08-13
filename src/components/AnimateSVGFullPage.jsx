@@ -406,7 +406,6 @@ export default function AnimateSVGFullPage() {
           font-size: 1rem;
           margin: 0 0 1rem;
           font-weight: normal;
-          color: #0f0f0f;
         }
 
         .svgpage-main .frame__links {
@@ -421,7 +420,6 @@ export default function AnimateSVGFullPage() {
           margin: 1rem 0;
           font-size: 1rem;
           font-weight: 400;
-          color: #0f0f0f;
         }
 
         .svgpage-main .frame__counter {
@@ -429,7 +427,6 @@ export default function AnimateSVGFullPage() {
           align-items: baseline;
           line-height: 0.8rem;
           text-align: center;
-          color: #0f0f0f;
         }
 
         .svgpage-main .frame__counter span {
@@ -549,12 +546,12 @@ export default function AnimateSVGFullPage() {
         }
 
         .svgpage-main .svgtext--2 text {
-          fill: #5b21b6;
+          fill: #5b3fa3;
         }
 
         .svgpage-main .svgtext--3 text {
           font-size: 32px;
-          fill: #0f0f0f;
+          fill: #27272a;
         }
 
         .svgpage-main .svgtext--4 {
