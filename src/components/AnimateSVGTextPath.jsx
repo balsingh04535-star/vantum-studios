@@ -13,13 +13,14 @@ function clamp(val, min, max) {
 }
 
 export default function AnimateSVGTextPath({
-  text = "PARTNERS WHO DEMANDED THE EXTRAORDINARY — VANTUM CREATIVE PRACTICE",
-  pathD = "M 0 120 Q 250 220 500 120 Q 750 20 1000 120",
-  filterType = "blur", // 'blur' | 'distortion'
-  fontSize = "2.8rem",
+  text = "PARTNERS WHO DEMANDED THE EXTRAORDINARY",
+  pathD = "M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150",
+  viewBox = "0 0 3200 300",
+  fontSize = "3.2rem",
   textColor = "#ffffff",
   glowColor = "#c4d600",
   idPrefix = "path1",
+  repeatCount = 4,
 }) {
   const svgRef = useRef(null);
   const textPathRef = useRef(null);
@@ -49,8 +50,8 @@ export default function AnimateSVGTextPath({
     const computeOffset = () => {
       const winHeight = window.innerHeight || 800;
       const currentScroll = window.pageYOffset;
-      // Maps scroll position to text startOffset along path
-      return mapVal(positionY - currentScroll, winHeight, 0, pathLength, -pathLength * 0.4);
+      // Maps scroll position along wide path so text never cuts off
+      return mapVal(positionY - currentScroll, winHeight, -winHeight * 0.5, pathLength * 0.45, -pathLength * 0.65);
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -65,10 +66,10 @@ export default function AnimateSVGTextPath({
 
     const update = () => {
       const currentOffset = computeOffset();
-      startOffsetVal = !entered ? currentOffset : lerp(startOffsetVal, currentOffset, 0.18);
+      startOffsetVal = !entered ? currentOffset : lerp(startOffsetVal, currentOffset, 0.16);
       textPath.setAttribute('startOffset', `${startOffsetVal}px`);
 
-      // Calculate scroll speed distance for motion blur
+      // Calculate scroll speed distance for cinematic motion blur
       const currentScroll = window.pageYOffset;
       scrollVal = !entered ? currentScroll : lerp(scrollVal, currentScroll, 0.15);
       const distance = Math.abs(scrollVal - currentScroll);
@@ -100,13 +101,18 @@ export default function AnimateSVGTextPath({
   const pathId = `svg-curve-${idPrefix}`;
   const filterId = `svg-filter-${idPrefix}`;
 
+  // Repeat text string so text flows continuously without clipping
+  const repeatedTextString = Array.from({ length: repeatCount })
+    .map(() => `${text} · `)
+    .join('');
+
   return (
     <div style={{ width: '100%', overflow: 'hidden', margin: '3rem 0', position: 'relative', zIndex: 3 }}>
       <svg
         ref={svgRef}
         width="100%"
-        height="180px"
-        viewBox="0 0 1000 200"
+        height="220px"
+        viewBox={viewBox}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: 'block', overflow: 'visible' }}
       >
@@ -129,13 +135,13 @@ export default function AnimateSVGTextPath({
             fontSize,
             fontFamily: 'var(--font-heading)',
             fontWeight: 500,
-            letterSpacing: '0.05em',
+            letterSpacing: '0.04em',
             textTransform: 'uppercase',
             opacity: 0.9,
           }}
         >
           <textPath ref={textPathRef} href={`#${pathId}`} startOffset="0px">
-            {text} · <tspan fill={glowColor}>VANTUM STUDIOS</tspan> · {text}
+            {repeatedTextString} <tspan fill={glowColor}>VANTUM CREATIVE PRACTICE</tspan>
           </textPath>
         </text>
       </svg>

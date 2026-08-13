@@ -323,10 +323,12 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       {/* ── FLOWING SVG TEXT ON PATH (From reference AnimateSVGTextPath-master) ── */}
       <AnimateSVGTextPath
         text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
-        pathD="M 0 120 Q 250 220 500 120 Q 750 20 1000 120"
+        pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
+        viewBox="0 0 3200 300"
         idPrefix="curve1"
         textColor="#ffffff"
         glowColor="#c4d600"
+        repeatCount={4}
       />
 
       {/* ── EDITORIAL WORK SHOWCASE LIST ("SHOW OUR WORK") ── */}
