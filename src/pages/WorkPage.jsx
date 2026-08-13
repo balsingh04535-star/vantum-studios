@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, Sparkles, Filter, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import Footer from '../components/Footer';
 
 export default function WorkPage({ onOpenInquiry }) {
   const [filter, setFilter] = useState('All');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const allProjects = [
     {
@@ -58,7 +62,7 @@ export default function WorkPage({ onOpenInquiry }) {
     },
     {
       id: 'solaris',
-      title: 'Solaris — High Optics Optics Lab',
+      title: 'Solaris — High Optics Lab',
       category: 'Brand Systems',
       image: '/img7.jpg',
       year: '2024',
@@ -71,15 +75,32 @@ export default function WorkPage({ onOpenInquiry }) {
   const filtered = filter === 'All' ? allProjects : allProjects.filter(p => p.category === filter);
 
   return (
-    <div style={{ paddingTop: '8rem' }}>
-      <div className="section-padding dark-section" style={{ minHeight: '60vh' }}>
+    <div style={{ paddingTop: '8rem', backgroundColor: '#070709', color: '#ffffff', minHeight: '100vh' }}>
+      <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#070709' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
-          <div className="badge" style={{ marginBottom: '1.5rem' }}>Portfolio Archive</div>
-          <h1 style={{ marginBottom: '1.5rem', maxWidth: '900px' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.4rem 1rem',
+            borderRadius: '20px',
+            border: '1px solid rgba(0, 240, 255, 0.3)',
+            backgroundColor: 'rgba(0, 240, 255, 0.06)',
+            color: '#00f0ff',
+            fontSize: '0.75rem',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            fontWeight: 600,
+            marginBottom: '1.5rem'
+          }}>
+            Portfolio Archive
+          </div>
+
+          <h1 style={{ marginBottom: '1.5rem', maxWidth: '900px', color: '#ffffff', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: 'var(--font-heading)' }}>
             Selected Works & Interactive Experiments
           </h1>
-          <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '750px', marginBottom: '3.5rem' }}>
+          <p style={{ fontSize: '1.25rem', color: '#a1a1aa', maxWidth: '750px', marginBottom: '3.5rem', lineHeight: '1.6' }}>
             Every project is engineered from scratch. No off-the-shelf templates, no performance compromises.
           </p>
 
@@ -89,10 +110,17 @@ export default function WorkPage({ onOpenInquiry }) {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className="btn-glass"
                 style={{
-                  borderColor: filter === cat ? 'var(--accent-volt)' : 'var(--border-subtle)',
-                  color: filter === cat ? 'var(--accent-volt)' : 'var(--text-secondary)'
+                  padding: '0.6rem 1.4rem',
+                  borderRadius: '24px',
+                  border: filter === cat ? '1px solid #00f0ff' : '1px solid rgba(255,255,255,0.15)',
+                  backgroundColor: filter === cat ? 'rgba(0, 240, 255, 0.12)' : 'rgba(255,255,255,0.03)',
+                  color: filter === cat ? '#00f0ff' : '#a1a1aa',
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 {cat}
@@ -101,27 +129,69 @@ export default function WorkPage({ onOpenInquiry }) {
           </div>
 
           {/* Project List */}
-          <div className="grid-2">
+          <div className="grid-2" style={{ gap: '2.5rem' }}>
             {filtered.map((project) => (
-              <div key={project.id} className="glass-card">
-                <div className="card-img-wrapper" style={{ height: '320px' }}>
-                  <img src={project.image} alt={project.title} />
-                  <span className="card-tag">{project.category}</span>
+              <div
+                key={project.id}
+                style={{
+                  background: 'linear-gradient(180deg, #0e0f14 0%, #070709 100%)',
+                  border: '1px solid rgba(0, 240, 255, 0.18)',
+                  borderRadius: '20px',
+                  padding: '2rem',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                }}
+              >
+                <div style={{ height: '320px', borderRadius: '14px', overflow: 'hidden', marginBottom: '1.5rem', position: 'relative' }}>
+                  <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <span style={{
+                    position: 'absolute',
+                    top: '1rem',
+                    right: '1rem',
+                    background: 'rgba(7, 7, 9, 0.85)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(0,240,255,0.3)',
+                    color: '#00f0ff',
+                    padding: '0.3rem 0.8rem',
+                    borderRadius: '12px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600
+                  }}>
+                    {project.category}
+                  </span>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.5rem', marginBottom: '0.4rem' }}>{project.title}</h3>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--accent-volt)', fontWeight: 600 }}>{project.metric}</span>
+                    <h3 style={{ fontSize: '1.5rem', marginBottom: '0.4rem', color: '#ffffff' }}>{project.title}</h3>
+                    <span style={{ fontSize: '0.85rem', color: '#00f0ff', fontWeight: 600 }}>{project.metric}</span>
                   </div>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{project.year}</span>
+                  <span style={{ fontSize: '0.9rem', color: '#71717a' }}>{project.year}</span>
                 </div>
 
-                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+                <p style={{ fontSize: '0.95rem', color: '#a1a1aa', marginBottom: '1.5rem', lineHeight: '1.5' }}>
                   {project.summary}
                 </p>
 
-                <button className="btn-volt" onClick={onOpenInquiry} style={{ width: '100%', justifyContent: 'center' }}>
+                <button
+                  onClick={onOpenInquiry}
+                  style={{
+                    width: '100%',
+                    justifyContent: 'center',
+                    background: '#00f0ff',
+                    color: '#070709',
+                    border: 'none',
+                    padding: '0.85rem 1.5rem',
+                    borderRadius: '24px',
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
                   <span>Discuss Case Scope</span>
                   <ArrowUpRight size={18} />
                 </button>
