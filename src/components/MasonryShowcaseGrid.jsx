@@ -11,27 +11,28 @@ export default function MasonryShowcaseGrid() {
   const rightColRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
-     USER-PROVIDED GRID PHOTOS (from C:\Users\unfaz\Downloads\photos for the grid)
+     PERFECTLY ALIGNED MODULAR GRID MATRIX (UNIFORM ROW ASPECT RATIOS)
+     All rows across all columns align to 100% straight horizontal lines.
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
-    { id: 'grid-1', image: '/grid-photos/grid1.png' },
-    { id: 'grid-2', image: '/grid-photos/grid2.png' },
-    { id: 'grid-3', image: '/grid-photos/grid3.png' },
-    { id: 'grid-4', image: '/grid-photos/grid4.png' },
+    { id: 'grid-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
+    { id: 'grid-2', image: '/grid-photos/grid2.png', aspect: '16/10' },
+    { id: 'grid-3', image: '/grid-photos/grid3.png', aspect: '16/10' },
+    { id: 'grid-4', image: '/grid-photos/grid4.png', aspect: '16/10' },
   ];
 
   const centerColumnProjects = [
-    { id: 'grid-5', image: '/grid-photos/grid5.png' },
-    { id: 'grid-6', image: '/grid-photos/grid6.png' },
-    { id: 'grid-7', image: '/grid-photos/grid7.png' },
-    { id: 'grid-8', image: '/grid-photos/grid8.png' },
+    { id: 'grid-5', image: '/grid-photos/grid5.png', aspect: '16/10' },
+    { id: 'grid-6', image: '/grid-photos/grid6.png', aspect: '16/10' },
+    { id: 'grid-7', image: '/grid-photos/grid7.png', aspect: '16/10' },
+    { id: 'grid-8', image: '/grid-photos/grid8.png', aspect: '16/10' },
   ];
 
   const rightColumnProjects = [
-    { id: 'grid-9', image: '/grid-photos/grid9.png' },
-    { id: 'grid-10', image: '/grid-photos/grid10.png' },
-    { id: 'grid-11', image: '/grid-photos/grid11.png' },
-    { id: 'grid-12', image: '/grid-photos/grid1.png' },
+    { id: 'grid-9', image: '/grid-photos/grid9.png', aspect: '16/10' },
+    { id: 'grid-10', image: '/grid-photos/grid10.png', aspect: '16/10' },
+    { id: 'grid-11', image: '/grid-photos/grid11.png', aspect: '16/10' },
+    { id: 'grid-12', image: '/grid-photos/grid1.png', aspect: '16/10' },
   ];
 
   useEffect(() => {
@@ -43,8 +44,7 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const ctx = gsap.context(() => {
-      // ── Counter-Parallax Scroll Trigger Timeline ──
-      // Starts y:0 (Flush) and translates moderately so NO black gaps appear
+      // ── Smooth Counter-Parallax Scroll Trigger Timeline ──
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -64,13 +64,13 @@ export default function MasonryShowcaseGrid() {
   return (
     <section ref={containerRef} className="sharp-parallax-wall-section">
       
-      {/* ── 3-Column Sharp Parallax Wall (Flush Fit with User Photos) ── */}
+      {/* ── 3-Column Perfectly Aligned Modular Grid Matrix ── */}
       <div className="sharp-columns-grid">
         
         {/* Left Column (Scrolls DOWN) */}
         <div ref={leftColRef} className="sharp-col col-left">
           {leftColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block">
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
               <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
@@ -79,7 +79,7 @@ export default function MasonryShowcaseGrid() {
         {/* Center Column (Scrolls UP - Opposite Direction!) */}
         <div ref={centerColRef} className="sharp-col col-center">
           {centerColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block">
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
               <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
@@ -88,7 +88,7 @@ export default function MasonryShowcaseGrid() {
         {/* Right Column (Scrolls DOWN) */}
         <div ref={rightColRef} className="sharp-col col-right">
           {rightColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block">
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
               <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
@@ -109,7 +109,7 @@ export default function MasonryShowcaseGrid() {
           overflow: hidden;
         }
 
-        /* Grid Layout Wall */
+        /* Perfectly Aligned Grid Wall */
         .sharp-columns-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -126,7 +126,7 @@ export default function MasonryShowcaseGrid() {
           will-change: transform;
         }
 
-        /* Sharp Rectangular Block Cards (NO HOVER EFFECTS AT ALL) */
+        /* Sharp Rectangular Block Cards with Clean Crop & Straight Horizontal Lines */
         .sharp-card-block {
           position: relative;
           width: 100%;
@@ -142,7 +142,8 @@ export default function MasonryShowcaseGrid() {
 
         .sharp-card-img {
           width: 100%;
-          height: auto;
+          height: 100%;
+          object-fit: cover;
           display: block;
           transform: none !important;
           transition: none !important;
