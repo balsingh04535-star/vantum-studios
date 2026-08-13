@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { GooeyFilter, AnimatedGooeyText } from './GooeyTextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -236,12 +237,19 @@ export default function AnimateSVGFullPage() {
 
       {/* ── Main Layout from code (35) ── */}
       <main className="svgpage-main">
+        {/* SVG Gooey Matrix Threshold Filter */}
+        <GooeyFilter />
+
         {/* Screen Frame */}
         <div className="frame frame--screen">
           <div className="frame__title-wrap">
-            <h1 className="frame__title">Vantum Global Practice</h1>
+            <AnimatedGooeyText mode="scroll">
+              <h1 className="frame__title">Vantum Global Practice</h1>
+            </AnimatedGooeyText>
           </div>
-          <h2 className="frame__heading">A NOVA Space Project</h2>
+          <AnimatedGooeyText mode="scroll">
+            <h2 className="frame__heading">A NOVA Space Project</h2>
+          </AnimatedGooeyText>
           <div className="frame__counter">
             <span className="frame__counter-number">06</span>
             <span className="frame__counter-text">months</span>
@@ -257,7 +265,9 @@ export default function AnimateSVGFullPage() {
 
         {/* Intro Header */}
         <header className="intro">
-          <h1 className="intro__title">TERRAFORMING</h1>
+          <AnimatedGooeyText mode="scroll">
+            <h1 className="intro__title">TERRAFORMING</h1>
+          </AnimatedGooeyText>
           <p className="intro__hint">Discover our mission</p>
         </header>
 
@@ -266,18 +276,26 @@ export default function AnimateSVGFullPage() {
           <div className="grid__item">
             <span className="grid__item-number">01</span>
             <img className="grid__item-img" src="/img/1.jpg" alt="One man, one mission" />
-            <h3 className="grid__item-title">One man, one mission</h3>
-            <p className="grid__item-description">
-              Daedalus in the meantime, hating Crete and his long exile and having been touched by the love of his birthplace, had been closed in by the sea. He says, "Although Minos obstructs the land and waves, the sky at least lies open; we will fly there. Minos may possess everything, but he does not possess the air."
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">One man, one mission</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                Daedalus in the meantime, hating Crete and his long exile and having been touched by the love of his birthplace, had been closed in by the sea. He says, "Although Minos obstructs the land and waves, the sky at least lies open; we will fly there. Minos may possess everything, but he does not possess the air."
+              </p>
+            </AnimatedGooeyText>
           </div>
           <div className="grid__item">
             <span className="grid__item-number">02</span>
             <img className="grid__item-img" src="/img/2.jpg" alt="Geode planning" />
-            <h3 className="grid__item-title">Geode planning</h3>
-            <p className="grid__item-description">
-              He spoke and sends down his mind into unknown arts and changes his nature. For he puts feathers in a row beginning with the small ones, and the shorter ones following the long ones, so that you should think it has grown on an incline; in the same way that a countryman's pipe gradually builds up with reeds of different lengths.
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">Geode planning</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                He spoke and sends down his mind into unknown arts and changes his nature. For he puts feathers in a row beginning with the small ones, and the shorter ones following the long ones, so that you should think it has grown on an incline; in the same way that a countryman's pipe gradually builds up with reeds of different lengths.
+              </p>
+            </AnimatedGooeyText>
           </div>
         </div>
 
@@ -305,18 +323,26 @@ export default function AnimateSVGFullPage() {
           <div className="grid__item">
             <span className="grid__item-number">03</span>
             <img className="grid__item-img" src="/img/3.jpg" alt="Disaster management" />
-            <h3 className="grid__item-title">Disaster management</h3>
-            <p className="grid__item-description">
-              Then he binds the middle ones with thread and the last feathers with wax and then bends what he has created by a small curvature as to mimic real birds. Together with his father, the boy Icarus was standing nearby, unaware that he was facing danger, now with a beaming face was capturing the feathers which the wandering air has moved.
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">Disaster management</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                Then he binds the middle ones with thread and the last feathers with wax and then bends what he has created by a small curvature as to mimic real birds. Together with his father, the boy Icarus was standing nearby, unaware that he was facing danger, now with a beaming face was capturing the feathers which the wandering air has moved.
+              </p>
+            </AnimatedGooeyText>
           </div>
           <div className="grid__item">
             <span className="grid__item-number">04</span>
             <img className="grid__item-img" src="/img/4.jpg" alt="Impact theory" />
-            <h3 className="grid__item-title">Impact theory</h3>
-            <p className="grid__item-description">
-              After the finishing touch had been placed on the work, the craftsman balanced his body on the twin wings and suspended his body in the open air; "I warn you to travel in the middle course, Icarus, so that the waves may not weigh down your wings if you go too low, and so that the sun will not scorch your wings if you go too high."
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">Impact theory</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                After the finishing touch had been placed on the work, the craftsman balanced his body on the twin wings and suspended his body in the open air; "I warn you to travel in the middle course, Icarus, so that the waves may not weigh down your wings if you go too low, and so that the sun will not scorch your wings if you go too high."
+              </p>
+            </AnimatedGooeyText>
           </div>
         </div>
 
@@ -347,18 +373,26 @@ export default function AnimateSVGFullPage() {
           <div className="grid__item">
             <span className="grid__item-number">05</span>
             <img className="grid__item-img" src="/img/5.jpg" alt="Incubation assertion" />
-            <h3 className="grid__item-title">Incubation assertion</h3>
-            <p className="grid__item-description">
-              With me leading, seize the way! He hands over at the same time the rules of flying and fits the unknown wings on his shoulders. Between the work and warnings the old cheeks grew wet, and his fatherly hands trembled; He gave to his son kisses not to be repeated.
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">Incubation assertion</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                With me leading, seize the way! He hands over at the same time the rules of flying and fits the unknown wings on his shoulders. Between the work and warnings the old cheeks grew wet, and his fatherly hands trembled; He gave to his son kisses not to be repeated.
+              </p>
+            </AnimatedGooeyText>
           </div>
           <div className="grid__item">
             <span className="grid__item-number">06</span>
             <img className="grid__item-img" src="/img/6.jpg" alt="Hyperdrive vessel" />
-            <h3 className="grid__item-title">Hyperdrive vessel</h3>
-            <p className="grid__item-description">
-              Just as a bird who has led forth a tender offspring from a high nest into the air, and encourages him to follow and instructs him in the destructive arts and he moves himself and looks back at the wings of his son. Someone while catching fish with a trembling rod saw these men and was stunned.
-            </p>
+            <AnimatedGooeyText mode="scroll">
+              <h3 className="grid__item-title">Hyperdrive vessel</h3>
+            </AnimatedGooeyText>
+            <AnimatedGooeyText mode="scroll">
+              <p className="grid__item-description">
+                Just as a bird who has led forth a tender offspring from a high nest into the air, and encourages him to follow and instructs him in the destructive arts and he moves himself and looks back at the wings of his son. Someone while catching fish with a trembling rod saw these men and was stunned.
+              </p>
+            </AnimatedGooeyText>
           </div>
         </div>
 
@@ -407,18 +441,26 @@ export default function AnimateSVGFullPage() {
             <div className="grid__item">
               <span className="grid__item-number">07</span>
               <img className="grid__item-img" src="/img/7.jpg" alt="Icarian Engine" />
-              <h3 className="grid__item-title">Icarian Engine</h3>
-              <p className="grid__item-description">
-                And now Juno's Samos was on the left side for Delos and Paros had been left behind and on the right was Lebynthos and Kalymnos rich in honey, when the boy began to rejoice in his bold flight and deserted his leader, and attracted by a desire for the sky he took his path went higher.
-              </p>
+              <AnimatedGooeyText mode="scroll">
+                <h3 className="grid__item-title">Icarian Engine</h3>
+              </AnimatedGooeyText>
+              <AnimatedGooeyText mode="scroll">
+                <p className="grid__item-description">
+                  And now Juno's Samos was on the left side for Delos and Paros had been left behind and on the right was Lebynthos and Kalymnos rich in honey, when the boy began to rejoice in his bold flight and deserted his leader, and attracted by a desire for the sky he took his path went higher.
+                </p>
+              </AnimatedGooeyText>
             </div>
             <div className="grid__item">
               <span className="grid__item-number">08</span>
               <img className="grid__item-img" src="/img/8.jpg" alt="Neutrospace Accelerator" />
-              <h3 className="grid__item-title">Neutrospace Accelerator</h3>
-              <p className="grid__item-description">
-                The vicinity of the sun softens the fragrant wax, the chains of the feathers; the wax melted: he shook his bare arms and lacking oarage he takes up no air, and his mouth shouting his father's name is swept up in the blue sea, which takes its name from him.
-              </p>
+              <AnimatedGooeyText mode="scroll">
+                <h3 className="grid__item-title">Neutrospace Accelerator</h3>
+              </AnimatedGooeyText>
+              <AnimatedGooeyText mode="scroll">
+                <p className="grid__item-description">
+                  The vicinity of the sun softens the fragrant wax, the chains of the feathers; the wax melted: he shook his bare arms and lacking oarage he takes up no air, and his mouth shouting his father's name is swept up in the blue sea, which takes its name from him.
+                </p>
+              </AnimatedGooeyText>
             </div>
           </div>
         </div>
