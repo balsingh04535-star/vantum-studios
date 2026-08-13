@@ -11,8 +11,7 @@ export default function MasonryShowcaseGrid() {
   const rightColRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
-     PERFECTLY ALIGNED MODULAR GRID MATRIX (UNIFORM ROW ASPECT RATIOS)
-     All rows across all columns align to 100% straight horizontal lines.
+     PERFECTLY ALIGNED MODULAR GRID MATRIX (USER PHOTOS)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
     { id: 'grid-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
@@ -44,18 +43,19 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const ctx = gsap.context(() => {
-      // ── Smooth Counter-Parallax Scroll Trigger Timeline ──
+      // ── Enhanced Opposite Direction Column Parallax Timeline ──
+      // Left & Right columns move DOWN (+100px) while Center column moves UP (-100px)
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: 'top 80%',
-          end: 'bottom 20%',
+          start: 'top 85%',
+          end: 'bottom 15%',
           scrub: 1.2,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: 60, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: 0 }, { y: -60, ease: 'none' }, 0) // Counter movement!
-      .fromTo(rightCol, { y: 0 }, { y: 60, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: 0 }, { y: 100, ease: 'none' }, 0)
+      .fromTo(centerCol, { y: 0 }, { y: -100, ease: 'none' }, 0) // Moves in opposite direction!
+      .fromTo(rightCol, { y: 0 }, { y: 100, ease: 'none' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
@@ -126,7 +126,7 @@ export default function MasonryShowcaseGrid() {
           will-change: transform;
         }
 
-        /* Sharp Rectangular Block Cards with Clean Crop & Straight Horizontal Lines */
+        /* Sharp Rectangular Block Cards */
         .sharp-card-block {
           position: relative;
           width: 100%;
