@@ -55,58 +55,16 @@ export default function StudioOverview() {
         });
       }
 
-      if (window.innerWidth < 768) {
-        gsap.set(globe, {
-          clipPath: 'none',
-          position: 'relative',
-          width: '100%',
-          height: 'auto',
-          zIndex: 1,
-          pointerEvents: 'all',
-        });
-        return;
-      }
-
-      // ── 2. Globe sheet initial state (relative flow with clip-path reveal) ──
+      // ── 2. Globe sheet natural flow for PC & Mobile ──
       gsap.set(globe, {
+        clipPath: 'none',
         position: 'relative',
         width: '100%',
-        zIndex: 2,
-        clipPath: 'inset(100% 0% 0% 0%)',
-        marginTop: '-100vh', // Overlay smoothly on top of manifesto viewport
+        height: 'auto',
+        marginTop: 0,
+        zIndex: 1,
         pointerEvents: 'all',
       });
-
-      // ── 3. Scroll trigger: pin manifesto while globe sheet slides up ──
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper,
-          start: 'top top',
-          end: '+=800',
-          scrub: 0.6,
-          pin: manifesto,
-          anticipatePin: 1,
-        }
-      });
-
-      // Outgoing Manifesto: shrink & fade back
-      tl.to(manifesto, {
-        y: '-20vh',
-        scale: 0.85,
-        opacity: 0.35,
-        duration: 1,
-        ease: pageEase,
-        force3D: true,
-      }, 0);
-
-      // Incoming Globe Sheet: slides up covering screen from bottom
-      tl.to(globe, {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 1,
-        ease: pageEase,
-        force3D: true,
-      }, 0);
-
     }, wrapper);
 
     return () => ctx.revert();
