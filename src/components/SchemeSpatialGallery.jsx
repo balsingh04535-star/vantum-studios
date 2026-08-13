@@ -125,6 +125,26 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           0
         );
       });
+
+      // ── 3. Sticky Stacked Sheet Card Slide-Up Overlay Animation ──
+      const sheetCards = gsap.utils.toArray('.sheet-card');
+      sheetCards.forEach((card, i) => {
+        if (i === sheetCards.length - 1) return;
+        const nextCard = sheetCards[i + 1];
+
+        gsap.to(card, {
+          scale: 0.93,
+          opacity: 0.75,
+          transformOrigin: 'center top',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: nextCard,
+            start: 'top 100%',
+            end: 'top 0%',
+            scrub: true,
+          },
+        });
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -365,17 +385,17 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       </div>
 
       {/* ── SHEET 2: Deep Charcoal Section (AnimateSVGFullPage) ── */}
-      <div className="sheet-card sheet-card-2" style={{ zIndex: 5, position: 'relative' }}>
+      <div className="sheet-card sheet-card-2">
         <AnimateSVGFullPage />
       </div>
 
       {/* ── SHEET 3: Soft Ice Light Blue Section (SpotlightSVGPath) ── */}
-      <div className="sheet-card sheet-card-3" style={{ zIndex: 6, position: 'relative' }}>
+      <div className="sheet-card sheet-card-3">
         <SpotlightSVGPath />
       </div>
 
       {/* ── SHEET 4: Light Cream Section (FooterSystemInteractive) ── */}
-      <div className="sheet-card sheet-card-4" style={{ zIndex: 7, position: 'relative' }}>
+      <div className="sheet-card sheet-card-4">
         <FooterSystemInteractive />
       </div>
 
@@ -405,6 +425,41 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       </footer>
 
       <style>{`
+        .sheet-card {
+          position: sticky;
+          top: 0;
+          width: 100%;
+          border-top-left-radius: 36px;
+          border-top-right-radius: 36px;
+          box-shadow: 0 -30px 80px rgba(0, 0, 0, 0.4);
+          overflow: hidden;
+          will-change: transform, opacity;
+        }
+
+        .sheet-card-1 {
+          position: relative;
+          z-index: 1;
+          background-color: var(--bg-cream, #f4f3ef);
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          box-shadow: none;
+        }
+
+        .sheet-card-2 {
+          z-index: 2;
+          background-color: #0d0d11;
+        }
+
+        .sheet-card-3 {
+          z-index: 3;
+          background-color: #eaf4f9;
+        }
+
+        .sheet-card-4 {
+          z-index: 4;
+          background-color: var(--bg-cream, #f4f3ef);
+        }
+
         .parallax-scroller-row {
           display: flex;
           align-items: center;
