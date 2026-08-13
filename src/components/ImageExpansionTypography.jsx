@@ -427,9 +427,12 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             margin: 0.2rem 0;
           }
           .type__expand-img {
-            max-width: 100%;
-            height: clamp(48px, 13vw, 70px);
-            border-radius: 0.85rem;
+            aspect-ratio: 16/9;
+            height: auto;
+            max-width: clamp(180px, 65vw, 320px);
+            border-radius: 1.25rem;
+            vertical-align: middle;
+            display: inline-block;
           }
           .type__expand--reveal .type__expand-img-inner {
             width: 100%;
