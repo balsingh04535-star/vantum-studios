@@ -13,6 +13,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
     if (!container) return;
 
     const ctx = gsap.context(() => {
+      const typeElements = container.querySelectorAll('.type');
       typeElements.forEach((typeEl) => {
         const expandImg = typeEl.querySelector('.type__expand-img');
         const animTexts = typeEl.querySelectorAll('.anim');
