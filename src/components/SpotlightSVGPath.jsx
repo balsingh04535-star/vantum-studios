@@ -243,15 +243,20 @@ export default function SpotlightSVGPath() {
           z-index: 1;
         }
 
+        .spotlight #stroke-path {
+          stroke-width: 140px;
+        }
+
         @media (max-width: 1000px) {
           .spotlight-hero h1,
           .spotlight-outro h1 {
             width: 100%;
-            font-size: 2rem;
+            font-size: 1.8rem;
           }
 
           .spotlight {
-            gap: 80px;
+            gap: 60px;
+            padding: 24px 16px;
           }
 
           .spotlight .row {
@@ -269,8 +274,13 @@ export default function SpotlightSVGPath() {
           }
 
           .spotlight .svg-path {
-            top: 15vh;
-            width: 275%;
+            top: 0;
+            width: 100% !important;
+            height: 100% !important;
+          }
+
+          .spotlight #stroke-path {
+            stroke-width: 65px !important;
           }
         }
       `}</style>
