@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function FullscreenClipEffect() {
   const rootRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(true);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   const images = [
     '/img/demo1/2.jpg',
@@ -14,107 +15,75 @@ export default function FullscreenClipEffect() {
     '/img/demo1/5.jpg'
   ];
 
-  const handleToggle = () => {
-    if (isAnimating || !rootRef.current) return;
-    setIsAnimating(true);
-
+  useEffect(() => {
+    if (!rootRef.current) return;
     const root = rootRef.current;
-    const clipElement = root.querySelector('.fullscreen-clip-box');
-    const clipImage = root.querySelector('.fullscreen-clip-img');
-    const slides = root.querySelectorAll('.fullscreen-slide:not(.fullscreen-slide-current)');
-    const slider = root.querySelector('.fullscreen-slides');
-    const titleChars = root.querySelectorAll('.fullscreen-char');
 
-    if (isOpen) {
-      // Transition to horizontal gallery layout
+    const ctx = gsap.context(() => {
+      const clipElement = root.querySelector('.fullscreen-clip-box');
+      const clipImage = root.querySelector('.fullscreen-clip-img');
+      const slides = root.querySelectorAll('.fullscreen-slide:not(.fullscreen-slide-current)');
+      const slider = root.querySelector('.fullscreen-slides');
+      const titleChars = root.querySelectorAll('.fullscreen-char');
+      const badgeText = root.querySelector('.fullscreen-cover-badge');
+
+      // Set initial states
+      gsap.set(slider, { perspective: 1000 });
+      gsap.set(clipElement, { willChange: 'clip-path', clipPath: 'inset(0% 0% round 0vw)' });
+      gsap.set(clipImage, { scale: 1 });
+      gsap.set(slides, { opacity: 0, z: 600 });
+      gsap.set(titleChars, { transformOrigin: '50% 100%', opacity: 1, scaleY: 1 });
+
+      // Create scroll-driven scrubbed timeline
       const tl = gsap.timeline({
-        defaults: { duration: 1.2, ease: 'power4.inOut' },
-        onComplete: () => {
-          setIsAnimating(false);
-          setIsOpen(false);
+        scrollTrigger: {
+          trigger: root,
+          start: 'top top',
+          end: '+=1400',
+          scrub: 0.8,
+          pin: true,
+          anticipatePin: 1,
+          fastScrollEnd: true,
         }
       });
 
       tl.addLabel('start', 0)
-        .set(slider, { perspective: 1000 })
-        .set(clipElement, { willChange: 'clip-path' })
-        .set(titleChars, { transformOrigin: '50% 100%' })
-        .to(clipElement, { clipPath: 'inset(22% 39% round 23vw)' }, 'start')
-        .to(clipImage, { scale: 0.8 }, 'start')
+        // 1. Morph full screen hero image into center grid card
+        .to(clipElement, { clipPath: 'inset(22% 39% round 23vw)', ease: 'power2.inOut' }, 'start')
+        .to(clipImage, { scale: 0.8, ease: 'power2.inOut' }, 'start')
+        
+        // 2. Reveal surrounding 4 gallery cards floating in 3D
         .fromTo(
           slides,
           { opacity: 0, z: 600 },
           {
-            duration: 1.4,
-            ease: 'power3.inOut',
-            stagger: { amount: 0.15, from: 'center' },
+            ease: 'power2.out',
+            stagger: { amount: 0.2, from: 'center' },
             opacity: 1,
             z: 0
           },
           'start'
         )
+
+        // 3. Compress title typography
         .to(
           titleChars,
           {
-            duration: 1,
             scaleY: 0.2,
             opacity: 0.3,
-            stagger: { amount: 0.2, from: 'center' }
+            stagger: { amount: 0.2, from: 'center' },
+            ease: 'power2.inOut'
           },
           'start'
-        );
-    } else {
-      // Transition back to full screen preview
-      const tl = gsap.timeline({
-        defaults: { duration: 1.2, ease: 'expo.inOut' },
-        onComplete: () => {
-          setIsAnimating(false);
-          setIsOpen(true);
-        }
-      });
+        )
 
-      tl.addLabel('start', 0)
-        .set(clipElement, { willChange: 'clip-path' })
-        .to(
-          slides,
-          {
-            stagger: { amount: 0.1, from: 'edges' },
-            opacity: 0,
-            z: 600
-          },
-          'start'
-        )
-        .addLabel('clip', 'start+=0.15')
-        .to(clipImage, { scale: 1 }, 'clip')
-        .fromTo(
-          clipElement,
-          { clipPath: 'inset(22% 39% round 23vw)' },
-          { clipPath: 'inset(0% 0% round 0vw)' },
-          'clip+=0.1'
-        )
-        .fromTo(
-          clipImage,
-          { filter: 'brightness(100%) saturate(100%)' },
-          { duration: 0.4, ease: 'power1.in', filter: 'brightness(180%) saturate(180%)' },
-          'clip+=0.1'
-        )
-        .to(
-          clipImage,
-          { duration: 0.8, ease: 'power1', filter: 'brightness(100%) saturate(100%)' },
-          'clip+=0.4'
-        )
-        .to(
-          titleChars,
-          {
-            duration: 1,
-            scaleY: 1,
-            opacity: 1,
-            stagger: { amount: 0.2, from: 'center' }
-          },
-          'clip'
-        );
-    }
-  };
+        // 4. Reveal subtle scroll instruction badge
+        .to(badgeText, { opacity: 1, y: 0, ease: 'power1.out' }, 'start+=0.3');
+
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div className="fullscreen-clip-root" ref={rootRef}>
@@ -143,9 +112,9 @@ export default function FullscreenClipEffect() {
               </span>
             ))}
           </h2>
-          <button className="fullscreen-cover-button" onClick={handleToggle}>
-            {isOpen ? 'Minimize Gallery' : 'Expand Fullscreen'}
-          </button>
+          <div className="fullscreen-cover-badge" style={{ opacity: 0, transform: 'translateY(20px)' }}>
+            ( Scroll to morph spatial view )
+          </div>
         </div>
 
       </main>
@@ -245,26 +214,19 @@ export default function FullscreenClipEffect() {
           text-shadow: 0 10px 40px rgba(0,0,0,0.7);
         }
 
-        .fullscreen-cover-button {
-          pointer-events: auto;
-          padding: 1.1rem 2.5rem;
-          background: rgba(255, 255, 255, 0.95);
-          color: #0d0d11;
-          border: none;
+        .fullscreen-cover-badge {
+          padding: 0.8rem 2rem;
+          background: rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          color: #c4d600;
+          border: 1px solid rgba(255, 255, 255, 0.25);
           border-radius: 4rem;
-          font-size: 0.95rem;
-          font-weight: 700;
-          letter-spacing: 0.08em;
+          font-family: "DM Mono", monospace;
+          font-size: 0.85rem;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .fullscreen-cover-button:hover {
-          background: #c4d600;
-          color: #0d0d11;
-          transform: scale(1.05);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
       `}</style>
     </div>
