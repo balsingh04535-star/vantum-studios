@@ -172,13 +172,13 @@ export default function Hero({ onOpenInquiry }) {
         },
         onLeave: () => {
           if (renderer) renderer.setClearColor(new THREE.Color('#ebf5df'), 1);
-          if (heroRef.current) heroRef.current.style.backgroundColor = '#ebf5df';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = '#ebf5df';
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
           if (creamOverlayRef.current) creamOverlayRef.current.style.opacity = '1';
         },
         onEnterBack: () => {
-          if (heroRef.current) heroRef.current.style.backgroundColor = '#0f0f0f';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = '#0f0f0f';
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
         }
       }
     });
@@ -303,7 +303,7 @@ export default function Hero({ onOpenInquiry }) {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: '#ebf5df',
+              backgroundColor: 'var(--bg-cream, #f4f3ef)',
               opacity: 0,
               zIndex: 24,
               pointerEvents: 'none'

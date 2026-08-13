@@ -117,7 +117,7 @@ export default function SpotlightSVGPath() {
       <style>{`
         .spotlight-component-root {
           --base-100: var(--bg-cream, #f4f3ef);
-          --base-200: #e8e6df;
+          --base-200: var(--bg-cream, #f4f3ef);
           --base-300: #0f0f0f;
           background-color: var(--base-100);
           color: var(--base-300);

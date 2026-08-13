@@ -253,13 +253,13 @@ export default function FooterSystemInteractive() {
       {/* ── 1:1 CSS Styles from style.css ── */}
       <style>{`
         .footer-system-interactive-root {
-          --base-100: #ffffff;
-          --base-200: #333333;
-          --base-300: #262626;
-          --base-400: #141414;
-          --base-500: #0f0f0f;
-          background-color: var(--base-500);
-          color: var(--base-100);
+          --base-100: #0f0f0f;
+          --base-200: #e8e6df;
+          --base-300: rgba(0, 0, 0, 0.15);
+          --base-400: rgba(0, 0, 0, 0.05);
+          --base-500: var(--bg-cream, #f4f3ef);
+          background-color: var(--bg-cream, #f4f3ef);
+          color: #0f0f0f;
           font-family: "Instrument Serif", "Cormorant Garamond", serif;
           width: 100%;
           position: relative;
@@ -279,7 +279,7 @@ export default function FooterSystemInteractive() {
           font-weight: 500;
           line-height: 0.9;
           font-family: "Instrument Serif", "Cormorant Garamond", serif;
-          color: #ffffff;
+          color: #0f0f0f;
         }
 
         .footer-system-interactive-root p {
@@ -287,6 +287,7 @@ export default function FooterSystemInteractive() {
           font-size: 1rem;
           font-weight: 500;
           line-height: 1.5;
+          color: #52525b;
         }
 
         .footer-system-interactive-root section {
@@ -302,7 +303,7 @@ export default function FooterSystemInteractive() {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #0f0f0f;
+          background-color: var(--bg-cream, #f4f3ef);
         }
 
         .footer-system-interactive-root .intro h1,
@@ -362,17 +363,16 @@ export default function FooterSystemInteractive() {
           height: 100%;
           background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.12) 0%,
-            rgba(255, 255, 255, 0.02) 40%,
-            rgba(196, 214, 0, 0.08) 100%
+            rgba(255, 255, 255, 0.85) 0%,
+            rgba(244, 243, 239, 0.75) 50%,
+            rgba(255, 255, 255, 0.9) 100%
           );
           backdrop-filter: blur(16px) saturate(180%);
           -webkit-backdrop-filter: blur(16px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.25);
+          border: 1px solid rgba(0, 0, 0, 0.12);
           box-shadow:
-            inset 0 1px 2px rgba(255, 255, 255, 0.4),
-            inset 0 -1px 3px rgba(0, 0, 0, 0.5),
-            0 8px 32px rgba(0, 0, 0, 0.4);
+            inset 0 1px 2px rgba(255, 255, 255, 0.9),
+            0 8px 24px rgba(0, 0, 0, 0.06);
           border-radius: 0.5rem;
           will-change: width, height, border-radius, border-width;
         }
@@ -385,10 +385,10 @@ export default function FooterSystemInteractive() {
         .footer-system-interactive-root .feature-content p {
           text-transform: uppercase;
           font-family: "DM Mono", monospace;
-          font-weight: 400;
+          font-weight: 500;
           font-size: 0.85rem;
           line-height: 1;
-          color: #c4d600;
+          color: #0f0f0f;
         }
 
         .footer-system-interactive-root .search-bar {
@@ -401,18 +401,16 @@ export default function FooterSystemInteractive() {
           border-radius: 25rem;
           background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.18) 0%,
-            rgba(255, 255, 255, 0.04) 45%,
-            rgba(196, 214, 0, 0.12) 100%
+            rgba(255, 255, 255, 0.92) 0%,
+            rgba(244, 243, 239, 0.82) 45%,
+            rgba(255, 255, 255, 0.95) 100%
           );
           backdrop-filter: blur(28px) saturate(200%);
           -webkit-backdrop-filter: blur(28px) saturate(200%);
-          border: 1.5px solid rgba(255, 255, 255, 0.38);
+          border: 1.5px solid rgba(0, 0, 0, 0.18);
           box-shadow:
-            inset 0 1.5px 3px rgba(255, 255, 255, 0.6),
-            inset 0 -2px 6px rgba(0, 0, 0, 0.5),
-            0 24px 60px rgba(0, 0, 0, 0.7),
-            0 0 35px rgba(196, 214, 0, 0.28);
+            inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
+            0 16px 40px rgba(0, 0, 0, 0.08);
           opacity: 0;
           display: flex;
           align-items: center;
@@ -430,9 +428,9 @@ export default function FooterSystemInteractive() {
           background: linear-gradient(
             115deg,
             transparent 0%,
-            rgba(255, 255, 255, 0.25) 45%,
-            rgba(255, 255, 255, 0.45) 50%,
-            rgba(255, 255, 255, 0.25) 55%,
+            rgba(255, 255, 255, 0.35) 45%,
+            rgba(255, 255, 255, 0.65) 50%,
+            rgba(255, 255, 255, 0.35) 55%,
             transparent 100%
           );
           transform: translateX(-100%);
@@ -450,12 +448,12 @@ export default function FooterSystemInteractive() {
           opacity: 0;
           transform: translateX(0rem);
           will-change: opacity;
-          color: #c4d600;
+          color: #0f0f0f;
           font-family: "DM Mono", monospace;
           font-size: 0.95rem;
+          font-weight: 500;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          text-shadow: 0 0 12px rgba(196, 214, 0, 0.5);
           z-index: 2;
         }
 
