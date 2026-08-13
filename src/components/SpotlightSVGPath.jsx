@@ -100,7 +100,7 @@ export default function SpotlightSVGPath() {
               ref={strokePathRef}
               id="stroke-path"
               d="M639.668 100C639.668 100 105.669 100 199.669 601.503C293.669 1103.01 1277.17 691.502 1277.17 1399.5C1277.17 2107.5 -155.332 1968 140.168 1438.5C435.669 909.002 1442.66 2093.5 713.168 2659.5"
-              stroke="#c4d600"
+              stroke="#032b56"
               strokeWidth="200"
               strokeLinecap="round"
             />
