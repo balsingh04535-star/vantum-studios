@@ -124,16 +124,18 @@ export default function FooterSystemInteractive() {
 
           gsap.set(container.querySelector('.search-bar'), {
             width: `${3 + (searchBarFinalWidth - 3) * p}rem`,
-            height: `${3 + (5 - 3) * p}rem`,
-            transform: `translate(-50%, ${-50 + 130 * p}%)`,
+            height: `${3 + (4.5 - 3) * p}rem`,
+            top: `${50 + 15 * p}%`,
+            transform: `translate(-50%, -50%)`,
           });
 
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
         } else if (progress > 0.75) {
           gsap.set(container.querySelector('.search-bar'), {
             width: `${searchBarFinalWidth}rem`,
-            height: '5rem',
-            transform: 'translate(-50%, 80%)',
+            height: '4.5rem',
+            top: '65%',
+            transform: 'translate(-50%, -50%)',
           });
         }
 
@@ -144,13 +146,13 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar p'), { opacity: p });
 
           gsap.set(container.querySelector('.header-content'), {
-            y: -20 + 20 * p,
+            y: -75 + 15 * p,
             opacity: p,
           });
         } else {
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
           gsap.set(container.querySelector('.header-content'), {
-            y: -20,
+            y: -75,
             opacity: 0,
           });
         }
@@ -340,7 +342,7 @@ export default function FooterSystemInteractive() {
 
         .footer-system-interactive-root .header-content {
           width: 100%;
-          max-width: 900px;
+          max-width: 850px;
           margin: 0 auto;
           padding: 0 2rem;
           display: flex;
@@ -348,23 +350,27 @@ export default function FooterSystemInteractive() {
           align-items: center;
           justify-content: center;
           text-align: center;
-          gap: 1.5rem;
+          gap: 1.25rem;
           will-change: transform, opacity;
           opacity: 0;
         }
 
         .footer-system-interactive-root .header-content h1 {
           width: 100%;
-          max-width: 850px;
+          max-width: 800px;
           margin: 0 auto;
           text-align: center;
+          font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+          line-height: 1.05;
         }
 
         .footer-system-interactive-root .header-content p {
           width: 100%;
-          max-width: 650px;
+          max-width: 600px;
           margin: 0 auto;
           text-align: center;
+          font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+          line-height: 1.5;
         }
 
         .footer-system-interactive-root .feature {
