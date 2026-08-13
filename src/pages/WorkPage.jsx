@@ -79,29 +79,35 @@ export default function WorkPage({ onOpenInquiry }) {
       <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#070709' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.4rem 1rem',
-            borderRadius: '20px',
-            border: '1px solid rgba(0, 240, 255, 0.3)',
-            backgroundColor: 'rgba(0, 240, 255, 0.06)',
-            color: '#00f0ff',
-            fontSize: '0.75rem',
-            letterSpacing: '0.15em',
+          <h1 style={{
+            marginBottom: '0.85rem',
+            maxWidth: '900px',
+            color: '#ffffff',
+            fontSize: 'clamp(2.4rem, 5vw, 4.8rem)',
+            fontFamily: 'var(--font-heading)',
+            fontWeight: 300,
             textTransform: 'uppercase',
-            fontWeight: 600,
-            marginBottom: '1.5rem'
+            letterSpacing: '-0.03em',
+            lineHeight: 1.05
           }}>
-            Portfolio Archive
-          </div>
-
-          <h1 style={{ marginBottom: '1.5rem', maxWidth: '900px', color: '#ffffff', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: 'var(--font-heading)' }}>
-            Selected Works & Interactive Experiments
+            Archive of <span style={{
+              fontStyle: 'italic',
+              fontFamily: 'var(--font-luxury-slim)',
+              fontWeight: 400,
+              color: '#ffffff'
+            }}>Creative Realities</span>
           </h1>
-          <p style={{ fontSize: '1.25rem', color: '#a1a1aa', maxWidth: '750px', marginBottom: '3.5rem', lineHeight: '1.6' }}>
-            Every project is engineered from scratch. No off-the-shelf templates, no performance compromises.
+          <p style={{
+            fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)',
+            color: '#8e8e93',
+            maxWidth: '750px',
+            marginBottom: '3.5rem',
+            lineHeight: '1.5',
+            fontWeight: 500,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase'
+          }}>
+            Selected Realities & Interactive Works
           </p>
 
           {/* Filter Pills */}

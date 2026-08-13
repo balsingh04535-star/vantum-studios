@@ -1007,7 +1007,7 @@ textarea.form-input {
 }
 
 .nav-bg-layer:nth-child(4) {
-  background-color: var(--bg-dark); /* Website main dark colour */
+  background-color: #070709; /* Deep luxury dark noir */
 }
 
 .overlay-nav-content {
@@ -1027,7 +1027,7 @@ textarea.form-input {
   display: flex;
   gap: 3rem;
   padding: 8rem 8rem 4rem 8rem;
-  background-color: var(--bg-dark);
+  background-color: #070709; /* Deep luxury dark noir */
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
   will-change: clip-path;
   align-items: center;

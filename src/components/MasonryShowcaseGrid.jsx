@@ -11,27 +11,31 @@ export default function MasonryShowcaseGrid() {
   const rightColRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
-     PERFECTLY ALIGNED MODULAR GRID MATRIX (USER PHOTOS)
+     CURATED HIGH-END PRODUCT & BRAND UI SHOWCASE MATRIX
+     (Clean, 100% unique UI/UX, product, & brand design showcases — zero yellow AI art)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
-    { id: 'grid-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
-    { id: 'grid-2', image: '/grid-photos/grid2.png', aspect: '16/10' },
-    { id: 'grid-3', image: '/grid-photos/grid3.png', aspect: '16/10' },
-    { id: 'grid-4', image: '/grid-photos/grid4.png', aspect: '16/10' },
+    { id: 'grid-l-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
+    { id: 'grid-l-2', image: '/grid-photos/grid4.png', aspect: '16/10' },
+    { id: 'grid-l-3', image: '/grid-photos/grid3.png', aspect: '16/10' },
+    { id: 'grid-l-4', image: '/experience_laptop.png', aspect: '16/10' },
+    { id: 'grid-l-5', image: '/skincare_leaf.png', aspect: '16/10' },
   ];
 
   const centerColumnProjects = [
-    { id: 'grid-5', image: '/grid-photos/grid5.png', aspect: '16/10' },
-    { id: 'grid-6', image: '/grid-photos/grid6.png', aspect: '16/10' },
-    { id: 'grid-7', image: '/grid-photos/grid7.png', aspect: '16/10' },
-    { id: 'grid-8', image: '/grid-photos/grid8.png', aspect: '16/10' },
+    { id: 'grid-c-1', image: '/grid-photos/grid5.png', aspect: '16/10' },
+    { id: 'grid-c-2', image: '/grid-photos/grid6.png', aspect: '16/10' },
+    { id: 'grid-c-3', image: '/grid-photos/grid7.png', aspect: '16/10' },
+    { id: 'grid-c-4', image: '/moodtalk_dashboard.png', aspect: '16/10' },
+    { id: 'grid-c-5', image: '/grid-new-1.png', aspect: '16/10' },
   ];
 
   const rightColumnProjects = [
-    { id: 'grid-9', image: '/grid-photos/grid9.png', aspect: '16/10' },
-    { id: 'grid-10', image: '/grid-photos/grid10.png', aspect: '16/10' },
-    { id: 'grid-11', image: '/grid-photos/grid11.png', aspect: '16/10' },
-    { id: 'grid-12', image: '/grid-photos/grid1.png', aspect: '16/10' },
+    { id: 'grid-r-1', image: '/grid-photos/grid2.png', aspect: '16/10' },
+    { id: 'grid-r-2', image: '/grid-photos/grid8.png', aspect: '16/10' },
+    { id: 'grid-r-3', image: '/grid-photos/grid9.png', aspect: '16/10' },
+    { id: 'grid-r-4', image: '/grid-photos/grid10.png', aspect: '16/10' },
+    { id: 'grid-r-5', image: '/untitled-design-7.png', aspect: '16/10' },
   ];
 
   useEffect(() => {
@@ -44,11 +48,12 @@ export default function MasonryShowcaseGrid() {
 
     // ── Responsive Movement Calibration for Mobile vs Desktop ──
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 40 : 120; // 40px gentle glide on mobile, 120px on desktop
-    const scrubTime = isMobile ? 1.8 : 1.5;   // 1.8s ultra-smooth scrub on mobile touch
+    const moveDistance = isMobile ? 30 : 90; // 90px smooth parallax travel distance
+    const scrubTime = isMobile ? 1.5 : 1.2;
 
     const ctx = gsap.context(() => {
       // ── Counter-Parallax Scroll Trigger Timeline ──
+      // Range starts offset so top/bottom buffer images cover initial position seamlessly
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -57,47 +62,92 @@ export default function MasonryShowcaseGrid() {
           scrub: scrubTime,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0)   // LEFT moves UP
-      .fromTo(centerCol, { y: 0 }, { y: moveDistance, ease: 'none' }, 0)  // CENTER moves DOWN
-      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0);  // RIGHT moves UP
+      .fromTo(leftCol, { y: moveDistance * 0.5 }, { y: -moveDistance * 0.8, ease: 'none' }, 0)   // LEFT glides UP
+      .fromTo(centerCol, { y: -moveDistance * 0.8 }, { y: moveDistance * 0.5, ease: 'none' }, 0)  // CENTER glides DOWN
+      .fromTo(rightCol, { y: moveDistance * 0.5 }, { y: -moveDistance * 0.8, ease: 'none' }, 0);  // RIGHT glides UP
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="sharp-parallax-wall-section">
+    <section ref={containerRef} id="work" className="sharp-parallax-wall-section">
       
-      {/* ── 3-Column Perfectly Aligned Modular Grid Matrix ── */}
-      <div className="sharp-columns-grid">
-        
-        {/* Left Column (Moves UP on scroll down) */}
-        <div ref={leftColRef} className="sharp-col col-left">
-          {leftColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
-            </div>
-          ))}
-        </div>
+      {/* ── Editorial Section Title Header ── */}
+      <div className="masonry-header-block" style={{
+        maxWidth: '1200px',
+        margin: '0 auto 2.5rem auto',
+        padding: '3rem 1.5rem 0 1.5rem',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: 5
+      }}>
+        <h2 style={{
+          fontSize: 'clamp(2.4rem, 5vw, 4.8rem)',
+          fontFamily: 'var(--font-heading)',
+          fontWeight: 300,
+          letterSpacing: '-0.03em',
+          lineHeight: 1.05,
+          color: '#ffffff',
+          marginBottom: '0.85rem',
+          textTransform: 'uppercase',
+        }}>
+          Archive of <span style={{
+            fontStyle: 'italic',
+            fontFamily: 'var(--font-luxury-slim)',
+            fontWeight: 400,
+            color: '#ffffff'
+          }}>Creative Realities</span>
+        </h2>
 
-        {/* Center Column (Moves DOWN on scroll down) */}
-        <div ref={centerColRef} className="sharp-col col-center">
-          {centerColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
-            </div>
-          ))}
-        </div>
+        <p style={{
+          fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)',
+          color: '#8e8e93',
+          maxWidth: '600px',
+          lineHeight: 1.5,
+          fontWeight: 500,
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase'
+        }}>
+          Selected Realities & Interactive Works
+        </p>
+      </div>
 
-        {/* Right Column (Moves UP on scroll down) */}
-        <div ref={rightColRef} className="sharp-col col-right">
-          {rightColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
-            </div>
-          ))}
-        </div>
+      {/* ── Bounded Viewport Container (Strict overflow mask prevents overlapping header text or footer) ── */}
+      <div className="grid-viewport-wrapper">
+        <div className="sharp-columns-grid">
+          
+          {/* Left Column (Moves UP on scroll down) */}
+          <div ref={leftColRef} className="sharp-col col-left">
+            {leftColumnProjects.map((item) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+              </div>
+            ))}
+          </div>
 
+          {/* Center Column (Moves DOWN on scroll down) */}
+          <div ref={centerColRef} className="sharp-col col-center">
+            {centerColumnProjects.map((item) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+              </div>
+            ))}
+          </div>
+
+          {/* Right Column (Moves UP on scroll down) */}
+          <div ref={rightColRef} className="sharp-col col-right">
+            {rightColumnProjects.map((item) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
 
       {/* ── Pure Aesthetic Styles ── */}
@@ -108,9 +158,19 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #000000;
           color: #ffffff;
-          padding: 0.5rem 0.5rem 3rem 0.5rem;
+          padding: 1rem 0.5rem 4rem 0.5rem;
           box-sizing: border-box;
           overflow: hidden;
+        }
+
+        /* Strictly Bounded Grid Viewport Container */
+        .grid-viewport-wrapper {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+          margin: 0 auto;
+          padding-top: 10px;
+          padding-bottom: 10px;
         }
 
         /* Perfectly Aligned Grid Wall */
@@ -157,7 +217,7 @@ export default function MasonryShowcaseGrid() {
         /* ── MOBILE RESPONSIVE BREAKPOINT (<768px) ── */
         @media (max-width: 768px) {
           .sharp-parallax-wall-section {
-            padding: 0.25rem 0.25rem 2rem 0.25rem;
+            padding: 0.5rem 0.25rem 2rem 0.25rem;
           }
 
           .sharp-columns-grid {
@@ -177,3 +237,4 @@ export default function MasonryShowcaseGrid() {
     </section>
   );
 }
+

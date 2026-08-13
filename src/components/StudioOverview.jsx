@@ -75,6 +75,7 @@ export default function StudioOverview({ onOpenInquiry }) {
       {/* ── MANIFESTO ── */}
       <section
         ref={manifestoRef}
+        id="manifesto"
         className="studio-manifesto-page"
         style={{
           minHeight: '100vh',

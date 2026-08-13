@@ -180,13 +180,17 @@ export default function Hero({ onOpenInquiry }) {
       }
     });
 
-    // --- STAGE 1: As user scrolls, Hero SVG Logo moves up and out (0.0 -> 0.25) ---
+    // --- STAGE 1: As user scrolls, Hero SVG Logo moves STRAIGHT UP to top position without size change ---
     if (titleLogo) {
+      const targetY = -(window.innerHeight * 0.42);
+
       tl.to(titleLogo, {
-        opacity: 0,
-        y: -90,
-        ease: 'power2.in',
-        duration: 0.25
+        y: targetY,
+        x: 0, // Stay centered horizontally
+        scale: 1, // Keep 100% exact size (no scaling)
+        opacity: 1, // Keep 100% visible
+        ease: 'power2.out',
+        duration: 0.35
       }, 0);
     }
 
@@ -293,7 +297,7 @@ export default function Hero({ onOpenInquiry }) {
 
   return (
     <>
-      <section className="hero-section" ref={heroRef}>
+      <section className="hero-section" id="hero" ref={heroRef}>
         <div className="hero-inner" ref={heroInnerRef}>
           {/* Solid Cream Overlay for seamless transition */}
           <div

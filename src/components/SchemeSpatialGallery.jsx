@@ -5,7 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
 import MasonryShowcaseGrid from './MasonryShowcaseGrid';
 import SpotlightSVGPath from './SpotlightSVGPath';
-import FooterSystemInteractive from './FooterSystemInteractive';
+import Footer from './Footer';
+import TransitionLink from './TransitionLink';
 
 export const selectedWorks = [
   {
@@ -204,8 +205,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           VANTUM
         </div>
 
-        <div
-          onClick={onOpenInquiry}
+        <TransitionLink
+          to="/work"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -221,49 +222,22 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             cursor: 'pointer',
             background: 'rgba(0, 0, 0, 0.04)',
             backdropFilter: 'blur(8px)',
+            textDecoration: 'none'
           }}
         >
-          <span>MENU</span>
-          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <line x1="0" y1="2" x2="12" y2="2" />
-            <line x1="0" y1="8" x2="12" y2="8" />
-          </svg>
-        </div>
+          <span>EXPLORE WORK</span>
+          <ArrowUpRight size={14} />
+        </TransitionLink>
       </header>
 
       {/* ── MASONRY SHOWCASE GRID (Replaces old SVG/Astronaut section) ── */}
       <MasonryShowcaseGrid onOpenInquiry={onOpenInquiry} />
 
-      {/* ── SPOTLIGHT SVG PATH COMPONENT FROM code (36)\files ── */}
+      {/* ── SPOTLIGHT SVG PATH COMPONENT ── */}
       <SpotlightSVGPath />
 
-      {/* ── INTERACTIVE FOOTER SYSTEM FROM code (31)\files ── */}
-      <FooterSystemInteractive />
-
-      {/* ── Footer Tagline ── */}
-      <footer
-        style={{
-          width: '100%',
-          maxWidth: '1200px',
-          marginTop: '6rem',
-          paddingTop: '2.5rem',
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          zIndex: 10,
-        }}
-      >
-        <div style={{ fontSize: '0.7rem', letterSpacing: '0.18em', color: '#52525b', textTransform: 'uppercase' }}>
-          Vantum Studios © 2026 · Global Creative Practice
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ fontSize: '0.65rem', letterSpacing: '0.22em', color: '#8e8e93', textTransform: 'uppercase', textAlign: 'right' }}>
-            DRIVEN BY PURPOSE.<br />DEFINED BY IMPACT.
-          </div>
-          <CrosshairStarIcon size={20} color="#c4d600" />
-        </div>
-      </footer>
+      {/* ── HIGH-FASHION EDITORIAL FOOTER (Breedlove Style) ── */}
+      <Footer onOpenInquiry={onOpenInquiry} />
 
       <style>{`
         .parallax-scroller-row {

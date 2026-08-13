@@ -39,62 +39,92 @@ export default function SpotlightSVGPath() {
     <div className="spotlight-component-root">
       {/* ===== HERO ===== */}
       <section className="spotlight-hero">
-        <h1>Designed to keep information clear and connected</h1>
+        <h1>Our 4-Step Client Journey & Agency Process</h1>
       </section>
 
       {/* ===== SPOTLIGHT ===== */}
       <section ref={sectionRef} className="spotlight">
-        <div className="row">
-          <div className="img">
-            <img src="/img/img_1.svg" alt="Workflow preview 1" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col">
-            <div className="card">
-              <h2>A cleaner way to handle incoming updates</h2>
-              <p>
-                Instead of showing every message or notification instantly, the app groups related items and presents them in an organized panel. It keeps your workspace calm, even when activity spikes.
-              </p>
-            </div>
-          </div>
-          <div className="col">
-            <div className="img">
-              <img src="/img/img_2.svg" alt="Workflow preview 2" />
-            </div>
-          </div>
-        </div>
-
+        
+        {/* ROW 1: STEP 1 */}
         <div className="row">
           <div className="col">
             <div className="img">
-              <img src="/img/img_3.svg" alt="Workflow preview 3" />
+              <img src="/steps/step1.svg" alt="01. When the client calls us" />
             </div>
           </div>
           <div className="col">
             <div className="card">
-              <h2>Built for increasing information demands</h2>
+              <span className="step-badge">STEP 01 · INITIAL CONSULTATION</span>
+              <h2>01. When the Client Calls Us</h2>
               <p>
-                Whether it is files, notes, or incoming messages, the app sorts and prioritizes items automatically. It prevents clutter and helps maintain clarity during busy periods.
+                We begin with a deep-dive discovery call to understand your vision, objectives, and market positioning. We establish clear goals, scope boundaries, and project timelines.
               </p>
             </div>
           </div>
         </div>
 
+        {/* ROW 2: STEP 2 */}
         <div className="row">
-          <div className="img">
-            <img src="/img/img_4.svg" alt="Workflow preview 4" />
+          <div className="col">
+            <div className="card">
+              <span className="step-badge">STEP 02 · STRATEGY & BLUEPRINT</span>
+              <h2>02. When We Plan Everything</h2>
+              <p>
+                Our team architects the complete creative and technical blueprint. From high-fidelity UX wireframes and 3D spatial concepts to technology stack selection and milestone planning.
+              </p>
+            </div>
+          </div>
+          <div className="col">
+            <div className="img">
+              <img src="/steps/step2.svg" alt="02. When we plan everything" />
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 3: STEP 3 */}
+        <div className="row">
+          <div className="col">
+            <div className="img">
+              <img src="/steps/step3.svg" alt="03. When we work out" />
+            </div>
+          </div>
+          <div className="col">
+            <div className="card">
+              <span className="step-badge">STEP 03 · CRAFT & DEVELOPMENT</span>
+              <h2>03. When We Work Out</h2>
+              <p>
+                We execute with precision. Our developers and designers craft custom WebGL shaders, kinetic GSAP motion, and high-speed responsive code at 60fps with zero off-the-shelf templates.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 4: STEP 4 */}
+        <div className="row">
+          <div className="col">
+            <div className="card">
+              <span className="step-badge">STEP 04 · DEPLOYMENT & LAUNCH</span>
+              <h2>04. When We Ship to the Client</h2>
+              <p>
+                After thorough cross-browser QA testing and performance calibration, we deploy your custom digital flagship to global edge networks — ready to captivate your audience.
+              </p>
+            </div>
+          </div>
+          <div className="col">
+            <div className="img">
+              <img src="/steps/step4.svg" alt="04. When we ship to the client" />
+            </div>
           </div>
         </div>
 
         {/* SVG Path Layer */}
         <div className="svg-path">
           <svg
-            viewBox="0 0 1378 2760"
+            viewBox="0 -100 1378 2960"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="xMidYMin meet"
+            style={{ overflow: 'visible' }}
           >
             <path
               ref={strokePathRef}
@@ -110,7 +140,7 @@ export default function SpotlightSVGPath() {
 
       {/* ===== OUTRO ===== */}
       <section className="spotlight-outro">
-        <h1>Clearer organization ready for whatever comes next</h1>
+        <h1>Built for Impact. Delivered with Zero Compromises.</h1>
       </section>
 
       {/* ===== 1:1 CSS Styles from style.css ===== */}
@@ -166,10 +196,10 @@ export default function SpotlightSVGPath() {
           position: relative;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
+          overflow: visible;
           width: 100%;
           height: 100%;
-          padding: 32px 4vw;
+          padding: 32px 4vw 160px 4vw;
           gap: 160px;
         }
 
@@ -191,18 +221,24 @@ export default function SpotlightSVGPath() {
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
 
         .spotlight .row .img img {
           width: 100%;
+          max-width: 520px;
           height: auto;
           display: block;
         }
 
-        .spotlight .row:nth-child(1) .img,
-        .spotlight .row:nth-child(4) .img {
-          width: 50%;
-          margin: 0 auto;
+        .step-badge {
+          display: inline-block;
+          font-size: 0.72rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          font-weight: 700;
+          color: #0e7490;
+          margin-bottom: 0.5rem;
         }
 
         .spotlight .card {
@@ -236,19 +272,21 @@ export default function SpotlightSVGPath() {
 
         .spotlight .svg-path {
           position: absolute;
-          top: 25vh;
+          top: 15vh;
           left: 50%;
           z-index: 0;
           width: 90%;
           height: 100%;
           transform: translateX(-50%);
           pointer-events: none;
+          overflow: visible;
         }
 
         .spotlight .svg-path svg {
           width: 100%;
           height: auto;
           opacity: 0.85;
+          overflow: visible;
         }
 
         .spotlight .row {
@@ -283,7 +321,41 @@ export default function SpotlightSVGPath() {
 
           .spotlight .svg-path {
             top: 15vh;
-            width: 275%;
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .spotlight-hero,
+          .spotlight-outro {
+            height: auto;
+            min-height: 45vh;
+            padding: 2.5rem 1rem;
+          }
+
+          .spotlight-hero h1,
+          .spotlight-outro h1 {
+            padding: 1.5rem 1.25rem;
+            font-size: clamp(1.4rem, 6vw, 2rem);
+            border-radius: 18px;
+          }
+
+          .spotlight {
+            padding: 1.5rem 1rem 60px 1rem;
+            gap: 48px;
+          }
+
+          .spotlight .card {
+            padding: 20px 16px;
+            border-radius: 16px;
+          }
+
+          .spotlight .card h2 {
+            font-size: 1.35rem;
+          }
+
+          .spotlight .svg-path {
+            display: none;
           }
         }
       `}</style>
