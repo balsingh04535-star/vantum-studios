@@ -125,8 +125,9 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar'), {
             width: `${3 + (searchBarFinalWidth - 3) * p}rem`,
             height: `${3 + (4.5 - 3) * p}rem`,
-            top: `${50 + 15 * p}%`,
-            transform: `translate(-50%, -50%)`,
+            top: `${50 + 18 * p}%`,
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           });
 
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
@@ -134,7 +135,8 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar'), {
             width: `${searchBarFinalWidth}rem`,
             height: '4.5rem',
-            top: '65%',
+            top: '68%',
+            left: '50%',
             transform: 'translate(-50%, -50%)',
           });
         }
@@ -146,13 +148,13 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar p'), { opacity: p });
 
           gsap.set(container.querySelector('.header-content'), {
-            y: -75 + 15 * p,
+            y: -70 + 10 * p,
             opacity: p,
           });
         } else {
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
           gsap.set(container.querySelector('.header-content'), {
-            y: -75,
+            y: -70,
             opacity: 0,
           });
         }
@@ -422,9 +424,10 @@ export default function FooterSystemInteractive() {
 
         .footer-system-interactive-root .search-bar {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+          top: 68%;
+          left: 50% !important;
+          transform: translate(-50%, -50%) !important;
+          margin: 0 auto !important;
           width: 3rem;
           height: 3rem;
           border-radius: 25rem;
