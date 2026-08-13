@@ -22,17 +22,15 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         if (expandImg) {
           gsap.fromTo(
             expandImg,
-            { clipPath: 'inset(0% 100% 0% 0% round 1rem)', scale: 0.85, opacity: 0.4 },
+            { width: '0%' },
             {
-              clipPath: 'inset(0% 0% 0% 0% round 1rem)',
-              scale: 1,
-              opacity: 1,
-              ease: 'power2.out',
+              width: '100%',
+              ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: typeEl,
                 start: 'top 85%',
-                end: 'bottom 45%',
-                scrub: 0.6,
+                end: 'bottom 40%',
+                scrub: 0.8,
               },
             }
           );
@@ -263,13 +261,13 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           display: inline-block;
           position: relative;
           aspect-ratio: 16/9;
-          width: clamp(140px, 25vw, 240px);
+          width: 0%;
           overflow: hidden;
-          border-radius: 1.25rem;
+          border-radius: 4rem;
           vertical-align: middle;
+          transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.7s ease;
           background: #d4e0c5;
           box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-          will-change: clip-path, transform;
         }
 
         .type__expand-img-inner {
@@ -430,9 +428,9 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           }
           .type__expand-img {
             aspect-ratio: 16/9;
-            width: clamp(120px, 42vw, 190px);
             height: auto;
-            border-radius: 0.85rem;
+            max-width: clamp(180px, 65vw, 320px);
+            border-radius: 1.25rem;
             vertical-align: middle;
             display: inline-block;
           }

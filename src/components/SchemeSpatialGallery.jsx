@@ -672,37 +672,16 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }
         @media (max-width: 768px) {
           section {
-            padding: 5.5rem 1.25rem 4rem 1.25rem !important;
+            padding: 3.5rem 1rem 3rem 1rem !important;
           }
           header {
-            flex-direction: row !important;
-            flex-wrap: wrap;
-            justify-content: space-between !important;
-            gap: 0.75rem !important;
-            margin-bottom: 2.5rem !important;
+            display: none !important;
           }
           .globe-hero-wrapper {
             display: none !important;
           }
           .parallax-scroller-row {
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            justify-content: flex-start;
-            padding: 0.75rem 0.25rem;
-            gap: 1rem;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-          }
-          .parallax-scroller-row::-webkit-scrollbar {
-            display: none;
-          }
-          .parallax-work-card {
-            flex: 0 0 82vw !important;
-            max-width: 320px !important;
-            aspect-ratio: 16/10 !important;
-            scroll-snap-align: center;
-            transform: none !important;
+            display: none !important;
           }
           footer {
             flex-direction: column;
