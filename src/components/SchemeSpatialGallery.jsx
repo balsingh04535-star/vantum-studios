@@ -136,8 +136,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#08080a', // Ultra-luxury deep charcoal
-        color: '#f4f4f5',
+        backgroundColor: '#ebf5df', // Unified light cream background
+        color: '#0f0f0f',
         padding: '3rem 3.5rem 6rem 3.5rem',
         boxSizing: 'border-box',
         display: 'flex',
@@ -146,15 +146,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         overflow: 'hidden',
       }}
     >
-      {/* ── Ultra-crisp 4K Studio Lighting Gradient ── */}
+      {/* ── Light Studio Lighting Gradient ── */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(255, 255, 255, 0.04) 0%, transparent 75%),
-            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(196, 214, 0, 0.025) 0%, transparent 70%),
-            #08080a
+            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(130, 145, 0, 0.08) 0%, transparent 75%),
+            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(15, 118, 110, 0.04) 0%, transparent 70%),
+            #ebf5df
           `,
           pointerEvents: 'none',
           zIndex: 0,
@@ -174,14 +174,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <CrosshairStarIcon size={18} color="#8e8e93" />
+          <CrosshairStarIcon size={18} color="#3f3f46" />
           <span
             style={{
               fontSize: '0.68rem',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              color: '#8e8e93',
+              color: '#3f3f46',
               fontFamily: 'var(--font-main)',
             }}
           >
@@ -194,7 +194,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             fontSize: '0.85rem',
             letterSpacing: '0.35em',
             fontWeight: 600,
-            color: '#ffffff',
+            color: '#0f0f0f',
             fontFamily: 'var(--font-heading)',
             textTransform: 'uppercase',
           }}
@@ -210,14 +210,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             gap: '0.55rem',
             padding: '0.45rem 1.15rem',
             borderRadius: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.22)',
+            border: '1px solid rgba(15, 15, 15, 0.25)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
             fontWeight: 600,
-            color: '#ffffff',
+            color: '#0f0f0f',
             fontFamily: 'var(--font-main)',
             cursor: 'pointer',
-            background: 'rgba(255, 255, 255, 0.02)',
+            background: 'rgba(15, 15, 15, 0.03)',
             backdropFilter: 'blur(8px)',
           }}
         >
@@ -327,8 +327,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
         viewBox="0 0 3200 300"
         idPrefix="curve1"
-        textColor="#ffffff"
-        glowColor="#c4d600"
+        textColor="#0f0f0f"
+        glowColor="#829100"
         repeatCount={4}
       />
 

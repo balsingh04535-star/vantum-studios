@@ -154,7 +154,8 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         .image-expansion-typography-section {
           width: 100%;
           padding: 6rem 2rem 10rem 2rem;
-          color: #ffffff;
+          color: #0f0f0f;
+          background-color: #ebf5df;
           position: relative;
           z-index: 3;
           box-sizing: border-box;
@@ -177,18 +178,18 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         .meta {
           grid-area: meta;
           font-family: var(--font-main);
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          font-weight: 500;
-          color: #8e8e93;
+          font-weight: 600;
+          color: #3f3f46;
           margin-bottom: 2vh;
         }
 
         .meta::before {
           content: '\\2014';
           padding-right: 0.4rem;
-          color: #c4d600;
+          color: #829100;
         }
 
         .type {
@@ -199,7 +200,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           text-transform: none;
           line-height: 1.1;
           font-weight: normal;
-          color: #ffffff;
+          color: #0f0f0f;
         }
 
         .type__expand {
@@ -243,7 +244,8 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           border-radius: 4rem;
           vertical-align: middle;
           transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.7s ease;
-          background: #18181b;
+          background: #d4e0c5;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .type__expand-img-inner {
@@ -279,12 +281,12 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
 
         .type--open .skewed {
           transform: skewX(-18deg);
-          color: #c4d600;
+          color: #829100;
         }
 
         .type--open .rotated {
           transform: skewX(-5deg) rotateZ(-8deg);
-          color: #c4d600;
+          color: #829100;
         }
 
         .block {
@@ -294,9 +296,10 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           line-height: 1.6;
           font-family: var(--font-main);
           font-size: 0.95rem;
-          color: #8e8e93;
+          color: #27272a;
           text-transform: uppercase;
           letter-spacing: 0.05em;
+          font-weight: 400;
         }
 
         @media screen and (min-width: 53em) {
