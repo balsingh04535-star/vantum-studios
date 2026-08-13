@@ -125,7 +125,7 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar'), {
             width: `${3 + (searchBarFinalWidth - 3) * p}rem`,
             height: `${3 + (5 - 3) * p}rem`,
-            transform: `translate(-50%, ${-50 + 250 * p}%)`,
+            transform: `translate(-50%, ${-50 + 130 * p}%)`,
           });
 
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
@@ -133,7 +133,7 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar'), {
             width: `${searchBarFinalWidth}rem`,
             height: '5rem',
-            transform: 'translate(-50%, 200%)',
+            transform: 'translate(-50%, 80%)',
           });
         }
 
@@ -144,13 +144,13 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar p'), { opacity: p });
 
           gsap.set(container.querySelector('.header-content'), {
-            y: -50 + 50 * p,
+            y: -20 + 20 * p,
             opacity: p,
           });
         } else {
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
           gsap.set(container.querySelector('.header-content'), {
-            y: -50,
+            y: -20,
             opacity: 0,
           });
         }
@@ -308,7 +308,10 @@ export default function FooterSystemInteractive() {
 
         .footer-system-interactive-root .intro h1,
         .footer-system-interactive-root .outro h1 {
-          width: 50%;
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          text-align: center;
         }
 
         .footer-system-interactive-root .spotlight-content,
@@ -329,19 +332,39 @@ export default function FooterSystemInteractive() {
         }
 
         .footer-system-interactive-root .spotlight-content h1 {
-          width: 45%;
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          text-align: center;
         }
 
         .footer-system-interactive-root .header-content {
-          width: 60%;
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0 2rem;
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           text-align: center;
-          gap: 2rem;
+          gap: 1.5rem;
           will-change: transform, opacity;
-          transform: translateY(-100px);
           opacity: 0;
+        }
+
+        .footer-system-interactive-root .header-content h1 {
+          width: 100%;
+          max-width: 850px;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .footer-system-interactive-root .header-content p {
+          width: 100%;
+          max-width: 650px;
+          margin: 0 auto;
+          text-align: center;
         }
 
         .footer-system-interactive-root .feature {

@@ -143,7 +143,9 @@ export default function SpotlightSVGPath() {
 
         .spotlight-hero h1,
         .spotlight-outro h1 {
-          width: 60%;
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
           text-align: center;
           font-size: clamp(2rem, 4.5vw, 4rem);
           font-weight: 500;
