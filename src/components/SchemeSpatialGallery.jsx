@@ -135,8 +135,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#08080a', // Ultra-luxury deep charcoal
-        color: '#f4f4f5',
+        backgroundColor: 'var(--bg-cream, #f4f3ef)',
+        color: '#0f0f0f',
         padding: 0,
         boxSizing: 'border-box',
         display: 'flex',
@@ -174,14 +174,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <CrosshairStarIcon size={18} color="#8e8e93" />
+          <CrosshairStarIcon size={18} color="#52525b" />
           <span
             style={{
               fontSize: '0.68rem',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              color: '#8e8e93',
+              color: '#52525b',
               fontFamily: 'var(--font-main)',
             }}
           >
@@ -194,7 +194,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             fontSize: '0.85rem',
             letterSpacing: '0.35em',
             fontWeight: 600,
-            color: '#ffffff',
+            color: '#0f0f0f',
             fontFamily: 'var(--font-heading)',
             textTransform: 'uppercase',
           }}
@@ -210,14 +210,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             gap: '0.55rem',
             padding: '0.45rem 1.15rem',
             borderRadius: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.22)',
+            border: '1px solid rgba(0, 0, 0, 0.18)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
             fontWeight: 600,
-            color: '#ffffff',
+            color: '#0f0f0f',
             fontFamily: 'var(--font-main)',
             cursor: 'pointer',
-            background: 'rgba(255, 255, 255, 0.02)',
+            background: 'rgba(0, 0, 0, 0.04)',
             backdropFilter: 'blur(8px)',
           }}
         >

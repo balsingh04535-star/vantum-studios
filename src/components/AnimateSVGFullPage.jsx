@@ -429,8 +429,8 @@ export default function AnimateSVGFullPage() {
         .animate-svg-fullpage-root {
           width: 100%;
           min-height: 100vh;
-          background-color: #0a0104;
-          color: #ffffff;
+          background-color: var(--bg-cream, #f4f3ef);
+          color: #0f0f0f;
           font-family: poynter-oldstyle-display-con, 'Cormorant Garamond', 'Syne', serif;
           position: relative;
           z-index: 2;
@@ -445,13 +445,13 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main a {
           text-decoration: none;
-          color: #5c5c5c;
+          color: #52525b;
           outline: none;
         }
 
         .svgpage-main a:hover,
         .svgpage-main a:focus {
-          color: #ffffff;
+          color: #0f0f0f;
           outline: none;
         }
 
@@ -467,6 +467,7 @@ export default function AnimateSVGFullPage() {
           font-size: 1rem;
           margin: 0 0 1rem;
           font-weight: normal;
+          color: #0f0f0f;
         }
 
         .svgpage-main .frame__links {
@@ -481,6 +482,7 @@ export default function AnimateSVGFullPage() {
           margin: 1rem 0;
           font-size: 1rem;
           font-weight: 400;
+          color: #0f0f0f;
         }
 
         .svgpage-main .frame__counter {
@@ -488,6 +490,7 @@ export default function AnimateSVGFullPage() {
           align-items: baseline;
           line-height: 0.8rem;
           text-align: center;
+          color: #0f0f0f;
         }
 
         .svgpage-main .frame__counter span {
@@ -500,6 +503,7 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .frame__counter-number {
           font-size: 200%;
+          color: #0f0f0f;
         }
 
         .svgpage-main .intro {
@@ -516,14 +520,14 @@ export default function AnimateSVGFullPage() {
           margin: 0;
           font-weight: 400;
           line-height: 1;
-          color: #ffffff;
+          color: #0f0f0f;
         }
 
         .svgpage-main .intro__hint {
           position: relative;
           text-transform: uppercase;
           margin: 8vh 0 0 0;
-          color: #ffffff;
+          color: #52525b;
         }
 
         .svgpage-main .intro__hint::after {
@@ -560,7 +564,7 @@ export default function AnimateSVGFullPage() {
           text-align: right;
           font-size: 3rem;
           line-height: 1;
-          color: #ffffff;
+          color: #18181b;
         }
 
         .svgpage-main .grid__item-img {
@@ -574,11 +578,11 @@ export default function AnimateSVGFullPage() {
           text-transform: uppercase;
           font-weight: 400;
           margin: 0 0 2.75rem 0;
-          color: #ffffff;
+          color: #0f0f0f;
         }
 
         .svgpage-main .grid__item-description {
-          color: #504f4f;
+          color: #52525b;
           font-family: news-gothic-std, sans-serif;
           line-height: 1.5;
           padding-right: 1rem;
@@ -598,20 +602,21 @@ export default function AnimateSVGFullPage() {
         }
 
         .svgpage-main .svgtext text {
-          fill: #fff;
+          fill: #0f0f0f;
           font-size: 42px;
         }
 
         .svgpage-main .svgtext--1 text {
-          fill: #fff;
+          fill: #0f0f0f;
         }
 
         .svgpage-main .svgtext--2 text {
-          fill: #8569c2;
+          fill: #5b21b6;
         }
 
         .svgpage-main .svgtext--3 text {
           font-size: 32px;
+          fill: #18181b;
         }
 
         .svgpage-main .svgtext--4 {
@@ -620,7 +625,7 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .svgtext--4 text {
           font-size: 48px;
-          fill: #f9e9a4;
+          fill: #a16207;
         }
 
         @media screen and (min-width: 53em) {
