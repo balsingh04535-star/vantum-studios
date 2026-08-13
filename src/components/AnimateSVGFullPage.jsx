@@ -429,8 +429,8 @@ export default function AnimateSVGFullPage() {
         .animate-svg-fullpage-root {
           width: 100%;
           min-height: 100vh;
-          background-color: var(--bg-cream, #f4f3ef);
-          color: #0f0f0f;
+          background-color: #0d0d11;
+          color: #f4f3ef;
           font-family: poynter-oldstyle-display-con, 'Cormorant Garamond', 'Syne', serif;
           position: relative;
           z-index: 2;
@@ -445,13 +445,13 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main a {
           text-decoration: none;
-          color: #52525b;
+          color: #a1a1aa;
           outline: none;
         }
 
         .svgpage-main a:hover,
         .svgpage-main a:focus {
-          color: #0f0f0f;
+          color: #ffffff;
           outline: none;
         }
 
@@ -467,7 +467,7 @@ export default function AnimateSVGFullPage() {
           font-size: 1rem;
           margin: 0 0 1rem;
           font-weight: normal;
-          color: #0f0f0f;
+          color: #f4f3ef;
         }
 
         .svgpage-main .frame__links {
@@ -482,7 +482,7 @@ export default function AnimateSVGFullPage() {
           margin: 1rem 0;
           font-size: 1rem;
           font-weight: 400;
-          color: #0f0f0f;
+          color: #f4f3ef;
         }
 
         .svgpage-main .frame__counter {
@@ -490,7 +490,7 @@ export default function AnimateSVGFullPage() {
           align-items: baseline;
           line-height: 0.8rem;
           text-align: center;
-          color: #0f0f0f;
+          color: #f4f3ef;
         }
 
         .svgpage-main .frame__counter span {
@@ -503,7 +503,7 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .frame__counter-number {
           font-size: 200%;
-          color: #0f0f0f;
+          color: #c4d600;
         }
 
         .svgpage-main .intro {
@@ -520,14 +520,14 @@ export default function AnimateSVGFullPage() {
           margin: 0;
           font-weight: 400;
           line-height: 1;
-          color: #0f0f0f;
+          color: #f4f3ef;
         }
 
         .svgpage-main .intro__hint {
           position: relative;
           text-transform: uppercase;
           margin: 8vh 0 0 0;
-          color: #52525b;
+          color: #a1a1aa;
         }
 
         .svgpage-main .intro__hint::after {
@@ -562,15 +562,17 @@ export default function AnimateSVGFullPage() {
         .svgpage-main .grid__item-number {
           display: block;
           text-align: right;
-          font-size: 3rem;
+          font-size: 3.5rem;
           line-height: 1;
-          color: #18181b;
+          color: #c4d600;
+          font-weight: 300;
         }
 
         .svgpage-main .grid__item-img {
           margin: 1rem 0 1.75rem;
           max-width: 100%;
           display: block;
+          border-radius: 8px;
         }
 
         .svgpage-main .grid__item-title {
@@ -578,13 +580,13 @@ export default function AnimateSVGFullPage() {
           text-transform: uppercase;
           font-weight: 400;
           margin: 0 0 2.75rem 0;
-          color: #0f0f0f;
+          color: #f4f3ef;
         }
 
         .svgpage-main .grid__item-description {
-          color: #52525b;
+          color: #a1a1aa;
           font-family: news-gothic-std, sans-serif;
-          line-height: 1.5;
+          line-height: 1.6;
           padding-right: 1rem;
         }
 
@@ -593,6 +595,7 @@ export default function AnimateSVGFullPage() {
           width: 100%;
           max-width: calc(1025px - 3rem);
           margin: 25vh auto;
+          border-radius: 12px;
         }
 
         .svgpage-main .svgtext {
@@ -602,21 +605,21 @@ export default function AnimateSVGFullPage() {
         }
 
         .svgpage-main .svgtext text {
-          fill: #0f0f0f;
+          fill: #f4f3ef;
           font-size: 42px;
         }
 
         .svgpage-main .svgtext--1 text {
-          fill: #0f0f0f;
+          fill: #f4f3ef;
         }
 
         .svgpage-main .svgtext--2 text {
-          fill: #5b21b6;
+          fill: #c4d600;
         }
 
         .svgpage-main .svgtext--3 text {
           font-size: 32px;
-          fill: #18181b;
+          fill: #a1a1aa;
         }
 
         .svgpage-main .svgtext--4 {
