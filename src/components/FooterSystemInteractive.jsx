@@ -126,8 +126,8 @@ export default function FooterSystemInteractive() {
             width: `${3 + (searchBarFinalWidth - 3) * p}rem`,
             height: `${3 + (4.5 - 3) * p}rem`,
             top: `${50 + 18 * p}%`,
-            left: `${50 - 20 * p}%`,
-            transform: `translate(-50%, -50%)`,
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           });
 
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
@@ -136,7 +136,7 @@ export default function FooterSystemInteractive() {
             width: `${searchBarFinalWidth}rem`,
             height: '4.5rem',
             top: '68%',
-            left: '30%',
+            left: '50%',
             transform: 'translate(-50%, -50%)',
           });
         }
@@ -148,13 +148,13 @@ export default function FooterSystemInteractive() {
           gsap.set(container.querySelector('.search-bar p'), { opacity: p });
 
           gsap.set(container.querySelector('.header-content'), {
-            y: -70 + 10 * p,
+            y: -60 + 10 * p,
             opacity: p,
           });
         } else {
           gsap.set(container.querySelector('.search-bar p'), { opacity: 0 });
           gsap.set(container.querySelector('.header-content'), {
-            y: -70,
+            y: -60,
             opacity: 0,
           });
         }
@@ -346,12 +346,12 @@ export default function FooterSystemInteractive() {
           width: 100%;
           max-width: 850px;
           margin: 0 auto;
-          padding: 0 4vw;
+          padding: 0 2rem;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
           justify-content: center;
-          text-align: left;
+          text-align: center;
           gap: 1.25rem;
           will-change: transform, opacity;
           opacity: 0;
@@ -360,8 +360,8 @@ export default function FooterSystemInteractive() {
         .footer-system-interactive-root .header-content h1 {
           width: 100%;
           max-width: 800px;
-          margin: 0;
-          text-align: left;
+          margin: 0 auto;
+          text-align: center;
           font-size: clamp(2.2rem, 4.5vw, 4.2rem);
           line-height: 1.05;
         }
@@ -369,8 +369,8 @@ export default function FooterSystemInteractive() {
         .footer-system-interactive-root .header-content p {
           width: 100%;
           max-width: 600px;
-          margin: 0;
-          text-align: left;
+          margin: 0 auto;
+          text-align: center;
           font-size: clamp(0.95rem, 1.2vw, 1.15rem);
           line-height: 1.5;
         }
@@ -425,9 +425,9 @@ export default function FooterSystemInteractive() {
         .footer-system-interactive-root .search-bar {
           position: absolute;
           top: 68%;
-          left: 30%;
+          left: 50%;
           transform: translate(-50%, -50%);
-          margin: 0;
+          margin: 0 auto;
           width: 3rem;
           height: 3rem;
           border-radius: 25rem;
