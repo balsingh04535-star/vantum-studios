@@ -42,20 +42,24 @@ export default function MasonryShowcaseGrid() {
 
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
+    // ── Responsive Movement Calibration for Mobile vs Desktop ──
+    const isMobile = window.innerWidth <= 768;
+    const moveDistance = isMobile ? 40 : 120; // 40px gentle glide on mobile, 120px on desktop
+    const scrubTime = isMobile ? 1.8 : 1.5;   // 1.8s ultra-smooth scrub on mobile touch
+
     const ctx = gsap.context(() => {
       // ── Counter-Parallax Scroll Trigger Timeline ──
-      // When scrolling DOWN: Left & Right columns move UP (-120px) while Center column moves DOWN (+120px)
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: 'top 85%',
-          end: 'bottom 15%',
-          scrub: 1.5,
+          start: isMobile ? 'top 90%' : 'top 85%',
+          end: isMobile ? 'bottom 10%' : 'bottom 15%',
+          scrub: scrubTime,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: -120, ease: 'none' }, 0)   // LEFT moves UP on scroll down
-      .fromTo(centerCol, { y: 0 }, { y: 120, ease: 'none' }, 0)  // CENTER moves DOWN on scroll down
-      .fromTo(rightCol, { y: 0 }, { y: -120, ease: 'none' }, 0);  // RIGHT moves UP on scroll down
+      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0)   // LEFT moves UP
+      .fromTo(centerCol, { y: 0 }, { y: moveDistance, ease: 'none' }, 0)  // CENTER moves DOWN
+      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0);  // RIGHT moves UP
     }, containerRef);
 
     return () => ctx.revert();
