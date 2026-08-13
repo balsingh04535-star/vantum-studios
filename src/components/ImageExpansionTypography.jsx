@@ -20,15 +20,12 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         const animTexts = typeEl.querySelectorAll('.anim');
         const block = typeEl.closest('.content')?.querySelector('.block');
 
-        // ScrollTrigger to animate type--open expansion on scroll (1:1 with reference ImageExpansionTypography-main)
+        // ScrollTrigger to expand image OPEN on scroll and keep it open
         ScrollTrigger.create({
           trigger: typeEl,
-          start: 'top 75%',
-          end: 'bottom 25%',
+          start: 'top 85%',
           onEnter: () => typeEl.classList.add('type--open'),
-          onLeaveBack: () => typeEl.classList.remove('type--open'),
           onEnterBack: () => typeEl.classList.add('type--open'),
-          onLeave: () => typeEl.classList.remove('type--open'),
         });
 
         if (block) {
