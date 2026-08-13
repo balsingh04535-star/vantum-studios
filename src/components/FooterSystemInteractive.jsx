@@ -149,7 +149,7 @@ export default function FooterSystemInteractive() {
 
           gsap.set(container.querySelector('.header-content'), {
             y: -60 + 10 * p,
-            x: -110 * p,
+            x: -35 * p,
             opacity: p,
           });
         } else {
