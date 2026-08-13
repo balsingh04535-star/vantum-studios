@@ -34,10 +34,10 @@ export default function SpiralGallery({ items = defaultSpiralImages, height = '7
       if (totalCards === 0) return;
 
       const isMobile = window.innerWidth < 768;
-      const radiusX = isMobile ? 160 : 360;
-      const radiusZ = isMobile ? 160 : 320;
-      const heightGap = isMobile ? 38 : 52;
-      const waveCycles = 1.35;
+      const radiusX = isMobile ? 220 : 540;
+      const radiusZ = isMobile ? 180 : 320;
+      const heightGap = isMobile ? 18 : 24;
+      const waveCycles = 1.1;
 
       const updateSpiral = () => {
         const globalProgress = animationProps.current.progress;
@@ -50,12 +50,12 @@ export default function SpiralGallery({ items = defaultSpiralImages, height = '7
 
           const x = Math.sin(angle) * radiusX;
           const z = Math.cos(angle) * radiusZ;
-          const y = (cardProgress - 0.48) * totalCards * heightGap + 20;
+          const y = Math.sin(angle * 2) * (isMobile ? 25 : 45);
 
-          const rotationY = Math.sin(angle) * -32;
-          const rotationZ = (cardProgress - 0.5) * -8;
+          const rotationY = Math.sin(angle) * -28;
+          const rotationZ = Math.cos(angle) * -12;
 
-          const baseScale = gsap.utils.mapRange(-radiusZ, radiusZ, 0.72, 1.12, z);
+          const baseScale = gsap.utils.mapRange(-radiusZ, radiusZ, 0.75, 1.15, z);
 
           gsap.set(card, {
             x: x,

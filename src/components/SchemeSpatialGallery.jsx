@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Sparkles, Eye, X } from 'lucide-react';
 import gsap from 'gsap';
 import ClientGlobe from './ClientGlobe';
+import SpiralGallery from './SpiralGallery';
 
 export const selectedWorks = [
   {
@@ -244,45 +245,37 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </div>
 
-      {/* ── CENTERED EDITORIAL HEADLINE & STATEMENT ── */}
+      {/* ── 3D PARALLAX PREMIUM WORK SCROLLER ── */}
       <div
         style={{
-          textAlign: 'center',
-          maxWidth: '900px',
-          margin: '0 auto 5rem auto',
+          width: '100%',
+          maxWidth: '1300px',
+          margin: '0 auto 4rem auto',
           position: 'relative',
           zIndex: 2,
         }}
       >
-        <h1
+        <div
           style={{
-            fontSize: 'clamp(2.5rem, 5.2vw, 6.2rem)',
-            fontWeight: 400,
-            lineHeight: 0.95,
-            letterSpacing: '-0.04em',
-            color: '#ffffff',
-            fontFamily: 'var(--font-heading)',
-            textTransform: 'uppercase',
-            marginBottom: '1.8rem',
+            textAlign: 'center',
+            marginBottom: '1rem',
           }}
         >
-          PARTNERS <span style={{ color: '#484850' }}>WHO DEMANDED</span><br />
-          THE EXTRAORDINARY.
-        </h1>
+          <span
+            style={{
+              fontSize: '0.68rem',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              fontWeight: 600,
+              color: '#c4d600',
+              fontFamily: 'var(--font-main)',
+            }}
+          >
+            PARALLAX WORK SHOWCASE
+          </span>
+        </div>
 
-        <p
-          style={{
-            fontSize: 'clamp(0.95rem, 1.2vw, 1.15rem)',
-            lineHeight: 1.65,
-            color: '#8e8e93',
-            maxWidth: '680px',
-            margin: '0 auto',
-            fontFamily: 'var(--font-main)',
-            fontWeight: 400,
-          }}
-        >
-          We collaborate with visionaries and ambitious market leaders — crafting living digital realities, high-fashion platforms, and kinetic applications that move culture forward.
-        </p>
+        <SpiralGallery height="52vh" />
       </div>
 
       {/* ── EDITORIAL WORK SHOWCASE ("SHOW OUR WORK") ── */}
