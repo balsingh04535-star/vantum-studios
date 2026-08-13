@@ -3,8 +3,7 @@ import { ArrowUpRight, Crosshair, Eye, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
-import AnimateSVGTextPath from './AnimateSVGTextPath';
-import ImageExpansionTypography from './ImageExpansionTypography';
+import AnimateSVGFullPage from './AnimateSVGFullPage';
 
 export const selectedWorks = [
   {
@@ -136,8 +135,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#ebf5df', // Unified light cream background
-        color: '#0f0f0f',
+        backgroundColor: '#08080a', // Ultra-luxury deep charcoal
+        color: '#f4f4f5',
         padding: '3rem 3.5rem 6rem 3.5rem',
         boxSizing: 'border-box',
         display: 'flex',
@@ -146,15 +145,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         overflow: 'hidden',
       }}
     >
-      {/* ── Light Studio Lighting Gradient ── */}
+      {/* ── Ultra-crisp 4K Studio Lighting Gradient ── */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(130, 145, 0, 0.08) 0%, transparent 75%),
-            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(15, 118, 110, 0.04) 0%, transparent 70%),
-            #ebf5df
+            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(255, 255, 255, 0.04) 0%, transparent 75%),
+            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(196, 214, 0, 0.025) 0%, transparent 70%),
+            #08080a
           `,
           pointerEvents: 'none',
           zIndex: 0,
@@ -174,14 +173,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <CrosshairStarIcon size={18} color="#3f3f46" />
+          <CrosshairStarIcon size={18} color="#8e8e93" />
           <span
             style={{
               fontSize: '0.68rem',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              color: '#3f3f46',
+              color: '#8e8e93',
               fontFamily: 'var(--font-main)',
             }}
           >
@@ -194,7 +193,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             fontSize: '0.85rem',
             letterSpacing: '0.35em',
             fontWeight: 600,
-            color: '#0f0f0f',
+            color: '#ffffff',
             fontFamily: 'var(--font-heading)',
             textTransform: 'uppercase',
           }}
@@ -210,14 +209,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             gap: '0.55rem',
             padding: '0.45rem 1.15rem',
             borderRadius: '20px',
-            border: '1px solid rgba(15, 15, 15, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.22)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
             fontWeight: 600,
-            color: '#0f0f0f',
+            color: '#ffffff',
             fontFamily: 'var(--font-main)',
             cursor: 'pointer',
-            background: 'rgba(15, 15, 15, 0.03)',
+            background: 'rgba(255, 255, 255, 0.02)',
             backdropFilter: 'blur(8px)',
           }}
         >
@@ -282,146 +281,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </div>
 
-      {/* ── 3D PARALLAX PREMIUM WORK SCROLLER (Replacing Static Text Block) ── */}
-      <div
-        ref={parallaxTrackRef}
-        style={{
-          width: '100%',
-          maxWidth: '1300px',
-          margin: '2rem auto 4rem auto',
-          position: 'relative',
-          zIndex: 3,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          perspective: '1200px',
-        }}
-      >
-        <div className="parallax-scroller-row">
-          {selectedWorks.map((work, idx) => (
-            <div
-              key={work.id}
-              ref={(el) => (cardsRef.current[idx] = el)}
-              className="parallax-work-card"
-              onClick={() => setSelectedProject(work)}
-            >
-              <div className="card-image-wrap">
-                <img src={work.image} alt={work.title} className="card-img" />
-                <div className="card-overlay">
-                  <div className="card-badge">{work.num} · {work.client}</div>
-                  <div className="card-title-text">{work.title}</div>
-                  <span className="card-view-link">
-                    <span>Explore Case Study</span>
-                    <ArrowUpRight size={14} />
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── FLOWING SVG TEXT ON PATH (From reference AnimateSVGTextPath-master) ── */}
-      <AnimateSVGTextPath
-        text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
-        pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
-        viewBox="0 0 3200 300"
-        idPrefix="curve1"
-        textColor="#0f0f0f"
-        glowColor="#829100"
-        repeatCount={4}
-      />
-
-      {/* ── IMAGE EXPANSION TYPOGRAPHY SHOWCASE (From reference ImageExpansionTypography-main) ── */}
-      <ImageExpansionTypography onOpenInquiry={onOpenInquiry} />
-
-      {/* ── Case Study Detail Modal ── */}
-      {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-              <div>
-                <span className="badge" style={{ color: '#c4d600', borderColor: 'rgba(196,214,0,0.3)' }}>
-                  {selectedProject.category}
-                </span>
-                <h2 style={{ marginTop: '0.75rem', fontSize: '2rem', color: '#fff' }}>{selectedProject.title}</h2>
-              </div>
-              <button
-                onClick={() => setSelectedProject(null)}
-                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '0.5rem' }}
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            <div style={{ height: '320px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.5rem' }}>
-              <img src={selectedProject.image} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-
-            <p style={{ fontSize: '1.05rem', marginBottom: '1.5rem', color: '#a1a1aa', lineHeight: 1.6 }}>
-              {selectedProject.summary}
-            </p>
-
-            <div style={{ marginBottom: '2rem' }}>
-              <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#c4d600', marginBottom: '0.75rem' }}>
-                Deliverables & Scope
-              </h4>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {selectedProject.deliverables.map((item, idx) => (
-                  <span key={idx} style={{ background: 'rgba(255,255,255,0.06)', padding: '0.4rem 0.85rem', borderRadius: '6px', fontSize: '0.82rem', color: '#f4f4f5' }}>
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <button
-                onClick={() => { setSelectedProject(null); onOpenInquiry(); }}
-                style={{
-                  background: '#c4d600',
-                  color: '#08080a',
-                  border: 'none',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '24px',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}
-              >
-                <span>Commission Similar Work</span>
-                <ArrowUpRight size={18} />
-              </button>
-              <button
-                onClick={() => setSelectedProject(null)}
-                style={{
-                  background: 'transparent',
-                  color: '#fff',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '24px',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-              >
-                Close Case Study
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Second Flowing SVG Text Wave above footer ── */}
-      <AnimateSVGTextPath
-        text="DRIVEN BY PURPOSE · DEFINED BY IMPACT · CREATIVE PRACTICE"
-        pathD="M 0 100 Q 250 0 500 100 Q 750 200 1000 100"
-        idPrefix="curve2"
-        textColor="#71717a"
-        glowColor="#c4d600"
-      />
+      {/* ── FULL PAGE COMPONENT FROM code (35)\AnimateSVGTextPath-master ── */}
+      <AnimateSVGFullPage />
 
       {/* ── Footer Tagline ── */}
       <footer
@@ -671,40 +532,18 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           color: #fff;
         }
         @media (max-width: 768px) {
-          section {
-            padding: 1.5rem 1rem 3rem 1rem !important;
-          }
-          header {
-            margin-top: 1rem !important;
-            margin-bottom: 1.5rem !important;
-          }
-          header > div:last-child {
-            display: none !important;
-          }
           .globe-hero-wrapper {
             display: none !important;
           }
           .parallax-scroller-row {
-            flex-wrap: nowrap !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            justify-content: flex-start !important;
-            padding: 0.75rem 0 !important;
-            gap: 1rem !important;
-            width: 100% !important;
-            scroll-snap-type: x mandatory !important;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            justify-content: flex-start;
+            padding: 1rem;
           }
           .parallax-work-card {
-            flex: 0 0 clamp(260px, 82vw, 320px) !important;
-            aspect-ratio: 16/10 !important;
+            flex: 0 0 240px;
             transform: none !important;
-            scroll-snap-align: center !important;
-          }
-          footer {
-            flex-direction: column !important;
-            gap: 1.5rem !important;
-            align-items: center !important;
-            text-align: center !important;
           }
         }
       `}</style>
