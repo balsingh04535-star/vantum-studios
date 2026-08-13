@@ -162,83 +162,222 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       />
 
-      {/* ── Top Header Navigation Bar ── */}
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-          padding: '2.5rem 3.5rem 0 3.5rem',
-          boxSizing: 'border-box',
-          marginBottom: '2rem',
-          zIndex: 10,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <CrosshairStarIcon size={18} color="#52525b" />
-          <span
-            style={{
-              fontSize: '0.68rem',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              fontWeight: 600,
-              color: '#52525b',
-              fontFamily: 'var(--font-main)',
-            }}
-          >
-            Vantum Global Network
-          </span>
-        </div>
-
-        <div
+      {/* ── SHEET 1: Spatial Gallery Hero (Light Cream) ── */}
+      <div className="sheet-card sheet-card-1" style={{ position: 'relative', width: '100%' }}>
+        {/* Fixed Header */}
+        <header
           style={{
-            fontSize: '0.85rem',
-            letterSpacing: '0.35em',
-            fontWeight: 600,
-            color: '#0f0f0f',
-            fontFamily: 'var(--font-heading)',
-            textTransform: 'uppercase',
-          }}
-        >
-          VANTUM
-        </div>
-
-        <div
-          onClick={onOpenInquiry}
-          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            padding: '2.5rem 4vw',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.55rem',
-            padding: '0.45rem 1.15rem',
-            borderRadius: '20px',
-            border: '1px solid rgba(0, 0, 0, 0.18)',
-            fontSize: '0.68rem',
-            letterSpacing: '0.2em',
-            fontWeight: 600,
-            color: '#0f0f0f',
-            fontFamily: 'var(--font-main)',
-            cursor: 'pointer',
-            background: 'rgba(0, 0, 0, 0.04)',
-            backdropFilter: 'blur(8px)',
+            justifyContent: 'space-between',
+            zIndex: 30,
           }}
         >
-          <span>MENU</span>
-          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <line x1="0" y1="2" x2="12" y2="2" />
-            <line x1="0" y1="8" x2="12" y2="8" />
-          </svg>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <span
+              style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                backgroundColor: '#c4d600',
+                display: 'inline-block',
+              }}
+            />
+            <span
+              style={{
+                fontSize: '0.68rem',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+                color: '#52525b',
+                fontFamily: 'var(--font-main)',
+              }}
+            >
+              Vantum Global Network
+            </span>
+          </div>
+
+          <div
+            style={{
+              fontSize: '0.85rem',
+              letterSpacing: '0.35em',
+              fontWeight: 600,
+              color: '#0f0f0f',
+              fontFamily: 'var(--font-heading)',
+              textTransform: 'uppercase',
+            }}
+          >
+            VANTUM
+          </div>
+
+          <div
+            onClick={onOpenInquiry}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.55rem',
+              padding: '0.45rem 1.15rem',
+              borderRadius: '20px',
+              border: '1px solid rgba(0, 0, 0, 0.18)',
+              fontSize: '0.68rem',
+              letterSpacing: '0.2em',
+              fontWeight: 600,
+              color: '#0f0f0f',
+              fontFamily: 'var(--font-main)',
+              cursor: 'pointer',
+              background: 'rgba(0, 0, 0, 0.04)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            <span>MENU</span>
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <line x1="0" y1="2" x2="12" y2="2" />
+              <line x1="0" y1="8" x2="12" y2="8" />
+            </svg>
+          </div>
+        </header>
+
+        {/* Hero Title */}
+        <div style={{ paddingTop: '8rem', textAlign: 'center', paddingLeft: '2rem', paddingRight: '2rem' }}>
+          <h1
+            style={{
+              fontSize: 'clamp(2.5rem, 5vw, 5.5rem)',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 300,
+              lineHeight: 1.05,
+              maxWidth: '900px',
+              margin: '0 auto 1.5rem auto',
+            }}
+          >
+            Spatial Systems Architecture
+          </h1>
+          <p
+            style={{
+              fontSize: '1.15rem',
+              color: '#52525b',
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.6,
+            }}
+          >
+            Interactive WebGL models, generative canvas structures, and high-performance digital environments.
+          </p>
         </div>
-      </header>
 
-      {/* ── FULL PAGE COMPONENT FROM code (35)\AnimateSVGTextPath-master ── */}
-      <AnimateSVGFullPage />
+        {/* Interactive 3D Parallax Gallery Track */}
+        <div
+          ref={parallaxTrackRef}
+          style={{
+            position: 'relative',
+            width: '100%',
+            minHeight: '75vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '4rem 2rem',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '1.5rem',
+              perspective: '1200px',
+              width: '100%',
+              maxWidth: '1200px',
+            }}
+          >
+            {selectedWorks.map((work, index) => (
+              <div
+                key={work.id}
+                ref={(el) => (cardsRef.current[index] = el)}
+                onClick={() => setSelectedProject(work)}
+                className="spatial-card"
+                style={{
+                  position: 'relative',
+                  width: '280px',
+                  height: '380px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
+                  transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease',
+                  willChange: 'transform',
+                }}
+              >
+                <img
+                  src={work.image}
+                  alt={work.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
 
-      {/* ── SPOTLIGHT SVG PATH COMPONENT FROM code (36)\files ── */}
-      <SpotlightSVGPath />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%)',
+                    padding: '1.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    color: '#ffffff',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '0.7rem',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: '#c4d600',
+                      fontWeight: 600,
+                      marginBottom: '0.3rem',
+                    }}
+                  >
+                    {work.category}
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: '1.15rem',
+                      fontFamily: 'var(--font-heading)',
+                      fontWeight: 400,
+                      margin: 0,
+                    }}
+                  >
+                    {work.title}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/* ── INTERACTIVE FOOTER SYSTEM FROM code (31)\files ── */}
-      <FooterSystemInteractive />
+      {/* ── SHEET 2: Deep Charcoal Section (AnimateSVGFullPage) ── */}
+      <div className="sheet-card sheet-card-2" style={{ zIndex: 5, position: 'relative' }}>
+        <AnimateSVGFullPage />
+      </div>
+
+      {/* ── SHEET 3: Soft Ice Light Blue Section (SpotlightSVGPath) ── */}
+      <div className="sheet-card sheet-card-3" style={{ zIndex: 6, position: 'relative' }}>
+        <SpotlightSVGPath />
+      </div>
+
+      {/* ── SHEET 4: Light Cream Section (FooterSystemInteractive) ── */}
+      <div className="sheet-card sheet-card-4" style={{ zIndex: 7, position: 'relative' }}>
+        <FooterSystemInteractive />
+      </div>
 
       {/* ── Footer Tagline ── */}
       <footer
