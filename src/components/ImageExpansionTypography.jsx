@@ -1,35 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function ImageExpansionTypography({ onOpenInquiry }) {
   const containerRef = useRef(null);
-  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
-      const typeElements = container.querySelectorAll('.type');
+      const typeElements = container.querySelectorAll('.iet-type');
+
       typeElements.forEach((typeEl) => {
-        const expandImg = typeEl.querySelector('.type__expand-img');
-        const animTexts = typeEl.querySelectorAll('.anim');
-        const block = typeEl.closest('.content')?.querySelector('.block');
+        const expandImg = typeEl.querySelector('.iet-img-wrap');
+        const animTexts = typeEl.querySelectorAll('.iet-anim');
+        const block = typeEl.closest('.iet-content')?.querySelector('.iet-block');
 
         if (expandImg) {
           gsap.fromTo(
             expandImg,
-            { width: '0%' },
+            { width: isMobile ? '60px' : '0%' },
             {
-              width: '100%',
+              width: isMobile ? '90vw' : '100%',
               ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: typeEl,
                 start: 'top 80%',
-                end: 'bottom 35%',
+                end: isMobile ? 'bottom 60%' : 'bottom 35%',
                 scrub: 0.8,
               },
             }
@@ -41,13 +42,13 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             animTexts,
             { skewX: 0, color: '#0f0f0f' },
             {
-              skewX: -18,
+              skewX: isMobile ? 0 : -18,
               color: '#829100',
               ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: typeEl,
                 start: 'top 80%',
-                end: 'bottom 35%',
+                end: isMobile ? 'bottom 60%' : 'bottom 35%',
                 scrub: 0.8,
               },
             }
@@ -57,17 +58,16 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         if (block) {
           gsap.fromTo(
             block,
-            { yPercent: 40, opacity: 0.3, skewX: -6 },
+            { yPercent: 20, opacity: 0 },
             {
               yPercent: 0,
               opacity: 1,
-              skewX: 0,
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: block,
-                start: 'top 85%',
-                end: 'bottom 50%',
-                scrub: 0.8,
+                start: 'top 90%',
+                end: 'bottom 60%',
+                scrub: 0.5,
               },
             }
           );
@@ -79,103 +79,107 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
   }, []);
 
   return (
-    <div ref={containerRef} className="image-expansion-typography-section">
-      {/* ── Content 1: Project 1 ── */}
-      <div className="content content--left">
-        <h3 className="meta">Project 01 — Spatial Audio</h3>
-        <div className="mobile-image-card">
-          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
+    <div ref={containerRef} className="iet-section">
+
+      {/* Project 01 */}
+      <div className="iet-content">
+        <div className="iet-project-label">
+          <span className="iet-num">01</span>
+          <span className="iet-client">Voltlites Audio Inc.</span>
+          <span className="iet-cat">3D Web &amp; Generative Shaders · 2026</span>
         </div>
-        <h2 className="type" data-expand-1>
+        <h2 className="iet-type">
           Gratitude is my<br />
-          new response<br />
-          to
-          <span className="type__expand type__expand--inline type__expand--reveal">
-            <span className="type__expand-img">
-              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
+          new response to
+          <span className="iet-expand iet-expand--inline">
+            <span className="iet-img-wrap">
+              <span className="iet-img-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
             </span>
-            <span className="anim skewed">judgement.</span>
+            <span className="iet-anim iet-skewed">judgement.</span>
           </span>
         </h2>
-        <p className="block">
-          Behold the boundless dance of yin and yang, where all is flux and nothing holds its shape but for a fleeting breath. The mountain's might, though seeming steadfast, is but a moment's pause in the eternal march of grains of sand.
+        <p className="iet-block">
+          Behold the boundless dance of yin and yang, where all is flux and nothing holds its shape but for a fleeting breath. Interactive WebGL spatial audio with real-time waveform visualization.
         </p>
+        <button className="iet-cta" onClick={onOpenInquiry}>Commission Similar Work →</button>
       </div>
 
-      {/* ── Content 2: Project 2 ── */}
-      <div className="content content--center">
-        <h3 className="meta">Project 02 — Cybernetic Horology</h3>
-        <div className="mobile-image-card">
-          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img4.jpg)' }} />
+      {/* Project 02 */}
+      <div className="iet-content">
+        <div className="iet-project-label">
+          <span className="iet-num">02</span>
+          <span className="iet-client">Chronos Luxury</span>
+          <span className="iet-cat">Brand Systems &amp; E-Commerce · 2026</span>
         </div>
-        <h2 className="type" data-expand-2>
+        <h2 className="iet-type">
           Life's a wild journey;<br />
-          embrace the<br />
-          <span className="type__expand type__expand--reveal type__expand--center">
-            <span className="aright">detours </span>
-            <span className="type__expand-img">
-              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img4.jpg)' }} />
+          embrace the detours
+          <span className="iet-expand iet-expand--inline">
+            <span className="iet-img-wrap">
+              <span className="iet-img-inner" style={{ backgroundImage: 'url(/img4.jpg)' }} />
             </span>
-            <span className="anim skewed">and dance</span>
+            <span className="iet-anim iet-skewed">and dance.</span>
           </span>
-          <br />
-          under the stars.
         </h2>
-        <p className="block">
-          In this dance, even the stars, those ancient sentinels of the night sky, are not stationary but in perpetual motion, tracing their arcs in the fabric of the cosmos. Each spark of light, a testament to the infinite cycle of birth and rebirth.
+        <p className="iet-block">
+          High-fashion digital flagship store for next-generation timepiece collectors featuring real-time 3D watch customization and high-speed headless CMS.
         </p>
+        <button className="iet-cta" onClick={onOpenInquiry}>Commission Similar Work →</button>
       </div>
 
-      {/* ── Content 3: Project 3 ── */}
-      <div className="content content--right">
-        <h3 className="meta">Project 03 — Neural Compute</h3>
-        <div className="mobile-image-card">
-          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img5.jpg)' }} />
+      {/* Project 03 */}
+      <div className="iet-content">
+        <div className="iet-project-label">
+          <span className="iet-num">03</span>
+          <span className="iet-client">Aether Labs</span>
+          <span className="iet-cat">Kinetic UI &amp; AI Dashboards · 2025</span>
         </div>
-        <h2 className="type" data-expand-3>
+        <h2 className="iet-type">
           Let the miles unfurl<br />
-          like stories each<br />
-          <span className="type__expand type__expand--full">
-            <span className="type__expand-img">
-              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img5.jpg)' }} />
+          like stories each
+          <span className="iet-expand iet-expand--full">
+            <span className="iet-img-wrap">
+              <span className="iet-img-inner" style={{ backgroundImage: 'url(/img5.jpg)' }} />
             </span>
           </span>
           one a breath in the<br />
           saga of the soul.
         </h2>
-        <p className="block">
-          As we delve deeper into the mysteries of the cosmos, we encounter the profound realization that the universe itself breathes in a rhythm of creation and dissolution, a cosmic dance that mirrors the cycles of life and death.
+        <p className="iet-block">
+          High-speed AI model training dashboard with GPU-accelerated canvas charts, real-time telemetry websockets, and a comprehensive dark mode design system.
         </p>
+        <button className="iet-cta" onClick={onOpenInquiry}>Commission Similar Work →</button>
       </div>
 
-      {/* ── Content 4: Project 4 ── */}
-      <div className="content content--justify">
-        <h3 className="meta">Project 04 — Autonomous Telemetry</h3>
-        <div className="mobile-image-card">
-          <span className="mobile-image-card-inner" style={{ backgroundImage: 'url(/img8.jpg)' }} />
+      {/* Project 04 */}
+      <div className="iet-content">
+        <div className="iet-project-label">
+          <span className="iet-num">04</span>
+          <span className="iet-client">Hyperion Dynamic</span>
+          <span className="iet-cat">Custom Canvas Engine · 2025</span>
         </div>
-        <h2 className="type" data-expand-4>
-          Soar above
-          <span className="type__expand type__expand--stack">
-            <span className="anim rotated">peaks</span>
-            <span className="type__expand-img type__expand-img--small">
-              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img8.jpg)' }} />
+        <h2 className="iet-type">
+          Soar above{' '}
+          <span className="iet-expand iet-expand--stack">
+            <span className="iet-anim iet-rotated">peaks</span>
+            <span className="iet-img-wrap iet-img-small">
+              <span className="iet-img-inner" style={{ backgroundImage: 'url(/img8.jpg)' }} />
             </span>
           </span>
-          into
-          <span className="type__expand type__expand--stack">
-            <span className="anim rotated">clouds,</span>
-            <span className="type__expand-img type__expand-img--small">
-              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img3.jpg)' }} />
+          {' '}into{' '}
+          <span className="iet-expand iet-expand--stack">
+            <span className="iet-anim iet-rotated">clouds,</span>
+            <span className="iet-img-wrap iet-img-small">
+              <span className="iet-img-inner" style={{ backgroundImage: 'url(/img3.jpg)' }} />
             </span>
           </span>
           <br />
-          and the whispers of the wind<br />
-          like
+          and whispers of the wind.
         </h2>
-        <p className="block">
-          The wind carries secrets of forgotten lands, whispering through ancient trees and singing over desolate dunes, reminding us of the eternal movement of spirit and form.
+        <p className="iet-block">
+          Immersive 3D telemetry experience for electric hypercar racing with real-time aerodynamic simulation across global circuits.
         </p>
+        <button className="iet-cta" onClick={onOpenInquiry}>Commission Similar Work →</button>
       </div>
 
       <style>{`
@@ -186,294 +190,268 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
           font-style: normal;
         }
 
-        .image-expansion-typography-section {
+        /* ── BASE ── */
+        .iet-section {
           width: 100%;
-          padding: 6rem 2rem 10rem 2rem;
-          color: #0f0f0f;
           background-color: #ebf5df;
-          position: relative;
-          z-index: 3;
+          padding: 5rem 5vw 8rem 5vw;
           box-sizing: border-box;
+          overflow: hidden;
         }
 
-        .content {
-          padding: 1rem 2rem;
-          display: grid;
-          margin-bottom: 25vh;
-          gap: 2rem;
-          grid-template-columns: 100%;
-          grid-template-areas: 'meta' 'type' 'block';
-          grid-template-rows: auto auto auto;
+        .iet-content {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          padding-bottom: 5rem;
+          margin-bottom: 3rem;
+          border-bottom: 1px solid rgba(15,15,15,0.1);
         }
 
-        .content:last-of-type {
-          margin-bottom: 10vh;
+        .iet-content:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
         }
 
-        .meta {
-          grid-area: meta;
+        /* ── PROJECT LABEL ── */
+        .iet-project-label {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .iet-num {
           font-family: var(--font-main);
-          font-size: 0.85rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          font-weight: 600;
-          color: #3f3f46;
-          margin-bottom: 2vh;
-        }
-
-        .meta::before {
-          content: '\\2014';
-          padding-right: 0.4rem;
+          font-size: 0.75rem;
+          font-weight: 700;
           color: #829100;
+          letter-spacing: 0.15em;
         }
 
-        .type {
-          grid-area: type;
-          font-family: "Coconat", serif;
-          margin: 0;
-          font-size: clamp(2.4rem, 5.2vw, 5.8rem);
-          text-transform: none;
-          line-height: 1.1;
-          font-weight: normal;
+        .iet-client {
+          font-family: var(--font-main);
+          font-size: 0.78rem;
+          font-weight: 600;
           color: #0f0f0f;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
         }
 
-        .type__expand {
-          vertical-align: top;
+        .iet-cat {
+          font-family: var(--font-main);
+          font-size: 0.72rem;
+          color: #52525b;
+          letter-spacing: 0.08em;
+          margin-left: auto;
+        }
+
+        /* ── HEADLINE ── */
+        .iet-type {
+          font-family: "Coconat", serif;
+          font-size: clamp(2.5rem, 6vw, 5.5rem);
+          font-weight: normal;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          color: #0f0f0f;
+          margin: 0;
+          word-break: break-word;
+        }
+
+        /* ── EXPAND SPANS ── */
+        .iet-expand {
           display: inline-grid;
-          grid-template-columns: min-content;
-          transition: gap 0.5s ease;
+          vertical-align: middle;
         }
 
-        .type__expand--center {
-          display: block;
+        .iet-expand--inline {
+          grid-template-columns: min-content auto;
+          align-items: center;
+          gap: 0.5rem;
         }
 
-        .type__expand--full {
+        .iet-expand--full {
           display: block;
           width: 100%;
+          margin: 0.6rem 0;
         }
 
-        .type__expand--stack {
-          vertical-align: bottom;
-          grid-template-columns: 100%;
-          justify-items: center;
+        .iet-expand--stack {
           display: inline-grid;
+          grid-template-rows: auto auto;
+          justify-items: center;
+          vertical-align: bottom;
+          gap: 0.2rem;
         }
 
-        .type--open .type__expand {
-          gap: 1.5rem;
-        }
-
-        .type--open .type__expand--stack {
-          gap: 0.5rem;
-          padding: 0 0 1rem 0;
-        }
-
-        .type__expand-img {
+        /* ── IMAGE PILL ── */
+        .iet-img-wrap {
           display: inline-block;
-          position: relative;
-          aspect-ratio: 16/9;
-          width: 0%;
+          height: clamp(50px, 7vw, 100px);
+          width: 0;
+          min-width: 0;
           overflow: hidden;
-          border-radius: 4rem;
+          border-radius: 100px;
           vertical-align: middle;
-          transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.7s ease;
-          background: #d4e0c5;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+          background: #c8dab8;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+          flex-shrink: 0;
         }
 
-        .type__expand-img-inner {
+        .iet-expand--full .iet-img-wrap {
+          display: block;
+          width: 0;
+          height: clamp(180px, 30vw, 420px);
+          border-radius: 16px;
+        }
+
+        .iet-img-small {
+          height: clamp(38px, 4.5vw, 70px) !important;
+        }
+
+        .iet-img-inner {
           display: block;
           width: 100%;
           height: 100%;
           background-size: cover;
           background-position: center;
+          min-width: 300px;
         }
 
-        .type__expand-img--small {
-          aspect-ratio: 1;
-        }
-
-        .type__expand--reveal .type__expand-img-inner {
-          width: 33vw;
-          aspect-ratio: 16/9;
-        }
-
-        .type--open .type__expand-img {
-          width: 100%;
-        }
-
-        .type--open .type__expand-img--small {
-          width: 3.5em;
-        }
-
-        .anim {
+        .iet-anim {
           display: inline-block;
           white-space: nowrap;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          font-style: italic;
         }
 
-        .type--open .skewed {
-          transform: skewX(-18deg);
-          color: #829100;
+        .iet-skewed {
+          color: #0f0f0f;
         }
 
-        .type--open .rotated {
-          transform: skewX(-5deg) rotateZ(-8deg);
-          color: #829100;
+        .iet-rotated {
+          color: #0f0f0f;
         }
 
-        .block {
-          grid-area: block;
-          margin: 0;
-          max-width: 480px;
-          line-height: 1.6;
+        /* ── DESCRIPTION ── */
+        .iet-block {
           font-family: var(--font-main);
-          font-size: 0.95rem;
+          font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+          line-height: 1.7;
           color: #27272a;
-          text-transform: uppercase;
+          max-width: 600px;
+          margin: 0;
+        }
+
+        /* ── CTA ── */
+        .iet-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.6rem 1.4rem;
+          border-radius: 24px;
+          border: 1px solid rgba(15,15,15,0.2);
+          background: rgba(15,15,15,0.04);
+          color: #0f0f0f;
+          font-family: var(--font-main);
+          font-size: 0.8rem;
+          font-weight: 600;
           letter-spacing: 0.05em;
-          font-weight: 400;
+          cursor: pointer;
+          width: fit-content;
+          transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Hidden on desktop, shown on mobile */
-        .mobile-image-card {
-          display: none;
+        .iet-cta:hover {
+          background: #829100;
+          color: #fff;
+          border-color: #829100;
         }
 
-        @media screen and (min-width: 53em) {
-          .content--left {
-            grid-template-columns: 1fr 42%;
-            grid-template-rows: auto 19vw auto;
-            grid-template-areas: 'meta meta' 'type type' '... block';
+        /* ── DESKTOP LAYOUT VARIANTS ── */
+        @media (min-width: 900px) {
+          .iet-section {
+            padding: 7rem 5vw 10rem 5vw;
           }
 
-          .content--center {
-            text-align: center;
-            place-items: center;
-            grid-template-rows: auto 30vw auto;
+          .iet-content {
+            gap: 2rem;
+            padding-bottom: 7rem;
+            margin-bottom: 4rem;
           }
 
-          .content--right {
-            grid-column-gap: 10vw;
-            grid-template-columns: auto 45%;
-            grid-template-areas: 'block meta' 'block type';
-            grid-template-rows: auto 40vw;
-            text-align: right;
-            justify-content: end;
+          .iet-type {
+            font-size: clamp(3.5rem, 5.5vw, 6rem);
           }
 
-          .content--right .block {
-            margin-top: 20vh;
+          .iet-block {
+            font-size: 1.05rem;
+          }
+        }
+
+        /* ── MOBILE OVERRIDES ── */
+        @media (max-width: 767px) {
+          .iet-section {
+            padding: 3rem 1.25rem 4rem 1.25rem;
           }
 
-          .content--justify {
-            max-width: 1200px;
-            margin: 0 auto;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto 30vw auto;
-            grid-template-areas: 'meta meta' 'type type' '... block';
+          .iet-content {
+            gap: 1.25rem;
+            padding-bottom: 3rem;
+            margin-bottom: 1.5rem;
           }
 
-          .type__expand--inline {
-            gap: 0.1em;
-            grid-template-columns: repeat(3, min-content);
+          .iet-project-label {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
           }
 
-          .type__expand--center {
+          .iet-cat {
+            margin-left: 0;
+          }
+
+          .iet-type {
+            font-size: clamp(2rem, 8.5vw, 2.8rem);
+            line-height: 1.15;
+          }
+
+          .iet-expand--inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: nowrap;
+          }
+
+          .iet-expand--stack {
             display: inline-grid;
-            gap: 0.15em;
-            justify-content: center;
-            grid-template-columns: auto auto auto;
+            vertical-align: bottom;
           }
 
-          .type--open .type__expand--center {
-            grid-template-columns: 1fr auto 1fr;
+          .iet-img-wrap {
+            height: clamp(44px, 11vw, 60px);
+            border-radius: 50px;
           }
 
-          .type__expand--full {
-            width: 100%;
-            grid-template-columns: 100%;
-          }
-
-          .type__expand--full .type__expand-img {
-            margin-left: auto;
-          }
-
-        @media (max-width: 768px) {
-          /* ── Section container ── */
-          .image-expansion-typography-section {
-            padding: 1.5rem 1.25rem 6rem 1.25rem;
-          }
-
-          /* ── Each project block stacks vertically ── */
-          .content {
-            padding: 0;
-            margin-bottom: 4.5rem;
-            gap: 0;
-            grid-template-columns: 1fr !important;
-            grid-template-rows: auto !important;
-            grid-template-areas: 'meta' 'type' 'block' !important;
-            text-align: left !important;
-            justify-content: start !important;
-            place-items: start !important;
-          }
-
-          /* ── Meta label ── */
-          .meta {
-            font-size: 0.72rem;
-            letter-spacing: 0.14em;
-            margin-bottom: 0.85rem;
-          }
-
-          /* ── Headline typography ── */
-          .type {
-            font-size: clamp(2.2rem, 9vw, 3rem);
-            line-height: 1.05;
-            margin-bottom: 1.2rem;
-            word-break: break-word;
-          }
-
-          /* ── On mobile, hide the inline image span inside headline
-                 and show a separate card-style image block below ── */
-          .type__expand {
-            display: none !important;
-          }
-
-          /* ── Mobile image card — shown only on mobile ── */
-          .mobile-image-card {
+          .iet-expand--full .iet-img-wrap {
             display: block;
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 1.25rem;
-            background: #d4e0c5;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            width: 0;
+            height: clamp(140px, 45vw, 220px);
+            border-radius: 12px;
           }
 
-          .mobile-image-card-inner {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
+          .iet-img-small {
+            height: clamp(32px, 9vw, 50px) !important;
           }
 
-          /* ── Body text ── */
-          .block {
-            max-width: 100%;
-            font-size: 0.88rem;
+          .iet-block {
+            font-size: 0.92rem;
             line-height: 1.65;
-            text-transform: none;
-            letter-spacing: 0.01em;
-            color: #3f3f46;
-            margin-top: 0.5rem;
+            max-width: 100%;
           }
 
-          .content--right .block {
-            margin-top: 0 !important;
+          .iet-cta {
+            font-size: 0.78rem;
+            padding: 0.55rem 1.1rem;
           }
         }
       `}</style>

@@ -138,7 +138,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         minHeight: '100vh',
         backgroundColor: '#ebf5df',
         color: '#0f0f0f',
-        padding: 'clamp(1rem, 3vw, 3rem) clamp(1rem, 4vw, 3.5rem) 6rem',
+        padding: 'clamp(1.25rem, 4vw, 3rem) clamp(1rem, 4vw, 3.5rem) 6rem clamp(1rem, 4vw, 3.5rem)',
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -161,8 +161,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       />
 
-      {/* ── Top Header Navigation Bar ── */}
       <header
+        className="ssg-header"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -321,16 +321,18 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </div>
 
-      {/* ── FLOWING SVG TEXT ON PATH (From reference AnimateSVGTextPath-master) ── */}
-      <AnimateSVGTextPath
-        text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
-        pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
-        viewBox="0 0 3200 300"
-        idPrefix="curve1"
-        textColor="#0f0f0f"
-        glowColor="#829100"
-        repeatCount={4}
-      />
+      {/* ── FLOWING SVG TEXT ON PATH — hidden on mobile ── */}
+      <div className="svg-text-path-mobile-hide">
+        <AnimateSVGTextPath
+          text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
+          pathD="M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150"
+          viewBox="0 0 3200 300"
+          idPrefix="curve1"
+          textColor="#0f0f0f"
+          glowColor="#829100"
+          repeatCount={4}
+        />
+      </div>
 
       {/* ── IMAGE EXPANSION TYPOGRAPHY SHOWCASE (From reference ImageExpansionTypography-main) ── */}
       <ImageExpansionTypography onOpenInquiry={onOpenInquiry} />
@@ -674,24 +676,52 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           .globe-hero-wrapper {
             display: none !important;
           }
+          .ssg-header {
+            margin-bottom: 1.25rem;
+          }
+          .ssg-header > div:nth-child(2) {
+            display: none;
+          }
+
+          /* ── Parallax card scroller: horizontal swipe on mobile ── */
           .parallax-scroller-row {
             flex-wrap: nowrap;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
             justify-content: flex-start;
-            padding: 0.5rem 0;
-            gap: 0.75rem;
+            padding: 0.5rem 0.25rem 1rem 0.25rem;
+            gap: 0.85rem;
+            /* hide scrollbar */
+            scrollbar-width: none;
           }
+          .parallax-scroller-row::-webkit-scrollbar { display: none; }
           .parallax-work-card {
-            flex: 0 0 210px;
-            aspect-ratio: 16/10;
+            flex: 0 0 72vw;
+            max-width: 320px;
+            aspect-ratio: 3/4;
+            transform: none !important;
+            scroll-snap-align: start;
+          }
+          .parallax-work-card:hover {
             transform: none !important;
           }
-          footer {
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: center;
-            text-align: center;
+
+          /* ── SVG text path: hidden on mobile (too small) ── */
+          .svg-text-path-mobile-hide {
+            display: none !important;
+          }
+
+          /* ── Modal: fullscreen on mobile ── */
+          .modal-overlay {
+            padding: 0;
+            align-items: flex-end;
+          }
+          .modal-content {
+            border-radius: 20px 20px 0 0;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem 1.25rem 2rem 1.25rem;
           }
         }
       `}</style>
