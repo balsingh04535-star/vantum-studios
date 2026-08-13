@@ -55,66 +55,31 @@ export default function StudioOverview() {
         });
       }
 
-      if (window.innerWidth < 768) {
-        gsap.set(globe, {
-          clipPath: 'none',
-          position: 'relative',
-          width: '100%',
-          height: 'auto',
-          zIndex: 1,
-          pointerEvents: 'all',
-        });
-        return;
-      }
-
-      // ── 2. Globe sheet initial state (fixed overlay sliding up from bottom) ──
+      // ── 2. Globe section in document flow ──
       gsap.set(globe, {
-        clipPath: 'inset(100% 0% 0% 0%)',
-        position: 'fixed',
-        top: 0,
-        left: 0,
+        position: 'relative',
         width: '100%',
-        height: '100vh',
-        zIndex: 10,
-        overflowY: 'auto',
-        pointerEvents: 'none',
+        zIndex: 2,
+        pointerEvents: 'all',
       });
 
-      // ── 3. Scroll trigger: pin manifesto while globe sheet slides up like demo-main ──
+      // ── 3. Scroll trigger: manifesto reveal animation in document flow ──
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapper,
           start: 'top top',
-          end: '+=1000',
-          scrub: 0.6,
-          pin: manifesto,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            if (self.progress > 0.8) {
-              gsap.set(globe, { pointerEvents: 'all' });
-            } else {
-              gsap.set(globe, { pointerEvents: 'none' });
-            }
-          }
+          end: 'bottom top',
+          scrub: 0.5,
         }
       });
 
-      // Outgoing Manifesto: shrink & fade back (exact demo-main outgoing transition)
+      // Outgoing Manifesto: subtle scale and fade as you scroll down
       tl.to(manifesto, {
-        y: '-30vh',
-        scale: 0.8,
+        y: '-15vh',
+        scale: 0.88,
         opacity: 0.4,
         duration: 1,
         ease: pageEase,
-        force3D: true,
-      }, 0);
-
-      // Incoming Globe Sheet: slides up covering screen from bottom (exact demo-main incoming transition)
-      tl.to(globe, {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 1,
-        ease: pageEase,
-        force3D: true,
       }, 0);
 
     }, wrapper);
