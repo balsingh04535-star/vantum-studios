@@ -360,8 +360,19 @@ export default function FooterSystemInteractive() {
           transform: translate(-50%, -50%);
           width: 100%;
           height: 100%;
-          background-color: var(--base-400);
-          border: 0.125rem solid var(--base-300);
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(255, 255, 255, 0.02) 40%,
+            rgba(196, 214, 0, 0.08) 100%
+          );
+          backdrop-filter: blur(16px) saturate(180%);
+          -webkit-backdrop-filter: blur(16px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          box-shadow:
+            inset 0 1px 2px rgba(255, 255, 255, 0.4),
+            inset 0 -1px 3px rgba(0, 0, 0, 0.5),
+            0 8px 32px rgba(0, 0, 0, 0.4);
           border-radius: 0.5rem;
           will-change: width, height, border-radius, border-width;
         }
@@ -388,8 +399,20 @@ export default function FooterSystemInteractive() {
           width: 3rem;
           height: 3rem;
           border-radius: 25rem;
-          border: 0.35rem solid var(--base-300);
-          background-color: var(--base-400);
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.18) 0%,
+            rgba(255, 255, 255, 0.04) 45%,
+            rgba(196, 214, 0, 0.12) 100%
+          );
+          backdrop-filter: blur(28px) saturate(200%);
+          -webkit-backdrop-filter: blur(28px) saturate(200%);
+          border: 1.5px solid rgba(255, 255, 255, 0.38);
+          box-shadow:
+            inset 0 1.5px 3px rgba(255, 255, 255, 0.6),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.5),
+            0 24px 60px rgba(0, 0, 0, 0.7),
+            0 0 35px rgba(196, 214, 0, 0.28);
           opacity: 0;
           display: flex;
           align-items: center;
@@ -397,6 +420,29 @@ export default function FooterSystemInteractive() {
           padding: 0 1.5rem;
           will-change: opacity, width, height, transform;
           z-index: 4;
+          overflow: hidden;
+        }
+
+        .footer-system-interactive-root .search-bar::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            115deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.25) 45%,
+            rgba(255, 255, 255, 0.45) 50%,
+            rgba(255, 255, 255, 0.25) 55%,
+            transparent 100%
+          );
+          transform: translateX(-100%);
+          animation: liquidGlassSheen 4.5s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes liquidGlassSheen {
+          0% { transform: translateX(-120%); }
+          30%, 100% { transform: translateX(120%); }
         }
 
         .footer-system-interactive-root .search-bar p {
@@ -407,8 +453,10 @@ export default function FooterSystemInteractive() {
           color: #c4d600;
           font-family: "DM Mono", monospace;
           font-size: 0.95rem;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
+          text-shadow: 0 0 12px rgba(196, 214, 0, 0.5);
+          z-index: 2;
         }
 
         @media (max-width: 1000px) {
