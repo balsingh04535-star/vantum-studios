@@ -1,21 +1,37 @@
-<svg width="1400" height="340" viewBox="0 0 1400 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&amp;family=Plus+Jakarta+Sans:wght@800;900&amp;display=swap');
-    .logo-title {
-      font-family: 'Outfit', 'Plus Jakarta Sans', 'Arial Black', sans-serif;
-      font-weight: 900;
-      font-size: 210px;
-      fill: #C4D600;
-      letter-spacing: 0.04em;
-    }
-    .logo-sub {
-      font-family: 'Plus Jakarta Sans', 'Outfit', 'Arial', sans-serif;
-      font-weight: 800;
-      font-size: 65px;
-      fill: #C4D600;
-      letter-spacing: 0.44em;
-    }
-  </style>
-  <text x="0" y="200" class="logo-title">VANTUM</text>
-  <text x="8" y="295" class="logo-sub">STUDIOS</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Chanan icon</title>
+  <desc id="desc">An organic charcoal letter C paired with a warm yellow light spark.</desc>
+  <g fill="none" stroke="#171613" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M 331 148
+         C 293 113, 240 102, 192 121
+         C 137 142, 103 194, 104 256
+         C 105 320, 141 372, 197 391
+         C 245 408, 296 395, 332 360"
+      stroke-width="82"/>
+  </g>
+  <path
+    d="M 386 67
+       C 394 67, 399 73, 401 83
+       L 406 103
+       C 408 112, 415 119, 424 121
+       L 444 126
+       C 454 128, 460 133, 460 141
+       C 460 149, 454 154, 444 156
+       L 424 161
+       C 415 163, 408 170, 406 179
+       L 401 199
+       C 399 209, 394 215, 386 215
+       C 378 215, 373 209, 371 199
+       L 366 179
+       C 364 170, 357 163, 348 161
+       L 328 156
+       C 318 154, 312 149, 312 141
+       C 312 133, 318 128, 328 126
+       L 348 121
+       C 357 119, 364 112, 366 103
+       L 371 83
+       C 373 73, 378 67, 386 67 Z"
+    fill="#F3C74B"/>
 </svg>

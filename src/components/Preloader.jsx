@@ -12,7 +12,7 @@ export default function Preloader({ onComplete }) {
 
   const [counter, setCounter] = useState(0);
 
-  const word1 = "VANTUM".split("");
+  const word1 = "CHANANA".split("");
   const word2 = "STUDIOS".split("");
 
   useEffect(() => {
@@ -159,7 +159,7 @@ export default function Preloader({ onComplete }) {
             }}
           >
             <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-volt)', boxShadow: '0 0 8px var(--accent-volt)', flexShrink: 0 }} />
-            <span>VANTUM SYS</span>
+            <span>CHANANA SYS</span>
           </div>
 
           <div
