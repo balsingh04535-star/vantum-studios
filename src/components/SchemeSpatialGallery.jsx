@@ -3,6 +3,7 @@ import { ArrowUpRight, Crosshair, Eye, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
+import AnimateSVGTextPath from './AnimateSVGTextPath';
 
 export const selectedWorks = [
   {
@@ -74,95 +75,6 @@ export const selectedWorks = [
 
 export const clientPartners = selectedWorks;
 
-// ── Kinetic Animated SVG Text-On-Path Component (AnimateSVGTextPath Reference) ──
-function AnimatedTextPath({ text = "PARTNERS WHO DEMANDED THE EXTRAORDINARY · VANTUM GLOBAL NETWORK PRACTICE" }) {
-  const svgRef = useRef(null);
-  const textPathRef = useRef(null);
-  const blurRef = useRef(null);
-
-  useEffect(() => {
-    const svg = svgRef.current;
-    const textPath = textPathRef.current;
-    const blur = blurRef.current;
-    if (!svg || !textPath) return;
-
-    let interpolatedScroll = window.pageYOffset;
-    let reqId;
-
-    const render = () => {
-      const currentScroll = window.pageYOffset;
-      const rect = svg.getBoundingClientRect();
-      const positionY = rect.top + currentScroll;
-      
-      // Calculate smooth startOffset based on scroll position relative to viewport
-      const viewportH = window.innerHeight || 800;
-      const progress = (positionY - currentScroll) / viewportH;
-      const startOffset = Math.max(-50, Math.min(180, progress * 100 - 15));
-      
-      textPath.setAttribute('startOffset', `${startOffset}%`);
-
-      // Calculate scroll velocity for dynamic motion blur
-      interpolatedScroll += (currentScroll - interpolatedScroll) * 0.18;
-      const velocity = Math.abs(currentScroll - interpolatedScroll);
-      const blurAmount = Math.min(10, velocity * 0.35);
-
-      if (blur) {
-        blur.setAttribute('stdDeviation', blurAmount.toFixed(1));
-      }
-
-      reqId = requestAnimationFrame(render);
-    };
-
-    reqId = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(reqId);
-  }, []);
-
-  return (
-    <div style={{ width: '100%', overflow: 'hidden', margin: '1rem 0 1.5rem 0', position: 'relative', zIndex: 3 }}>
-      <svg
-        ref={svgRef}
-        width="100%"
-        height="160"
-        viewBox="0 0 1200 180"
-        preserveAspectRatio="xMidYMid meet"
-        style={{ overflow: 'visible' }}
-      >
-        <defs>
-          <filter id="kineticTextBlur" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur ref={blurRef} stdDeviation="0" />
-          </filter>
-        </defs>
-
-        <path
-          id="heroTextCurvePath"
-          d="M 0 90 Q 300 170 600 90 Q 900 10 1200 90"
-          fill="none"
-          stroke="transparent"
-        />
-
-        <text
-          fill="url(#textGrad)"
-          fontSize="36"
-          fontWeight="500"
-          letterSpacing="0.06em"
-          fontFamily="var(--font-heading)"
-          filter="url(#kineticTextBlur)"
-          style={{ textTransform: 'uppercase' }}
-        >
-          <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="50%" stopColor="#c4d600" />
-            <stop offset="100%" stopColor="#8e8e93" />
-          </linearGradient>
-          <textPath ref={textPathRef} href="#heroTextCurvePath" startOffset="0%">
-            {text}
-          </textPath>
-        </text>
-      </svg>
-    </div>
-  );
-}
-
 export default function SchemeSpatialGallery({ onOpenInquiry }) {
   const sectionRef = useRef(null);
   const globeWrapperRef = useRef(null);
@@ -181,8 +93,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: track,
-          start: 'top 85%',
-          end: 'bottom 15%',
+          start: 'top 80%',
+          end: 'bottom 20%',
           scrub: 1,
         },
       });
@@ -190,16 +102,16 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
       // Spread outer cards out with 3D rotation and parallax translation
       cards.forEach((card, index) => {
         const factor = index - Math.floor(cards.length / 2);
-        const xOffset = factor * 65; // Spread horizontally
+        const xOffset = factor * 60; // Spread horizontally
         const rotOffset = selectedWorks[index].rotation;
 
         tl.fromTo(
           card,
           {
-            x: factor * -140,
-            rotation: rotOffset * 1.6,
-            scale: 0.82,
-            opacity: 0.5,
+            x: factor * -120,
+            rotation: rotOffset * 1.5,
+            scale: 0.85,
+            opacity: 0.6,
           },
           {
             x: xOffset,
@@ -256,7 +168,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           justifyContent: 'space-between',
           width: '100%',
           maxWidth: '1300px',
-          marginBottom: '1.5rem',
+          marginBottom: '2rem',
           zIndex: 10,
         }}
       >
@@ -322,9 +234,9 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         className="globe-hero-wrapper"
         style={{
           position: 'relative',
-          width: 'clamp(300px, 32vw, 480px)',
+          width: 'clamp(320px, 35vw, 520px)',
           aspectRatio: '1/1',
-          margin: '0.5rem auto 0.5rem auto',
+          margin: '1rem auto 1rem auto',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -369,16 +281,13 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </div>
 
-      {/* ── KINETIC ANIMATED SVG TEXT-ON-PATH (AnimateSVGTextPath Reference) ── */}
-      <AnimatedTextPath text="PARTNERS WHO DEMANDED THE EXTRAORDINARY · VANTUM GLOBAL PRACTICE · DEFINED BY IMPACT" />
-
-      {/* ── 3D PARALLAX PREMIUM WORK SCROLLER (Reference code (32)/files) ── */}
+      {/* ── 3D PARALLAX PREMIUM WORK SCROLLER (Replacing Static Text Block) ── */}
       <div
         ref={parallaxTrackRef}
         style={{
           width: '100%',
           maxWidth: '1300px',
-          margin: '1rem auto 4rem auto',
+          margin: '2rem auto 4rem auto',
           position: 'relative',
           zIndex: 3,
           display: 'flex',
@@ -410,6 +319,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           ))}
         </div>
       </div>
+
+      {/* ── FLOWING SVG TEXT ON PATH (From reference AnimateSVGTextPath-master) ── */}
+      <AnimateSVGTextPath
+        text="PARTNERS WHO DEMANDED THE EXTRAORDINARY"
+        pathD="M 0 120 Q 250 220 500 120 Q 750 20 1000 120"
+        idPrefix="curve1"
+        textColor="#ffffff"
+        glowColor="#c4d600"
+      />
 
       {/* ── EDITORIAL WORK SHOWCASE LIST ("SHOW OUR WORK") ── */}
       <div
@@ -587,6 +505,15 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           </div>
         </div>
       )}
+
+      {/* ── Second Flowing SVG Text Wave above footer ── */}
+      <AnimateSVGTextPath
+        text="DRIVEN BY PURPOSE · DEFINED BY IMPACT · CREATIVE PRACTICE"
+        pathD="M 0 100 Q 250 0 500 100 Q 750 200 1000 100"
+        idPrefix="curve2"
+        textColor="#71717a"
+        glowColor="#c4d600"
+      />
 
       {/* ── Footer Tagline ── */}
       <footer
