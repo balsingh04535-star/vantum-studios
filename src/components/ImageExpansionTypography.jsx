@@ -3,442 +3,364 @@ import { ArrowUpRight, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export const typographyProjects = [
-  {
-    id: 'project-1',
-    num: '01',
-    meta: 'PROJECT 01 — SPATIAL AUDIO',
-    client: 'VOLTLITES AUDIO INC.',
-    category: '3D Web & Generative Shaders',
-    year: '2026',
-    titleLine1: 'Gratitude is our',
-    titleLine2: 'new response',
-    titleLine3Prefix: 'to ',
-    titleExpandWord: 'judgement.',
-    image: '/img1.jpg',
-    summary: 'Behold the boundless dance of generative soundscapes, where spatial audio waveforms hold shape for a fleeting breath. Interactive WebGL spatial audio interface with real-time waveform visualization.',
-    deliverables: ['Creative Direction', 'WebGL Architecture', 'Generative Shaders', 'Spatial Acoustics'],
-  },
-  {
-    id: 'project-2',
-    num: '02',
-    meta: 'PROJECT 02 — CYBERNETIC HOROLOGY',
-    client: 'CHRONOS LUXURY',
-    category: 'Brand Systems & E-Commerce',
-    year: '2026',
-    titleLine1: "Life's a wild journey;",
-    titleLine2: 'embrace the',
-    titleLine3Prefix: 'detours ',
-    titleExpandWord: 'and dance under stars.',
-    image: '/img4.jpg',
-    summary: 'High-fashion digital flagship store for next-generation timepiece collectors featuring real-time 3D watch customization and high-speed headless CMS.',
-    deliverables: ['E-Commerce Architecture', '3D Asset Pipeline', 'Global Headless CMS', 'Motion Graphics'],
-  },
-  {
-    id: 'project-3',
-    num: '03',
-    meta: 'PROJECT 03 — NEURAL COMPUTE',
-    client: 'AETHER LABS',
-    category: 'Kinetic UI & AI Dashboards',
-    year: '2025',
-    titleLine1: 'Let the miles unfurl',
-    titleLine2: 'like stories each',
-    titleLine3Prefix: 'one a ',
-    titleExpandWord: 'saga of the soul.',
-    image: '/img5.jpg',
-    summary: 'High-speed AI model training dashboard featuring GPU-accelerated canvas charts, real-time telemetry websockets, and dark mode UI design system.',
-    deliverables: ['Design System', 'React Performance Optimization', 'Dark Mode UI', 'WebGL Canvas Engine'],
-  },
-  {
-    id: 'project-4',
-    num: '04',
-    meta: 'PROJECT 04 — AUTONOMOUS RACING',
-    client: 'HYPERION DYNAMIC',
-    category: 'Custom Canvas Engine',
-    year: '2025',
-    titleLine1: 'Soar above peaks into',
-    titleLine2: 'whispers of wind like',
-    titleLine3Prefix: 'the ',
-    titleExpandWord: 'electric hypercar telemetry.',
-    image: '/img8.jpg',
-    summary: 'Immersive 3D telemetry experience for electric hypercar telemetry stream and real-time aerodynamic simulation across global race circuits.',
-    deliverables: ['Custom Canvas Engine', 'Sound Design', 'Realtime Telemetry Websockets', '3D Aerodynamic Shaders'],
-  },
-];
-
 export default function ImageExpansionTypography({ onOpenInquiry }) {
   const containerRef = useRef(null);
-  const itemsRef = useRef([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    const items = itemsRef.current.filter(Boolean);
-    if (items.length === 0) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const ctx = gsap.context(() => {
-      items.forEach((item) => {
-        const imgWrap = item.querySelector('.type__expand-img');
-        const imgInner = item.querySelector('.type__expand-img-inner');
-        const textAnim = item.querySelector('.anim-skewed');
-        const block = item.querySelector('.project-block-desc');
+      const typeElements = container.querySelectorAll('.type');
 
-        if (imgWrap && imgInner) {
+      typeElements.forEach((typeEl) => {
+        const expandImg = typeEl.querySelector('.type__expand-img');
+        const animTexts = typeEl.querySelectorAll('.anim');
+        const block = typeEl.closest('.content')?.querySelector('.block');
+
+        // ScrollTrigger to animate type--open expansion on scroll (1:1 with reference ImageExpansionTypography-main)
+        ScrollTrigger.create({
+          trigger: typeEl,
+          start: 'top 75%',
+          end: 'bottom 25%',
+          onEnter: () => typeEl.classList.add('type--open'),
+          onLeaveBack: () => typeEl.classList.remove('type--open'),
+          onEnterBack: () => typeEl.classList.add('type--open'),
+          onLeave: () => typeEl.classList.remove('type--open'),
+        });
+
+        if (block) {
           gsap.fromTo(
-            imgWrap,
-            { width: '70px', borderRadius: '30px' },
+            block,
+            { yPercent: 40, opacity: 0.3, skewX: -6 },
             {
-              width: 'clamp(200px, 24vw, 360px)',
-              borderRadius: '16px',
+              yPercent: 0,
+              opacity: 1,
+              skewX: 0,
               ease: 'power2.out',
               scrollTrigger: {
-                trigger: item,
-                start: 'top 75%',
-                end: 'bottom 45%',
+                trigger: block,
+                start: 'top 85%',
+                end: 'bottom 50%',
                 scrub: 0.8,
               },
             }
           );
         }
-
-        if (textAnim) {
-          gsap.fromTo(
-            textAnim,
-            { x: -20, opacity: 0.7 },
-            {
-              x: 0,
-              opacity: 1,
-              ease: 'power1.out',
-              scrollTrigger: {
-                trigger: item,
-                start: 'top 75%',
-                end: 'bottom 50%',
-                scrub: 0.5,
-              },
-            }
-          );
-        }
-
-        if (block) {
-          gsap.fromTo(
-            block,
-            { y: 30, opacity: 0.4 },
-            {
-              y: 0,
-              opacity: 1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: block,
-                start: 'top 85%',
-                end: 'bottom 60%',
-                scrub: 0.5,
-              },
-            }
-          );
-        }
       });
-    }, containerRef);
+    }, container);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: '100%',
-        maxWidth: '1250px',
-        margin: '4rem auto 0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '6rem',
-        position: 'relative',
-        zIndex: 3,
-      }}
-    >
-      {/* Header divider */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
-          paddingBottom: '1.2rem',
-        }}
-      >
-        <span
-          style={{
-            fontSize: '0.68rem',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            fontWeight: 600,
-            color: '#c4d600',
-            fontFamily: 'var(--font-main)',
-          }}
-        >
-          CURATED PORTFOLIO SHOWCASE
-        </span>
-
-        <span
-          style={{
-            fontSize: '0.68rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: '#52525b',
-            fontFamily: 'var(--font-main)',
-          }}
-        >
-          4 Flagship Projects
-        </span>
+    <div ref={containerRef} className="image-expansion-typography-section">
+      {/* ── Content 1: Project 1 ── */}
+      <div className="content content--left">
+        <h3 className="meta">Project 01 — Spatial Audio</h3>
+        <h2 className="type" data-expand-1>
+          Gratitude is my<br />
+          new response<br />
+          to
+          <span className="type__expand type__expand--inline type__expand--reveal">
+            <span className="type__expand-img">
+              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
+            </span>
+            <span className="anim skewed">judgement.</span>
+          </span>
+        </h2>
+        <p className="block">
+          Behold the boundless dance of yin and yang, where all is flux and nothing holds its shape but for a fleeting breath. The mountain's might, though seeming steadfast, is but a moment's pause in the eternal march of grains of sand.
+        </p>
       </div>
 
-      {/* Expandable Typographic Projects */}
-      {typographyProjects.map((project, idx) => (
-        <article
-          key={project.id}
-          ref={(el) => (itemsRef.current[idx] = el)}
-          className="expansion-typography-card"
-          onClick={() => setSelectedProject(project)}
-        >
-          <div className="project-meta-bar">
-            <span className="project-meta-num">{project.num}</span>
-            <span className="project-meta-client">{project.client}</span>
-            <span className="project-meta-category">{project.category} · {project.year}</span>
-          </div>
-
-          <h2 className="expansion-headline">
-            {project.titleLine1}<br />
-            {project.titleLine2}<br />
-            {project.titleLine3Prefix}
-            <span className="type__expand">
-              <span className="type__expand-img">
-                <span
-                  className="type__expand-img-inner"
-                  style={{ backgroundImage: `url(${project.image})` }}
-                />
-              </span>
-              <span className="anim-skewed">{project.titleExpandWord}</span>
+      {/* ── Content 2: Project 2 ── */}
+      <div className="content content--center">
+        <h3 className="meta">Project 02 — Cybernetic Horology</h3>
+        <h2 className="type" data-expand-2>
+          Life's a wild journey;<br />
+          embrace the<br />
+          <span className="type__expand type__expand--reveal type__expand--center">
+            <span className="aright">detours </span>
+            <span className="type__expand-img">
+              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img4.jpg)' }} />
             </span>
-          </h2>
+            <span className="anim skewed">and dance</span>
+          </span>
+          <br />
+          under the stars.
+        </h2>
+        <p className="block">
+          In this dance, even the stars, those ancient sentinels of the night sky, are not stationary but in perpetual motion, tracing their arcs in the fabric of the cosmos. Each spark of light, a testament to the infinite cycle of birth and rebirth.
+        </p>
+      </div>
 
-          <p className="project-block-desc">
-            {project.summary}
-          </p>
+      {/* ── Content 3: Project 3 ── */}
+      <div className="content content--right">
+        <h3 className="meta">Project 03 — Neural Compute</h3>
+        <h2 className="type" data-expand-3>
+          Let the miles unfurl<br />
+          like stories each<br />
+          <span className="type__expand type__expand--full">
+            <span className="type__expand-img">
+              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img5.jpg)' }} />
+            </span>
+          </span>
+          one a breath in the<br />
+          saga of the soul.
+        </h2>
+        <p className="block">
+          As we delve deeper into the mysteries of the cosmos, we encounter the profound realization that the universe itself breathes in a rhythm of creation and dissolution, a cosmic dance that mirrors the cycles of life and death.
+        </p>
+      </div>
 
-          <div className="project-footer-action">
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {project.deliverables.map((item, i) => (
-                <span key={i} className="deliverable-pill">
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <button className="explore-case-btn">
-              <span>View Case Study</span>
-              <ArrowUpRight size={16} />
-            </button>
-          </div>
-        </article>
-      ))}
-
-      {/* Case Study Detail Modal */}
-      {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-              <div>
-                <span className="badge" style={{ color: '#c4d600', borderColor: 'rgba(196,214,0,0.3)' }}>
-                  {selectedProject.category}
-                </span>
-                <h2 style={{ marginTop: '0.75rem', fontSize: '2rem', color: '#fff' }}>{selectedProject.titleLine1} {selectedProject.titleExpandWord}</h2>
-              </div>
-              <button
-                onClick={() => setSelectedProject(null)}
-                style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '0.5rem' }}
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            <div style={{ height: '320px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.5rem' }}>
-              <img src={selectedProject.image} alt={selectedProject.client} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-
-            <p style={{ fontSize: '1.05rem', marginBottom: '1.5rem', color: '#a1a1aa', lineHeight: 1.6 }}>
-              {selectedProject.summary}
-            </p>
-
-            <div style={{ marginBottom: '2rem' }}>
-              <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#c4d600', marginBottom: '0.75rem' }}>
-                Deliverables & Scope
-              </h4>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {selectedProject.deliverables.map((item, idx) => (
-                  <span key={idx} style={{ background: 'rgba(255,255,255,0.06)', padding: '0.4rem 0.85rem', borderRadius: '6px', fontSize: '0.82rem', color: '#f4f4f5' }}>
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <button
-                onClick={() => { setSelectedProject(null); onOpenInquiry(); }}
-                style={{
-                  background: '#c4d600',
-                  color: '#08080a',
-                  border: 'none',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '24px',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}
-              >
-                <span>Commission Similar Work</span>
-                <ArrowUpRight size={18} />
-              </button>
-              <button
-                onClick={() => setSelectedProject(null)}
-                style={{
-                  background: 'transparent',
-                  color: '#fff',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '24px',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
-                }}
-              >
-                Close Case Study
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* ── Content 4: Project 4 ── */}
+      <div className="content content--justify">
+        <h3 className="meta">Project 04 — Autonomous Telemetry</h3>
+        <h2 className="type" data-expand-4>
+          Soar above
+          <span className="type__expand type__expand--stack">
+            <span className="anim rotated">peaks</span>
+            <span className="type__expand-img type__expand-img--small">
+              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img8.jpg)' }} />
+            </span>
+          </span>
+          into
+          <span className="type__expand type__expand--stack">
+            <span className="anim rotated">clouds,</span>
+            <span className="type__expand-img type__expand-img--small">
+              <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img3.jpg)' }} />
+            </span>
+          </span>
+          <br />
+          and the whispers of the wind<br />
+          like
+        </h2>
+        <p className="block">
+          The wind carries secrets of forgotten lands, whispering through ancient trees and singing over desolate dunes, reminding us of the eternal movement of spirit and form.
+        </p>
+      </div>
 
       <style>{`
-        .expansion-typography-card {
-          display: flex;
-          flex-direction: column;
-          gap: 1.8rem;
-          cursor: pointer;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          padding-bottom: 4rem;
-        }
-        .project-meta-bar {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-          font-family: var(--font-main);
-          font-size: 0.75rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-        }
-        .project-meta-num {
-          color: #c4d600;
-          font-weight: 600;
-        }
-        .project-meta-client {
-          color: #ffffff;
-          font-weight: 600;
-        }
-        .project-meta-category {
-          color: #71717a;
-          margin-left: auto;
+        @font-face {
+          font-family: "Coconat";
+          src: url("/fonts/Coconat-Regular.woff2") format("woff2");
+          font-weight: normal;
+          font-style: normal;
         }
 
-        .expansion-headline {
-          font-family: var(--font-heading);
-          font-size: clamp(2.4rem, 5vw, 4.8rem);
-          fontWeight: 400;
+        .image-expansion-typography-section {
+          width: 100%;
+          padding: 6rem 2rem 10rem 2rem;
+          color: #ffffff;
+          position: relative;
+          z-index: 3;
+          box-sizing: border-box;
+        }
+
+        .content {
+          padding: 1rem 2rem;
+          display: grid;
+          margin-bottom: 25vh;
+          gap: 2rem;
+          grid-template-columns: 100%;
+          grid-template-areas: 'meta' 'type' 'block';
+          grid-template-rows: auto auto auto;
+        }
+
+        .content:last-of-type {
+          margin-bottom: 10vh;
+        }
+
+        .meta {
+          grid-area: meta;
+          font-family: var(--font-main);
+          font-size: 0.8rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          font-weight: 500;
+          color: #8e8e93;
+          margin-bottom: 2vh;
+        }
+
+        .meta::before {
+          content: '\\2014';
+          padding-right: 0.4rem;
+          color: #c4d600;
+        }
+
+        .type {
+          grid-area: type;
+          font-family: "Coconat", serif;
+          margin: 0;
+          font-size: clamp(2.4rem, 5.2vw, 5.8rem);
+          text-transform: none;
           line-height: 1.1;
-          letter-spacing: -0.03em;
+          font-weight: normal;
           color: #ffffff;
         }
 
         .type__expand {
-          display: inline-flex;
-          align-items: center;
-          gap: 1rem;
-          vertical-align: middle;
-          margin: 0 0.5rem;
+          vertical-align: top;
+          display: inline-grid;
+          grid-template-columns: min-content;
+          transition: gap 0.5s ease;
         }
+
+        .type__expand--center {
+          display: block;
+        }
+
+        .type__expand--full {
+          display: block;
+          width: 100%;
+        }
+
+        .type__expand--stack {
+          vertical-align: bottom;
+          grid-template-columns: 100%;
+          justify-items: center;
+          display: inline-grid;
+        }
+
+        .type--open .type__expand {
+          gap: 1.5rem;
+        }
+
+        .type--open .type__expand--stack {
+          gap: 0.5rem;
+          padding: 0 0 1rem 0;
+        }
+
         .type__expand-img {
           display: inline-block;
-          height: clamp(55px, 6vw, 95px);
-          width: 80px;
-          border-radius: 20px;
+          position: relative;
+          aspect-ratio: 16/9;
+          width: 0%;
           overflow: hidden;
+          border-radius: 4rem;
           vertical-align: middle;
+          transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.7s ease;
           background: #18181b;
-          border: 1px solid rgba(255, 255, 255, 0.18);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
         }
-        .expansion-typography-card:hover .type__expand-img {
-          transform: scale(1.06);
-          border-color: #c4d600;
-        }
+
         .type__expand-img-inner {
           display: block;
           width: 100%;
           height: 100%;
           background-size: cover;
           background-position: center;
-          filter: brightness(0.9) contrast(1.05);
         }
-        .anim-skewed {
+
+        .type__expand-img--small {
+          aspect-ratio: 1;
+        }
+
+        .type__expand--reveal .type__expand-img-inner {
+          width: 33vw;
+          aspect-ratio: 16/9;
+        }
+
+        .type--open .type__expand-img {
+          width: 100%;
+        }
+
+        .type--open .type__expand-img--small {
+          width: 3.5em;
+        }
+
+        .anim {
           display: inline-block;
+          white-space: nowrap;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .type--open .skewed {
+          transform: skewX(-18deg);
           color: #c4d600;
-          font-style: italic;
-          font-weight: 300;
         }
 
-        .project-block-desc {
+        .type--open .rotated {
+          transform: skewX(-5deg) rotateZ(-8deg);
+          color: #c4d600;
+        }
+
+        .block {
+          grid-area: block;
+          margin: 0;
+          max-width: 480px;
+          line-height: 1.6;
           font-family: var(--font-main);
-          font-size: clamp(0.95rem, 1.15vw, 1.1rem);
-          line-height: 1.65;
+          font-size: 0.95rem;
           color: #8e8e93;
-          max-width: 780px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
-        .project-footer-action {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: 1rem;
-        }
-        .deliverable-pill {
-          font-size: 0.72rem;
-          color: #71717a;
-          background: rgba(255, 255, 255, 0.04);
-          padding: 0.35rem 0.85rem;
-          border-radius: 4px;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .explore-case-btn {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.6rem 1.25rem;
-          border-radius: 24px;
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #ffffff;
-          font-size: 0.8rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.35s ease;
-        }
-        .expansion-typography-card:hover .explore-case-btn {
-          background: #c4d600;
-          color: #08080a;
-          border-color: #c4d600;
+        @media screen and (min-width: 53em) {
+          .content--left {
+            grid-template-columns: 1fr 42%;
+            grid-template-rows: auto 19vw auto;
+            grid-template-areas: 'meta meta' 'type type' '... block';
+          }
+
+          .content--center {
+            text-align: center;
+            place-items: center;
+            grid-template-rows: auto 30vw auto;
+          }
+
+          .content--right {
+            grid-column-gap: 10vw;
+            grid-template-columns: auto 45%;
+            grid-template-areas: 'block meta' 'block type';
+            grid-template-rows: auto 40vw;
+            text-align: right;
+            justify-content: end;
+          }
+
+          .content--right .block {
+            margin-top: 20vh;
+          }
+
+          .content--justify {
+            max-width: 1200px;
+            margin: 0 auto;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 30vw auto;
+            grid-template-areas: 'meta meta' 'type type' '... block';
+          }
+
+          .type__expand--inline {
+            gap: 0.1em;
+            grid-template-columns: repeat(3, min-content);
+          }
+
+          .type__expand--center {
+            display: inline-grid;
+            gap: 0.15em;
+            justify-content: center;
+            grid-template-columns: auto auto auto;
+          }
+
+          .type--open .type__expand--center {
+            grid-template-columns: 1fr auto 1fr;
+          }
+
+          .type__expand--full {
+            width: 100%;
+            grid-template-columns: 100%;
+          }
+
+          .type__expand--full .type__expand-img {
+            margin-left: auto;
+          }
+
+          .aright {
+            text-align: right;
+          }
         }
       `}</style>
     </div>
