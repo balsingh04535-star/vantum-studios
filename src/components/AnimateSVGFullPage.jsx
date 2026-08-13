@@ -34,13 +34,14 @@ export default function AnimateSVGFullPage() {
       }
 
       const filterType = svgEl.dataset.filterType;
-      const filterIdMatch = text.getAttribute('filter') && text.getAttribute('filter').match(/url\(["']?([^"']*)["']?\)/);
-      const filterId = filterIdMatch ? filterIdMatch[1] : null;
+      const filterAttr = text.getAttribute('filter');
+      const filterIdMatch = filterAttr && filterAttr.match(/url\(["']?([^"']*)["']?\)/);
+      const rawFilterId = filterIdMatch ? filterIdMatch[1].replace(/^#/, '') : null;
 
       let filterPrimitiveEl = null;
-      if (filterType && filterId) {
+      if (filterType && rawFilterId) {
         const primType = filterType === 'blur' ? 'feGaussianBlur' : 'feDisplacementMap';
-        filterPrimitiveEl = container.querySelector(`#${filterId} ${primType}`);
+        filterPrimitiveEl = container.querySelector(`#${rawFilterId} ${primType}`) || document.querySelector(`#${rawFilterId} ${primType}`);
       }
 
       let pathLength = path.getTotalLength();

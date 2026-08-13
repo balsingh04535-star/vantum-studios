@@ -228,59 +228,6 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         </div>
       </header>
 
-      {/* ── TOP CENTER HERO GLOBE ── */}
-      <div
-        ref={globeWrapperRef}
-        className="globe-hero-wrapper"
-        style={{
-          position: 'relative',
-          width: 'clamp(320px, 35vw, 520px)',
-          aspectRatio: '1/1',
-          margin: '1rem auto 1rem auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 2,
-        }}
-      >
-        {/* Concentric Background Orbital Rings Centered Behind Sphere */}
-        <svg
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '135%',
-            height: '135%',
-            pointerEvents: 'none',
-            zIndex: 0,
-            shapeRendering: 'geometricPrecision',
-          }}
-          viewBox="0 0 800 800"
-        >
-          <circle cx="400" cy="400" r="370" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-          <circle cx="400" cy="400" r="290" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
-          <circle cx="400" cy="400" r="210" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-        </svg>
-
-        {/* 3D Earth Sphere */}
-        <div style={{ position: 'relative', width: '100%', height: '100%', zIndex: 1 }}>
-          <ClientGlobe
-            dark={1}
-            baseColor={[0.45, 0.48, 0.52]}
-            glowColor={[0.15, 0.18, 0.22]}
-            markerColor={[0.78, 0.88, 0.0]}
-            arcColor={[0.78, 0.88, 0.0]}
-            mapBrightness={6.0}
-            diffuse={1.8}
-            mapSamples={65000}
-            markerSize={0.05}
-            arcWidth={0.65}
-            arcHeight={0.38}
-          />
-        </div>
-      </div>
-
       {/* ── FULL PAGE COMPONENT FROM code (35)\AnimateSVGTextPath-master ── */}
       <AnimateSVGFullPage />
 
