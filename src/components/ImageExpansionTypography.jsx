@@ -386,37 +386,53 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
 
         @media (max-width: 768px) {
           .image-expansion-typography-section {
-            padding: 3rem 1.25rem 5rem 1.25rem;
+            padding: 2rem 1rem 4rem 1rem;
           }
           .content {
-            padding: 0;
-            margin-bottom: 12vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 1.2rem;
+            margin-bottom: 4.5rem;
+            padding: 0;
+            grid-template-columns: 100%;
+          }
+          .meta {
+            margin-bottom: 0;
+            font-size: 0.78rem;
           }
           .type {
-            font-size: clamp(1.75rem, 6.5vw, 2.5rem);
-            line-height: 1.2;
+            font-size: clamp(2rem, 7.5vw, 2.75rem);
+            line-height: 1.15;
             word-break: break-word;
           }
           .type__expand {
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.4rem;
-            max-width: 100%;
+            display: block;
+            width: 100%;
+            margin: 0.75rem 0;
           }
           .type__expand-img {
-            max-width: 100%;
-            height: clamp(50px, 14vw, 75px);
-            border-radius: 1rem;
+            width: 100% !important;
+            height: clamp(170px, 45vw, 240px) !important;
+            border-radius: 1.25rem !important;
+            aspect-ratio: 16/9;
+            margin: 0.5rem 0;
           }
-          .type__expand--reveal .type__expand-img-inner {
-            width: 100%;
+          .type__expand-img-inner {
+            width: 100% !important;
+            height: 100% !important;
+            background-size: cover;
+          }
+          .anim {
+            display: inline-block;
+            color: #829100;
           }
           .block {
             max-width: 100%;
-            font-size: 0.88rem;
-            line-height: 1.65;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #3f3f46;
+            margin-top: 0.25rem;
           }
           .aright {
             text-align: left;
