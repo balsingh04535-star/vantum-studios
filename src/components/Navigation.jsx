@@ -101,8 +101,8 @@ export default function Navigation({ onOpenInquiry }) {
         }}
       >
         {/* Left: Brand Logo Mark */}
-        <TransitionLink to="/" className="nav-dock-brand" aria-label="Vantum Studios Home">
-          <img src="/logo-mark.svg" alt="Vantum Studios Logo" className="nav-dock-logo-mark" />
+        <TransitionLink to="/" className="nav-dock-brand" aria-label="Chanana Studios Home">
+          <img src="/logo-mark.svg" alt="Chanana Studios Logo" className="nav-dock-logo-mark" />
         </TransitionLink>
 
         {/* Left Divider */}

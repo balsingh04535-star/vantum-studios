@@ -69,23 +69,21 @@ export default function Hero({ onOpenInquiry }) {
   const canvasRef = useRef(null);
   const creamOverlayRef = useRef(null);
   const heroFooterRef = useRef(null);
-  const titleWordsRef = useRef([]);
+  const titleLogoRef = useRef(null);
   const subWordsRef = useRef([]);
   const buttonRef = useRef(null);
   const [seqProgress, setSeqProgress] = useState(0);
 
-  const titleText = "VANTUM STUDIOS";
-  const titleWords = titleText.split(" ");
   const subtitleText = "A living catalogue of digital realities, collected frame by frame from the edge of the real.";
   const subWords = subtitleText.split(" ");
 
   useEffect(() => {
     const spotlightImages = galleryRef.current?.querySelectorAll('.hero-spotlight-item img') || [];
-    const validTitleWords = titleWordsRef.current.filter(Boolean);
+    const titleLogo = titleLogoRef.current;
     const validSubWords = subWordsRef.current.filter(Boolean);
 
-    // Initial state setup: VANTUM STUDIOS is 100% visible IMMEDIATELY on load
-    gsap.set(validTitleWords, { opacity: 1, y: 0 });
+    // Initial state setup: Logo is 100% visible IMMEDIATELY on load
+    if (titleLogo) gsap.set(titleLogo, { opacity: 1, y: 0 });
     gsap.set(validSubWords, { opacity: 0, y: 60 });
     if (buttonRef.current) gsap.set(buttonRef.current, { opacity: 0, y: 60 });
     if (creamOverlayRef.current) gsap.set(creamOverlayRef.current, { opacity: 0 });
@@ -156,7 +154,7 @@ export default function Hero({ onOpenInquiry }) {
       renderLoop();
     }
 
-    // Extended 4.5x Viewport Scroll Runway for full 3x3 Grid Scaling & Sequential Text Transition
+    // Extended 4.5x Viewport Scroll Runway
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: heroRef.current,
@@ -167,7 +165,6 @@ export default function Hero({ onOpenInquiry }) {
         scrub: 1,
         anticipatePin: 1,
         onUpdate: (self) => {
-          // Drive video frame sequence with scroll progress (0-1)
           setSeqProgress(self.progress);
         },
         onLeave: () => {
@@ -183,14 +180,15 @@ export default function Hero({ onOpenInquiry }) {
       }
     });
 
-    // --- STAGE 1: As user scrolls, VANTUM STUDIOS moves up and out (0.0 -> 0.25), while Subtitle & Button move into exact center (0.12 -> 0.40) ---
-    tl.to(validTitleWords, {
-      opacity: 0,
-      y: -90,
-      stagger: 0.02,
-      ease: 'power2.in',
-      duration: 0.25
-    }, 0);
+    // --- STAGE 1: As user scrolls, Hero SVG Logo moves up and out (0.0 -> 0.25) ---
+    if (titleLogo) {
+      tl.to(titleLogo, {
+        opacity: 0,
+        y: -90,
+        ease: 'power2.in',
+        duration: 0.25
+      }, 0);
+    }
 
     tl.to(validSubWords, {
       opacity: 1,
@@ -313,75 +311,61 @@ export default function Hero({ onOpenInquiry }) {
           {/* 3x3 Spotlight Gallery Grid */}
           <div className="hero-spotlight-gallery" ref={galleryRef}>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/grid-new-1.png" alt="Vantum Work 1" /></div>
-              <div className="hero-spotlight-item"><img src="/img2.jpg" alt="Vantum Work 2" /></div>
-              <div className="hero-spotlight-item"><img src="/img3.jpg" alt="Vantum Work 3" /></div>
+              <div className="hero-spotlight-item"><img src="/grid-new-1.png" alt="Showcase 1" /></div>
+              <div className="hero-spotlight-item"><img src="/img2.jpg" alt="Showcase 2" /></div>
+              <div className="hero-spotlight-item"><img src="/img3.jpg" alt="Showcase 3" /></div>
             </div>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Vantum Work 4" /></div>
+              <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Showcase 4" /></div>
               <div className="hero-spotlight-item">
-                {/* Mobile: static image. Desktop: scrolling video canvas sequence */}
                 <picture className="hero-mobile-picture">
                   <source media="(max-width: 1000px)" srcSet="/mobile-hero.png" />
-                  {/* Fallback img hidden on desktop — canvas overlays it */}
-                  <img src="/2.png" alt="Vantum Main Middle" style={{ opacity: 0 }} />
+                  <img src="/2.png" alt="Main Showcase Middle" style={{ opacity: 0 }} />
                 </picture>
-                {/* Desktop: 1280x720 landscape scroll sequence */}
                 <div className="hero-canvas-seq desktop-only-seq">
                   <HeroVideoCanvas scrollProgress={seqProgress} folder="sequence" width={1280} height={720} />
                 </div>
-                {/* Mobile: 720x1280 portrait scroll sequence */}
                 <div className="hero-canvas-seq mobile-only-seq">
                   <HeroVideoCanvas scrollProgress={seqProgress} folder="sequence-mobile" width={720} height={1280} />
                 </div>
               </div>
-              <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Vantum Work 6" /></div>
+              <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Showcase 6" /></div>
             </div>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img7.jpg" alt="Vantum Work 7" /></div>
-              <div className="hero-spotlight-item"><img src="/img8.jpg" alt="Vantum Work 8" /></div>
-              <div className="hero-spotlight-item"><img src="/grid-new-2.png" alt="Vantum Work 9" /></div>
+              <div className="hero-spotlight-item"><img src="/img7.jpg" alt="Showcase 7" /></div>
+              <div className="hero-spotlight-item"><img src="/img8.jpg" alt="Showcase 8" /></div>
+              <div className="hero-spotlight-item"><img src="/grid-new-2.png" alt="Showcase 9" /></div>
             </div>
           </div>
 
-          {/* Hero Title & Subtitle Containers (Independently Centered in Middle) */}
-          {/* 1. VANTUM STUDIOS Title - Luxury Slim Serif / Responsive Scaling */}
+          {/* Hero Title Container - Using Custom SVG Logo */}
           <div className="hero-title-container">
-            <h1
+            <div
+              ref={titleLogoRef}
               style={{
-                fontFamily: '"Cormorant Garamond", "Syncopate", serif',
-                fontSize: 'clamp(1.4rem, 7.2vw, 6.2rem)',
-                fontWeight: 300,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                lineHeight: 1.1,
-                color: '#ffffff',
-                margin: 0,
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.25em 0.35em',
-                pointerEvents: 'auto',
-                textShadow: '0 4px 30px rgba(0,0,0,0.6)',
                 width: '100%',
-                textAlign: 'center'
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                pointerEvents: 'auto'
               }}
             >
-              {titleWords.map((word, idx) => (
-                <span
-                  key={idx}
-                  className="hero-word"
-                  ref={(el) => (titleWordsRef.current[idx] = el)}
-                  style={{ display: 'inline-block' }}
-                >
-                  {word}
-                </span>
-              ))}
-            </h1>
+              <img
+                src="/hero-logo.svg"
+                alt="Chanana Studios"
+                style={{
+                  maxWidth: 'min(85vw, 850px)',
+                  maxHeight: '45vh',
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.6))'
+                }}
+              />
+            </div>
           </div>
 
-          {/* 2. Subtitle & CTA Button - Luxury Slim Italic Serif */}
+          {/* Subtitle & CTA Button */}
           <div className="hero-subtitle-container">
             <h2
               style={{

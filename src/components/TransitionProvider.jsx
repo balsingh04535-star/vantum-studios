@@ -39,7 +39,7 @@ export function TransitionProvider({ children }) {
   const transitionTo = useCallback((path) => {
     if (!overlayRef.current) { navigate(path); return; }
 
-    const dest = PAGE_LABELS[path] ?? 'Vantum';
+    const dest = PAGE_LABELS[path] ?? 'Chanana';
     setLabel(dest);
 
     const el = overlayRef.current;
@@ -159,7 +159,7 @@ export function TransitionProvider({ children }) {
             fontWeight: 700,
             marginBottom: '0.6rem',
           }}>
-            Vantum Transition Engine
+            Chanana Transition Engine
           </p>
 
           <h2 className="tc-label" style={{

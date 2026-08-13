@@ -76,7 +76,7 @@ export default function Footer({ onOpenInquiry }) {
             <h4 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', color: 'var(--text-primary)' }}>Direct Channels</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', color: 'var(--text-secondary)' }}>
               <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Mail size={16} color="var(--accent-volt)" /> hello@vantumstudios.com
+                <Mail size={16} color="var(--accent-volt)" /> hello@chananastudios.com
               </p>
               <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <MapPin size={16} color="var(--accent-volt)" /> 140 Soho Square, London W1D 3QN
