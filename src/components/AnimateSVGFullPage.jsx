@@ -481,10 +481,13 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, calc(390px + 3rem)));
-          justify-content: center;
-          grid-gap: 10vw;
-          margin: 15rem auto;
+          grid-template-columns: repeat(2, 1fr);
+          justify-content: space-between;
+          grid-gap: 6vw;
+          width: 100%;
+          max-width: 1400px;
+          margin: 12rem auto;
+          padding: 0 4vw;
         }
 
         .svgpage-main .grid__item {
@@ -618,6 +621,22 @@ export default function AnimateSVGFullPage() {
           }
           .svgpage-main .grid__item-number {
             font-size: 4.75rem;
+          }
+        }
+
+        @media screen and (max-width: 768px) {
+          .svgpage-main .grid {
+            grid-template-columns: 1fr !important;
+            grid-gap: 4rem !important;
+            margin: 6rem auto !important;
+            padding: 0 1.5rem !important;
+          }
+          .svgpage-main .grid__item:nth-child(even) {
+            margin-top: 0 !important;
+            text-align: left !important;
+          }
+          .svgpage-main .grid__item:nth-child(even) .grid__item-description {
+            padding: 0 !important;
           }
         }
       `}</style>

@@ -137,7 +137,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         minHeight: '100vh',
         backgroundColor: '#08080a', // Ultra-luxury deep charcoal
         color: '#f4f4f5',
-        padding: '3rem 3.5rem 6rem 3.5rem',
+        padding: 0,
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -167,7 +167,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           width: '100%',
-          maxWidth: '1300px',
+          padding: '2.5rem 3.5rem 0 3.5rem',
+          boxSizing: 'border-box',
           marginBottom: '2rem',
           zIndex: 10,
         }}
