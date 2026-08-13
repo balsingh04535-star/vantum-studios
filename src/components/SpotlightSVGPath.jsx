@@ -47,12 +47,7 @@ export default function SpotlightSVGPath() {
         
         {/* ROW 1: STEP 1 */}
         <div className="row">
-          <div className="col">
-            <div className="img">
-              <img src="/steps/step1.svg" alt="01. When the client calls us" />
-            </div>
-          </div>
-          <div className="col">
+          <div className="col col-card">
             <div className="card">
               <span className="step-badge">STEP 01 · INITIAL CONSULTATION</span>
               <h2>01. When the Client Calls Us</h2>
@@ -61,11 +56,16 @@ export default function SpotlightSVGPath() {
               </p>
             </div>
           </div>
+          <div className="col col-img">
+            <div className="img">
+              <img src="/steps/step1.svg" alt="01. When the client calls us" />
+            </div>
+          </div>
         </div>
 
         {/* ROW 2: STEP 2 */}
         <div className="row">
-          <div className="col">
+          <div className="col col-card">
             <div className="card">
               <span className="step-badge">STEP 02 · STRATEGY & BLUEPRINT</span>
               <h2>02. When We Plan Everything</h2>
@@ -74,7 +74,7 @@ export default function SpotlightSVGPath() {
               </p>
             </div>
           </div>
-          <div className="col">
+          <div className="col col-img">
             <div className="img">
               <img src="/steps/step2.svg" alt="02. When we plan everything" />
             </div>
@@ -83,12 +83,7 @@ export default function SpotlightSVGPath() {
 
         {/* ROW 3: STEP 3 */}
         <div className="row">
-          <div className="col">
-            <div className="img">
-              <img src="/steps/step3.svg" alt="03. When we work out" />
-            </div>
-          </div>
-          <div className="col">
+          <div className="col col-card">
             <div className="card">
               <span className="step-badge">STEP 03 · CRAFT & DEVELOPMENT</span>
               <h2>03. When We Work Out</h2>
@@ -97,11 +92,16 @@ export default function SpotlightSVGPath() {
               </p>
             </div>
           </div>
+          <div className="col col-img">
+            <div className="img">
+              <img src="/steps/step3.svg" alt="03. When we work out" />
+            </div>
+          </div>
         </div>
 
         {/* ROW 4: STEP 4 */}
         <div className="row">
-          <div className="col">
+          <div className="col col-card">
             <div className="card">
               <span className="step-badge">STEP 04 · DEPLOYMENT & LAUNCH</span>
               <h2>04. When We Ship to the Client</h2>
@@ -110,7 +110,7 @@ export default function SpotlightSVGPath() {
               </p>
             </div>
           </div>
-          <div className="col">
+          <div className="col col-img">
             <div className="img">
               <img src="/steps/step4.svg" alt="04. When we ship to the client" />
             </div>
@@ -294,42 +294,26 @@ export default function SpotlightSVGPath() {
           z-index: 1;
         }
 
-        @media (max-width: 1000px) {
-          .spotlight-hero h1,
-          .spotlight-outro h1 {
-            width: 100%;
-            font-size: 2rem;
+        @media (min-width: 901px) {
+          .spotlight .row:nth-child(even) .col-card {
+            order: 2;
           }
-
-          .spotlight {
-            gap: 80px;
+          .spotlight .row:nth-child(even) .col-img {
+            order: 1;
           }
-
-          .spotlight .row {
-            flex-direction: column;
+          .spotlight .row:nth-child(odd) .col-card {
+            order: 1;
           }
-
-          .spotlight .row:nth-child(1) .img,
-          .spotlight .row:nth-child(4) .img {
-            width: 100%;
-          }
-
-          .spotlight .card {
-            width: 100%;
-            padding: 24px;
-          }
-
-          .spotlight .svg-path {
-            top: 15vh;
-            width: 100%;
+          .spotlight .row:nth-child(odd) .col-img {
+            order: 2;
           }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .spotlight-hero,
           .spotlight-outro {
             height: auto;
-            min-height: 45vh;
+            min-height: 40vh;
             padding: 2.5rem 1rem;
           }
 
@@ -341,21 +325,54 @@ export default function SpotlightSVGPath() {
           }
 
           .spotlight {
-            padding: 1.5rem 1rem 60px 1rem;
-            gap: 48px;
+            padding: 2rem 1rem 80px 1rem;
+            gap: 64px;
+          }
+
+          .spotlight .row {
+            flex-direction: column;
+            gap: 20px;
+          }
+
+          .spotlight .row .col-card {
+            order: 1 !important;
+            width: 100%;
+          }
+
+          .spotlight .row .col-img {
+            order: 2 !important;
+            width: 100%;
           }
 
           .spotlight .card {
-            padding: 20px 16px;
-            border-radius: 16px;
+            width: 100%;
+            padding: 24px 20px;
+            border-radius: 18px;
           }
 
           .spotlight .card h2 {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
+          }
+
+          .spotlight .card p {
+            font-size: 0.95rem;
           }
 
           .spotlight .svg-path {
-            display: none;
+            display: block !important;
+            top: 2vh;
+            left: 50%;
+            width: 140%;
+            height: 98%;
+            transform: translateX(-50%);
+            overflow: visible;
+          }
+
+          .spotlight .svg-path svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.75;
+            overflow: visible;
           }
         }
       `}</style>
