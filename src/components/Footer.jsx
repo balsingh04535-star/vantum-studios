@@ -7,7 +7,9 @@ export default function Footer({ onOpenInquiry }) {
   const [email, setEmail] = useState('');
   const [note, setNote] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const categories = ['SENIOR ROLE', 'CONTRACT', 'DESIGN/WORK', 'OTHER'];
 
@@ -17,15 +19,45 @@ export default function Footer({ onOpenInquiry }) {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setName('');
-      setEmail('');
-      setNote('');
-    }, 3000);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY || '981806c7-87b7-42d7-894b-2bf20a957760';
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: name,
+          email: email,
+          category: selectedCategory,
+          message: note,
+          subject: `⚡ New Agency Inquiry from ${name} [${selectedCategory}]`
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setIsSubmitted(true);
+        setName('');
+        setEmail('');
+        setNote('');
+        setTimeout(() => setIsSubmitted(false), 6000);
+      } else {
+        setSubmitError(data.message || 'Submission failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setSubmitError('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -124,10 +156,16 @@ export default function Footer({ onOpenInquiry }) {
                 />
               </div>
 
+              {submitError && (
+                <div style={{ fontSize: '0.8rem', color: '#ff4d4d', fontFamily: 'monospace', margin: '0.2rem 0' }}>
+                  {submitError}
+                </div>
+              )}
+
               {/* Form Action Buttons */}
               <div className="form-actions">
-                <button type="submit" className="action-btn btn-dark">
-                  <span>{isSubmitted ? 'SENT!' : 'SEND MESSAGE'}</span>
+                <button type="submit" disabled={isSubmitting} className="action-btn btn-dark" style={{ opacity: isSubmitting ? 0.7 : 1 }}>
+                  <span>{isSubmitting ? 'SENDING...' : isSubmitted ? 'SENT TO INBOX!' : 'SEND MESSAGE'}</span>
                   {isSubmitted ? <Check size={14} /> : <Send size={14} />}
                 </button>
 

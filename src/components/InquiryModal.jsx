@@ -12,15 +12,52 @@ export default function InquiryModal({ isOpen, onClose }) {
     details: ''
   });
 
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2500);
+    setSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY || '981806c7-87b7-42d7-894b-2bf20a957760';
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          service: formData.service,
+          budget: formData.budget,
+          message: formData.details,
+          subject: `🚀 New Project Inquiry from ${formData.name} (${formData.company || 'Brand'})`
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          onClose();
+        }, 3000);
+      } else {
+        setSubmitError(data.message || 'Submission failed. Please try again.');
+      }
+    } catch (err) {
+      console.error('Inquiry submission error:', err);
+      setSubmitError('Network error. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -139,8 +176,14 @@ export default function InquiryModal({ isOpen, onClose }) {
               />
             </div>
 
-            <button type="submit" className="btn-volt" style={{ width: '100%', justifyContent: 'center' }}>
-              <span>Submit Project Parameters</span>
+            {submitError && (
+              <div style={{ fontSize: '0.85rem', color: '#ff4d4d', fontFamily: 'monospace', marginBottom: '1rem' }}>
+                {submitError}
+              </div>
+            )}
+
+            <button type="submit" disabled={submitting} className="btn-volt" style={{ width: '100%', justifyContent: 'center', opacity: submitting ? 0.7 : 1 }}>
+              <span>{submitting ? 'Transmitting Brief...' : 'Submit Project Parameters'}</span>
               <ArrowUpRight size={20} />
             </button>
           </form>
