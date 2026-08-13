@@ -116,11 +116,13 @@ export default function SpotlightSVGPath() {
       {/* ===== 1:1 CSS Styles from style.css ===== */}
       <style>{`
         .spotlight-component-root {
-          --base-100: var(--bg-cream, #f4f3ef);
-          --base-200: var(--bg-cream, #f4f3ef);
-          --base-300: #0f0f0f;
-          background-color: var(--base-100);
-          color: var(--base-300);
+          --base-100: #eaf4f9;
+          --base-200: #e4f0f7;
+          --base-300: #0f2942;
+          background-color: #eaf4f9;
+          background-image: radial-gradient(circle, rgba(14, 116, 144, 0.22) 1.5px, transparent 1.5px);
+          background-size: 28px 28px;
+          color: #0f2942;
           font-family: "Manrope", "Plus Jakarta Sans", sans-serif;
           width: 100%;
           position: relative;
@@ -138,7 +140,7 @@ export default function SpotlightSVGPath() {
           width: 100%;
           height: 100vh;
           padding: 32px;
-          background-color: var(--base-200);
+          background-color: transparent;
         }
 
         .spotlight-hero h1,
@@ -151,7 +153,13 @@ export default function SpotlightSVGPath() {
           font-weight: 500;
           line-height: 1.1;
           letterSpacing: -1.6px;
-          color: #0f0f0f;
+          color: #0f2942;
+          padding: 2.5rem 3rem;
+          border: 2px dashed rgba(14, 116, 144, 0.35);
+          border-radius: 24px;
+          background: rgba(255, 255, 255, 0.65);
+          backdrop-filter: blur(12px);
+          box-shadow: 0 12px 32px rgba(14, 116, 144, 0.08);
         }
 
         .spotlight {
@@ -204,8 +212,11 @@ export default function SpotlightSVGPath() {
           margin: 0 auto;
           padding: 48px;
           gap: 16px;
-          border-radius: 16px;
-          background-color: var(--base-200);
+          border-radius: 20px;
+          background-color: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(12px);
+          border: 2px dashed rgba(14, 116, 144, 0.38);
+          box-shadow: 0 12px 32px rgba(14, 116, 144, 0.08);
         }
 
         .spotlight .card h2 {
@@ -213,13 +224,13 @@ export default function SpotlightSVGPath() {
           font-weight: 500;
           line-height: 1.1;
           letter-spacing: -1.2px;
-          color: #0f0f0f;
+          color: #0f2942;
         }
 
         .spotlight .card p {
           font-size: 1.1rem;
           font-weight: 500;
-          color: #52525b;
+          color: #334155;
           line-height: 1.6;
         }
 
