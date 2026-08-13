@@ -11,28 +11,27 @@ export default function MasonryShowcaseGrid() {
   const rightColRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
-     BALANCED PARALLAX WALL DATA (ZERO TOP/BOTTOM BLACK SPACES)
-     Replace any image path with your own custom image files!
+     USER-PROVIDED GRID PHOTOS (from C:\Users\unfaz\Downloads\photos for the grid)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
-    { id: 'left-1', image: '/img8.jpg', aspect: '4/3' },
-    { id: 'left-2', image: '/img1.jpg', aspect: '1/1' },
-    { id: 'left-3', image: '/amplo_brand.png', aspect: '4/3' },
-    { id: 'left-4', image: '/img5.jpg', aspect: '16/10' },
+    { id: 'grid-1', image: '/grid-photos/grid1.png' },
+    { id: 'grid-2', image: '/grid-photos/grid2.png' },
+    { id: 'grid-3', image: '/grid-photos/grid3.png' },
+    { id: 'grid-4', image: '/grid-photos/grid4.png' },
   ];
 
   const centerColumnProjects = [
-    { id: 'center-1', image: '/img6.jpg', aspect: '16/10' },
-    { id: 'center-2', image: '/img7.jpg', aspect: '4/3' },
-    { id: 'center-3', image: '/img4.jpg', aspect: '16/11' },
-    { id: 'center-4', image: '/moodtalk_dashboard.png', aspect: '16/10' },
+    { id: 'grid-5', image: '/grid-photos/grid5.png' },
+    { id: 'grid-6', image: '/grid-photos/grid6.png' },
+    { id: 'grid-7', image: '/grid-photos/grid7.png' },
+    { id: 'grid-8', image: '/grid-photos/grid8.png' },
   ];
 
   const rightColumnProjects = [
-    { id: 'right-1', image: '/img3.jpg', aspect: '16/10' },
-    { id: 'right-2', image: '/img2.jpg', aspect: '16/10' },
-    { id: 'right-3', image: '/skincare_leaf.png', aspect: '4/3' },
-    { id: 'right-4', image: '/experience_laptop.png', aspect: '16/10' },
+    { id: 'grid-9', image: '/grid-photos/grid9.png' },
+    { id: 'grid-10', image: '/grid-photos/grid10.png' },
+    { id: 'grid-11', image: '/grid-photos/grid11.png' },
+    { id: 'grid-12', image: '/grid-photos/grid1.png' },
   ];
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const ctx = gsap.context(() => {
-      // ── Calibrated Counter-Parallax Scroll Trigger Timeline ──
+      // ── Counter-Parallax Scroll Trigger Timeline ──
       // Starts y:0 (Flush) and translates moderately so NO black gaps appear
       gsap.timeline({
         scrollTrigger: {
@@ -65,14 +64,14 @@ export default function MasonryShowcaseGrid() {
   return (
     <section ref={containerRef} className="sharp-parallax-wall-section">
       
-      {/* ── 3-Column Sharp Parallax Wall (Flush Fit, No Black Spaces) ── */}
+      {/* ── 3-Column Sharp Parallax Wall (Flush Fit with User Photos) ── */}
       <div className="sharp-columns-grid">
         
         {/* Left Column (Scrolls DOWN) */}
         <div ref={leftColRef} className="sharp-col col-left">
           {leftColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Showcase" className="sharp-card-img" />
+            <div key={item.id} className="sharp-card-block">
+              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
         </div>
@@ -80,8 +79,8 @@ export default function MasonryShowcaseGrid() {
         {/* Center Column (Scrolls UP - Opposite Direction!) */}
         <div ref={centerColRef} className="sharp-col col-center">
           {centerColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Showcase" className="sharp-card-img" />
+            <div key={item.id} className="sharp-card-block">
+              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
         </div>
@@ -89,8 +88,8 @@ export default function MasonryShowcaseGrid() {
         {/* Right Column (Scrolls DOWN) */}
         <div ref={rightColRef} className="sharp-col col-right">
           {rightColumnProjects.map((item) => (
-            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-              <img src={item.image} alt="Showcase" className="sharp-card-img" />
+            <div key={item.id} className="sharp-card-block">
+              <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
             </div>
           ))}
         </div>
@@ -127,7 +126,7 @@ export default function MasonryShowcaseGrid() {
           will-change: transform;
         }
 
-        /* Sharp Rectangular Block Cards (No Hover Glitches) */
+        /* Sharp Rectangular Block Cards (NO HOVER EFFECTS AT ALL) */
         .sharp-card-block {
           position: relative;
           width: 100%;
@@ -143,8 +142,7 @@ export default function MasonryShowcaseGrid() {
 
         .sharp-card-img {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
+          height: auto;
           display: block;
           transform: none !important;
           transition: none !important;
