@@ -369,7 +369,7 @@ export default function AnimateSVGFullPage() {
           min-height: 100vh;
           background-color: #0a0104;
           color: #ffffff;
-          font-family: poynter-oldstyle-display-con, serif;
+          font-family: poynter-oldstyle-display-con, 'Cormorant Garamond', 'Syne', serif;
           position: relative;
           z-index: 2;
           overflow: hidden;
