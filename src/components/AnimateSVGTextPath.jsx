@@ -17,8 +17,8 @@ export default function AnimateSVGTextPath({
   pathD = "M -400 150 Q 400 280 1200 150 Q 2000 20 2800 150 Q 3600 280 4400 150",
   viewBox = "0 0 3200 300",
   fontSize = "3.2rem",
-  textColor = "#ffffff",
-  glowColor = "#c4d600",
+  textColor = "#0f0f0f",
+  glowColor = "#829100",
   idPrefix = "path1",
   repeatCount = 4,
 }) {
@@ -28,16 +28,17 @@ export default function AnimateSVGTextPath({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
+  useEffect(() => {
     const svgEl = svgRef.current;
     const textPath = textPathRef.current;
     const path = svgEl?.querySelector('path');
-    if (!svgEl || !textPath || !path) return () => window.removeEventListener('resize', checkMobile);
+    if (!svgEl || !textPath || !path) return;
 
     let animFrameId;
     let isVisible = false;
@@ -57,7 +58,7 @@ export default function AnimateSVGTextPath({
     const computeOffset = () => {
       const winHeight = window.innerHeight || 800;
       const currentScroll = window.pageYOffset;
-      return mapVal(positionY - currentScroll, winHeight, -winHeight * 0.5, pathLength * 0.45, -pathLength * 0.65);
+      return mapVal(positionY - currentScroll, winHeight, -winHeight * 0.5, pathLength * 0.4, -pathLength * 0.5);
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -100,17 +101,16 @@ export default function AnimateSVGTextPath({
       cancelAnimationFrame(animFrameId);
       observer.disconnect();
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('resize', checkMobile);
     };
-  }, []);
-
-  const activeViewBox = isMobile ? "0 0 1000 160" : viewBox;
-  const activePathD = isMobile ? "M -200 90 Q 250 170 500 90 Q 750 10 1100 90 Q 1400 170 1800 90" : pathD;
-  const activeFontSize = isMobile ? "1.65rem" : fontSize;
-  const activeHeight = isMobile ? "100px" : "220px";
+  }, [isMobile]);
 
   const pathId = `svg-curve-${idPrefix}`;
   const filterId = `svg-filter-${idPrefix}`;
+
+  // Mobile specific path and viewBox so text is 100% sharp and readable
+  const activeViewBox = isMobile ? "0 0 800 140" : viewBox;
+  const activePathD = isMobile ? "M -100 70 Q 200 130 500 70 Q 800 10 1100 70" : pathD;
+  const activeFontSize = isMobile ? "1.6rem" : fontSize;
 
   const repeatedTextString = Array.from({ length: isMobile ? 3 : repeatCount })
     .map(() => `${text} · `)
@@ -121,7 +121,7 @@ export default function AnimateSVGTextPath({
       <svg
         ref={svgRef}
         width="100%"
-        height={activeHeight}
+        height={isMobile ? "100px" : "220px"}
         viewBox={activeViewBox}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: 'block', overflow: 'visible' }}
@@ -151,7 +151,7 @@ export default function AnimateSVGTextPath({
           }}
         >
           <textPath ref={textPathRef} href={`#${pathId}`} startOffset="0px">
-            {repeatedTextString} <tspan fill={glowColor}>VANTUM PRACTICE</tspan>
+            {repeatedTextString} <tspan fill={glowColor}>VANTUM</tspan>
           </textPath>
         </text>
       </svg>

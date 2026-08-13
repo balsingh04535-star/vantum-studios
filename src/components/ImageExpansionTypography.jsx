@@ -28,8 +28,8 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
               ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: typeEl,
-                start: 'top 85%',
-                end: 'bottom 40%',
+                start: 'top 80%',
+                end: 'bottom 35%',
                 scrub: 0.8,
               },
             }
@@ -46,8 +46,8 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
               ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: typeEl,
-                start: 'top 85%',
-                end: 'bottom 40%',
+                start: 'top 80%',
+                end: 'bottom 35%',
                 scrub: 0.8,
               },
             }
@@ -57,14 +57,15 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         if (block) {
           gsap.fromTo(
             block,
-            { y: 24, opacity: 0.3 },
+            { yPercent: 40, opacity: 0.3, skewX: -6 },
             {
-              y: 0,
+              yPercent: 0,
               opacity: 1,
+              skewX: 0,
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: block,
-                start: 'top 90%',
+                start: 'top 85%',
                 end: 'bottom 50%',
                 scrub: 0.8,
               },
@@ -85,7 +86,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
         <h2 className="type" data-expand-1>
           Gratitude is my<br />
           new response<br />
-          to{' '}
+          to
           <span className="type__expand type__expand--inline type__expand--reveal">
             <span className="type__expand-img">
               <span className="type__expand-img-inner" style={{ backgroundImage: 'url(/img1.jpg)' }} />
@@ -112,7 +113,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             <span className="anim skewed">and dance</span>
           </span>
           <br />
-          under stars.
+          under the stars.
         </h2>
         <p className="block">
           In this dance, even the stars, those ancient sentinels of the night sky, are not stationary but in perpetual motion, tracing their arcs in the fabric of the cosmos. Each spark of light, a testament to the infinite cycle of birth and rebirth.
@@ -131,7 +132,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             </span>
           </span>
           one a breath in the<br />
-          saga of soul.
+          saga of the soul.
         </h2>
         <p className="block">
           As we delve deeper into the mysteries of the cosmos, we encounter the profound realization that the universe itself breathes in a rhythm of creation and dissolution, a cosmic dance that mirrors the cycles of life and death.
@@ -157,7 +158,7 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             </span>
           </span>
           <br />
-          and whispers of the wind<br />
+          and the whispers of the wind<br />
           like
         </h2>
         <p className="block">
@@ -383,70 +384,62 @@ export default function ImageExpansionTypography({ onOpenInquiry }) {
             margin-left: auto;
           }
 
-          .aright {
-            text-align: right;
-          }
-        }
-
-        /* ── Mobile Layout Optimization (< 768px) ── */
         @media (max-width: 768px) {
           .image-expansion-typography-section {
-            padding: 4.5rem 1.25rem 4rem 1.25rem;
+            padding: 2.5rem 1rem 4rem 1rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
           }
           .content {
-            padding: 0;
-            margin-bottom: 4.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            grid-template-columns: 100%;
-            grid-template-areas: none;
-            grid-template-rows: auto;
-          }
-          .content:last-of-type {
-            margin-bottom: 2rem;
+            padding: 0 !important;
+            margin-bottom: 14vh !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1.4rem !important;
+            text-align: left !important;
+            align-items: flex-start !important;
           }
           .meta {
-            font-size: 0.75rem;
-            letter-spacing: 0.16em;
-            color: #52525b;
-            margin-bottom: 0.2rem;
+            margin-top: 1rem !important;
+            font-size: 0.78rem !important;
+            letter-spacing: 0.16em !important;
+            color: #52525b !important;
           }
           .type {
-            font-size: clamp(1.9rem, 7.5vw, 2.7rem);
-            line-height: 1.16;
-            word-break: break-word;
+            font-size: clamp(2.1rem, 7.5vw, 3rem) !important;
+            line-height: 1.18 !important;
+            word-break: break-word !important;
+            width: 100% !important;
+            text-align: left !important;
           }
           .type__expand {
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.4rem;
-            max-width: 100%;
-            vertical-align: middle;
-            margin: 0.2rem 0;
+            display: inline-flex !important;
+            align-items: center !important;
+            vertical-align: middle !important;
+            margin: 0.2rem 0.2rem !important;
           }
           .type__expand-img {
-            aspect-ratio: 16/9;
-            height: auto;
-            max-width: clamp(180px, 65vw, 320px);
-            border-radius: 1.25rem;
-            vertical-align: middle;
-            display: inline-block;
+            height: clamp(60px, 16vw, 90px) !important;
+            border-radius: 14px !important;
+            margin: 0 0.3rem !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
           }
-          .type__expand--reveal .type__expand-img-inner {
-            width: 100%;
+          .type__expand-img-inner {
+            width: 100% !important;
+            height: 100% !important;
           }
           .block {
-            max-width: 100%;
-            font-size: 0.88rem;
-            line-height: 1.65;
-            color: #3f3f46;
-            letter-spacing: 0.04em;
-            margin-top: 0.4rem;
+            max-width: 100% !important;
+            font-size: 0.95rem !important;
+            line-height: 1.7 !important;
+            color: #27272a !important;
+            text-transform: none !important;
+            letter-spacing: 0.01em !important;
+            font-weight: 400 !important;
+            margin-top: 0.5rem !important;
           }
           .aright {
-            text-align: left;
+            text-align: left !important;
           }
         }
       `}</style>

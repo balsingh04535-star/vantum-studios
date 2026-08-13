@@ -98,11 +98,7 @@ export default function Hero({ onOpenInquiry }) {
 
     let renderer, material, scene, camera, animationFrameId;
 
-    if (window.innerWidth < 768) {
-      if (canvas) canvas.style.display = 'none';
-      if (heroEl) heroEl.style.backgroundColor = '#ebf5df';
-      if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = '#ebf5df';
-    } else if (canvas && heroEl) {
+    if (canvas && heroEl) {
       scene = new THREE.Scene();
       camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
       renderer = new THREE.WebGLRenderer({
@@ -160,17 +156,18 @@ export default function Hero({ onOpenInquiry }) {
       renderLoop();
     }
 
-    // Extended Viewport Scroll Runway
+    // Extended 4.5x Viewport Scroll Runway for full 3x3 Grid Scaling & Sequential Text Transition
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: heroRef.current,
         start: 'top top',
-        end: `+=${window.innerHeight * (window.innerWidth < 768 ? 2 : 4.5)}px`,
-        pin: window.innerWidth >= 768,
+        end: `+=${window.innerHeight * 4.5}px`,
+        pin: true,
         pinSpacing: true,
         scrub: 1,
         anticipatePin: 1,
         onUpdate: (self) => {
+          // Drive video frame sequence with scroll progress (0-1)
           setSeqProgress(self.progress);
         },
         onLeave: () => {
@@ -180,8 +177,8 @@ export default function Hero({ onOpenInquiry }) {
           if (creamOverlayRef.current) creamOverlayRef.current.style.opacity = '1';
         },
         onEnterBack: () => {
-          if (heroRef.current) heroRef.current.style.backgroundColor = '#ebf5df';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = '#ebf5df';
+          if (heroRef.current) heroRef.current.style.backgroundColor = '#0f0f0f';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = '#0f0f0f';
         }
       }
     });
