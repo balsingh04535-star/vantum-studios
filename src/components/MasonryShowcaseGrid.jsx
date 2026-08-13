@@ -51,7 +51,7 @@ export default function MasonryShowcaseGrid() {
           trigger: container,
           start: 'top 80%',
           end: 'bottom 20%',
-          scrub: 1.5,
+          scrub: 1.2,
         }
       })
       .fromTo(leftCol, { y: 0 }, { y: 60, ease: 'none' }, 0)
