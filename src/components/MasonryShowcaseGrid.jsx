@@ -43,8 +43,8 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const ctx = gsap.context(() => {
-      // ── Enhanced Opposite Direction Column Parallax Timeline ──
-      // Left & Right columns move DOWN (+100px) while Center column moves UP (-100px)
+      // ── Counter-Parallax Scroll Trigger Timeline ──
+      // When scrolling DOWN: Left & Right columns move UP (-120px) while Center column moves DOWN (+120px)
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -53,9 +53,9 @@ export default function MasonryShowcaseGrid() {
           scrub: 1.2,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: 100, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: 0 }, { y: -100, ease: 'none' }, 0) // Moves in opposite direction!
-      .fromTo(rightCol, { y: 0 }, { y: 100, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: 0 }, { y: -120, ease: 'none' }, 0)   // LEFT moves UP on scroll down
+      .fromTo(centerCol, { y: 0 }, { y: 120, ease: 'none' }, 0)  // CENTER moves DOWN on scroll down
+      .fromTo(rightCol, { y: 0 }, { y: -120, ease: 'none' }, 0);  // RIGHT moves UP on scroll down
     }, containerRef);
 
     return () => ctx.revert();
@@ -67,7 +67,7 @@ export default function MasonryShowcaseGrid() {
       {/* ── 3-Column Perfectly Aligned Modular Grid Matrix ── */}
       <div className="sharp-columns-grid">
         
-        {/* Left Column (Scrolls DOWN) */}
+        {/* Left Column (Moves UP on scroll down) */}
         <div ref={leftColRef} className="sharp-col col-left">
           {leftColumnProjects.map((item) => (
             <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
@@ -76,7 +76,7 @@ export default function MasonryShowcaseGrid() {
           ))}
         </div>
 
-        {/* Center Column (Scrolls UP - Opposite Direction!) */}
+        {/* Center Column (Moves DOWN on scroll down) */}
         <div ref={centerColRef} className="sharp-col col-center">
           {centerColumnProjects.map((item) => (
             <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
@@ -85,7 +85,7 @@ export default function MasonryShowcaseGrid() {
           ))}
         </div>
 
-        {/* Right Column (Scrolls DOWN) */}
+        {/* Right Column (Moves UP on scroll down) */}
         <div ref={rightColRef} className="sharp-col col-right">
           {rightColumnProjects.map((item) => (
             <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
