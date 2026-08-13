@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 function mapVal(value, inMin, inMax, outMin, outMax) {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -25,12 +25,19 @@ export default function AnimateSVGTextPath({
   const svgRef = useRef(null);
   const textPathRef = useRef(null);
   const blurFilterRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const svgEl = svgRef.current;
     const textPath = textPathRef.current;
     const path = svgEl?.querySelector('path');
-    if (!svgEl || !textPath || !path) return;
+    if (!svgEl || !textPath || !path) return () => window.removeEventListener('resize', checkMobile);
 
     let animFrameId;
     let isVisible = false;
@@ -50,7 +57,6 @@ export default function AnimateSVGTextPath({
     const computeOffset = () => {
       const winHeight = window.innerHeight || 800;
       const currentScroll = window.pageYOffset;
-      // Maps scroll position along wide path so text never cuts off
       return mapVal(positionY - currentScroll, winHeight, -winHeight * 0.5, pathLength * 0.45, -pathLength * 0.65);
     };
 
@@ -69,13 +75,12 @@ export default function AnimateSVGTextPath({
       startOffsetVal = !entered ? currentOffset : lerp(startOffsetVal, currentOffset, 0.16);
       textPath.setAttribute('startOffset', `${startOffsetVal}px`);
 
-      // Calculate scroll speed distance for cinematic motion blur
       const currentScroll = window.pageYOffset;
       scrollVal = !entered ? currentScroll : lerp(scrollVal, currentScroll, 0.15);
       const distance = Math.abs(scrollVal - currentScroll);
 
       if (blurFilterRef.current) {
-        const blurAmount = clamp(mapVal(distance, 0, 300, 0, 8), 0, 8);
+        const blurAmount = clamp(mapVal(distance, 0, 300, 0, 6), 0, 6);
         blurFilterRef.current.setAttribute('stdDeviation', blurAmount.toFixed(1));
       }
 
@@ -95,24 +100,29 @@ export default function AnimateSVGTextPath({
       cancelAnimationFrame(animFrameId);
       observer.disconnect();
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
+
+  const activeViewBox = isMobile ? "0 0 1000 160" : viewBox;
+  const activePathD = isMobile ? "M -200 90 Q 250 170 500 90 Q 750 10 1100 90 Q 1400 170 1800 90" : pathD;
+  const activeFontSize = isMobile ? "1.65rem" : fontSize;
+  const activeHeight = isMobile ? "100px" : "220px";
 
   const pathId = `svg-curve-${idPrefix}`;
   const filterId = `svg-filter-${idPrefix}`;
 
-  // Repeat text string so text flows continuously without clipping
-  const repeatedTextString = Array.from({ length: repeatCount })
+  const repeatedTextString = Array.from({ length: isMobile ? 3 : repeatCount })
     .map(() => `${text} · `)
     .join('');
 
   return (
-    <div style={{ width: '100%', overflow: 'hidden', margin: '3rem 0', position: 'relative', zIndex: 3 }}>
+    <div style={{ width: '100%', overflow: 'hidden', margin: isMobile ? '1.5rem 0' : '3rem 0', position: 'relative', zIndex: 3 }}>
       <svg
         ref={svgRef}
         width="100%"
-        height="220px"
-        viewBox={viewBox}
+        height={activeHeight}
+        viewBox={activeViewBox}
         preserveAspectRatio="xMidYMid meet"
         style={{ display: 'block', overflow: 'visible' }}
       >
@@ -126,22 +136,22 @@ export default function AnimateSVGTextPath({
           </filter>
         </defs>
 
-        <path id={pathId} d={pathD} fill="none" stroke="none" />
+        <path id={pathId} d={activePathD} fill="none" stroke="none" />
 
         <text
           filter={`url(#${filterId})`}
           style={{
             fill: textColor,
-            fontSize,
+            fontSize: activeFontSize,
             fontFamily: 'var(--font-heading)',
-            fontWeight: 500,
+            fontWeight: 600,
             letterSpacing: '0.04em',
             textTransform: 'uppercase',
-            opacity: 0.9,
+            opacity: 0.95,
           }}
         >
           <textPath ref={textPathRef} href={`#${pathId}`} startOffset="0px">
-            {repeatedTextString} <tspan fill={glowColor}>VANTUM CREATIVE PRACTICE</tspan>
+            {repeatedTextString} <tspan fill={glowColor}>VANTUM PRACTICE</tspan>
           </textPath>
         </text>
       </svg>
