@@ -4,26 +4,22 @@ import gsap from 'gsap';
 export default function Preloader({ onComplete }) {
   const containerRef = useRef(null);
   const panelsRef = useRef([]);
-  const textCharsRef = useRef([]);
+  const logoImgRef = useRef(null);
   const counterRef = useRef(null);
   const progressBarRef = useRef(null);
-  const statusRef = useRef(null);
   const telemetryRef = useRef(null);
 
   const [counter, setCounter] = useState(0);
-
-  const word1 = "CHANANA".split("");
-  const word2 = "STUDIOS".split("");
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
     const panels = panelsRef.current.filter(Boolean);
-    const textChars = textCharsRef.current.filter(Boolean);
+    const logoImg = logoImgRef.current;
 
     // Initial GSAP setup
-    gsap.set(textChars, { y: 60, opacity: 0, rotateX: -90 });
-    gsap.set([counterRef.current, statusRef.current, telemetryRef.current], { y: 20, opacity: 0 });
+    if (logoImg) gsap.set(logoImg, { y: 40, opacity: 0, scale: 0.94 });
+    gsap.set([counterRef.current, telemetryRef.current], { y: 20, opacity: 0 });
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -32,17 +28,18 @@ export default function Preloader({ onComplete }) {
       }
     });
 
-    // 1. Staggered 3D character text reveal
-    tl.to(textChars, {
-      y: 0,
-      opacity: 1,
-      rotateX: 0,
-      duration: 0.8,
-      stagger: 0.03,
-      ease: 'power3.out'
-    });
+    // 1. Reveal Hero SVG Logo smoothly (No text!)
+    if (logoImg) {
+      tl.to(logoImg, {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    }
 
-    tl.to([counterRef.current, statusRef.current, telemetryRef.current], {
+    tl.to([counterRef.current, telemetryRef.current], {
       y: 0,
       opacity: 1,
       duration: 0.5,
@@ -65,12 +62,11 @@ export default function Preloader({ onComplete }) {
       }
     }, '-=0.2');
 
-    // 3. Outro Sequence: Elements slide out & 5 Shutter panels collapse vertically
-    tl.to([textChars, counterRef.current, statusRef.current, telemetryRef.current, progressBarRef.current], {
+    // 3. Outro Sequence: Logo & telemetry slide out & 5 Shutter panels collapse vertically
+    tl.to([logoImg, counterRef.current, telemetryRef.current, progressBarRef.current].filter(Boolean), {
       y: -30,
       opacity: 0,
       duration: 0.35,
-      stagger: 0.02,
       ease: 'power2.in'
     }, '+=0.1');
 
@@ -175,52 +171,21 @@ export default function Preloader({ onComplete }) {
           </div>
         </div>
 
-        {/* Center 3D Staggered Brand Title */}
-        <div style={{ textAlign: 'center', margin: 'auto 0', perspective: '1000px', width: '100%' }}>
-          <div
+        {/* Center SVG Logo (Hero SVG Logo - No text!) */}
+        <div style={{ textAlign: 'center', margin: 'auto 0', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img
+            ref={logoImgRef}
+            src="/hero-logo.svg"
+            alt="Chanana Studios"
             style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '0.2em 0.5em',
-              width: '100%',
-              padding: '0.5rem 0'
+              maxWidth: 'min(85vw, 650px)',
+              maxHeight: '35vh',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))'
             }}
-          >
-            {/* Word 1: VANTUM */}
-            <div style={{ display: 'inline-flex', whiteSpace: 'nowrap' }}>
-              {word1.map((char, idx) => (
-                <span
-                  key={`w1-${idx}`}
-                  ref={(el) => (textCharsRef.current[idx] = el)}
-                  className="loader-char"
-                >
-                  {char}
-                </span>
-              ))}
-            </div>
-
-            {/* Word 2: STUDIOS */}
-            <div style={{ display: 'inline-flex', whiteSpace: 'nowrap' }}>
-              {word2.map((char, idx) => (
-                <span
-                  key={`w2-${idx}`}
-                  ref={(el) => (textCharsRef.current[word1.length + idx] = el)}
-                  className="loader-char"
-                >
-                  {char}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div
-            ref={statusRef}
-            className="loader-status"
-          >
-            CREATIVE ENGINEERING STUDIO
-          </div>
+          />
         </div>
 
         {/* Bottom Odometer Counter & Linear Track */}
