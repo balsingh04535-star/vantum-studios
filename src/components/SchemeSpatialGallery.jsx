@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ClientGlobe from './ClientGlobe';
 import AnimateSVGTextPath from './AnimateSVGTextPath';
+import ImageExpansionTypography from './ImageExpansionTypography';
 
 export const selectedWorks = [
   {
@@ -331,103 +332,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         repeatCount={4}
       />
 
-      {/* ── EDITORIAL WORK SHOWCASE LIST ("SHOW OUR WORK") ── */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '1200px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '5rem',
-          position: 'relative',
-          zIndex: 2,
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderBottom: '1px solid rgba(255,255,255,0.12)',
-            paddingBottom: '1rem',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <span
-              style={{
-                fontSize: '0.68rem',
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                fontWeight: 600,
-                color: '#c4d600',
-                fontFamily: 'var(--font-main)',
-              }}
-            >
-              SELECTED AGENCY WORKS
-            </span>
-          </div>
-
-          <span
-            style={{
-              fontSize: '0.68rem',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: '#52525b',
-              fontFamily: 'var(--font-main)',
-            }}
-          >
-            5 Featured Case Studies
-          </span>
-        </div>
-
-        {/* Case Study Work Rows */}
-        {selectedWorks.map((work) => (
-          <article
-            key={work.id}
-            className="editorial-work-showcase"
-            onClick={() => setSelectedProject(work)}
-          >
-            {/* Header info bar */}
-            <div className="work-meta-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-                <span className="work-index">{work.num}</span>
-                <span className="work-client">{work.client}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <span className="work-category">{work.category}</span>
-                <span className="work-year">{work.year}</span>
-              </div>
-            </div>
-
-            {/* Widescreen Preview Media */}
-            <div className="work-media-container">
-              <img src={work.image} alt={work.title} className="work-media-img" />
-              <div className="work-media-overlay">
-                <span className="view-case-btn">
-                  <span>Explore Case Study</span>
-                  <ArrowUpRight size={16} />
-                </span>
-              </div>
-            </div>
-
-            {/* Title & Description */}
-            <div className="work-details-grid">
-              <div>
-                <h3 className="work-title">{work.title}</h3>
-                <p className="work-summary">{work.summary}</p>
-              </div>
-
-              <div className="work-deliverables">
-                {work.deliverables.map((item, i) => (
-                  <span key={i} className="deliverable-tag">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+      {/* ── IMAGE EXPANSION TYPOGRAPHY SHOWCASE (From reference ImageExpansionTypography-main) ── */}
+      <ImageExpansionTypography onOpenInquiry={onOpenInquiry} />
 
       {/* ── Case Study Detail Modal ── */}
       {selectedProject && (
