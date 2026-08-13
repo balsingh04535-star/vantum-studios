@@ -94,7 +94,7 @@ export default function SpotlightSVGPath() {
             viewBox="0 0 1378 2760"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMin meet"
+            preserveAspectRatio="none"
           >
             <path
               ref={strokePathRef}
@@ -223,7 +223,7 @@ export default function SpotlightSVGPath() {
 
         .spotlight .svg-path {
           position: absolute;
-          top: 25vh;
+          top: 0;
           left: 50%;
           z-index: 0;
           width: 90%;
@@ -234,7 +234,7 @@ export default function SpotlightSVGPath() {
 
         .spotlight .svg-path svg {
           width: 100%;
-          height: auto;
+          height: 100%;
           opacity: 0.85;
         }
 
@@ -275,12 +275,13 @@ export default function SpotlightSVGPath() {
 
           .spotlight .svg-path {
             top: 0;
+            bottom: 0;
             width: 100% !important;
             height: 100% !important;
           }
 
           .spotlight #stroke-path {
-            stroke-width: 65px !important;
+            stroke-width: 75px !important;
           }
         }
       `}</style>
