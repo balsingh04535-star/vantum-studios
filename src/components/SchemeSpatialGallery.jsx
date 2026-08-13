@@ -135,7 +135,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#08080a',
+        backgroundColor: '#08080a', // Ultra-luxury deep charcoal
         color: '#f4f4f5',
         padding: 0,
         boxSizing: 'border-box',
@@ -143,7 +143,6 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         flexDirection: 'column',
         alignItems: 'center',
         overflow: 'hidden',
-        boxShadow: '0 -40px 120px rgba(0,0,0,0.6)',
       }}
     >
       {/* ── Ultra-crisp 4K Studio Lighting Gradient ── */}

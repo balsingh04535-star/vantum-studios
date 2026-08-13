@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function mapVal(value, inMin, inMax, outMin, outMax) {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -131,9 +135,66 @@ export default function AnimateSVGFullPage() {
 
     render();
 
+    const ctx = gsap.context(() => {
+      // 1. Grid item images clip-path scale reveal on scroll
+      const gridImgs = container.querySelectorAll('.grid__item-img');
+      gridImgs.forEach((img) => {
+        gsap.fromTo(
+          img,
+          {
+            clipPath: 'inset(14% 12% 14% 12% round 24px)',
+            scale: 0.84,
+            filter: 'brightness(0.65) contrast(1.15)',
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 0px)',
+            scale: 1,
+            filter: 'brightness(1) contrast(1)',
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: img,
+              start: 'top 85%',
+              end: 'top 35%',
+              scrub: 1.2,
+            },
+          }
+        );
+      });
+
+      // 2. Big featured visuals 3D perspective clip-path expansion
+      const bigImgs = container.querySelectorAll('.bigimg');
+      bigImgs.forEach((img) => {
+        gsap.fromTo(
+          img,
+          {
+            clipPath: 'inset(18% 15% 18% 15% round 36px)',
+            scale: 0.76,
+            rotateX: 10,
+            filter: 'brightness(0.6) contrast(1.2)',
+            transformPerspective: 1000,
+            transformOrigin: 'center center',
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 0px)',
+            scale: 1,
+            rotateX: 0,
+            filter: 'brightness(1) contrast(1)',
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: img,
+              start: 'top 88%',
+              end: 'center 45%',
+              scrub: 1.4,
+            },
+          }
+        );
+      });
+    }, container);
+
     return () => {
       cancelAnimationFrame(animId);
       instances.forEach((inst) => inst.cleanup());
+      ctx.revert();
     };
   }, []);
 
@@ -551,7 +612,6 @@ export default function AnimateSVGFullPage() {
 
         .svgpage-main .svgtext--3 text {
           font-size: 32px;
-          fill: #fff;
         }
 
         .svgpage-main .svgtext--4 {
