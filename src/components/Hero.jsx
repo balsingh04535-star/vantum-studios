@@ -319,7 +319,7 @@ export default function Hero({ onOpenInquiry }) {
                   <HeroVideoCanvas scrollProgress={seqProgress} folder="sequence-mobile" width={720} height={1280} />
                 </div>
 
-                {/* Bottom Overlay Bar Embedded INSIDE Main Center Grid Item */}
+                {/* Centered Shimmer Shine SCROLL TO EXPLORE Text at Bottom of Main Center Grid Card */}
                 <div
                   ref={heroFooterRef}
                   style={{
@@ -328,9 +328,8 @@ export default function Hero({ onOpenInquiry }) {
                     left: 0,
                     right: 0,
                     width: '100%',
-                    padding: '0 clamp(1rem, 2vw, 2.5rem)',
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     boxSizing: 'border-box',
                     zIndex: 10,
@@ -340,12 +339,10 @@ export default function Hero({ onOpenInquiry }) {
                     fontWeight: 500,
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
+                    textAlign: 'center',
                     textShadow: '0 2px 10px rgba(0,0,0,0.8)'
                   }}
                 >
-                  <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>CREATIVE STUDIO · LISBON / WORLDWIDE</span>
-
-                  {/* Left-to-Right Animated Shimmer Shine Text */}
                   <span className="shine-sweep-text">
                     SCROLL TO EXPLORE ↓
                   </span>
