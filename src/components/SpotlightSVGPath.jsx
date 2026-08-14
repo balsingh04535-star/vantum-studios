@@ -29,7 +29,53 @@ export default function SpotlightSVGPath() {
       },
     });
 
+    // Parallax scrolling effect for desktop (min-width: 901px)
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 901px)', () => {
+      const rows = section.querySelectorAll('.row');
+      rows.forEach((row) => {
+        const card = row.querySelector('.col-card');
+        const img = row.querySelector('.col-img');
+
+        if (card) {
+          gsap.fromTo(
+            card,
+            { y: 80 },
+            {
+              y: -80,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: row,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+              },
+            }
+          );
+        }
+
+        if (img) {
+          gsap.fromTo(
+            img,
+            { y: -60, scale: 0.96 },
+            {
+              y: 60,
+              scale: 1.04,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: row,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.6,
+              },
+            }
+          );
+        }
+      });
+    });
+
     return () => {
+      mm.revert();
       anim.kill();
       if (anim.scrollTrigger) anim.scrollTrigger.kill();
     };
