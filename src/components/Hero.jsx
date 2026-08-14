@@ -70,21 +70,18 @@ export default function Hero({ onOpenInquiry }) {
   const creamOverlayRef = useRef(null);
   const heroFooterRef = useRef(null);
   const titleLogoRef = useRef(null);
-  const subWordsRef = useRef([]);
+  const subTitleRef = useRef(null);
   const buttonRef = useRef(null);
   const [seqProgress, setSeqProgress] = useState(0);
-
-  const subtitleText = "A living catalogue of digital realities, collected frame by frame from the edge of the real.";
-  const subWords = subtitleText.split(" ");
 
   useEffect(() => {
     const spotlightImages = galleryRef.current?.querySelectorAll('.hero-spotlight-item img') || [];
     const titleLogo = titleLogoRef.current;
-    const validSubWords = subWordsRef.current.filter(Boolean);
+    const subTitle = subTitleRef.current;
 
-    // Initial state setup: Logo is 100% visible IMMEDIATELY on load
+    // Initial state setup: Logo & Subtitle 100% visible on load
     if (titleLogo) gsap.set(titleLogo, { opacity: 1, y: 0 });
-    gsap.set(validSubWords, { opacity: 0, y: 60 });
+    if (subTitle) gsap.set(subTitle, { opacity: 1, y: 0 });
     if (buttonRef.current) gsap.set(buttonRef.current, { opacity: 0, y: 60 });
     if (creamOverlayRef.current) gsap.set(creamOverlayRef.current, { opacity: 0 });
     if (galleryRef.current) gsap.set(galleryRef.current, { scale: 0.78 });
@@ -180,27 +177,24 @@ export default function Hero({ onOpenInquiry }) {
       }
     });
 
-    // --- STAGE 1: As user scrolls, Hero SVG Logo moves STRAIGHT UP to top position without size change ---
+    // --- STAGE 1: As user scrolls, Hero Logo & Subtitle move up and out (0.0 -> 0.25) ---
     if (titleLogo) {
-      const targetY = -(window.innerHeight * 0.42);
-
       tl.to(titleLogo, {
-        y: targetY,
-        x: 0, // Stay centered horizontally
-        scale: 1, // Keep 100% exact size (no scaling)
-        opacity: 1, // Keep 100% visible
-        ease: 'power2.out',
-        duration: 0.35
+        opacity: 0,
+        y: -90,
+        ease: 'power2.in',
+        duration: 0.25
       }, 0);
     }
 
-    tl.to(validSubWords, {
-      opacity: 1,
-      y: 0,
-      stagger: 0.015,
-      ease: 'power2.out',
-      duration: 0.3
-    }, 0.12);
+    if (subTitle) {
+      tl.to(subTitle, {
+        opacity: 0,
+        y: -60,
+        ease: 'power2.in',
+        duration: 0.25
+      }, 0);
+    }
 
     if (buttonRef.current) {
       tl.to(buttonRef.current, {
@@ -211,15 +205,7 @@ export default function Hero({ onOpenInquiry }) {
       }, 0.22);
     }
 
-    // --- STAGE 2: Subtitle & Button clean fade out (0.45 -> 0.65) + Spotlight Grid scaling (0.0 -> 0.65) ---
-    tl.to([...validSubWords, buttonRef.current].filter(Boolean), {
-      opacity: 0,
-      y: -25,
-      stagger: 0.01,
-      ease: 'power2.in',
-      duration: 0.2
-    }, 0.45);
-
+    // --- STAGE 2: Footer info fade out & Spotlight Grid scaling (0.0 -> 0.65) ---
     if (heroFooterRef.current) {
       tl.to(heroFooterRef.current, {
         opacity: 0,
@@ -297,7 +283,7 @@ export default function Hero({ onOpenInquiry }) {
 
   return (
     <>
-      <section className="hero-section" id="hero" ref={heroRef}>
+      <section className="hero-section" ref={heroRef}>
         <div className="hero-inner" ref={heroInnerRef}>
           {/* Solid Cream Overlay for seamless transition */}
           <div
@@ -342,8 +328,9 @@ export default function Hero({ onOpenInquiry }) {
             </div>
           </div>
 
-          {/* Hero Title Container - Using Custom SVG Logo */}
-          <div className="hero-title-container">
+          {/* Center Hero Title & Subtitle Stack (Matching Reference Screenshot) */}
+          <div className="hero-title-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Chanan SVG Logo */}
             <div
               ref={titleLogoRef}
               style={{
@@ -358,59 +345,66 @@ export default function Hero({ onOpenInquiry }) {
                 src="/hero-logo.svg"
                 alt="Chanana Studios"
                 style={{
-                  maxWidth: 'min(85vw, 850px)',
-                  maxHeight: '45vh',
+                  maxWidth: 'min(85vw, 750px)',
+                  maxHeight: '38vh',
                   width: 'auto',
                   height: 'auto',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.6))'
+                  filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.7))'
                 }}
               />
             </div>
-          </div>
 
-          {/* Subtitle & CTA Button */}
-          <div className="hero-subtitle-container">
+            {/* Subtitle directly beneath Chanan logo */}
             <h2
+              ref={subTitleRef}
               style={{
-                fontFamily: '"Cormorant Garamond", "Outfit", serif',
-                fontSize: 'clamp(1.5rem, 3.2vw, 3.1rem)',
+                fontFamily: '"Cormorant Garamond", "Garamond", "Georgia", serif',
+                fontSize: 'clamp(1.1rem, 2.2vw, 2.2rem)',
                 fontWeight: 300,
                 fontStyle: 'italic',
                 letterSpacing: '0.04em',
-                color: '#ffffff',
-                width: '100%',
-                maxWidth: '920px',
-                margin: '0 auto',
+                color: 'rgba(255, 255, 255, 0.95)',
+                margin: '0.6rem 0 0 0',
                 textAlign: 'center',
-                lineHeight: 1.3,
+                lineHeight: 1.2,
                 pointerEvents: 'auto',
-                textShadow: '0 4px 30px rgba(0,0,0,0.6)'
+                textShadow: '0 4px 20px rgba(0,0,0,0.8)'
               }}
             >
-              {subWords.map((word, idx) => (
-                <span
-                  key={idx}
-                  className="hero-word"
-                  ref={(el) => (subWordsRef.current[idx] = el)}
-                  style={{ display: 'inline-block', margin: '0 0.18em' }}
-                >
-                  {word}
-                </span>
-              ))}
+              An archive of the unreal
             </h2>
-
-            <div ref={buttonRef} style={{ pointerEvents: 'auto' }}>
-              <button className="btn-volt" onClick={onOpenInquiry}>
-                <span>Request Access</span>
-                <ArrowDownRight size={18} />
-              </button>
-            </div>
           </div>
 
-          {/* Hero Footer */}
-          <div className="hero-footer" ref={heroFooterRef}>
-            <h5>An archive of the unreal</h5>
+          {/* Bottom Info Overlay Bar (Matching Reference Screenshot) */}
+          <div
+            className="hero-footer-bar"
+            ref={heroFooterRef}
+            style={{
+              position: 'absolute',
+              bottom: '2rem',
+              left: 0,
+              width: '100%',
+              padding: '0 clamp(1.5rem, 4vw, 4rem)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              boxSizing: 'border-box',
+              zIndex: 20,
+              pointerEvents: 'none',
+              color: 'rgba(255, 255, 255, 0.9)',
+              fontFamily: '"Outfit", "Plus Jakarta Sans", sans-serif',
+              fontSize: 'clamp(0.65rem, 1.1vw, 0.85rem)',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+            }}
+          >
+            {/* Bottom Left: CREATIVE STUDIO · LISBON / WORLDWIDE */}
+            <span>CREATIVE STUDIO · LISBON / WORLDWIDE</span>
+
+            {/* Bottom Right: SCROLL TO EXPLORE ↓ */}
+            <span>SCROLL TO EXPLORE ↓</span>
           </div>
 
           {/* WebGL Dissolve Shader Canvas Overlay */}
