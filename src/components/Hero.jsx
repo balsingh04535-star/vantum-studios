@@ -307,7 +307,7 @@ export default function Hero({ onOpenInquiry }) {
             </div>
             <div className="hero-spotlight-col">
               <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Showcase 4" /></div>
-              <div className="hero-spotlight-item">
+              <div className="hero-spotlight-item" style={{ position: 'relative' }}>
                 <picture className="hero-mobile-picture">
                   <source media="(max-width: 1000px)" srcSet="/mobile-hero.png" />
                   <img src="/2.png" alt="Main Showcase Middle" style={{ opacity: 0 }} />
@@ -317,6 +317,38 @@ export default function Hero({ onOpenInquiry }) {
                 </div>
                 <div className="hero-canvas-seq mobile-only-seq">
                   <HeroVideoCanvas scrollProgress={seqProgress} folder="sequence-mobile" width={720} height={1280} />
+                </div>
+
+                {/* Bottom Overlay Bar Embedded INSIDE Main Center Grid Item */}
+                <div
+                  ref={heroFooterRef}
+                  style={{
+                    position: 'absolute',
+                    bottom: '1.2rem',
+                    left: 0,
+                    right: 0,
+                    width: '100%',
+                    padding: '0 clamp(1rem, 2vw, 2.5rem)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    boxSizing: 'border-box',
+                    zIndex: 10,
+                    pointerEvents: 'none',
+                    fontFamily: '"Outfit", "Plus Jakarta Sans", sans-serif',
+                    fontSize: 'clamp(0.6rem, 0.95vw, 0.8rem)',
+                    fontWeight: 500,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    textShadow: '0 2px 10px rgba(0,0,0,0.8)'
+                  }}
+                >
+                  <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>CREATIVE STUDIO · LISBON / WORLDWIDE</span>
+
+                  {/* Left-to-Right Animated Shimmer Shine Text */}
+                  <span className="shine-sweep-text">
+                    SCROLL TO EXPLORE ↓
+                  </span>
                 </div>
               </div>
               <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Showcase 6" /></div>
@@ -328,7 +360,7 @@ export default function Hero({ onOpenInquiry }) {
             </div>
           </div>
 
-          {/* Center Hero Title & Subtitle Stack (Matching Reference Screenshot) */}
+          {/* Center Hero Title & Subtitle Stack */}
           <div className="hero-title-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             {/* Chanan SVG Logo */}
             <div
@@ -376,41 +408,41 @@ export default function Hero({ onOpenInquiry }) {
             </h2>
           </div>
 
-          {/* Bottom Info Overlay Bar (Matching Reference Screenshot) */}
-          <div
-            className="hero-footer-bar"
-            ref={heroFooterRef}
-            style={{
-              position: 'absolute',
-              bottom: '2rem',
-              left: 0,
-              width: '100%',
-              padding: '0 clamp(1.5rem, 4vw, 4rem)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              boxSizing: 'border-box',
-              zIndex: 20,
-              pointerEvents: 'none',
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontFamily: '"Outfit", "Plus Jakarta Sans", sans-serif',
-              fontSize: 'clamp(0.65rem, 1.1vw, 0.85rem)',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              textShadow: '0 2px 10px rgba(0,0,0,0.8)'
-            }}
-          >
-            {/* Bottom Left: CREATIVE STUDIO · LISBON / WORLDWIDE */}
-            <span>CREATIVE STUDIO · LISBON / WORLDWIDE</span>
-
-            {/* Bottom Right: SCROLL TO EXPLORE ↓ */}
-            <span>SCROLL TO EXPLORE ↓</span>
-          </div>
-
           {/* WebGL Dissolve Shader Canvas Overlay */}
           <canvas className="hero-canvas" ref={canvasRef}></canvas>
         </div>
       </section>
+
+      {/* Pure CSS Shimmer Shine Beam Animation */}
+      <style>{`
+        @keyframes shineSweep {
+          0% {
+            background-position: 180% 0;
+          }
+          100% {
+            background-position: -180% 0;
+          }
+        }
+
+        .shine-sweep-text {
+          background: linear-gradient(
+            90deg, 
+            rgba(255, 255, 255, 0.45) 0%, 
+            rgba(255, 255, 255, 0.45) 35%, 
+            #ffffff 50%, 
+            #c4d600 55%, 
+            #ffffff 60%, 
+            rgba(255, 255, 255, 0.45) 75%, 
+            rgba(255, 255, 255, 0.45) 100%
+          );
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shineSweep 2.8s infinite linear;
+          display: inline-block;
+          font-weight: 600;
+        }
+      `}</style>
     </>
   );
 }
