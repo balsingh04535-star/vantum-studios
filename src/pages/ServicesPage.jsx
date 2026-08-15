@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ArrowUpRight, CheckCircle2, Sparkles } from 'lucide-react';
+import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 
 export default function ServicesPage({ onOpenInquiry }) {
@@ -32,6 +33,11 @@ export default function ServicesPage({ onOpenInquiry }) {
 
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#0a120e', color: '#f8fafc', minHeight: '100vh' }}>
+      <SEO
+        title="Agency Capabilities — WebGL, 3D Graphics & Kinetic Motion Systems | Chanana Studios"
+        description="Discover Chanana Studios' core engineering capabilities: custom GLSL shaders, Three.js 3D spatial environments, generative brand identities, and ultra-high-speed React web systems."
+        canonicalUrl="https://www.madebychanan.com/services"
+      />
       <div className="section-padding" style={{ backgroundColor: '#0a120e' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           

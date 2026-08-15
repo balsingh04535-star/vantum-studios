@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 
 export default function WorkPage({ onOpenInquiry }) {
@@ -76,6 +77,11 @@ export default function WorkPage({ onOpenInquiry }) {
 
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#070709', color: '#ffffff', minHeight: '100vh' }}>
+      <SEO
+        title="Selected Works & Interactive 3D Case Studies | Chanana Studios"
+        description="Explore our archive of bespoke WebGL experiences, 3D interactive applications, and kinetic brand identity systems built for category leaders."
+        canonicalUrl="https://www.madebychanan.com/work"
+      />
       <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#070709' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           

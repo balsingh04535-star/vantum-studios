@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 
 export default function AboutPage({ onOpenInquiry }) {
@@ -22,6 +23,11 @@ export default function AboutPage({ onOpenInquiry }) {
 
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#eceae4', color: '#111111', minHeight: '100vh' }}>
+      <SEO
+        title="About the Studio — Vision, Team & Manifesto | Chanana Studios"
+        description="Learn about Chanana Studios, an elite creative laboratory founded to pioneer bespoke WebGL experiences, 120 FPS kinetic web applications, and generative digital identities."
+        canonicalUrl="https://www.madebychanan.com/about"
+      />
       <div className="section-padding" style={{ backgroundColor: '#eceae4' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
@@ -44,15 +50,15 @@ export default function AboutPage({ onOpenInquiry }) {
           </div>
 
           <h1 style={{ marginBottom: '1.5rem', maxWidth: '950px', color: '#111111', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: 'var(--font-heading)' }}>
-            We Are Vantum Studios. Architects of the Unreal.
+            We Are Chanana Studios. Architects of the Unreal.
           </h1>
           <p style={{ fontSize: '1.3rem', color: '#52525b', maxWidth: '850px', marginBottom: '4rem', lineHeight: '1.7' }}>
-            Founded in London and operating globally, Vantum Studios was created to dismantle cookie-cutter web development. We operate as an elite creative laboratory for brands demanding extraordinary digital dominance.
+            Founded in London and operating globally, Chanana Studios was created to dismantle cookie-cutter web development. We operate as an elite creative laboratory for brands demanding extraordinary digital dominance.
           </p>
 
           {/* Image Showcase Banner */}
           <div style={{ borderRadius: '24px', overflow: 'hidden', height: '420px', marginBottom: '5rem', border: '1px solid rgba(0,0,0,0.15)', boxShadow: '0 16px 40px rgba(0,0,0,0.08)' }}>
-            <img src="/img5.jpg" alt="Vantum Studio Lab" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/img5.jpg" alt="Chanana Studio Lab" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
 
           {/* Core Principles Grid */}

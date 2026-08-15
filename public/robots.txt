@@ -1,0 +1,8 @@
+# Robots.txt for Chanana Studios
+# https://www.madebychanan.com
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.madebychanan.com/sitemap.xml

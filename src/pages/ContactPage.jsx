@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
+import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 
 export default function ContactPage() {
@@ -16,6 +17,11 @@ export default function ContactPage() {
 
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#09090b', color: '#ffffff', minHeight: '100vh' }}>
+      <SEO
+        title="Start a Project & Inquire — Direct Studio Line | Chanana Studios"
+        description="Initiate a project inquiry with Chanana Studios. Reserve production slots for custom 3D WebGL environments, brand design systems, and high-performance interactive builds."
+        canonicalUrl="https://www.madebychanan.com/contact"
+      />
       <div className="section-padding" style={{ backgroundColor: '#09090b' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
@@ -75,8 +81,8 @@ export default function ContactPage() {
                     <div>
                       <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Electronic Mail</h4>
                       <p style={{ color: '#a1a1aa', fontSize: '0.95rem', lineHeight: '1.5' }}>
-                        New Inquiries: hello@vantumstudios.com<br />
-                        Press & Media: press@vantumstudios.com
+                        New Inquiries: hello@madebychanan.com<br />
+                        Press & Media: press@madebychanan.com
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import StudioOverview from '../components/StudioOverview';
 import Footer from '../components/Footer';
@@ -32,6 +33,11 @@ export default function HomePage({ onOpenInquiry }) {
 
   return (
     <main>
+      <SEO
+        title="Chanana Studios — Digital Experience Agency & Creative WebGL Studio"
+        description="Elite creative engineering studio crafting real-time 3D WebGL experiences, living digital catalogues, dynamic branding, and futuristic web applications."
+        canonicalUrl="https://www.madebychanan.com/"
+      />
       <Hero onOpenInquiry={onOpenInquiry} />
       <StudioOverview onOpenInquiry={onOpenInquiry} />
     </main>
