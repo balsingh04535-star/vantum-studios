@@ -15,12 +15,17 @@ const pageEase = CustomEase.create(
    PAGE META — labels & numbers shown during transition
 ───────────────────────────────────────────────────────── */
 export const PAGE_LABELS = {
-  '/':         'Home',
-  '/work':     'Work Showcase',
-  '/clients':  'Global Network',
-  '/services': 'Services & Specs',
-  '/about':    'Studio Philosophy',
-  '/contact':  'Direct Contact',
+  '/':                      'Home',
+  '/work':                  'Selected Work',
+  '/clients':               'Global Network',
+  '/services':              'Capabilities',
+  '/web-design':            'Web Design',
+  '/web-development':       'Creative Dev',
+  '/branding':              'Brand Identity',
+  '/3d-product-animation':  '3D & CGI',
+  '/motion-design':         'Motion Design',
+  '/about':                 'About Chanan',
+  '/contact':               'Direct Line',
 };
 
 const TransitionContext = createContext(null);
@@ -39,7 +44,7 @@ export function TransitionProvider({ children }) {
   const transitionTo = useCallback((path) => {
     if (!overlayRef.current) { navigate(path); return; }
 
-    const dest = PAGE_LABELS[path] ?? 'Chanana';
+    const dest = PAGE_LABELS[path] ?? 'Chanan';
     setLabel(dest);
 
     const el = overlayRef.current;
@@ -159,7 +164,7 @@ export function TransitionProvider({ children }) {
             fontWeight: 700,
             marginBottom: '0.6rem',
           }}>
-            Chanana Transition Engine
+            Chanan Transition Engine
           </p>
 
           <h2 className="tc-label" style={{

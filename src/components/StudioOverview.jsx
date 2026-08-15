@@ -18,7 +18,7 @@ export default function StudioOverview({ onOpenInquiry }) {
   const headingRef = useRef(null);
   const wrapperRef = useRef(null);
 
-  const headlineText = "We design digital experiences that command awe, disrupt markets, and transform brands into cultural icons.";
+  const headlineText = "We build digital experiences people remember.";
   const words = headlineText.split(" ");
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function StudioOverview({ onOpenInquiry }) {
             <SparklesIcon /> Studio Manifesto
           </div>
 
-          <h2
+          <h1
             ref={headingRef}
             style={{
               marginBottom: '3rem',
@@ -113,7 +113,7 @@ export default function StudioOverview({ onOpenInquiry }) {
                 {word}{' '}
               </span>
             ))}
-          </h2>
+          </h1>
 
           <p style={{
             fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)',
@@ -121,7 +121,7 @@ export default function StudioOverview({ onOpenInquiry }) {
             color: '#27272a',
             lineHeight: 1.6
           }}>
-            Vantum Studios operates at the intersection of high-end design, generative graphics, and state-of-the-art web technology. We don't build website templates; we craft living digital realities.
+            Chanan is an independent creative agency specialising in web design and development, brand identity, 3D product visuals and motion design for ambitious brands worldwide.
           </p>
 
           {/* Scroll hint */}

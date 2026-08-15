@@ -10,7 +10,7 @@ export default function Navigation({ onOpenInquiry }) {
       {/* Global Fixed Chanan Brand Logo (Always visible on every page at top left) */}
       <TransitionLink
         to="/"
-        aria-label="Chanana Studios Home"
+        aria-label="Chanan Home"
         style={{
           position: 'fixed',
           top: '1.5rem',
@@ -25,7 +25,7 @@ export default function Navigation({ onOpenInquiry }) {
       >
         <img
           src="/hero-logo.svg"
-          alt="Chanana Studios"
+          alt="Chanan"
           style={{
             height: '36px',
             width: 'auto',

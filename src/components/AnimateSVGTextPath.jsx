@@ -141,7 +141,7 @@ export default function AnimateSVGTextPath({
           }}
         >
           <textPath ref={textPathRef} href={`#${pathId}`} startOffset="0px">
-            {repeatedTextString} <tspan fill={glowColor}>VANTUM CREATIVE PRACTICE</tspan>
+            {repeatedTextString} <tspan fill={glowColor}>CHANAN CREATIVE PRACTICE</tspan>
           </textPath>
         </text>
       </svg>

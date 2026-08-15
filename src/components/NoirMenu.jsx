@@ -113,10 +113,12 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
   ];
 
   const secondaryNav = [
-    { label: 'Playground', path: '/work' },
+    { label: 'Web Design', path: '/web-design' },
+    { label: 'Creative Dev', path: '/web-development' },
+    { label: 'Brand Identity', path: '/branding' },
+    { label: '3D & CGI', path: '/3d-product-animation' },
+    { label: 'Motion Design', path: '/motion-design' },
     { label: 'Start a Project', action: onOpenInquiry },
-    { label: 'Activity Feed', path: '/services' },
-    { label: 'Profile', path: '/about' },
   ];
 
   let lineIdx = 0;

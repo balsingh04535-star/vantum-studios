@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import SEO from '../components/SEO';
 import Hero from '../components/Hero';
 import StudioOverview from '../components/StudioOverview';
-import Footer from '../components/Footer';
 
 export default function HomePage({ onOpenInquiry }) {
   useEffect(() => {
@@ -31,12 +30,41 @@ export default function HomePage({ onOpenInquiry }) {
     return () => observer.disconnect();
   }, []);
 
+  const homepageSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.madebychanan.com/#organization',
+        'name': 'Chanan',
+        'url': 'https://www.madebychanan.com/',
+        'logo': 'https://www.madebychanan.com/logo.png',
+        'description': 'Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide.',
+        'sameAs': [
+          'https://twitter.com/madebychanan',
+          'https://instagram.com/madebychanan'
+        ]
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.madebychanan.com/#website',
+        'url': 'https://www.madebychanan.com/',
+        'name': 'Chanan',
+        'description': 'Creative Digital Agency specializing in Web Design, Branding, 3D Product Visuals & Motion.',
+        'publisher': {
+          '@id': 'https://www.madebychanan.com/#organization'
+        }
+      }
+    ]
+  };
+
   return (
     <main>
       <SEO
-        title="Chanana Studios — Digital Experience Agency & Creative WebGL Studio"
-        description="Elite creative engineering studio crafting real-time 3D WebGL experiences, living digital catalogues, dynamic branding, and futuristic web applications."
+        title="Chanan — Creative Digital Agency | Web Design, Branding & 3D"
+        description="Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide."
         canonicalUrl="https://www.madebychanan.com/"
+        schemaData={homepageSchema}
       />
       <Hero onOpenInquiry={onOpenInquiry} />
       <StudioOverview onOpenInquiry={onOpenInquiry} />

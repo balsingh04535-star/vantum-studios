@@ -14,7 +14,7 @@ export default function Footer({ onOpenInquiry }) {
   const categories = ['SENIOR ROLE', 'CONTRACT', 'DESIGN/WORK', 'OTHER'];
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('hello@chananastudios.com');
+    navigator.clipboard.writeText('hello@madebychanan.com');
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
@@ -190,7 +190,7 @@ export default function Footer({ onOpenInquiry }) {
       <div className="breedlove-giant-brand">
         <img
           src="/hero-logo.svg"
-          alt="Chanana Studios"
+          alt="Chanan"
           style={{
             width: '100vw',
             maxWidth: 'none',

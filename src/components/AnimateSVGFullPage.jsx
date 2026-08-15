@@ -244,7 +244,7 @@ export default function AnimateSVGFullPage() {
         <div className="frame frame--screen">
           <div className="frame__title-wrap">
             <AnimatedGooeyText mode="scroll">
-              <h1 className="frame__title">Vantum Global Practice</h1>
+              <h2 className="frame__title">Chanan Global Practice</h2>
             </AnimatedGooeyText>
           </div>
           <AnimatedGooeyText mode="scroll">

@@ -181,7 +181,7 @@ void main(){
 export default function PixelBlastBg({
   variant = 'square',
   pixelSize = 4,
-  color = '#829100', // Vantum brand volt green
+  color = '#829100', // Chanan brand volt green
   patternScale = 2,
   patternDensity = 1,
   pixelJitter = 0,

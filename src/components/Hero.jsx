@@ -301,16 +301,16 @@ export default function Hero({ onOpenInquiry }) {
           {/* 3x3 Spotlight Gallery Grid */}
           <div className="hero-spotlight-gallery" ref={galleryRef}>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/grid-new-1.png" alt="Showcase 1" /></div>
-              <div className="hero-spotlight-item"><img src="/img2.jpg" alt="Showcase 2" /></div>
-              <div className="hero-spotlight-item"><img src="/img3.jpg" alt="Showcase 3" /></div>
+              <div className="hero-spotlight-item"><img src="/grid-new-1.png" alt="Chanan interactive product experience" /></div>
+              <div className="hero-spotlight-item"><img src="/img2.jpg" alt="Chanan 3D spatial visual" /></div>
+              <div className="hero-spotlight-item"><img src="/img3.jpg" alt="Chanan orbital interface design" /></div>
             </div>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Showcase 4" /></div>
+              <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Chanan luxury digital flagship" /></div>
               <div className="hero-spotlight-item" style={{ position: 'relative' }}>
                 <picture className="hero-mobile-picture">
                   <source media="(max-width: 1000px)" srcSet="/mobile-hero.png" />
-                  <img src="/2.png" alt="Main Showcase Middle" style={{ opacity: 0 }} />
+                  <img src="/2.png" alt="Chanan 3D motion and canvas sequence" style={{ opacity: 0 }} />
                 </picture>
                 <div className="hero-canvas-seq desktop-only-seq">
                   <HeroVideoCanvas scrollProgress={seqProgress} folder="sequence" width={1280} height={720} />
@@ -348,12 +348,12 @@ export default function Hero({ onOpenInquiry }) {
                   </span>
                 </div>
               </div>
-              <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Showcase 6" /></div>
+              <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Chanan kinetic UI dashboard" /></div>
             </div>
             <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img7.jpg" alt="Showcase 7" /></div>
-              <div className="hero-spotlight-item"><img src="/img8.jpg" alt="Showcase 8" /></div>
-              <div className="hero-spotlight-item"><img src="/grid-new-2.png" alt="Showcase 9" /></div>
+              <div className="hero-spotlight-item"><img src="/img7.jpg" alt="Chanan brand identity showcase" /></div>
+              <div className="hero-spotlight-item"><img src="/img8.jpg" alt="Chanan 3D telemetry simulation" /></div>
+              <div className="hero-spotlight-item"><img src="/grid-new-2.png" alt="Chanan digital design system" /></div>
             </div>
           </div>
 
@@ -372,7 +372,7 @@ export default function Hero({ onOpenInquiry }) {
             >
               <img
                 src="/hero-logo.svg"
-                alt="Chanana Studios"
+                alt="Chanan"
                 style={{
                   maxWidth: 'min(85vw, 750px)',
                   maxHeight: '38vh',

@@ -1,8 +1,8 @@
-# Robots.txt for Chanana Studios
-# https://www.madebychanan.com
+# Robots.txt for Chanan
+# Primary domain: https://www.madebychanan.com
 
 User-agent: *
 Allow: /
 
-# Sitemaps
+# Production Sitemap
 Sitemap: https://www.madebychanan.com/sitemap.xml

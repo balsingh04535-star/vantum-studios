@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
+import TransitionLink from '../components/TransitionLink';
+import { projects } from '../data/projects';
 
 export default function WorkPage({ onOpenInquiry }) {
   const [filter, setFilter] = useState('All');
@@ -10,77 +12,53 @@ export default function WorkPage({ onOpenInquiry }) {
     window.scrollTo(0, 0);
   }, []);
 
-  const allProjects = [
-    {
-      id: 'voltlites',
-      title: 'Voltlites — Spatial Audio Platform',
-      category: '3D Web',
-      image: '/img1.jpg',
-      year: '2026',
-      client: 'Voltlites Audio Inc.',
-      summary: 'Interactive WebGL spatial audio interface with real-time waveform visualization.',
-      metric: '+340% User Engagement'
-    },
-    {
-      id: 'chronos',
-      title: 'Chronos — Cybernetic Horology',
-      category: 'Brand Systems',
-      image: '/img4.jpg',
-      year: '2026',
-      client: 'Chronos Luxury',
-      summary: 'High-fashion digital flagship store for next-generation timepiece collectors.',
-      metric: '$18.4M Launch Volume'
-    },
-    {
-      id: 'aether',
-      title: 'Aether — Neural Compute Studio',
-      category: 'Kinetic Apps',
-      image: '/img5.jpg',
-      year: '2025',
-      client: 'Aether Labs',
-      summary: 'High-speed AI model training dashboard featuring GPU-accelerated canvas charts.',
-      metric: 'Sub-16ms Rendering'
-    },
-    {
-      id: 'hyperion',
-      title: 'Hyperion — Autonomous Racing',
-      category: '3D Web',
-      image: '/img8.jpg',
-      year: '2025',
-      client: 'Hyperion Dynamic',
-      summary: 'Immersive 3D telemetry experience for electric hypercar telemetry stream.',
-      metric: 'FWA Site of the Day'
-    },
-    {
-      id: 'nebulus',
-      title: 'Nebulus — Orbital Satellite System',
-      category: 'Kinetic Apps',
-      image: '/img3.jpg',
-      year: '2025',
-      client: 'Nebulus Aerospace',
-      summary: 'Interactive 3D constellation planner with live trajectory computation.',
-      metric: 'Awwwards Studio Winner'
-    },
-    {
-      id: 'solaris',
-      title: 'Solaris — High Optics Lab',
-      category: 'Brand Systems',
-      image: '/img7.jpg',
-      year: '2024',
-      client: 'Solaris Design',
-      summary: 'Generative brand identity system and spatial web showcase.',
-      metric: '+180% Organic Inquiries'
-    }
-  ];
+  const categories = ['All', '3D Web', 'Brand Systems', 'Kinetic Apps'];
+  const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 
-  const filtered = filter === 'All' ? allProjects : allProjects.filter(p => p.category === filter);
+  const workSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': 'https://www.madebychanan.com/work#collection',
+        'name': 'Selected Work — Websites, Branding & Motion | Chanan',
+        'description': 'Archive of bespoke WebGL experiences, 3D interactive applications, and kinetic brand identity systems built by Chanan.',
+        'url': 'https://www.madebychanan.com/work',
+        'publisher': {
+          '@type': 'Organization',
+          'name': 'Chanan',
+          'url': 'https://www.madebychanan.com/'
+        }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://www.madebychanan.com/work#breadcrumb',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://www.madebychanan.com/'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Selected Work',
+            'item': 'https://www.madebychanan.com/work'
+          }
+        ]
+      }
+    ]
+  };
 
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#070709', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="Selected Works & Interactive 3D Case Studies | Chanana Studios"
+        title="Selected Work — Websites, Branding & Motion | Chanan"
         description="Explore our archive of bespoke WebGL experiences, 3D interactive applications, and kinetic brand identity systems built for category leaders."
         canonicalUrl="https://www.madebychanan.com/work"
+        ogImage="https://www.madebychanan.com/hero-bg.webp"
+        schemaData={workSchema}
       />
       <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#070709' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -101,8 +79,9 @@ export default function WorkPage({ onOpenInquiry }) {
               fontFamily: 'var(--font-luxury-slim)',
               fontWeight: 400,
               color: '#ffffff'
-            }}>Creative Realities</span>
+            }}>Selected Works</span>
           </h1>
+          
           <p style={{
             fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)',
             color: '#8e8e93',
@@ -113,12 +92,12 @@ export default function WorkPage({ onOpenInquiry }) {
             letterSpacing: '0.12em',
             textTransform: 'uppercase'
           }}>
-            Selected Realities & Interactive Works
+            Selected Realities &amp; Interactive Case Studies
           </p>
 
           {/* Filter Pills */}
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3.5rem' }}>
-            {['All', '3D Web', 'Brand Systems', 'Kinetic Apps'].map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
@@ -143,7 +122,7 @@ export default function WorkPage({ onOpenInquiry }) {
           {/* Project List */}
           <div className="grid-2" style={{ gap: '2.5rem' }}>
             {filtered.map((project) => (
-              <div
+              <article
                 key={project.id}
                 style={{
                   background: 'linear-gradient(180deg, #0e0f14 0%, #070709 100%)',
@@ -155,7 +134,13 @@ export default function WorkPage({ onOpenInquiry }) {
                 }}
               >
                 <div style={{ height: '320px', borderRadius: '14px', overflow: 'hidden', marginBottom: '1.5rem', position: 'relative' }}>
-                  <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img
+                    src={project.image}
+                    alt={`${project.title} by Chanan`}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                   <span style={{
                     position: 'absolute',
                     top: '1rem',
@@ -175,7 +160,9 @@ export default function WorkPage({ onOpenInquiry }) {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.5rem', marginBottom: '0.4rem', color: '#ffffff' }}>{project.title}</h3>
+                    <h2 style={{ fontSize: '1.4rem', marginBottom: '0.4rem', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                      {project.title}
+                    </h2>
                     <span style={{ fontSize: '0.85rem', color: '#00f0ff', fontWeight: 600 }}>{project.metric}</span>
                   </div>
                   <span style={{ fontSize: '0.9rem', color: '#71717a' }}>{project.year}</span>
@@ -185,29 +172,50 @@ export default function WorkPage({ onOpenInquiry }) {
                   {project.summary}
                 </p>
 
-                <button
-                  onClick={onOpenInquiry}
-                  style={{
-                    width: '100%',
-                    justifyContent: 'center',
-                    background: '#00f0ff',
-                    color: '#070709',
-                    border: 'none',
-                    padding: '0.85rem 1.5rem',
-                    borderRadius: '24px',
-                    fontWeight: 700,
-                    fontSize: '0.9rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  <span>Discuss Case Scope</span>
-                  <ArrowUpRight size={18} />
-                </button>
-              </div>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  <TransitionLink
+                    to={`/work/${project.slug}`}
+                    style={{
+                      flex: '1',
+                      justifyContent: 'center',
+                      background: '#00f0ff',
+                      color: '#070709',
+                      padding: '0.85rem 1.5rem',
+                      borderRadius: '24px',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <span>View Case Study</span>
+                    <ArrowUpRight size={18} />
+                  </TransitionLink>
+
+                  <button
+                    onClick={onOpenInquiry}
+                    style={{
+                      background: 'rgba(255,255,255,0.06)',
+                      color: '#ffffff',
+                      border: '1px solid rgba(255,255,255,0.15)',
+                      padding: '0.85rem 1.2rem',
+                      borderRadius: '24px',
+                      fontWeight: 600,
+                      fontSize: '0.85rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <span>Inquire</span>
+                  </button>
+                </div>
+              </article>
             ))}
           </div>
 

@@ -155,7 +155,7 @@ export default function Preloader({ onComplete }) {
             }}
           >
             <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-volt)', boxShadow: '0 0 8px var(--accent-volt)', flexShrink: 0 }} />
-            <span>CHANANA SYS</span>
+            <span>CHANAN SYS</span>
           </div>
 
           <div
@@ -176,7 +176,7 @@ export default function Preloader({ onComplete }) {
           <img
             ref={logoImgRef}
             src="/hero-logo.svg"
-            alt="Chanana Studios"
+            alt="Chanan"
             style={{
               maxWidth: 'min(85vw, 650px)',
               maxHeight: '35vh',

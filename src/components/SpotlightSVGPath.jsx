@@ -85,7 +85,7 @@ export default function SpotlightSVGPath() {
     <div className="spotlight-component-root">
       {/* ===== HERO ===== */}
       <section className="spotlight-hero">
-        <h1>Our 4-Step Client Journey & Agency Process</h1>
+        <h2>Our 4-Step Client Journey &amp; Agency Process</h2>
       </section>
 
       {/* ===== SPOTLIGHT ===== */}
@@ -186,7 +186,7 @@ export default function SpotlightSVGPath() {
 
       {/* ===== OUTRO ===== */}
       <section className="spotlight-outro">
-        <h1>Built for Impact. Delivered with Zero Compromises.</h1>
+        <h2>Built for Impact. Delivered with Zero Compromises.</h2>
       </section>
 
       {/* ===== 1:1 CSS Styles from style.css ===== */}

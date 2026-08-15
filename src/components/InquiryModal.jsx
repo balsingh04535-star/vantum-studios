@@ -89,7 +89,7 @@ export default function InquiryModal({ isOpen, onClose }) {
             <CheckCircle2 size={64} color="var(--accent-volt)" style={{ margin: '0 auto 1.5rem auto' }} />
             <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Inquiry Received</h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
-              Thank you, {formData.name || 'Visionary'}. A partner from Vantum Studios will review your project parameters and contact you within 24 hours.
+              Thank you, {formData.name || 'Visionary'}. A partner from Chanan will review your project parameters and contact you within 24 hours.
             </p>
           </div>
         ) : (

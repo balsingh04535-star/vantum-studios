@@ -5,22 +5,22 @@ import { Observer } from 'gsap/Observer';
 gsap.registerPlugin(Observer);
 
 export const defaultSpiralImages = [
-  { id: 1, image: '/img1.jpg', title: 'SYNTHETIC HORIZON', category: 'WebGL / Spatial', client: 'VANTUM LABS' },
+  { id: 1, image: '/img1.jpg', title: 'SYNTHETIC HORIZON', category: 'WebGL / Spatial', client: 'CHANAN LABS' },
   { id: 2, image: '/img2.jpg', title: 'KINETIC MATRIX', category: 'Generative Tech', client: 'AURA INC' },
   { id: 3, image: '/img3.jpg', title: 'NEBULA AUDIO', category: 'Interactive Sound', client: 'SONIC STUDIOS' },
   { id: 4, image: '/img4.jpg', title: 'ECHOES OF TOMORROW', category: 'Brand Architecture', client: 'CHRONO' },
   { id: 5, image: '/img5.jpg', title: 'CYBERNETIC RHYTHM', category: 'CGI Art Direction', client: 'PULSE' },
   { id: 6, image: '/img6.jpg', title: 'QUANTUM VISION', category: '3D Simulation', client: 'NEXUS DIGITAL' },
   { id: 7, image: '/img7.jpg', title: 'AURA APPAREL', category: 'Luxury Motion', client: 'HAUTE MONDE' },
-  { id: 8, image: '/img8.jpg', title: 'VANTUM CORE', category: 'Digital Reality', client: 'FORGE GRAPHICS' },
+  { id: 8, image: '/img8.jpg', title: 'CHANAN CORE', category: 'Digital Reality', client: 'FORGE GRAPHICS' },
   { id: 9, image: '/img9.jpg', title: 'PULSE ARCHITECTURE', category: 'Living Catalogue', client: 'SCHEME ENGINE' },
   { id: 10, image: '/grid-new-1.png', title: 'STATION ZERO', category: 'Future Interface', client: 'ORBIT CORE' },
   { id: 11, image: '/grid-new-2.png', title: 'CHRONO DYNAMICS', category: 'Kinetic Canvas', client: 'TITAN LABS' },
-  { id: 12, image: '/2.png', title: 'UNREAL ARCHIVE', category: 'Immersive System', client: 'VANTUM' },
+  { id: 12, image: '/2.png', title: 'UNREAL ARCHIVE', category: 'Immersive System', client: 'CHANAN' },
   { id: 13, image: '/mobile-hero.png', title: 'HYPERDRIVE UI', category: 'Mobile Spatial', client: 'NEXUS' },
   { id: 14, image: '/hero-bg.webp', title: 'DARK MATTER', category: 'Particle Engine', client: 'AURA SOUND' },
   { id: 15, image: '/mask-1.webp', title: 'SPECTRUM FLOW', category: 'Shader Art', client: 'KINETIC REALITY' },
-  { id: 16, image: '/mask-2.webp', title: 'LIVING METROPOLIS', category: 'CGI Environment', client: 'VANTUM CITIES' }
+  { id: 16, image: '/mask-2.webp', title: 'LIVING METROPOLIS', category: 'CGI Environment', client: 'CHANAN CITIES' }
 ];
 
 export default function SpiralGallery({ items = defaultSpiralImages, height = '70vh' }) {

@@ -188,7 +188,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
               fontFamily: 'var(--font-main)',
             }}
           >
-            Vantum Global Network
+            Chanan Global Network
           </span>
         </div>
 
@@ -202,7 +202,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             textTransform: 'uppercase',
           }}
         >
-          VANTUM
+          CHANAN
         </div>
 
         <TransitionLink

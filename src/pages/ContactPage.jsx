@@ -15,12 +15,51 @@ export default function ContactPage() {
     setSubmitted(true);
   };
 
+  const contactSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ContactPage',
+        '@id': 'https://www.madebychanan.com/contact#contact',
+        'name': 'Contact Chanan — Start a Project',
+        'description': 'Initiate a project inquiry with Chanan. Reserve production slots for custom web design, 3D WebGL environments, and brand design systems.',
+        'url': 'https://www.madebychanan.com/contact',
+        'mainEntity': {
+          '@type': 'Organization',
+          'name': 'Chanan',
+          'url': 'https://www.madebychanan.com/',
+          'email': 'hello@madebychanan.com'
+        }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://www.madebychanan.com/contact#breadcrumb',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://www.madebychanan.com/'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Contact',
+            'item': 'https://www.madebychanan.com/contact'
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#09090b', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="Start a Project & Inquire — Direct Studio Line | Chanana Studios"
-        description="Initiate a project inquiry with Chanana Studios. Reserve production slots for custom 3D WebGL environments, brand design systems, and high-performance interactive builds."
+        title="Contact Chanan — Start a Project"
+        description="Initiate a project inquiry with Chanan. Reserve production slots for custom web design, 3D WebGL environments, and brand design systems."
         canonicalUrl="https://www.madebychanan.com/contact"
+        ogImage="https://www.madebychanan.com/hero-bg.webp"
+        schemaData={contactSchema}
       />
       <div className="section-padding" style={{ backgroundColor: '#09090b' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -43,11 +82,21 @@ export default function ContactPage() {
             Direct Line
           </div>
 
-          <h1 style={{ marginBottom: '1.5rem', maxWidth: '900px', color: '#ffffff', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: 'var(--font-heading)' }}>
+          <h1 style={{
+            marginBottom: '1.5rem',
+            maxWidth: '900px',
+            color: '#ffffff',
+            fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+            fontFamily: 'var(--font-heading)',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05
+          }}>
             Initiate a Project Conversation
           </h1>
+
           <p style={{ fontSize: '1.25rem', color: '#a1a1aa', maxWidth: '750px', marginBottom: '4rem', lineHeight: '1.6' }}>
-            We accept a maximum of 4 major client engagements per quarter to guarantee uncompromised focus.
+            We accept a curated number of client engagements per quarter to guarantee uncompromised craft and direct senior partner attention.
           </p>
 
           <div className="grid-2" style={{ gap: '3.5rem' }}>
@@ -63,15 +112,17 @@ export default function ContactPage() {
                   boxShadow: '0 12px 40px rgba(0,0,0,0.6)'
                 }}
               >
-                <h3 style={{ marginBottom: '2rem', fontSize: '1.6rem', color: '#ffffff' }}>Studio Headquarters</h3>
+                <h2 style={{ marginBottom: '2rem', fontSize: '1.6rem', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                  Studio Information
+                </h2>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
                   <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
                     <MapPin size={24} color="#e2e8f0" style={{ marginTop: '0.2rem' }} />
                     <div>
-                      <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>London (HQ)</h4>
+                      <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Global Practice</h3>
                       <p style={{ color: '#a1a1aa', fontSize: '0.95rem', lineHeight: '1.5' }}>
-                        140 Soho Square, Soho<br />London W1D 3QN, United Kingdom
+                        Remote-First Studio<br />Partnering with ambitious brands worldwide
                       </p>
                     </div>
                   </div>
@@ -79,10 +130,10 @@ export default function ContactPage() {
                   <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
                     <Mail size={24} color="#e2e8f0" style={{ marginTop: '0.2rem' }} />
                     <div>
-                      <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Electronic Mail</h4>
+                      <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Electronic Mail</h3>
                       <p style={{ color: '#a1a1aa', fontSize: '0.95rem', lineHeight: '1.5' }}>
                         New Inquiries: hello@madebychanan.com<br />
-                        Press & Media: press@madebychanan.com
+                        Press &amp; Collaborations: press@madebychanan.com
                       </p>
                     </div>
                   </div>
@@ -90,9 +141,9 @@ export default function ContactPage() {
                   <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
                     <Phone size={24} color="#e2e8f0" style={{ marginTop: '0.2rem' }} />
                     <div>
-                      <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Direct Line</h4>
+                      <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Response Timeline</h3>
                       <p style={{ color: '#a1a1aa', fontSize: '0.95rem' }}>
-                        +44 (0) 20 7946 0912
+                        Guaranteed direct partner response within 24 hours.
                       </p>
                     </div>
                   </div>
@@ -108,13 +159,13 @@ export default function ContactPage() {
                 }}
               >
                 <span style={{ fontSize: '0.85rem', color: '#e2e8f0', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  Current Q3 Slot Availability
+                  Current Production Availability
                 </span>
-                <h4 style={{ fontSize: '1.3rem', marginTop: '0.5rem', marginBottom: '0.5rem', color: '#ffffff' }}>
-                  2 / 4 Production Slots Reserved
-                </h4>
+                <h3 style={{ fontSize: '1.3rem', marginTop: '0.5rem', marginBottom: '0.5rem', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                  Accepting Q3 / Q4 Direct Engagements
+                </h3>
                 <p style={{ fontSize: '0.9rem', color: '#a1a1aa' }}>
-                  Average onboard timeline from contract execution is 7 business days.
+                  Average onboard timeline from initial brief alignment is 7 business days.
                 </p>
               </div>
             </div>
@@ -132,14 +183,18 @@ export default function ContactPage() {
               {submitted ? (
                 <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
                   <CheckCircle2 size={64} color="#e2e8f0" style={{ margin: '0 auto 1.5rem auto' }} />
-                  <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ffffff' }}>Parameters Received</h2>
+                  <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                    Parameters Received
+                  </h2>
                   <p style={{ color: '#a1a1aa', fontSize: '1.05rem' }}>
-                    Our executive partner team will review your inquiry and schedule an initial discovery call within 24 hours.
+                    Our team will review your project requirements and reach out within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: '#ffffff' }}>Direct Project Submission</h3>
+                  <h2 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                    Direct Project Submission
+                  </h2>
 
                   <div className="form-group">
                     <label style={{ fontSize: '0.85rem', color: '#a1a1aa' }}>Full Name</label>
@@ -152,8 +207,8 @@ export default function ContactPage() {
                   </div>
 
                   <div className="form-group">
-                    <label style={{ fontSize: '0.85rem', color: '#a1a1aa' }}>Scope & Requirements</label>
-                    <textarea placeholder="Describe your vision, target launch date, and key features..." className="form-input" rows="5" required style={{ background: 'rgba(255,255,255,0.05)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }} />
+                    <label style={{ fontSize: '0.85rem', color: '#a1a1aa' }}>Scope &amp; Requirements</label>
+                    <textarea placeholder="Describe your vision, target launch date, and key capabilities required..." className="form-input" rows="5" required style={{ background: 'rgba(255,255,255,0.05)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }} />
                   </div>
 
                   <button

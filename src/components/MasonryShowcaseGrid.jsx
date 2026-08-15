@@ -122,27 +122,27 @@ export default function MasonryShowcaseGrid() {
           
           {/* Left Column (Moves UP on scroll down) */}
           <div ref={leftColRef} className="sharp-col col-left">
-            {leftColumnProjects.map((item) => (
+            {leftColumnProjects.map((item, idx) => (
               <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+                <img src={item.image} alt={`Chanan digital showcase visual ${idx + 1}`} className="sharp-card-img" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
 
           {/* Center Column (Moves DOWN on scroll down) */}
           <div ref={centerColRef} className="sharp-col col-center">
-            {centerColumnProjects.map((item) => (
+            {centerColumnProjects.map((item, idx) => (
               <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+                <img src={item.image} alt={`Chanan product design interface ${idx + 1}`} className="sharp-card-img" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
 
           {/* Right Column (Moves UP on scroll down) */}
           <div ref={rightColRef} className="sharp-col col-right">
-            {rightColumnProjects.map((item) => (
+            {rightColumnProjects.map((item, idx) => (
               <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img src={item.image} alt="Grid Showcase" className="sharp-card-img" loading="lazy" />
+                <img src={item.image} alt={`Chanan brand architecture showcase ${idx + 1}`} className="sharp-card-img" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>
