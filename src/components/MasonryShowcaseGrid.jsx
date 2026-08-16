@@ -12,30 +12,51 @@ export default function MasonryShowcaseGrid() {
 
   /* ─────────────────────────────────────────────────────────
      CURATED HIGH-END PRODUCT & BRAND UI SHOWCASE MATRIX
-     (3 Columns of unclipped, full-resolution showcase cards)
+     (9 items per column: 2 top buffer images + 5 main images + 2 bottom buffer images)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
+    // 2 Top buffer images
+    { id: 'grid-l-top-1', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
+    { id: 'grid-l-top-2', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
+    // 5 Main showcase images
     { id: 'grid-l-1', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
     { id: 'grid-l-2', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
     { id: 'grid-l-3', image: '/grid-photos/grid3.png', title: 'Neon Pulse Telemetry', category: 'Interactive Canvas', aspect: '16/10' },
     { id: 'grid-l-4', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
     { id: 'grid-l-5', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
+    // 2 Bottom buffer images
+    { id: 'grid-l-bot-1', image: '/grid-photos/grid11.png', title: 'Chanan Spatial Engine', category: 'WebGL Platform', aspect: '16/10' },
+    { id: 'grid-l-bot-2', image: '/work/work1.jpg', title: 'Kinetic Fashion Realm', category: 'Brand System', aspect: '16/10' },
   ];
 
   const centerColumnProjects = [
+    // 2 Top buffer images
+    { id: 'grid-c-top-1', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
+    { id: 'grid-c-top-2', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
+    // 5 Main showcase images
     { id: 'grid-c-1', image: '/grid-photos/grid5.png', title: 'Illumination Spatial Web', category: '3D WebGL Realm', aspect: '16/10' },
     { id: 'grid-c-2', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
     { id: 'grid-c-3', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
     { id: 'grid-c-4', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
     { id: 'grid-c-5', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
+    // 2 Bottom buffer images
+    { id: 'grid-c-bot-1', image: '/work/work2.jpg', title: 'Lumina Dashboard OS', category: 'Fintech Platform', aspect: '16/10' },
+    { id: 'grid-c-bot-2', image: '/work/work5.jpg', title: 'Aura Interactive System', category: 'Interactive Canvas', aspect: '16/10' },
   ];
 
   const rightColumnProjects = [
+    // 2 Top buffer images
+    { id: 'grid-r-top-1', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
+    { id: 'grid-r-top-2', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
+    // 5 Main showcase images
     { id: 'grid-r-1', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
     { id: 'grid-r-2', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
     { id: 'grid-r-3', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
     { id: 'grid-r-4', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
     { id: 'grid-r-5', image: '/untitled-design-7.png', title: 'Hyper-Clean Catalog Grid', category: 'Fashion Architecture', aspect: '16/10' },
+    // 2 Bottom buffer images
+    { id: 'grid-r-bot-1', image: '/grid-new-2.png', title: 'Digital Brand Evolution', category: 'Brand System', aspect: '16/10' },
+    { id: 'grid-r-bot-2', image: '/work/work3.jpg', title: 'Velora Mobile Platform', category: 'Mobile App', aspect: '16/10' },
   ];
 
   useEffect(() => {
@@ -47,25 +68,25 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 60 : 160;
-    const scrubTime = 1.0;
+    const moveDistance = isMobile ? 140 : 360;
+    const scrubTime = 1.1;
 
     const ctx = gsap.context(() => {
-      // Multi-Directional Parallax Scroll:
+      // Counter-Parallax Scroll Trigger:
       // Left and Right columns glide UP as you scroll down
       // Center column glides DOWN in opposite direction
-      // All cards are in natural unclipped layout with zero image cutoff!
+      // Top and bottom buffer cards ensure all 3 columns stay 100% filled and aligned
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: 'top 80%',
-          end: 'bottom 20%',
+          start: 'top 85%',
+          end: 'bottom 15%',
           scrub: scrubTime,
         }
       })
-      .fromTo(leftCol, { y: moveDistance * 0.4 }, { y: -moveDistance * 0.7, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: -moveDistance * 0.7 }, { y: moveDistance * 0.4, ease: 'none' }, 0)
-      .fromTo(rightCol, { y: moveDistance * 0.4 }, { y: -moveDistance * 0.7, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0)
+      .fromTo(centerCol, { y: -moveDistance }, { y: moveDistance * 0.5, ease: 'none' }, 0)
+      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
@@ -77,7 +98,7 @@ export default function MasonryShowcaseGrid() {
       {/* ── Editorial Section Title Header ── */}
       <div className="masonry-header-block" style={{
         maxWidth: '1600px',
-        margin: '0 auto 3.5rem auto',
+        margin: '0 auto 3rem auto',
         padding: '3rem 1.5rem 0 1.5rem',
         textAlign: 'center',
         display: 'flex',
@@ -117,7 +138,7 @@ export default function MasonryShowcaseGrid() {
         </p>
       </div>
 
-      {/* ── Unclipped 3-Column Counter-Parallax Showcase Container ── */}
+      {/* ── Bounded Showcase Viewport (Aligned straight line top & bottom) ── */}
       <div className="showcase-grid-wrapper">
         <div className="sharp-columns-grid">
           
@@ -140,7 +161,7 @@ export default function MasonryShowcaseGrid() {
             ))}
           </div>
 
-          {/* Center Column (Glides DOWN in opposite direction) */}
+          {/* Center Column (Glides DOWN) */}
           <div ref={centerColRef} className="sharp-col col-center">
             {centerColumnProjects.map((item, idx) => (
               <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
@@ -189,35 +210,42 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #bfd7ff;
           color: #020b4d;
-          padding: 1rem 1.5rem 8rem 1.5rem;
+          padding: 1rem 0.75rem 6rem 0.75rem;
           box-sizing: border-box;
-          overflow: visible;
+          overflow: hidden;
         }
 
-        /* Expansive Full-Resolution Showcase Grid Wrapper */
+        /* Expansive Bounded Showcase Viewport */
         .showcase-grid-wrapper {
           position: relative;
           width: 100%;
-          max-width: min(97vw, 1720px);
+          max-width: min(98vw, 1750px);
+          height: clamp(800px, 98vh, 1300px);
           margin: 0 auto;
           box-sizing: border-box;
-          overflow: visible;
+          overflow: hidden;
+          border-radius: 28px;
+          border: 1.5px solid rgba(0, 29, 184, 0.25);
+          box-shadow: 0 28px 75px rgba(0, 29, 184, 0.2);
+          background: #020b4d;
         }
 
         /* 3-Column Aligned Grid Wall */
         .sharp-columns-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
+          gap: 16px;
           width: 100%;
-          margin: 0 auto;
+          height: 100%;
+          padding: 16px;
+          box-sizing: border-box;
           align-items: flex-start;
         }
 
         .sharp-col {
           display: flex;
           flex-direction: column;
-          gap: 24px;
+          gap: 16px;
           will-change: transform;
         }
 
@@ -225,19 +253,12 @@ export default function MasonryShowcaseGrid() {
         .sharp-card-block {
           position: relative;
           width: 100%;
-          border-radius: 18px;
+          border-radius: 16px;
           overflow: hidden;
-          background: #020b4d;
-          border: 1px solid rgba(0, 29, 184, 0.15);
-          box-shadow: 0 12px 36px rgba(0, 29, 184, 0.12);
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+          background: #00127a;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          flex-shrink: 0;
           cursor: pointer;
-        }
-
-        .sharp-card-block:hover {
-          transform: translateY(-8px) scale(1.015);
-          box-shadow: 0 24px 60px rgba(0, 29, 184, 0.25);
-          border-color: rgba(0, 29, 184, 0.4);
         }
 
         .sharp-card-img {
@@ -292,28 +313,33 @@ export default function MasonryShowcaseGrid() {
 
         /* ── MOBILE RESPONSIVE BREAKPOINT (<900px) ── */
         @media (max-width: 900px) {
+          .showcase-grid-wrapper {
+            height: 620px;
+            border-radius: 18px;
+          }
           .sharp-columns-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 14px !important;
+            gap: 12px !important;
+            padding: 12px !important;
           }
           .sharp-col {
-            gap: 14px !important;
+            gap: 12px !important;
           }
           .col-right {
             display: none !important;
           }
           .sharp-parallax-wall-section {
-            padding: 1rem 0.75rem 4rem 0.75rem;
+            padding: 1rem 0.5rem 3rem 0.5rem;
           }
         }
 
         @media (max-width: 600px) {
           .sharp-columns-grid {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
+            gap: 12px !important;
           }
           .sharp-col {
-            gap: 16px !important;
+            gap: 12px !important;
           }
         }
       `}</style>
