@@ -6,77 +6,67 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function MasonryShowcaseGrid() {
   const containerRef = useRef(null);
-  const leftColRef = useRef(null);
-  const centerColRef = useRef(null);
-  const rightColRef = useRef(null);
+  const gridRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
      CURATED HIGH-END PRODUCT & BRAND UI SHOWCASE MATRIX
-     (8 projects per column with pre-loaded top/bottom buffers
-      so Row 1 is 100% level & flush at the top with zero empty space)
+     (15 Full-Resolution Showcase Realities — 100% visible, zero clipped cards)
   ───────────────────────────────────────────────────────── */
-  const leftColumnProjects = [
-    { id: 'grid-l-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
-    { id: 'grid-l-2', image: '/grid-photos/grid4.png', aspect: '16/10' },
-    { id: 'grid-l-3', image: '/grid-photos/grid3.png', aspect: '16/10' },
-    { id: 'grid-l-4', image: '/experience_laptop.png', aspect: '16/10' },
-    { id: 'grid-l-5', image: '/skincare_leaf.png', aspect: '16/10' },
-    { id: 'grid-l-6', image: '/grid-photos/grid8.png', aspect: '16/10' },
-    { id: 'grid-l-7', image: '/grid-photos/grid11.png', aspect: '16/10' },
-    { id: 'grid-l-8', image: '/work/work1.jpg', aspect: '16/10' },
-  ];
-
-  const centerColumnProjects = [
-    // 2 Buffer images pre-positioned above the top crop
-    { id: 'grid-c-buf1', image: '/grid-photos/grid10.png', aspect: '16/10' },
-    { id: 'grid-c-buf2', image: '/grid-photos/grid2.png', aspect: '16/10' },
-    // Row 1 aligned card
-    { id: 'grid-c-1', image: '/grid-photos/grid5.png', aspect: '16/10' },
-    { id: 'grid-c-2', image: '/grid-photos/grid6.png', aspect: '16/10' },
-    { id: 'grid-c-3', image: '/grid-photos/grid7.png', aspect: '16/10' },
-    { id: 'grid-c-4', image: '/moodtalk_dashboard.png', aspect: '16/10' },
-    { id: 'grid-c-5', image: '/grid-new-1.png', aspect: '16/10' },
-    { id: 'grid-c-6', image: '/work/work2.jpg', aspect: '16/10' },
-  ];
-
-  const rightColumnProjects = [
-    { id: 'grid-r-1', image: '/grid-photos/grid9.png', aspect: '16/10' },
-    { id: 'grid-r-2', image: '/grid-photos/grid8.png', aspect: '16/10' },
-    { id: 'grid-r-3', image: '/grid-photos/grid2.png', aspect: '16/10' },
-    { id: 'grid-r-4', image: '/grid-photos/grid10.png', aspect: '16/10' },
-    { id: 'grid-r-5', image: '/untitled-design-7.png', aspect: '16/10' },
-    { id: 'grid-r-6', image: '/grid-photos/grid1.png', aspect: '16/10' },
-    { id: 'grid-r-7', image: '/grid-new-2.png', aspect: '16/10' },
-    { id: 'grid-r-8', image: '/work/work3.jpg', aspect: '16/10' },
+  const allShowcaseProjects = [
+    // Row 1
+    { id: 'grid-1', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
+    { id: 'grid-2', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
+    { id: 'grid-3', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
+    
+    // Row 2
+    { id: 'grid-4', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
+    { id: 'grid-5', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
+    { id: 'grid-6', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
+    
+    // Row 3
+    { id: 'grid-7', image: '/grid-photos/grid3.png', title: 'Neon Pulse Telemetry', category: 'Interactive Canvas', aspect: '16/10' },
+    { id: 'grid-8', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
+    { id: 'grid-9', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
+    
+    // Row 4
+    { id: 'grid-10', image: '/grid-photos/grid5.png', title: 'Illumination Spatial Web', category: '3D WebGL Realm', aspect: '16/10' },
+    { id: 'grid-11', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
+    { id: 'grid-12', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
+    
+    // Row 5
+    { id: 'grid-13', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
+    { id: 'grid-14', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
+    { id: 'grid-15', image: '/untitled-design-7.png', title: 'Hyper-Clean Catalog Grid', category: 'Fashion Architecture', aspect: '16/10' },
   ];
 
   useEffect(() => {
     const container = containerRef.current;
-    const leftCol = leftColRef.current;
-    const centerCol = centerColRef.current;
-    const rightCol = rightColRef.current;
+    const grid = gridRef.current;
+    if (!container || !grid) return;
 
-    if (!container || !leftCol || !centerCol || !rightCol) return;
-
-    const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 180 : 420;
-    const scrubTime = 1.2;
+    const cards = grid.querySelectorAll('.sharp-card-block');
 
     const ctx = gsap.context(() => {
-      // Counter-Parallax Scroll Trigger:
-      // Left & Right columns start at 0 and glide UP as you scroll down
-      // Center column starts with buffer hidden above and glides DOWN seamlessly
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: 'top 85%',
-          end: 'bottom 15%',
-          scrub: scrubTime,
-        }
-      })
-      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: 0 }, { y: moveDistance, ease: 'none' }, 0)
-      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0);
+      // Smooth staggered entrance reveal for each row as you scroll down
+      ScrollTrigger.batch(cards, {
+        start: 'top 88%',
+        onEnter: (batch) => {
+          gsap.fromTo(
+            batch,
+            { opacity: 0, y: 35, scale: 0.98 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.1,
+              ease: 'power3.out',
+              overwrite: 'auto'
+            }
+          );
+        },
+        once: true
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -88,8 +78,8 @@ export default function MasonryShowcaseGrid() {
       {/* ── Editorial Section Title Header ── */}
       <div className="masonry-header-block" style={{
         maxWidth: '1600px',
-        margin: '0 auto 3rem auto',
-        padding: '3.5rem 1.5rem 0 1.5rem',
+        margin: '0 auto 3.5rem auto',
+        padding: '4rem 1.5rem 0 1.5rem',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
@@ -128,55 +118,29 @@ export default function MasonryShowcaseGrid() {
         </p>
       </div>
 
-      {/* ── Full-Bleed Expansive Bounded Viewport Frame ── */}
-      <div className="grid-viewport-wrapper">
-        <div className="sharp-columns-grid">
-          
-          {/* Left Column (Glides UP) */}
-          <div ref={leftColRef} className="sharp-col col-left">
-            {leftColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan digital showcase visual ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
+      {/* ── Full Showcase Grid Container (100% Unclipped, Perfectly Aligned Rows) ── */}
+      <div className="showcase-grid-wrapper">
+        <div ref={gridRef} className="sharp-columns-grid">
+          {allShowcaseProjects.map((item, idx) => (
+            <div
+              key={item.id}
+              className="sharp-card-block"
+              style={{ aspectRatio: item.aspect }}
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="sharp-card-img"
+                loading="lazy"
+                decoding="async"
+              />
+              {/* Subtle Luxury Card Overlay */}
+              <div className="card-hover-overlay">
+                <span className="card-cat-badge">{item.category}</span>
+                <h3 className="card-title-text">{item.title}</h3>
               </div>
-            ))}
-          </div>
-
-          {/* Center Column (Has 2 buffer images above top edge, glides DOWN) */}
-          <div ref={centerColRef} className="sharp-col col-center">
-            {centerColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan product design interface ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Right Column (Glides UP) */}
-          <div ref={rightColRef} className="sharp-col col-right">
-            {rightColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan brand architecture showcase ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
-
+            </div>
+          ))}
         </div>
       </div>
 
@@ -188,58 +152,47 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #bfd7ff;
           color: #020b4d;
-          padding: 1rem 0.5rem 6rem 0.5rem;
+          padding: 1rem 1.5rem 7rem 1.5rem;
           box-sizing: border-box;
-          overflow: hidden;
+          overflow: visible;
         }
 
-        /* Full-Bleed Expansive Bounded Straight-Line Viewport Frame */
-        .grid-viewport-wrapper {
+        /* Expansive Full-Resolution Showcase Grid Wrapper */
+        .showcase-grid-wrapper {
           position: relative;
           width: 100%;
-          max-width: 100%;
-          height: clamp(880px, 108vh, 1450px);
+          max-width: min(97vw, 1720px);
           margin: 0 auto;
-          overflow: hidden;
-          border-radius: 32px;
-          border: 2px solid rgba(0, 29, 184, 0.25);
-          box-shadow: 0 32px 90px rgba(0, 29, 184, 0.25);
-          background: #020b4d;
+          box-sizing: border-box;
         }
 
-        /* Counter-Parallax 3-Column Grid */
+        /* 3-Column Aligned Grid Wall */
         .sharp-columns-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          gap: 24px;
           width: 100%;
-          height: 100%;
-          padding: 20px;
-          box-sizing: border-box;
-          align-items: flex-start;
+          margin: 0 auto;
+          align-items: stretch;
         }
 
-        .sharp-col {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          will-change: transform;
-        }
-
-        /* Center Column starts offset by 2 buffer cards so its 3rd card aligns with Row 1 */
-        .col-center {
-          margin-top: calc(-2 * ((100vw - 80px) / 3 * 10 / 16 + 20px));
-        }
-
-        /* Sharp Rectangular Block Cards */
+        /* Sharp Rectangular Block Cards with Hover Elevation */
         .sharp-card-block {
           position: relative;
           width: 100%;
-          border-radius: 20px;
+          border-radius: 18px;
           overflow: hidden;
-          background: #00127a;
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-          flex-shrink: 0;
+          background: #020b4d;
+          border: 1px solid rgba(0, 29, 184, 0.15);
+          box-shadow: 0 12px 36px rgba(0, 29, 184, 0.12);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+          cursor: pointer;
+        }
+
+        .sharp-card-block:hover {
+          transform: translateY(-8px) scale(1.015);
+          box-shadow: 0 24px 60px rgba(0, 29, 184, 0.25);
+          border-color: rgba(0, 29, 184, 0.4);
         }
 
         .sharp-card-img {
@@ -247,35 +200,66 @@ export default function MasonryShowcaseGrid() {
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ── MOBILE RESPONSIVE BREAKPOINT (<768px) ── */
-        @media (max-width: 768px) {
-          .sharp-parallax-wall-section {
-            padding: 0.5rem 0.25rem 3rem 0.25rem;
-          }
+        .sharp-card-block:hover .sharp-card-img {
+          transform: scale(1.04);
+        }
 
-          .grid-viewport-wrapper {
-            height: 680px;
-            border-radius: 20px;
-          }
+        /* Card Hover Overlay Info */
+        .card-hover-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, transparent 50%, rgba(2, 11, 77, 0.9) 100%);
+          opacity: 0;
+          display: flex;
+          flex-direction: column;
+          justifyContent: flex-end;
+          padding: 1.5rem;
+          box-sizing: border-box;
+          transition: opacity 0.35s ease;
+          pointer-events: none;
+        }
 
+        .sharp-card-block:hover .card-hover-overlay {
+          opacity: 1;
+        }
+
+        .card-cat-badge {
+          font-family: monospace, sans-serif;
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: #bfd7ff;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          margin-bottom: 0.35rem;
+        }
+
+        .card-title-text {
+          font-family: var(--font-heading, 'Outfit', sans-serif);
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0;
+          letter-spacing: -0.01em;
+        }
+
+        /* ── MOBILE RESPONSIVE BREAKPOINT (<900px) ── */
+        @media (max-width: 900px) {
           .sharp-columns-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-            padding: 12px !important;
+            gap: 14px !important;
           }
-
-          .sharp-col {
-            gap: 12px !important;
+          .sharp-parallax-wall-section {
+            padding: 1rem 0.75rem 4rem 0.75rem;
           }
+        }
 
-          .col-center {
-            margin-top: calc(-2 * ((100vw - 48px) / 2 * 10 / 16 + 12px));
-          }
-
-          .col-right {
-            display: none !important;
+        @media (max-width: 600px) {
+          .sharp-columns-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
           }
         }
       `}</style>
