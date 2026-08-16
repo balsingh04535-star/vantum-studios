@@ -12,7 +12,7 @@ export default function MasonryShowcaseGrid() {
 
   /* ─────────────────────────────────────────────────────────
      CURATED HIGH-END PRODUCT & BRAND UI SHOWCASE MATRIX
-     (Smooth multi-directional counter-parallax columns)
+     (5 items per column with identical 16:10 aspect ratio)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
     { id: 'grid-l-1', image: '/grid-photos/grid1.png', aspect: '16/10' },
@@ -20,7 +20,6 @@ export default function MasonryShowcaseGrid() {
     { id: 'grid-l-3', image: '/grid-photos/grid3.png', aspect: '16/10' },
     { id: 'grid-l-4', image: '/experience_laptop.png', aspect: '16/10' },
     { id: 'grid-l-5', image: '/skincare_leaf.png', aspect: '16/10' },
-    { id: 'grid-l-6', image: '/grid-photos/grid8.png', aspect: '16/10' },
   ];
 
   const centerColumnProjects = [
@@ -29,7 +28,6 @@ export default function MasonryShowcaseGrid() {
     { id: 'grid-c-3', image: '/grid-photos/grid7.png', aspect: '16/10' },
     { id: 'grid-c-4', image: '/moodtalk_dashboard.png', aspect: '16/10' },
     { id: 'grid-c-5', image: '/grid-new-1.png', aspect: '16/10' },
-    { id: 'grid-c-6', image: '/grid-photos/grid2.png', aspect: '16/10' },
   ];
 
   const rightColumnProjects = [
@@ -38,7 +36,6 @@ export default function MasonryShowcaseGrid() {
     { id: 'grid-r-3', image: '/grid-photos/grid9.png', aspect: '16/10' },
     { id: 'grid-r-4', image: '/grid-photos/grid10.png', aspect: '16/10' },
     { id: 'grid-r-5', image: '/untitled-design-7.png', aspect: '16/10' },
-    { id: 'grid-r-6', image: '/grid-photos/grid1.png', aspect: '16/10' },
   ];
 
   useEffect(() => {
@@ -50,23 +47,24 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 160 : 440;
-    const scrubTime = 1.2;
+    const moveDistance = isMobile ? 60 : 160;
+    const scrubTime = 1.0;
 
     const ctx = gsap.context(() => {
-      // Counter-Parallax Scroll Trigger:
-      // Left and Right columns glide UP, while Center column glides DOWN
+      // Fluid Counter-Parallax Scroll:
+      // Left and Right glide UP, Center glides DOWN.
+      // They smoothly converge to y: 0 at the bottom so the bottom row is 100% aligned in one clean line!
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: 'top bottom',
-          end: 'bottom top',
+          start: 'top 80%',
+          end: 'bottom 90%',
           scrub: scrubTime,
         }
       })
-      .fromTo(leftCol, { y: moveDistance * 0.7 }, { y: -moveDistance * 0.9, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: -moveDistance * 0.9 }, { y: moveDistance * 0.7, ease: 'none' }, 0)
-      .fromTo(rightCol, { y: moveDistance * 0.7 }, { y: -moveDistance * 0.9, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: moveDistance }, { y: 0, ease: 'power1.out' }, 0)
+      .fromTo(centerCol, { y: -moveDistance }, { y: 0, ease: 'power1.out' }, 0)
+      .fromTo(rightCol, { y: moveDistance }, { y: 0, ease: 'power1.out' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
@@ -77,7 +75,7 @@ export default function MasonryShowcaseGrid() {
       
       {/* ── Editorial Section Title Header ── */}
       <div className="masonry-header-block" style={{
-        maxWidth: '1600px',
+        maxWidth: '1400px',
         margin: '0 auto 3rem auto',
         padding: '3.5rem 1.5rem 0 1.5rem',
         textAlign: 'center',
@@ -118,56 +116,54 @@ export default function MasonryShowcaseGrid() {
         </p>
       </div>
 
-      {/* ── Full-Bleed Expansive Bounded Viewport Frame ── */}
-      <div className="grid-viewport-wrapper">
-        <div className="sharp-columns-grid">
-          
-          {/* Left Column (Glides UP) */}
-          <div ref={leftColRef} className="sharp-col col-left">
-            {leftColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan digital showcase visual ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Center Column (Glides DOWN) */}
-          <div ref={centerColRef} className="sharp-col col-center">
-            {centerColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan product design interface ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Right Column (Glides UP) */}
-          <div ref={rightColRef} className="sharp-col col-right">
-            {rightColumnProjects.map((item, idx) => (
-              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
-                <img
-                  src={item.image}
-                  alt={`Chanan brand architecture showcase ${idx + 1}`}
-                  className="sharp-card-img"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
-
+      {/* ── Direct 3-Column Parallax Grid (No dark box, cards sit directly on light blue page) ── */}
+      <div className="sharp-columns-grid">
+        
+        {/* Left Column */}
+        <div ref={leftColRef} className="sharp-col col-left">
+          {leftColumnProjects.map((item, idx) => (
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+              <img
+                src={item.image}
+                alt={`Chanan digital showcase visual ${idx + 1}`}
+                className="sharp-card-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))}
         </div>
+
+        {/* Center Column (Opposite Scroll Direction) */}
+        <div ref={centerColRef} className="sharp-col col-center">
+          {centerColumnProjects.map((item, idx) => (
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+              <img
+                src={item.image}
+                alt={`Chanan product design interface ${idx + 1}`}
+                className="sharp-card-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div ref={rightColRef} className="sharp-col col-right">
+          {rightColumnProjects.map((item, idx) => (
+            <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+              <img
+                src={item.image}
+                alt={`Chanan brand architecture showcase ${idx + 1}`}
+                className="sharp-card-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))}
+        </div>
+
       </div>
 
       {/* ── Pure Aesthetic Styles ── */}
@@ -178,33 +174,19 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #bfd7ff;
           color: #020b4d;
-          padding: 1rem 0.5rem 6rem 0.5rem;
+          padding: 1rem 1.25rem 6rem 1.25rem;
           box-sizing: border-box;
           overflow: hidden;
         }
 
-        /* Full-Bleed Expansive Bounded Straight-Line Viewport Frame */
-        .grid-viewport-wrapper {
-          position: relative;
-          width: 100%;
-          max-width: 100%;
-          height: clamp(880px, 108vh, 1450px);
-          margin: 0 auto;
-          overflow: hidden;
-          border-radius: 32px;
-          border: 2px solid rgba(0, 29, 184, 0.25);
-          box-shadow: 0 32px 90px rgba(0, 29, 184, 0.25);
-          background: #020b4d;
-        }
-
-        /* Counter-Parallax 3-Column Grid */
+        /* Direct 3-Column Parallax Grid on Light Blue Canvas */
         .sharp-columns-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          gap: 18px;
           width: 100%;
-          height: 100%;
-          padding: 20px;
+          max-width: 1440px;
+          margin: 0 auto;
           box-sizing: border-box;
           align-items: flex-start;
         }
@@ -212,19 +194,24 @@ export default function MasonryShowcaseGrid() {
         .sharp-col {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 18px;
           will-change: transform;
         }
 
-        /* Sharp Rectangular Block Cards */
+        /* Clean Luxury Cards */
         .sharp-card-block {
           position: relative;
           width: 100%;
-          border-radius: 20px;
+          border-radius: 16px;
           overflow: hidden;
-          background: #00127a;
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-          flex-shrink: 0;
+          background: #ffffff;
+          border: 1px solid rgba(0, 29, 184, 0.15);
+          box-shadow: 0 12px 35px rgba(0, 29, 184, 0.12);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sharp-card-block:hover {
+          box-shadow: 0 20px 50px rgba(0, 29, 184, 0.22);
         }
 
         .sharp-card-img {
@@ -237,22 +224,16 @@ export default function MasonryShowcaseGrid() {
         /* ── MOBILE RESPONSIVE BREAKPOINT (<768px) ── */
         @media (max-width: 768px) {
           .sharp-parallax-wall-section {
-            padding: 0.5rem 0.25rem 3rem 0.25rem;
-          }
-
-          .grid-viewport-wrapper {
-            height: 680px;
-            border-radius: 20px;
+            padding: 0.5rem 0.75rem 3rem 0.75rem;
           }
 
           .sharp-columns-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-            padding: 12px !important;
+            gap: 10px !important;
           }
 
           .sharp-col {
-            gap: 12px !important;
+            gap: 10px !important;
           }
 
           .col-right {
