@@ -6,67 +6,66 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function MasonryShowcaseGrid() {
   const containerRef = useRef(null);
-  const gridRef = useRef(null);
+  const leftColRef = useRef(null);
+  const centerColRef = useRef(null);
+  const rightColRef = useRef(null);
 
   /* ─────────────────────────────────────────────────────────
      CURATED HIGH-END PRODUCT & BRAND UI SHOWCASE MATRIX
-     (15 Full-Resolution Showcase Realities — 100% visible, zero clipped cards)
+     (3 Columns of unclipped, full-resolution showcase cards)
   ───────────────────────────────────────────────────────── */
-  const allShowcaseProjects = [
-    // Row 1
-    { id: 'grid-1', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
-    { id: 'grid-2', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
-    { id: 'grid-3', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
-    
-    // Row 2
-    { id: 'grid-4', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
-    { id: 'grid-5', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
-    { id: 'grid-6', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
-    
-    // Row 3
-    { id: 'grid-7', image: '/grid-photos/grid3.png', title: 'Neon Pulse Telemetry', category: 'Interactive Canvas', aspect: '16/10' },
-    { id: 'grid-8', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
-    { id: 'grid-9', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
-    
-    // Row 4
-    { id: 'grid-10', image: '/grid-photos/grid5.png', title: 'Illumination Spatial Web', category: '3D WebGL Realm', aspect: '16/10' },
-    { id: 'grid-11', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
-    { id: 'grid-12', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
-    
-    // Row 5
-    { id: 'grid-13', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
-    { id: 'grid-14', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
-    { id: 'grid-15', image: '/untitled-design-7.png', title: 'Hyper-Clean Catalog Grid', category: 'Fashion Architecture', aspect: '16/10' },
+  const leftColumnProjects = [
+    { id: 'grid-l-1', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
+    { id: 'grid-l-2', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
+    { id: 'grid-l-3', image: '/grid-photos/grid3.png', title: 'Neon Pulse Telemetry', category: 'Interactive Canvas', aspect: '16/10' },
+    { id: 'grid-l-4', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
+    { id: 'grid-l-5', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
+  ];
+
+  const centerColumnProjects = [
+    { id: 'grid-c-1', image: '/grid-photos/grid5.png', title: 'Illumination Spatial Web', category: '3D WebGL Realm', aspect: '16/10' },
+    { id: 'grid-c-2', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
+    { id: 'grid-c-3', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
+    { id: 'grid-c-4', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
+    { id: 'grid-c-5', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
+  ];
+
+  const rightColumnProjects = [
+    { id: 'grid-r-1', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
+    { id: 'grid-r-2', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
+    { id: 'grid-r-3', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
+    { id: 'grid-r-4', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
+    { id: 'grid-r-5', image: '/untitled-design-7.png', title: 'Hyper-Clean Catalog Grid', category: 'Fashion Architecture', aspect: '16/10' },
   ];
 
   useEffect(() => {
     const container = containerRef.current;
-    const grid = gridRef.current;
-    if (!container || !grid) return;
+    const leftCol = leftColRef.current;
+    const centerCol = centerColRef.current;
+    const rightCol = rightColRef.current;
 
-    const cards = grid.querySelectorAll('.sharp-card-block');
+    if (!container || !leftCol || !centerCol || !rightCol) return;
+
+    const isMobile = window.innerWidth <= 768;
+    const moveDistance = isMobile ? 60 : 160;
+    const scrubTime = 1.0;
 
     const ctx = gsap.context(() => {
-      // Smooth staggered entrance reveal for each row as you scroll down
-      ScrollTrigger.batch(cards, {
-        start: 'top 88%',
-        onEnter: (batch) => {
-          gsap.fromTo(
-            batch,
-            { opacity: 0, y: 35, scale: 0.98 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.7,
-              stagger: 0.1,
-              ease: 'power3.out',
-              overwrite: 'auto'
-            }
-          );
-        },
-        once: true
-      });
+      // Multi-Directional Parallax Scroll:
+      // Left and Right columns glide UP as you scroll down
+      // Center column glides DOWN in opposite direction
+      // All cards are in natural unclipped layout with zero image cutoff!
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          scrub: scrubTime,
+        }
+      })
+      .fromTo(leftCol, { y: moveDistance * 0.4 }, { y: -moveDistance * 0.7, ease: 'none' }, 0)
+      .fromTo(centerCol, { y: -moveDistance * 0.7 }, { y: moveDistance * 0.4, ease: 'none' }, 0)
+      .fromTo(rightCol, { y: moveDistance * 0.4 }, { y: -moveDistance * 0.7, ease: 'none' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
@@ -79,13 +78,13 @@ export default function MasonryShowcaseGrid() {
       <div className="masonry-header-block" style={{
         maxWidth: '1600px',
         margin: '0 auto 3.5rem auto',
-        padding: '4rem 1.5rem 0 1.5rem',
+        padding: '3rem 1.5rem 0 1.5rem',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         position: 'relative',
-        zIndex: 5
+        zIndex: 10
       }}>
         <h2 style={{
           fontSize: 'clamp(2.6rem, 6vw, 5.8rem)',
@@ -118,29 +117,67 @@ export default function MasonryShowcaseGrid() {
         </p>
       </div>
 
-      {/* ── Full Showcase Grid Container (100% Unclipped, Perfectly Aligned Rows) ── */}
+      {/* ── Unclipped 3-Column Counter-Parallax Showcase Container ── */}
       <div className="showcase-grid-wrapper">
-        <div ref={gridRef} className="sharp-columns-grid">
-          {allShowcaseProjects.map((item, idx) => (
-            <div
-              key={item.id}
-              className="sharp-card-block"
-              style={{ aspectRatio: item.aspect }}
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="sharp-card-img"
-                loading="lazy"
-                decoding="async"
-              />
-              {/* Subtle Luxury Card Overlay */}
-              <div className="card-hover-overlay">
-                <span className="card-cat-badge">{item.category}</span>
-                <h3 className="card-title-text">{item.title}</h3>
+        <div className="sharp-columns-grid">
+          
+          {/* Left Column (Glides UP) */}
+          <div ref={leftColRef} className="sharp-col col-left">
+            {leftColumnProjects.map((item, idx) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="sharp-card-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="card-hover-overlay">
+                  <span className="card-cat-badge">{item.category}</span>
+                  <h3 className="card-title-text">{item.title}</h3>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Center Column (Glides DOWN in opposite direction) */}
+          <div ref={centerColRef} className="sharp-col col-center">
+            {centerColumnProjects.map((item, idx) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="sharp-card-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="card-hover-overlay">
+                  <span className="card-cat-badge">{item.category}</span>
+                  <h3 className="card-title-text">{item.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right Column (Glides UP) */}
+          <div ref={rightColRef} className="sharp-col col-right">
+            {rightColumnProjects.map((item, idx) => (
+              <div key={item.id} className="sharp-card-block" style={{ aspectRatio: item.aspect }}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="sharp-card-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="card-hover-overlay">
+                  <span className="card-cat-badge">{item.category}</span>
+                  <h3 className="card-title-text">{item.title}</h3>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
 
@@ -152,7 +189,7 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #bfd7ff;
           color: #020b4d;
-          padding: 1rem 1.5rem 7rem 1.5rem;
+          padding: 1rem 1.5rem 8rem 1.5rem;
           box-sizing: border-box;
           overflow: visible;
         }
@@ -164,6 +201,7 @@ export default function MasonryShowcaseGrid() {
           max-width: min(97vw, 1720px);
           margin: 0 auto;
           box-sizing: border-box;
+          overflow: visible;
         }
 
         /* 3-Column Aligned Grid Wall */
@@ -173,7 +211,14 @@ export default function MasonryShowcaseGrid() {
           gap: 24px;
           width: 100%;
           margin: 0 auto;
-          align-items: stretch;
+          align-items: flex-start;
+        }
+
+        .sharp-col {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          will-change: transform;
         }
 
         /* Sharp Rectangular Block Cards with Hover Elevation */
@@ -211,7 +256,7 @@ export default function MasonryShowcaseGrid() {
         .card-hover-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, transparent 50%, rgba(2, 11, 77, 0.9) 100%);
+          background: linear-gradient(180deg, transparent 40%, rgba(2, 11, 77, 0.92) 100%);
           opacity: 0;
           display: flex;
           flex-direction: column;
@@ -251,6 +296,12 @@ export default function MasonryShowcaseGrid() {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 14px !important;
           }
+          .sharp-col {
+            gap: 14px !important;
+          }
+          .col-right {
+            display: none !important;
+          }
           .sharp-parallax-wall-section {
             padding: 1rem 0.75rem 4rem 0.75rem;
           }
@@ -259,6 +310,9 @@ export default function MasonryShowcaseGrid() {
         @media (max-width: 600px) {
           .sharp-columns-grid {
             grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .sharp-col {
             gap: 16px !important;
           }
         }
