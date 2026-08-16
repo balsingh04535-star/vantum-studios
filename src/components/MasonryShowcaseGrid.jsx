@@ -15,48 +15,39 @@ export default function MasonryShowcaseGrid() {
      (9 items per column: 2 top buffer images + 5 main images + 2 bottom buffer images)
   ───────────────────────────────────────────────────────── */
   const leftColumnProjects = [
-    // 2 Top buffer images (Unique user assets)
-    { id: 'grid-l-top-1', image: '/showcase-extra-1.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
-    { id: 'grid-l-top-2', image: '/showcase-extra-2.png', title: 'Lumina AI Synthesis', category: 'Generative Platform', aspect: '16/10' },
-    // 5 Main showcase images
-    { id: 'grid-l-1', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
-    { id: 'grid-l-2', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
-    { id: 'grid-l-3', image: '/grid-photos/grid3.png', title: 'Neon Pulse Telemetry', category: 'Interactive Canvas', aspect: '16/10' },
-    { id: 'grid-l-4', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
-    { id: 'grid-l-5', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
-    // 2 Bottom buffer images
-    { id: 'grid-l-bot-1', image: '/showcase-extra-3.gif', title: 'Kinetic Hologram Motion', category: 'Dynamic GIF Realities', aspect: '16/10' },
-    { id: 'grid-l-bot-2', image: '/work/work1.jpg', title: 'Kinetic Fashion Realm', category: 'Brand System', aspect: '16/10' },
+    { id: 'grid-l-1', image: '/showcase-extra-2.png', title: 'Verde Dual Core OS', category: 'Generative Platform', aspect: '16/10' },
+    { id: 'grid-l-2', image: '/grid-photos/grid10.png', title: 'Nebbi AI Studio', category: 'Creative Illustration', aspect: '16/10' },
+    { id: 'grid-l-3', image: '/grid-photos/grid1.png', title: 'Aurelis Kinetic Skincare', category: '3D Web Experience', aspect: '16/10' },
+    { id: 'grid-l-4', image: '/grid-photos/grid4.png', title: 'Nexus Neural Dashboard', category: 'Fintech UI / Web App', aspect: '16/10' },
+    { id: 'grid-l-5', image: '/grid-photos/grid3.png', title: 'Nova Flow Interactive', category: 'Mobile Architecture', aspect: '16/10' },
+    { id: 'grid-l-6', image: '/experience_laptop.png', title: 'Lumina Spatial OS', category: 'WebGL Platform', aspect: '16/10' },
+    { id: 'grid-l-7', image: '/skincare_leaf.png', title: 'Botanical Organic Canvas', category: 'E-Commerce Platform', aspect: '16/10' },
+    { id: 'grid-l-8', image: '/amplo_brand.png', title: 'Amplo Brand Architecture', category: 'Brand System', aspect: '16/10' },
+    { id: 'grid-l-9', image: '/work/work1.jpg', title: 'Kinetic Lookbook Noir', category: 'High Fashion UI', aspect: '16/10' },
   ];
 
   const centerColumnProjects = [
-    // 2 Top buffer images (Unique user assets)
-    { id: 'grid-c-top-1', image: '/showcase-extra-3.gif', title: 'Kinetic Hologram Motion', category: 'Dynamic GIF Realities', aspect: '16/10' },
-    { id: 'grid-c-top-2', image: '/showcase-extra-1.png', title: 'Creative Direction Archive', category: 'Spatial Experience', aspect: '16/10' },
-    // 5 Main showcase images
-    { id: 'grid-c-1', image: '/grid-photos/grid5.png', title: 'Illumination Spatial Web', category: '3D WebGL Realm', aspect: '16/10' },
-    { id: 'grid-c-2', image: '/grid-photos/grid6.png', title: 'Serenity Lake Interface', category: 'Creative Direction', aspect: '16/10' },
-    { id: 'grid-c-3', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
-    { id: 'grid-c-4', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
-    { id: 'grid-c-5', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
-    // 2 Bottom buffer images
-    { id: 'grid-c-bot-1', image: '/showcase-extra-2.png', title: 'Lumina Dashboard OS', category: 'Fintech Platform', aspect: '16/10' },
-    { id: 'grid-c-bot-2', image: '/work/work5.jpg', title: 'Aura Interactive System', category: 'Interactive Canvas', aspect: '16/10' },
+    { id: 'grid-c-1', image: '/showcase-extra-3.gif', title: 'Pixel Kinetic Hologram', category: 'Motion Realities', aspect: '16/10' },
+    { id: 'grid-c-2', image: '/showcase-extra-1.png', title: 'Chanan Hardware Core', category: 'Industrial Design', aspect: '16/10' },
+    { id: 'grid-c-3', image: '/grid-photos/grid5.png', title: 'Clarity Decision Engine', category: '3D WebGL Realm', aspect: '16/10' },
+    { id: 'grid-c-4', image: '/grid-photos/grid6.png', title: 'Velora Typographic Matrix', category: 'Creative Direction', aspect: '16/10' },
+    { id: 'grid-c-5', image: '/grid-photos/grid7.png', title: 'Velora Brand Identity System', category: 'Design System', aspect: '16/10' },
+    { id: 'grid-c-6', image: '/moodtalk_dashboard.png', title: 'MoodTalk AI Command Center', category: 'AI Application', aspect: '16/10' },
+    { id: 'grid-c-7', image: '/grid-new-1.png', title: 'Typographic Kinetic Poster', category: 'Brand Experiment', aspect: '16/10' },
+    { id: 'grid-c-8', image: '/data_jungle.png', title: 'Data Jungle Telemetry', category: 'Analytics Platform', aspect: '16/10' },
+    { id: 'grid-c-9', image: '/work/work2.jpg', title: 'Lumina Dashboard OS', category: 'Fintech Platform', aspect: '16/10' },
   ];
 
   const rightColumnProjects = [
-    // 2 Top buffer images (Unique user assets)
-    { id: 'grid-r-top-1', image: '/showcase-extra-2.png', title: 'Lumina AI Synthesis', category: 'Generative Platform', aspect: '16/10' },
-    { id: 'grid-r-top-2', image: '/showcase-extra-3.gif', title: 'Kinetic Hologram Motion', category: 'Dynamic GIF Realities', aspect: '16/10' },
-    // 5 Main showcase images
-    { id: 'grid-r-1', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
-    { id: 'grid-r-2', image: '/grid-photos/grid8.png', title: 'AutoFlow Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
-    { id: 'grid-r-3', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
-    { id: 'grid-r-4', image: '/grid-photos/grid10.png', title: 'Aetheria Minimal Luxury', category: 'Brand Architecture', aspect: '16/10' },
+    { id: 'grid-r-1', image: '/grid-photos/grid9.png', title: 'Persona Digital Studio', category: 'Creative Portfolio', aspect: '16/10' },
+    { id: 'grid-r-2', image: '/grid-photos/grid8.png', title: 'AmberPulse Analytics Core', category: 'SaaS Platform', aspect: '16/10' },
+    { id: 'grid-r-3', image: '/grid-photos/grid2.png', title: 'Voltaria Magnetic Hardware', category: 'Product Showcase', aspect: '16/10' },
+    { id: 'grid-r-4', image: '/grid-photos/grid11.png', title: 'Chanan Spatial Engine', category: 'WebGL Platform', aspect: '16/10' },
     { id: 'grid-r-5', image: '/untitled-design-7.png', title: 'Hyper-Clean Catalog Grid', category: 'Fashion Architecture', aspect: '16/10' },
-    // 2 Bottom buffer images
-    { id: 'grid-r-bot-1', image: '/showcase-extra-1.png', title: 'Digital Brand Evolution', category: 'Brand System', aspect: '16/10' },
-    { id: 'grid-r-bot-2', image: '/work/work3.jpg', title: 'Velora Mobile Platform', category: 'Mobile App', aspect: '16/10' },
+    { id: 'grid-r-6', image: '/grid-new-2.png', title: 'Digital Brand Evolution', category: 'Brand System', aspect: '16/10' },
+    { id: 'grid-r-7', image: '/work/work3.jpg', title: 'Velora Mobile Platform', category: 'Mobile App', aspect: '16/10' },
+    { id: 'grid-r-8', image: '/work/work4.jpg', title: 'Minimalist Poster System', category: 'Editorial Brand', aspect: '16/10' },
+    { id: 'grid-r-9', image: '/work/work5.jpg', title: 'Aura Interactive Spatial', category: 'Interactive Canvas', aspect: '16/10' },
   ];
 
   useEffect(() => {
