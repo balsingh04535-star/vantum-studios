@@ -59,25 +59,24 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 180 : 480;
-    const scrubTime = 1.2;
+    const moveDistance = isMobile ? 120 : 340;
+    const scrubDamping = 2.2; // Silky inertia easing for ultra-smooth fluid motion
 
     const ctx = gsap.context(() => {
       // Counter-Parallax Scroll Trigger:
-      // Left and Right columns glide UP as you scroll down
-      // Center column glides DOWN in opposite direction
-      // Top and bottom buffer cards ensure all 3 columns stay 100% filled and aligned
+      // Expanded scroll runway spanning full viewport entry to exit
+      // High inertia scrub for a buttery, floaty, relaxed scroll feel
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
-          start: 'top 85%',
-          end: 'bottom 15%',
-          scrub: scrubTime,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: scrubDamping,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: -moveDistance }, { y: moveDistance * 0.6, ease: 'none' }, 0)
-      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'power1.out' }, 0)
+      .fromTo(centerCol, { y: -moveDistance }, { y: moveDistance * 0.45, ease: 'power1.out' }, 0)
+      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'power1.out' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
