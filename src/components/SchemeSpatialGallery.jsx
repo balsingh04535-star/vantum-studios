@@ -138,8 +138,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-cream, #f4f3ef)',
-        color: '#0f0f0f',
+        backgroundColor: 'var(--bg-cream, #bfd7ff)',
+        color: '#020b4d',
         padding: 0,
         boxSizing: 'border-box',
         display: 'flex',
@@ -154,9 +154,9 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(255, 255, 255, 0.04) 0%, transparent 75%),
-            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(196, 214, 0, 0.025) 0%, transparent 70%),
-            #08080a
+            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(255, 255, 255, 0.35) 0%, transparent 75%),
+            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(0, 29, 184, 0.08) 0%, transparent 70%),
+            #bfd7ff
           `,
           pointerEvents: 'none',
           zIndex: 0,
@@ -177,14 +177,14 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <CrosshairStarIcon size={18} color="#52525b" />
+          <CrosshairStarIcon size={18} color="#001db8" />
           <span
             style={{
               fontSize: '0.68rem',
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
               fontWeight: 600,
-              color: '#52525b',
+              color: '#001db8',
               fontFamily: 'var(--font-main)',
             }}
           >
@@ -197,7 +197,7 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             fontSize: '0.85rem',
             letterSpacing: '0.35em',
             fontWeight: 600,
-            color: '#0f0f0f',
+            color: '#020b4d',
             fontFamily: 'var(--font-heading)',
             textTransform: 'uppercase',
           }}
@@ -213,20 +213,20 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
             gap: '0.55rem',
             padding: '0.45rem 1.15rem',
             borderRadius: '20px',
-            border: '1px solid rgba(0, 0, 0, 0.18)',
+            border: '1px solid rgba(0, 29, 184, 0.25)',
             fontSize: '0.68rem',
             letterSpacing: '0.2em',
-            fontWeight: 600,
-            color: '#0f0f0f',
+            fontWeight: 700,
+            color: '#020b4d',
             fontFamily: 'var(--font-main)',
             cursor: 'pointer',
-            background: 'rgba(0, 0, 0, 0.04)',
+            background: 'rgba(255, 255, 255, 0.85)',
             backdropFilter: 'blur(8px)',
             textDecoration: 'none'
           }}
         >
           <span>EXPLORE WORK</span>
-          <ArrowUpRight size={14} />
+          <ArrowUpRight size={14} color="#001db8" />
         </TransitionLink>
       </header>
 

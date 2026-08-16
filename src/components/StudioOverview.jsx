@@ -85,8 +85,8 @@ export default function StudioOverview({ onOpenInquiry }) {
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
-          backgroundColor: 'var(--bg-cream)',
-          color: '#0f0f0f',
+          backgroundColor: 'var(--bg-cream, #bfd7ff)',
+          color: '#020b4d',
           transformOrigin: 'center center',
         }}
       >
@@ -105,7 +105,7 @@ export default function StudioOverview({ onOpenInquiry }) {
               fontWeight: 300,
               lineHeight: 1.1,
               letterSpacing: '-0.02em',
-              color: '#0f0f0f'
+              color: '#020b4d'
             }}
           >
             {words.map((word, idx) => (
@@ -118,8 +118,9 @@ export default function StudioOverview({ onOpenInquiry }) {
           <p style={{
             fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)',
             maxWidth: '850px',
-            color: '#27272a',
-            lineHeight: 1.6
+            color: '#001db8',
+            lineHeight: 1.6,
+            fontWeight: 500
           }}>
             Chanan is an independent creative agency specialising in web design and development, brand identity, 3D product visuals and motion design for ambitious brands worldwide.
           </p>
@@ -139,16 +140,16 @@ export default function StudioOverview({ onOpenInquiry }) {
               fontSize: '0.65rem',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              color: 'rgba(0,0,0,0.3)',
+              color: '#001db8',
               fontFamily: 'var(--font-main)',
               fontWeight: 700,
             }}>
               Scroll to continue
             </span>
             <div style={{
-              width: '1px',
+              width: '1.5px',
               height: '3rem',
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), transparent)',
+              background: 'linear-gradient(to bottom, #001db8, transparent)',
               animation: 'scrollPulse 1.8s ease-in-out infinite',
             }} />
           </div>

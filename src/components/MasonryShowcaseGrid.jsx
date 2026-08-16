@@ -91,7 +91,7 @@ export default function MasonryShowcaseGrid() {
           fontWeight: 300,
           letterSpacing: '-0.03em',
           lineHeight: 1.05,
-          color: '#ffffff',
+          color: '#020b4d',
           marginBottom: '0.85rem',
           textTransform: 'uppercase',
         }}>
@@ -99,16 +99,16 @@ export default function MasonryShowcaseGrid() {
             fontStyle: 'italic',
             fontFamily: 'var(--font-luxury-slim)',
             fontWeight: 400,
-            color: '#ffffff'
+            color: '#001db8'
           }}>Creative Realities</span>
         </h2>
 
         <p style={{
           fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)',
-          color: '#8e8e93',
+          color: '#001db8',
           maxWidth: '600px',
           lineHeight: 1.5,
-          fontWeight: 500,
+          fontWeight: 600,
           letterSpacing: '0.12em',
           textTransform: 'uppercase'
         }}>
@@ -156,8 +156,8 @@ export default function MasonryShowcaseGrid() {
           position: relative;
           width: 100%;
           min-height: auto;
-          background-color: #000000;
-          color: #ffffff;
+          background-color: #bfd7ff;
+          color: #020b4d;
           padding: 1rem 0.5rem 4rem 0.5rem;
           box-sizing: border-box;
           overflow: hidden;
@@ -196,10 +196,10 @@ export default function MasonryShowcaseGrid() {
           width: 100%;
           border-radius: 0px;
           overflow: hidden;
-          background: #0d0d12;
+          background: #020b4d;
           cursor: default;
           pointer-events: none;
-          box-shadow: none;
+          box-shadow: 0 10px 30px rgba(0, 29, 184, 0.15);
           transform: none !important;
           transition: none !important;
         }

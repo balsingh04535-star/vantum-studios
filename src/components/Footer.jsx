@@ -204,13 +204,13 @@ export default function Footer({ onOpenInquiry }) {
         />
       </div>
 
-      {/* ── 1:1 Charcoal Luxury Editorial Styling Match for Breedlove.xyz ── */}
+      {/* ── 1:1 Royal Blue & Ice Periwinkle Luxury Editorial Styling ── */}
       <style>{`
         .breedlove-footer-root {
           position: relative;
           width: 100%;
-          background-color: #161619;
-          color: #f4f4f5;
+          background-color: #bfd7ff;
+          color: #020b4d;
           padding: 4rem 1.5rem 2rem 1.5rem;
           box-sizing: border-box;
           font-family: var(--font-main, "Plus Jakarta Sans", sans-serif);
@@ -228,23 +228,24 @@ export default function Footer({ onOpenInquiry }) {
           font-size: 0.68rem;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: #a1a1aa;
+          color: #001db8;
           margin-bottom: 2.5rem;
           text-align: center;
+          font-weight: 700;
         }
         .breedlove-ticker-bar .dot {
-          color: #52525b;
+          color: rgba(0, 29, 184, 0.4);
         }
 
         /* Main Container Card */
         .breedlove-container-card {
           max-width: 1180px;
           margin: 0 auto;
-          background: #1e1e24;
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: #020b4d;
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 28px;
           padding: 3.5rem 3.5rem 3rem 3.5rem;
-          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+          box-shadow: 0 24px 60px rgba(0, 29, 184, 0.25);
           box-sizing: border-box;
         }
 
@@ -255,7 +256,7 @@ export default function Footer({ onOpenInquiry }) {
           font-family: monospace, sans-serif;
           font-size: 0.7rem;
           letter-spacing: 0.18em;
-          color: #a1a1aa;
+          color: #bfd7ff;
           margin-bottom: 2rem;
           text-transform: uppercase;
         }
@@ -274,12 +275,12 @@ export default function Footer({ onOpenInquiry }) {
           font-family: var(--font-luxury-slim, "Cormorant Garamond", serif);
           font-style: italic;
           font-weight: 400;
-          color: #c4d600;
+          color: #fff8ed;
         }
 
         .breedlove-subtext {
           font-size: clamp(1rem, 1.4vw, 1.2rem);
-          color: #a1a1aa;
+          color: #dbe7ff;
           max-width: 780px;
           line-height: 1.6;
           margin-bottom: 3.5rem;
@@ -294,8 +295,8 @@ export default function Footer({ onOpenInquiry }) {
         }
 
         .breedlove-inner-card {
-          background: #26262d;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: #001db8;
+          border: 1px solid rgba(191, 215, 255, 0.25);
           border-radius: 20px;
           padding: 2.2rem;
           display: flex;
@@ -310,7 +311,7 @@ export default function Footer({ onOpenInquiry }) {
           font-family: monospace, sans-serif;
           font-size: 0.72rem;
           letter-spacing: 0.16em;
-          color: #a1a1aa;
+          color: #bfd7ff;
           margin-bottom: 1.8rem;
           text-transform: uppercase;
         }
@@ -330,9 +331,9 @@ export default function Footer({ onOpenInquiry }) {
         .pill-btn {
           padding: 0.4rem 0.85rem;
           border-radius: 999px;
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          background: rgba(255, 255, 255, 0.05);
-          color: #a1a1aa;
+          border: 1px solid rgba(191, 215, 255, 0.3);
+          background: rgba(255, 255, 255, 0.08);
+          color: #bfd7ff;
           font-family: monospace, sans-serif;
           font-size: 0.68rem;
           font-weight: 600;
@@ -342,14 +343,14 @@ export default function Footer({ onOpenInquiry }) {
         }
 
         .pill-btn:hover {
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(191, 215, 255, 0.2);
           color: #ffffff;
         }
 
         .pill-btn.is-selected {
-          background: #c4d600;
-          color: #000000;
-          border-color: #c4d600;
+          background: #bfd7ff;
+          color: #020b4d;
+          border-color: #bfd7ff;
         }
 
         /* Form Inputs */
@@ -376,7 +377,7 @@ export default function Footer({ onOpenInquiry }) {
           font-family: monospace, sans-serif;
           font-size: 0.65rem;
           letter-spacing: 0.18em;
-          color: #71717a;
+          color: #bfd7ff;
           font-weight: 700;
         }
 
@@ -385,8 +386,8 @@ export default function Footer({ onOpenInquiry }) {
           width: 100%;
           padding: 0.75rem 1rem;
           border-radius: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(191, 215, 255, 0.25);
+          background: rgba(255, 255, 255, 0.07);
           font-family: var(--font-main, sans-serif);
           font-size: 0.9rem;
           color: #ffffff;
@@ -397,13 +398,13 @@ export default function Footer({ onOpenInquiry }) {
 
         .input-group input::placeholder,
         .input-group textarea::placeholder {
-          color: #71717a;
+          color: rgba(191, 215, 255, 0.45);
         }
 
         .input-group input:focus,
         .input-group textarea:focus {
-          border-color: #c4d600;
-          background: rgba(255, 255, 255, 0.08);
+          border-color: #bfd7ff;
+          background: rgba(255, 255, 255, 0.12);
         }
 
         .form-actions {
@@ -428,25 +429,25 @@ export default function Footer({ onOpenInquiry }) {
         }
 
         .btn-dark {
-          background: #c4d600;
-          color: #000000;
-          border: 1px solid #c4d600;
+          background: #bfd7ff;
+          color: #020b4d;
+          border: 1px solid #bfd7ff;
         }
 
         .btn-dark:hover {
-          background: #d6e815;
-          border-color: #d6e815;
+          background: #ffffff;
+          border-color: #ffffff;
         }
 
         .btn-light {
           background: rgba(255, 255, 255, 0.08);
           color: #ffffff;
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(191, 215, 255, 0.25);
         }
 
         .btn-light:hover {
-          background: rgba(255, 255, 255, 0.18);
-          border-color: rgba(255, 255, 255, 0.3);
+          background: rgba(191, 215, 255, 0.2);
+          border-color: rgba(191, 215, 255, 0.45);
         }
 
         /* Correspondence Column */
@@ -462,7 +463,7 @@ export default function Footer({ onOpenInquiry }) {
           flex-direction: column;
           gap: 0.35rem;
           padding-bottom: 1.1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid rgba(191, 215, 255, 0.12);
         }
 
         .channel-row:last-child {
@@ -474,20 +475,20 @@ export default function Footer({ onOpenInquiry }) {
           font-family: monospace, sans-serif;
           font-size: 0.65rem;
           letter-spacing: 0.18em;
-          color: #71717a;
+          color: #bfd7ff;
           font-weight: 700;
         }
 
         .channel-value {
           font-size: 0.95rem;
-          color: #f4f4f5;
+          color: #ffffff;
           text-decoration: none;
           font-weight: 500;
           transition: color 0.2s ease;
         }
 
         .channel-value:hover {
-          color: #c4d600;
+          color: #bfd7ff;
         }
 
         .email-val {
@@ -495,7 +496,7 @@ export default function Footer({ onOpenInquiry }) {
         }
 
         .status-val {
-          color: #c4d600;
+          color: #bfd7ff;
           font-weight: 600;
         }
 

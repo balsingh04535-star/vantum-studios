@@ -136,12 +136,12 @@ export default function InquiryModal({ isOpen, onClose }) {
               </div>
 
               <div className="form-group">
-                <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Primary Capability Needed</label>
+                <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Primary Capability Needed</label>
                 <select
                   className="form-input"
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  style={{ background: '#1c1c20' }}
+                  style={{ background: '#00127a', color: '#ffffff' }}
                 >
                   <option>Interactive 3D Web</option>
                   <option>Generative Brand System</option>
@@ -152,12 +152,12 @@ export default function InquiryModal({ isOpen, onClose }) {
             </div>
 
             <div className="form-group">
-              <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Estimated Investment Budget</label>
+              <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Estimated Investment Budget</label>
               <select
                 className="form-input"
                 value={formData.budget}
                 onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                style={{ background: '#1c1c20' }}
+                style={{ background: '#00127a', color: '#ffffff' }}
               >
                 <option>$15,000 - $30,000</option>
                 <option>$30,000 - $60,000</option>
@@ -167,7 +167,7 @@ export default function InquiryModal({ isOpen, onClose }) {
             </div>
 
             <div className="form-group">
-              <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Project Goals & Vision</label>
+              <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Project Goals & Vision</label>
               <textarea
                 placeholder="Tell us about your project objectives, timeline, or reference websites..."
                 className="form-input"

@@ -110,10 +110,10 @@ export default function Hero({ onOpenInquiry }) {
               g: parseInt(result[2], 16) / 255,
               b: parseInt(result[3], 16) / 255,
             }
-          : { r: 0.92, g: 0.96, b: 0.87 };
+          : { r: 0.749, g: 0.843, b: 1.0 };
       };
 
-      const rgb = hexToRgb('#ebf5df');
+      const rgb = hexToRgb('#bfd7ff');
       const geometry = new THREE.PlaneGeometry(2, 2);
       material = new THREE.ShaderMaterial({
         vertexShader,
@@ -165,68 +165,66 @@ export default function Hero({ onOpenInquiry }) {
           setSeqProgress(self.progress);
         },
         onLeave: () => {
-          if (renderer) renderer.setClearColor(new THREE.Color('#ebf5df'), 1);
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
+          if (renderer) renderer.setClearColor(new THREE.Color('#bfd7ff'), 1);
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
           if (creamOverlayRef.current) creamOverlayRef.current.style.opacity = '1';
         },
         onEnterBack: () => {
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #f4f3ef)';
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
         }
       }
     });
 
     // --- STAGE 1: As user scrolls, Hero Logo & Subtitle move up and out (0.0 -> 0.25) ---
-    if (titleLogo) {
-      tl.to(titleLogo, {
+    if (titleLogoRef.current) {
+      tl.to(titleLogoRef.current, {
+        y: -140,
         opacity: 0,
+        scale: 0.9,
+        ease: 'power2.inOut',
+        duration: 0.25
+      }, 0);
+    }
+
+    if (subTitleRef.current) {
+      tl.to(subTitleRef.current, {
         y: -90,
-        ease: 'power2.in',
-        duration: 0.25
-      }, 0);
-    }
-
-    if (subTitle) {
-      tl.to(subTitle, {
         opacity: 0,
-        y: -60,
-        ease: 'power2.in',
+        scale: 0.9,
+        ease: 'power2.inOut',
         duration: 0.25
       }, 0);
     }
 
-    if (buttonRef.current) {
-      tl.to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        ease: 'power2.out',
-        duration: 0.3
-      }, 0.22);
-    }
-
-    // --- STAGE 2: Footer info fade out & Spotlight Grid scaling (0.0 -> 0.65) ---
+    // Hide the scroll indicator as soon as user begins scrolling
     if (heroFooterRef.current) {
       tl.to(heroFooterRef.current, {
         opacity: 0,
-        filter: 'blur(12px)',
-        scale: 0.85,
-        ease: 'power2.in',
-        duration: 0.2
-      }, 0.45);
+        y: 20,
+        ease: 'power1.out',
+        duration: 0.1
+      }, 0);
     }
 
-    tl.to(galleryRef.current, {
-      scale: 0.50,
-      ease: 'none',
-      duration: 0.65
-    }, 0);
-
-    if (spotlightImages.length > 0) {
-      tl.to(spotlightImages, {
+    // --- STAGE 2: 3x3 Grid Zoom-Out Reveal (0.25 -> 0.75) ---
+    if (galleryRef.current) {
+      tl.to(galleryRef.current, {
         scale: 1.0,
-        ease: 'none',
-        duration: 0.65
+        opacity: 1,
+        ease: 'power2.inOut',
+        duration: 0.5
+      }, 0.25);
+    }
+
+    // Fade out outer columns slightly before the cream dissolve hits
+    const cols = galleryRef.current ? galleryRef.current.querySelectorAll('.hero-spotlight-col') : [];
+    if (cols.length >= 3) {
+      tl.to([cols[0], cols[2]], {
+        opacity: 0.4,
+        ease: 'power1.inOut',
+        duration: 0.25
       }, 0);
     }
 
@@ -239,11 +237,11 @@ export default function Hero({ onOpenInquiry }) {
       }, 0.75);
     }
 
-    const clearObj = { r: 0.058, g: 0.058, b: 0.058, a: 0 };
+    const clearObj = { r: 0.0, g: 0.05, b: 0.35, a: 0 };
     tl.to(clearObj, {
-      r: 0.9215,
-      g: 0.9607,
-      b: 0.8745,
+      r: 0.749,
+      g: 0.843,
+      b: 1.0,
       a: 1,
       ease: 'power1.inOut',
       duration: 0.25,
@@ -267,7 +265,7 @@ export default function Hero({ onOpenInquiry }) {
 
     if (heroInnerRef.current) {
       tl.to(heroInnerRef.current, {
-        backgroundColor: '#ebf5df',
+        backgroundColor: '#bfd7ff',
         ease: 'power1.inOut',
         duration: 0.25
       }, 0.75);
@@ -285,13 +283,13 @@ export default function Hero({ onOpenInquiry }) {
     <>
       <section className="hero-section" ref={heroRef}>
         <div className="hero-inner" ref={heroInnerRef}>
-          {/* Solid Cream Overlay for seamless transition */}
+          {/* Solid Light Blue Overlay for seamless transition */}
           <div
             ref={creamOverlayRef}
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: 'var(--bg-cream, #f4f3ef)',
+              backgroundColor: 'var(--bg-cream, #bfd7ff)',
               opacity: 0,
               zIndex: 24,
               pointerEvents: 'none'
@@ -384,7 +382,7 @@ export default function Hero({ onOpenInquiry }) {
               />
             </div>
 
-            {/* Subtitle directly beneath Chanan logo */}
+            {/* Subtitle directly beneath Chanan logo in warm ivory cream */}
             <h2
               ref={subTitleRef}
               style={{
@@ -393,7 +391,7 @@ export default function Hero({ onOpenInquiry }) {
                 fontWeight: 300,
                 fontStyle: 'italic',
                 letterSpacing: '0.04em',
-                color: 'rgba(255, 255, 255, 0.95)',
+                color: '#fff8ed',
                 margin: '0.6rem 0 0 0',
                 textAlign: 'center',
                 lineHeight: 1.2,
@@ -424,13 +422,13 @@ export default function Hero({ onOpenInquiry }) {
         .shine-sweep-text {
           background: linear-gradient(
             90deg, 
-            rgba(255, 255, 255, 0.45) 0%, 
-            rgba(255, 255, 255, 0.45) 35%, 
+            rgba(191, 215, 255, 0.45) 0%, 
+            rgba(191, 215, 255, 0.45) 35%, 
             #ffffff 50%, 
-            #c4d600 55%, 
+            #bfd7ff 55%, 
             #ffffff 60%, 
-            rgba(255, 255, 255, 0.45) 75%, 
-            rgba(255, 255, 255, 0.45) 100%
+            rgba(191, 215, 255, 0.45) 75%, 
+            rgba(191, 215, 255, 0.45) 100%
           );
           background-size: 200% 100%;
           -webkit-background-clip: text;

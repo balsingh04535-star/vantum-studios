@@ -118,8 +118,8 @@ export default function Preloader({ onComplete }) {
             key={i}
             ref={(el) => (panelsRef.current[i] = el)}
             style={{
-              background: 'linear-gradient(180deg, #09090b 0%, #040405 100%)',
-              borderRight: i < 4 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+              background: 'linear-gradient(180deg, #001db8 0%, #00127a 50%, #020b4d 100%)',
+              borderRight: i < 4 ? '1px solid rgba(191, 215, 255, 0.12)' : 'none',
               transformOrigin: i % 2 === 0 ? 'top center' : 'bottom center'
             }}
           />
@@ -146,25 +146,27 @@ export default function Preloader({ onComplete }) {
             style={{
               fontFamily: 'monospace',
               fontSize: 'clamp(0.65rem, 2vw, 0.75rem)',
-              color: 'var(--accent-volt)',
+              color: '#bfd7ff',
               letterSpacing: '0.1em',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              fontWeight: 700
             }}
           >
-            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-volt)', boxShadow: '0 0 8px var(--accent-volt)', flexShrink: 0 }} />
-            <span>CHANAN SYS</span>
+            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', background: '#bfd7ff', boxShadow: '0 0 10px #bfd7ff', flexShrink: 0 }} />
+            <span>CHANANA SYS</span>
           </div>
 
           <div
             style={{
               fontFamily: 'monospace',
               fontSize: 'clamp(0.65rem, 2vw, 0.75rem)',
-              color: 'rgba(255,255,255,0.4)',
+              color: 'rgba(191, 215, 255, 0.65)',
               letterSpacing: '0.15em',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              fontWeight: 700
             }}
           >
             [ WEBGL2 / 120 FPS ]
@@ -176,14 +178,14 @@ export default function Preloader({ onComplete }) {
           <img
             ref={logoImgRef}
             src="/hero-logo.svg"
-            alt="Chanan"
+            alt="Chanana Studios"
             style={{
               maxWidth: 'min(85vw, 650px)',
               maxHeight: '35vh',
               width: 'auto',
               height: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))'
+              filter: 'drop-shadow(0 4px 30px rgba(0, 0, 0, 0.8))'
             }}
           />
         </div>
@@ -191,7 +193,7 @@ export default function Preloader({ onComplete }) {
         {/* Bottom Odometer Counter & Linear Track */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '0.75rem' }}>
-            <div style={{ fontSize: 'clamp(0.65rem, 2vw, 0.8rem)', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.15em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+            <div style={{ fontSize: 'clamp(0.65rem, 2vw, 0.8rem)', color: 'rgba(191, 215, 255, 0.65)', letterSpacing: '0.15em', textTransform: 'uppercase', whiteSpace: 'nowrap', fontWeight: 700 }}>
               LOADING ARCHITECTURE
             </div>
 
@@ -202,7 +204,7 @@ export default function Preloader({ onComplete }) {
                 fontFamily: "'Syne', 'Outfit', monospace",
                 fontSize: 'clamp(2.5rem, 8vw, 7.5rem)',
                 fontWeight: 800,
-                color: '#c4d600',
+                color: '#bfd7ff',
                 lineHeight: 0.85,
                 letterSpacing: '-0.05em'
               }}
@@ -212,14 +214,14 @@ export default function Preloader({ onComplete }) {
           </div>
 
           {/* Glowing 1px Volt Progress Track */}
-          <div style={{ width: '100%', height: '2px', background: 'rgba(255,255,255,0.06)', borderRadius: '2px', overflow: 'hidden' }}>
+          <div style={{ width: '100%', height: '2px', background: 'rgba(191, 215, 255, 0.15)', borderRadius: '2px', overflow: 'hidden' }}>
             <div
               ref={progressBarRef}
               style={{
                 width: '0%',
                 height: '100%',
-                background: 'linear-gradient(90deg, #c4d600 0%, #ffffff 100%)',
-                boxShadow: '0 0 20px rgba(196, 214, 0, 0.9)',
+                background: 'linear-gradient(90deg, #001db8 0%, #bfd7ff 50%, #ffffff 100%)',
+                boxShadow: '0 0 20px rgba(191, 215, 255, 0.9)',
                 transition: 'width 0.05s linear'
               }}
             />

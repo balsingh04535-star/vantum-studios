@@ -116,13 +116,13 @@ export function TransitionProvider({ children }) {
           pointerEvents: 'none',
           visibility: 'hidden',
           overflow: 'hidden',
-          backgroundColor: '#ebf5df',
+          backgroundColor: '#bfd7ff',
           clipPath: 'inset(100% 0% 0% 0%)',
         }}
       >
         <div className="tc-layer-1" style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, #ebf5df 0%, #e2ecd4 100%)',
+          background: 'linear-gradient(135deg, #bfd7ff 0%, #a2c6ff 100%)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
@@ -138,7 +138,7 @@ export function TransitionProvider({ children }) {
             fontWeight: 900,
             lineHeight: 0.85,
             color: 'transparent',
-            WebkitTextStroke: '1px rgba(0,0,0,0.06)',
+            WebkitTextStroke: '1px rgba(0, 29, 184, 0.15)',
             fontFamily: 'var(--font-heading)',
             letterSpacing: '-0.05em',
             userSelect: 'none',
@@ -150,8 +150,8 @@ export function TransitionProvider({ children }) {
           </div>
 
           <div style={{
-            width: '3rem', height: '1px',
-            background: 'var(--accent-volt)',
+            width: '3rem', height: '1.5px',
+            background: '#001db8',
             marginBottom: '1.2rem',
           }} />
 
@@ -159,7 +159,7 @@ export function TransitionProvider({ children }) {
             fontSize: '0.7rem',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            color: 'rgba(0,0,0,0.4)',
+            color: '#001db8',
             fontFamily: 'var(--font-main)',
             fontWeight: 700,
             marginBottom: '0.6rem',
@@ -173,7 +173,7 @@ export function TransitionProvider({ children }) {
             lineHeight: 0.9,
             letterSpacing: '-0.04em',
             textTransform: 'uppercase',
-            color: '#0f0f0f',
+            color: '#020b4d',
             fontFamily: 'var(--font-heading)',
           }}>
             {label}
