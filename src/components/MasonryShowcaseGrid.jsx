@@ -50,8 +50,8 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 120 : 320;
-    const scrubTime = 1.1;
+    const moveDistance = isMobile ? 160 : 440;
+    const scrubTime = 1.2;
 
     const ctx = gsap.context(() => {
       // Counter-Parallax Scroll Trigger:
@@ -64,9 +64,9 @@ export default function MasonryShowcaseGrid() {
           scrub: scrubTime,
         }
       })
-      .fromTo(leftCol, { y: moveDistance * 0.65 }, { y: -moveDistance * 0.85, ease: 'none' }, 0)
-      .fromTo(centerCol, { y: -moveDistance * 0.85 }, { y: moveDistance * 0.65, ease: 'none' }, 0)
-      .fromTo(rightCol, { y: moveDistance * 0.65 }, { y: -moveDistance * 0.85, ease: 'none' }, 0);
+      .fromTo(leftCol, { y: moveDistance * 0.7 }, { y: -moveDistance * 0.9, ease: 'none' }, 0)
+      .fromTo(centerCol, { y: -moveDistance * 0.9 }, { y: moveDistance * 0.7, ease: 'none' }, 0)
+      .fromTo(rightCol, { y: moveDistance * 0.7 }, { y: -moveDistance * 0.9, ease: 'none' }, 0);
     }, containerRef);
 
     return () => ctx.revert();
@@ -77,9 +77,9 @@ export default function MasonryShowcaseGrid() {
       
       {/* ── Editorial Section Title Header ── */}
       <div className="masonry-header-block" style={{
-        maxWidth: '1400px',
+        maxWidth: '1600px',
         margin: '0 auto 3rem auto',
-        padding: '3rem 1.5rem 0 1.5rem',
+        padding: '3.5rem 1.5rem 0 1.5rem',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
@@ -88,7 +88,7 @@ export default function MasonryShowcaseGrid() {
         zIndex: 5
       }}>
         <h2 style={{
-          fontSize: 'clamp(2.5rem, 5.5vw, 5.2rem)',
+          fontSize: 'clamp(2.6rem, 6vw, 5.8rem)',
           fontFamily: 'var(--font-heading)',
           fontWeight: 300,
           letterSpacing: '-0.03em',
@@ -106,19 +106,19 @@ export default function MasonryShowcaseGrid() {
         </h2>
 
         <p style={{
-          fontSize: 'clamp(0.9rem, 1.3vw, 1.15rem)',
+          fontSize: 'clamp(0.95rem, 1.4vw, 1.25rem)',
           color: '#001db8',
-          maxWidth: '650px',
+          maxWidth: '700px',
           lineHeight: 1.5,
           fontWeight: 600,
-          letterSpacing: '0.12em',
+          letterSpacing: '0.14em',
           textTransform: 'uppercase'
         }}>
           Selected Realities & Interactive Works
         </p>
       </div>
 
-      {/* ── Expansive Bounded Viewport Frame (Keeps top and bottom aligned in ONE straight line) ── */}
+      {/* ── Full-Bleed Expansive Bounded Viewport Frame ── */}
       <div className="grid-viewport-wrapper">
         <div className="sharp-columns-grid">
           
@@ -178,22 +178,22 @@ export default function MasonryShowcaseGrid() {
           min-height: auto;
           background-color: #bfd7ff;
           color: #020b4d;
-          padding: 1rem 1rem 5rem 1rem;
+          padding: 1rem 0.5rem 6rem 0.5rem;
           box-sizing: border-box;
           overflow: hidden;
         }
 
-        /* Expansive Bounded Straight-Line Viewport Frame */
+        /* Full-Bleed Expansive Bounded Straight-Line Viewport Frame */
         .grid-viewport-wrapper {
           position: relative;
           width: 100%;
-          max-width: min(97vw, 1780px);
-          height: clamp(750px, 94vh, 1200px);
+          max-width: 100%;
+          height: clamp(880px, 108vh, 1450px);
           margin: 0 auto;
           overflow: hidden;
-          border-radius: 28px;
-          border: 1.5px solid rgba(0, 29, 184, 0.25);
-          box-shadow: 0 28px 75px rgba(0, 29, 184, 0.2);
+          border-radius: 32px;
+          border: 2px solid rgba(0, 29, 184, 0.25);
+          box-shadow: 0 32px 90px rgba(0, 29, 184, 0.25);
           background: #020b4d;
         }
 
@@ -201,10 +201,10 @@ export default function MasonryShowcaseGrid() {
         .sharp-columns-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          gap: 20px;
           width: 100%;
           height: 100%;
-          padding: 16px;
+          padding: 20px;
           box-sizing: border-box;
           align-items: flex-start;
         }
@@ -212,7 +212,7 @@ export default function MasonryShowcaseGrid() {
         .sharp-col {
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 20px;
           will-change: transform;
         }
 
@@ -220,10 +220,10 @@ export default function MasonryShowcaseGrid() {
         .sharp-card-block {
           position: relative;
           width: 100%;
-          border-radius: 16px;
+          border-radius: 20px;
           overflow: hidden;
           background: #00127a;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
           flex-shrink: 0;
         }
 
@@ -237,22 +237,22 @@ export default function MasonryShowcaseGrid() {
         /* ── MOBILE RESPONSIVE BREAKPOINT (<768px) ── */
         @media (max-width: 768px) {
           .sharp-parallax-wall-section {
-            padding: 0.5rem 0.5rem 2.5rem 0.5rem;
+            padding: 0.5rem 0.25rem 3rem 0.25rem;
           }
 
           .grid-viewport-wrapper {
-            height: 600px;
-            border-radius: 18px;
+            height: 680px;
+            border-radius: 20px;
           }
 
           .sharp-columns-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 10px !important;
-            padding: 10px !important;
+            gap: 12px !important;
+            padding: 12px !important;
           }
 
           .sharp-col {
-            gap: 10px !important;
+            gap: 12px !important;
           }
 
           .col-right {
