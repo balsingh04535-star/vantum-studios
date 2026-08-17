@@ -1,61 +1,69 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CustomEase } from 'gsap/CustomEase';
+import ManifestoBackgroundCanvas from './ManifestoBackgroundCanvas';
 import SchemeSpatialGallery from './SchemeSpatialGallery';
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 
-// Exact ease from demo-main
-const pageEase = CustomEase.create(
-  'pageTransition',
-  'M0,0 C0.38,0.05 0.48,0.58 0.65,0.82 0.82,1 1,1 1,1'
-);
-
 export default function StudioOverview({ onOpenInquiry }) {
-  const manifestoRef = useRef(null);
+  const sectionRef = useRef(null);
+  const wrapperRef = useRef(null);
   const globeRef = useRef(null);
   const headingRef = useRef(null);
-  const wrapperRef = useRef(null);
 
-  const headlineText = "We build digital experiences people remember.";
-  const words = headlineText.split(" ");
+  const [manifestoProgress, setManifestoProgress] = useState(0);
+
+  const headlineWords = [
+    { text: 'WE', isItalic: false },
+    { text: 'BUILD', isItalic: false },
+    { text: 'DIGITAL', isItalic: true },
+    { text: 'EXPERIENCES', isItalic: true },
+    { text: 'PEOPLE', isItalic: false },
+    { text: 'REMEMBER.', isItalic: false },
+  ];
 
   useEffect(() => {
-    const manifesto = manifestoRef.current;
+    const section = sectionRef.current;
     const globe = globeRef.current;
     const wrapper = wrapperRef.current;
-    if (!manifesto || !globe || !wrapper) return;
+    if (!section || !globe || !wrapper) return;
 
     const ctx = gsap.context(() => {
+      // ── Pinned Full-Bleed Background Video Scrub ──
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: `+=${window.innerHeight * 2.2}px`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          setManifestoProgress(progress);
 
-      // ── 1. Word-by-word manifesto heading scroll reveal ──
-      const wordElements = headingRef.current?.querySelectorAll('.studio-headline-word');
-      if (wordElements && wordElements.length > 0) {
-        ScrollTrigger.create({
-          trigger: headingRef.current,
-          start: 'top 80%',
-          end: 'bottom 40%',
-          scrub: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
+          // Word-by-word headline luminosity reveal
+          const wordElements = headingRef.current?.querySelectorAll('.manifesto-word');
+          if (wordElements && wordElements.length > 0) {
             const totalWords = wordElements.length;
             wordElements.forEach((word, index) => {
-              const wordProgress = index / totalWords;
-              const nextWordProgress = (index + 1) / totalWords;
-              let opacity = 0.15;
-              if (progress >= nextWordProgress) {
+              const wordStart = (index / totalWords) * 0.75;
+              const wordEnd = ((index + 1) / totalWords) * 0.75;
+              let opacity = 0.3;
+              if (progress >= wordEnd) {
                 opacity = 1;
-              } else if (progress >= wordProgress) {
-                opacity = (progress - wordProgress) / (nextWordProgress - wordProgress);
+              } else if (progress >= wordStart) {
+                opacity = 0.3 + 0.7 * ((progress - wordStart) / (wordEnd - wordStart));
               }
-              gsap.to(word, { opacity, duration: 0.1, overwrite: true });
+              gsap.to(word, { opacity, duration: 0.05, overwrite: true });
             });
-          },
-        });
-      }
+          }
+        },
+      });
 
-      // ── 2. Globe sheet natural flow for PC & Mobile ──
+      // ── Globe sheet natural flow ──
       gsap.set(globe, {
         clipPath: 'none',
         position: 'relative',
@@ -72,87 +80,99 @@ export default function StudioOverview({ onOpenInquiry }) {
 
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }}>
-      {/* ── MANIFESTO ── */}
+      {/* ── MANIFESTO SECTION (CLEAN FULL-BLEED BACKGROUND VIDEO CANVAS) ── */}
       <section
-        ref={manifestoRef}
+        ref={sectionRef}
         id="manifesto"
-        className="studio-manifesto-page"
+        className="studio-manifesto-cinematic"
         style={{
+          width: '100%',
+          height: '100vh',
           minHeight: '100vh',
-          padding: '8rem 3rem 6rem 3rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: 'flex-end',
           position: 'relative',
-          backgroundColor: 'var(--bg-cream, #bfd7ff)',
-          color: '#020b4d',
-          transformOrigin: 'center center',
+          overflow: 'hidden',
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          padding: 'clamp(2rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem)',
+          boxSizing: 'border-box'
         }}
       >
-        <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
-          <div className="badge" style={{ marginBottom: '2rem' }}>
-            <SparklesIcon /> Studio Manifesto
-          </div>
+        {/* Full-Bleed Video Canvas Background in Original Colors */}
+        <ManifestoBackgroundCanvas scrollProgress={manifestoProgress} opacity={1} />
 
+        {/* Subtle Bottom Ambient Scrim: Ensures text contrast while keeping 90% of artwork open */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.85) 100%)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+
+        {/* ANCHORED MANIFESTO TYPOGRAPHY */}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '1280px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem',
+            position: 'relative',
+            zIndex: 2
+          }}
+        >
+          {/* Main Headline */}
           <h1
             ref={headingRef}
             style={{
-              marginBottom: '3rem',
-              maxWidth: '1100px',
-              fontSize: 'clamp(2.4rem, 4.5vw, 5rem)',
-              textTransform: 'uppercase',
-              fontWeight: 300,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              color: '#020b4d'
+              margin: 0,
+              fontSize: 'clamp(2.2rem, 4.6vw, 4.8rem)',
+              lineHeight: 1.08,
+              letterSpacing: '-0.025em',
+              color: '#ffffff',
+              textTransform: 'uppercase'
             }}
           >
-            {words.map((word, idx) => (
-              <span key={idx} className="studio-headline-word">
-                {word}{' '}
+            {headlineWords.map((item, idx) => (
+              <span
+                key={idx}
+                className="manifesto-word"
+                style={{
+                  opacity: 0.3,
+                  fontFamily: item.isItalic
+                    ? '"Cormorant Garamond", "Garamond", Georgia, serif'
+                    : '"Outfit", "Plus Jakarta Sans", sans-serif',
+                  fontWeight: item.isItalic ? 300 : 700,
+                  fontStyle: item.isItalic ? 'italic' : 'normal',
+                  color: item.isItalic ? '#bfd7ff' : '#ffffff',
+                  marginRight: '0.24em',
+                  display: 'inline-block'
+                }}
+              >
+                {item.text}
               </span>
             ))}
           </h1>
 
-          <p style={{
-            fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)',
-            maxWidth: '850px',
-            color: '#001db8',
-            lineHeight: 1.6,
-            fontWeight: 500
-          }}>
+          {/* Descriptive Paragraph */}
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem, 1.3vw, 1.2rem)',
+              color: 'rgba(255, 255, 255, 0.92)',
+              lineHeight: 1.65,
+              maxWidth: '680px',
+              margin: 0,
+              fontWeight: 400,
+              letterSpacing: '0.01em'
+            }}
+          >
             Chanan is an independent creative agency specialising in web design and development, brand identity, 3D product visuals and motion design for ambitious brands worldwide.
           </p>
-
-          {/* Scroll hint */}
-          <div style={{
-            position: 'absolute',
-            bottom: '3rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}>
-            <span style={{
-              fontSize: '0.65rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: '#001db8',
-              fontFamily: 'var(--font-main)',
-              fontWeight: 700,
-            }}>
-              Scroll to continue
-            </span>
-            <div style={{
-              width: '1.5px',
-              height: '3rem',
-              background: 'linear-gradient(to bottom, #001db8, transparent)',
-              animation: 'scrollPulse 1.8s ease-in-out infinite',
-            }} />
-          </div>
         </div>
       </section>
 
@@ -160,21 +180,6 @@ export default function StudioOverview({ onOpenInquiry }) {
       <div ref={globeRef}>
         <SchemeSpatialGallery onOpenInquiry={onOpenInquiry} />
       </div>
-
-      <style>{`
-        @keyframes scrollPulse {
-          0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-          50% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
-        }
-      `}</style>
     </div>
-  );
-}
-
-function SparklesIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-    </svg>
   );
 }

@@ -1245,3 +1245,24 @@ textarea.form-input {
   font-weight: 600;
   white-space: nowrap;
 }
+
+/* EDITORIAL MANIFESTO RESPONSIVE STYLES */
+@media (max-width: 960px) {
+  .studio-manifesto-editorial {
+    padding: 6rem 1.5rem 4rem 1.5rem !important;
+    height: auto !important;
+    min-height: 100vh;
+  }
+
+  .manifesto-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+    text-align: left;
+  }
+
+  .manifesto-canvas-card {
+    aspect-ratio: 16/10 !important;
+    max-height: 48vh !important;
+  }
+}
+
