@@ -58,12 +58,7 @@ export default function ManifestoBackgroundCanvas({ scrollProgress = 0, opacity 
       sy = (ih - sh) / 2;
     } else {
       sw = ih * canvasAspect;
-      // On mobile / portrait screens, shift camera angle slightly rightward (focalX = 0.73)
-      // to keep both the creator and the tablet/pen-flipping hand perfectly balanced in view
-      const isPortrait = canvasAspect < 1.0;
-      const focalX = isPortrait ? 0.73 : 0.50;
-      sx = (iw - sw) * focalX;
-      sx = Math.max(0, Math.min(iw - sw, sx));
+      sx = (iw - sw) / 2;
     }
 
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
