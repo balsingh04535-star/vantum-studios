@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/((?!assets/|steps/|sequence/|sequence-mobile/|grid-photos/|work/.*\\..*|.*\\..*).*)",
+      "source": "/((?!assets/|steps/|sequence/|sequence-mobile/|intro-sequence/|intro-sequence-mobile/|grid-photos/|work/.*\\..*|.*\\..*).*)",
       "destination": "/index.html"
     }
   ],
