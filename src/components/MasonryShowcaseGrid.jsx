@@ -301,10 +301,10 @@ export default function MasonryShowcaseGrid() {
           letter-spacing: -0.01em;
         }
 
-        /* ── MOBILE RESPONSIVE BREAKPOINT (<900px) ── */
+        /* ── MOBILE & TABLET RESPONSIVE BREAKPOINT (<900px) ── */
         @media (max-width: 900px) {
           .showcase-grid-wrapper {
-            height: 680px;
+            height: clamp(620px, 85vh, 740px);
             border-radius: 20px;
           }
           .sharp-columns-grid {
@@ -321,15 +321,44 @@ export default function MasonryShowcaseGrid() {
           .sharp-parallax-wall-section {
             padding: 1rem 0.25rem 3rem 0.25rem;
           }
+          .sharp-card-block {
+            border-radius: 14px;
+          }
+          .card-title-text {
+            font-size: 1rem;
+          }
+          .card-cat-badge {
+            font-size: 0.62rem;
+          }
         }
 
         @media (max-width: 600px) {
+          .showcase-grid-wrapper {
+            height: clamp(580px, 82vh, 700px);
+            border-radius: 16px;
+          }
           .sharp-columns-grid {
-            grid-template-columns: 1fr !important;
-            gap: 12px !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+            padding: 10px !important;
           }
           .sharp-col {
-            gap: 12px !important;
+            gap: 10px !important;
+          }
+          .col-right {
+            display: none !important;
+          }
+          .sharp-card-block {
+            border-radius: 12px;
+          }
+          .card-hover-overlay {
+            padding: 0.85rem;
+          }
+          .card-title-text {
+            font-size: 0.88rem;
+          }
+          .card-cat-badge {
+            font-size: 0.58rem;
           }
         }
       `}</style>
