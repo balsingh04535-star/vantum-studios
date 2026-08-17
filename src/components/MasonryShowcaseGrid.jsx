@@ -59,27 +59,33 @@ export default function MasonryShowcaseGrid() {
     if (!container || !leftCol || !centerCol || !rightCol) return;
 
     const isMobile = window.innerWidth <= 768;
-    const moveDistance = isMobile ? 120 : 340;
-    const scrubDamping = 2.2; // Silky inertia easing for ultra-smooth fluid motion
+    const moveDistance = isMobile ? 250 : 650;
 
     const ctx = gsap.context(() => {
-      // Counter-Parallax Scroll Trigger:
-      // Expanded scroll runway spanning full viewport entry to exit
-      // High inertia scrub for a buttery, floaty, relaxed scroll feel
+      // Counter-Parallax Scroll Trigger with dynamic counter-gliding columns
       gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: scrubDamping,
+          scrub: 1.0,
+          invalidateOnRefresh: true,
         }
       })
-      .fromTo(leftCol, { y: 0 }, { y: -moveDistance, ease: 'power1.out' }, 0)
-      .fromTo(centerCol, { y: -moveDistance }, { y: moveDistance * 0.45, ease: 'power1.out' }, 0)
-      .fromTo(rightCol, { y: 0 }, { y: -moveDistance, ease: 'power1.out' }, 0);
-    }, containerRef);
+      .fromTo(leftCol, { y: moveDistance * 0.35 }, { y: -moveDistance * 0.85, ease: 'none' }, 0)
+      .fromTo(centerCol, { y: -moveDistance * 0.85 }, { y: moveDistance * 0.45, ease: 'none' }, 0)
+      .fromTo(rightCol, { y: moveDistance * 0.4 }, { y: -moveDistance * 0.9, ease: 'none' }, 0);
+    }, container);
 
-    return () => ctx.revert();
+    // Refresh ScrollTrigger to ensure pinned offsets above are accurately calibrated
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -301,10 +307,10 @@ export default function MasonryShowcaseGrid() {
           letter-spacing: -0.01em;
         }
 
-        /* ── MOBILE & TABLET RESPONSIVE BREAKPOINT (<900px) ── */
+        /* ── MOBILE RESPONSIVE BREAKPOINT (<900px) ── */
         @media (max-width: 900px) {
           .showcase-grid-wrapper {
-            height: clamp(620px, 85vh, 740px);
+            height: 680px;
             border-radius: 20px;
           }
           .sharp-columns-grid {
@@ -321,44 +327,15 @@ export default function MasonryShowcaseGrid() {
           .sharp-parallax-wall-section {
             padding: 1rem 0.25rem 3rem 0.25rem;
           }
-          .sharp-card-block {
-            border-radius: 14px;
-          }
-          .card-title-text {
-            font-size: 1rem;
-          }
-          .card-cat-badge {
-            font-size: 0.62rem;
-          }
         }
 
         @media (max-width: 600px) {
-          .showcase-grid-wrapper {
-            height: clamp(580px, 82vh, 700px);
-            border-radius: 16px;
-          }
           .sharp-columns-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 10px !important;
-            padding: 10px !important;
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
           }
           .sharp-col {
-            gap: 10px !important;
-          }
-          .col-right {
-            display: none !important;
-          }
-          .sharp-card-block {
-            border-radius: 12px;
-          }
-          .card-hover-overlay {
-            padding: 0.85rem;
-          }
-          .card-title-text {
-            font-size: 0.88rem;
-          }
-          .card-cat-badge {
-            font-size: 0.58rem;
+            gap: 12px !important;
           }
         }
       `}</style>

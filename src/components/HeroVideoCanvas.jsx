@@ -1,67 +1,140 @@
 import React, { useEffect, useRef } from 'react';
 
-const FRAME_COUNT = 121;
+const DEFAULT_FRAME_COUNT = 201;
 
 export default function HeroVideoCanvas({
-  scrollProgress,
-  folder = 'sequence',
+  scrollProgress = 0,
+  folder = 'hero-sequence',
+  mobileFolder = 'hero-sequence-mobile',
+  frameCount = DEFAULT_FRAME_COUNT,
   width = 1280,
   height = 720
 }) {
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
+  const currentFrameRef = useRef(0);
+  const rafIdRef = useRef(null);
+  const isMobileRef = useRef(false);
 
-  const getFrameSrc = (i) =>
-    `/${folder}/frame_${String(i + 1).padStart(4, '0')}.webp`;
+  const getFrameSrc = (index, isMobile) => {
+    const padded = String(index + 1).padStart(4, '0');
+    const targetFolder = isMobile ? mobileFolder : folder;
+    return `/${targetFolder}/frame_${padded}.webp`;
+  };
+
+  const renderFrame = (index) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    const img = imagesRef.current[index];
+    if (!img || !img.complete || img.naturalWidth === 0) {
+      // Nearest loaded frame fallback
+      for (let offset = 1; offset < 20; offset++) {
+        const prev = imagesRef.current[index - offset];
+        if (prev && prev.complete && prev.naturalWidth > 0) {
+          drawCover(ctx, canvas, prev);
+          return;
+        }
+        const next = imagesRef.current[index + offset];
+        if (next && next.complete && next.naturalWidth > 0) {
+          drawCover(ctx, canvas, next);
+          return;
+        }
+      }
+      return;
+    }
+
+    drawCover(ctx, canvas, img);
+  };
+
+  const drawCover = (ctx, canvas, img) => {
+    const cw = canvas.width;
+    const ch = canvas.height;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+
+    const canvasAspect = cw / ch;
+    const imageAspect = iw / ih;
+
+    let sx = 0, sy = 0, sw = iw, sh = ih;
+
+    if (canvasAspect > imageAspect) {
+      sh = iw / canvasAspect;
+      sy = (ih - sh) / 2;
+    } else {
+      sw = ih * canvasAspect;
+      sx = (iw - sw) / 2;
+    }
+
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    canvas.width = width;
-    canvas.height = height;
+    const isMobile = window.innerWidth <= 768;
+    isMobileRef.current = isMobile;
 
-    const images = [];
-    imagesRef.current = images;
-
-    const drawFrame = (index) => {
-      const img = images[index];
-      if (!img || !img.complete || img.naturalWidth === 0) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const handleResize = () => {
+      if (!canvas) return;
+      const parent = canvas.parentElement;
+      const w = parent ? parent.offsetWidth : width;
+      const h = parent ? parent.offsetHeight : height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      renderFrame(currentFrameRef.current);
     };
 
-    // Draw first frame as soon as it loads
-    const first = new Image();
-    first.src = getFrameSrc(0);
-    first.onload = () => drawFrame(0);
-    images[0] = first;
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
-    // Preload the rest (stepped on mobile for light memory footprint)
-    const step = window.innerWidth < 768 ? 3 : 1;
-    for (let i = 1; i < FRAME_COUNT; i += step) {
+    // In-memory cache preloading
+    const images = new Array(frameCount);
+    imagesRef.current = images;
+
+    // Draw first frame immediately
+    const firstImg = new Image();
+    firstImg.src = getFrameSrc(0, isMobile);
+    firstImg.onload = () => {
+      renderFrame(0);
+    };
+    images[0] = firstImg;
+
+    // Preload remaining frames
+    for (let i = 1; i < frameCount; i++) {
       const img = new Image();
-      img.src = getFrameSrc(i);
+      img.src = getFrameSrc(i, isMobile);
       images[i] = img;
     }
-  }, [folder, width, height]);
 
-  // Sync frame to scrollProgress (0-1) from parent
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, [folder, mobileFolder, frameCount, width, height]);
+
+  // Sync frame to scrollProgress
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const frameIndex = Math.min(
-      FRAME_COUNT - 1,
-      Math.max(0, Math.round(scrollProgress * (FRAME_COUNT - 1)))
+    const progress = Math.max(0, Math.min(1, scrollProgress));
+    const targetFrame = Math.min(
+      frameCount - 1,
+      Math.max(0, Math.floor(progress * (frameCount - 1)))
     );
-    const img = imagesRef.current[frameIndex];
-    if (img && img.complete && img.naturalWidth > 0) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    if (targetFrame !== currentFrameRef.current) {
+      currentFrameRef.current = targetFrame;
+      if (!rafIdRef.current) {
+        rafIdRef.current = requestAnimationFrame(() => {
+          renderFrame(currentFrameRef.current);
+          rafIdRef.current = null;
+        });
+      }
     }
-  }, [scrollProgress]);
+  }, [scrollProgress, frameCount]);
 
   return (
     <canvas
@@ -69,8 +142,8 @@ export default function HeroVideoCanvas({
       style={{
         width: '100%',
         height: '100%',
-        objectFit: 'cover',
         display: 'block',
+        objectFit: 'cover'
       }}
     />
   );

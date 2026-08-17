@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDownRight } from 'lucide-react';
+import HeroVideoCanvas from './HeroVideoCanvas';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -305,7 +306,16 @@ export default function Hero({ onOpenInquiry }) {
             <div className="hero-spotlight-col">
               <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Chanan luxury digital flagship" /></div>
               <div className="hero-spotlight-item" style={{ position: 'relative' }}>
-                <img src="/art-1.png" alt="Creation of Adam" />
+                <div className="hero-canvas-seq">
+                  <HeroVideoCanvas
+                    scrollProgress={seqProgress}
+                    folder="hero-sequence"
+                    mobileFolder="hero-sequence-mobile"
+                    frameCount={201}
+                    width={1280}
+                    height={720}
+                  />
+                </div>
 
                 {/* Centered Shimmer Shine SCROLL TO EXPLORE Text at Bottom of Main Center Grid Card */}
                 <div

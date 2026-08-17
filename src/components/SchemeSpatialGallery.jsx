@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Crosshair, Eye, X } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import LightRaysBackground from './LightRaysBackground';
 import ClientGlobe from './ClientGlobe';
 import MasonryShowcaseGrid from './MasonryShowcaseGrid';
 import SpotlightSVGPath from './SpotlightSVGPath';
@@ -148,19 +149,17 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         overflow: 'hidden',
       }}
     >
-      {/* ── Ultra-crisp 4K Studio Lighting Gradient ── */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: `
-            radial-gradient(ellipse 75% 50% at 50% 12%, rgba(255, 255, 255, 0.35) 0%, transparent 75%),
-            radial-gradient(ellipse 60% 40% at 50% 88%, rgba(0, 29, 184, 0.08) 0%, transparent 70%),
-            #bfd7ff
-          `,
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
+      {/* ── LIVE VOLUMETRIC LIGHT RAYS BACKGROUND (from files-5) ── */}
+      <LightRaysBackground
+        origin="top-center"
+        color="#001db8"
+        speed={1.0}
+        spread={0.65}
+        length={3.0}
+        followMouse={true}
+        mouseInfluence={0.15}
+        pulsating={true}
+        fadeDistance={1.2}
       />
 
       {/* ── MASONRY SHOWCASE GRID (Replaces old SVG/Astronaut section) ── */}
