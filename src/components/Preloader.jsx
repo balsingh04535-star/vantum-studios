@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function Preloader({ onComplete }) {
   const containerRef = useRef(null);
@@ -25,6 +26,9 @@ export default function Preloader({ onComplete }) {
       onComplete: () => {
         document.body.style.overflow = '';
         if (onComplete) onComplete();
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 60);
       }
     });
 

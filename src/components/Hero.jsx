@@ -161,6 +161,7 @@ export default function Hero({ onOpenInquiry }) {
         pinSpacing: true,
         scrub: 1,
         anticipatePin: 1,
+        refreshPriority: 2,
         onUpdate: (self) => {
           setSeqProgress(self.progress);
         },

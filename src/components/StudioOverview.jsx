@@ -48,6 +48,7 @@ export default function StudioOverview({ onOpenInquiry }) {
         pinSpacing: true,
         scrub: 0.8,
         anticipatePin: 1,
+        refreshPriority: 1,
         onUpdate: (self) => {
           const progress = self.progress;
 
@@ -194,7 +195,7 @@ export default function StudioOverview({ onOpenInquiry }) {
                 textTransform: 'uppercase'
               }}
             >
-              Archive of{' '}
+              The Work{' '}
               <span
                 style={{
                   fontStyle: 'italic',
@@ -203,12 +204,12 @@ export default function StudioOverview({ onOpenInquiry }) {
                   color: '#001db8'
                 }}
               >
-                Creative Realities
+                Speaks
               </span>
             </h2>
             <p
               style={{
-                fontSize: 'clamp(0.95rem, 1.4vw, 1.25rem)',
+                fontSize: 'clamp(0.9rem, 1.3vw, 1.15rem)',
                 color: '#001db8',
                 lineHeight: 1.5,
                 fontWeight: 600,
@@ -217,7 +218,7 @@ export default function StudioOverview({ onOpenInquiry }) {
                 margin: 0
               }}
             >
-              Selected Realities &amp; Interactive Works
+              No Templates. No Excuses. Pure Execution.
             </p>
           </div>
         </div>

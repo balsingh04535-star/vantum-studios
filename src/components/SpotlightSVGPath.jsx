@@ -26,6 +26,7 @@ export default function SpotlightSVGPath() {
         start: 'top 60%',
         end: 'bottom 40%',
         scrub: 1.2,
+        refreshPriority: -1,
       },
     });
 
