@@ -10,8 +10,11 @@ export default function SEO({
   description = 'Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide.',
   canonicalUrl = 'https://www.madebychanan.com/',
   ogImage = 'https://www.madebychanan.com/hero-bg.webp',
+  ogImageAlt = 'Chanan Creative Digital Agency',
   ogType = 'website',
   schemaData = null,
+  articlePublishedTime = null,
+  articleModifiedTime = null,
 }) {
   useEffect(() => {
     // 1. Document Title
@@ -28,6 +31,11 @@ export default function SEO({
       element.setAttribute('content', content);
     };
 
+    const removeMeta = (attrName, attrValue) => {
+      const el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+      if (el) el.remove();
+    };
+
     // 2. Standard Meta Tags
     setMeta('name', 'description', description);
     setMeta('name', 'title', title);
@@ -41,16 +49,32 @@ export default function SEO({
     setMeta('property', 'og:url', canonicalUrl);
     setMeta('property', 'og:type', ogType);
     setMeta('property', 'og:image', ogImage);
+    setMeta('property', 'og:image:width', '1200');
+    setMeta('property', 'og:image:height', '630');
+    setMeta('property', 'og:image:alt', ogImageAlt);
+    setMeta('property', 'og:image:type', 'image/webp');
+    setMeta('property', 'og:locale', 'en_GB');
 
-    // 4. Twitter Card Tags
+    // 4. Article dates (for case studies)
+    if (articlePublishedTime) {
+      setMeta('property', 'article:published_time', articlePublishedTime);
+      setMeta('property', 'article:modified_time', articleModifiedTime || articlePublishedTime);
+      setMeta('property', 'article:author', 'https://www.madebychanan.com/');
+    } else {
+      removeMeta('property', 'article:published_time');
+      removeMeta('property', 'article:modified_time');
+    }
+
+    // 5. Twitter Card Tags
     setMeta('name', 'twitter:card', 'summary_large_image');
     setMeta('name', 'twitter:title', title);
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', ogImage);
+    setMeta('name', 'twitter:image:alt', ogImageAlt);
     setMeta('name', 'twitter:site', '@madebychanan');
     setMeta('name', 'twitter:creator', '@madebychanan');
 
-    // 5. Canonical URL
+    // 6. Canonical URL
     if (canonicalUrl) {
       let linkCanonical = document.querySelector('link[rel="canonical"]');
       if (!linkCanonical) {
@@ -61,7 +85,7 @@ export default function SEO({
       linkCanonical.setAttribute('href', canonicalUrl);
     }
 
-    // 6. Dynamic JSON-LD Structured Data
+    // 7. Dynamic JSON-LD Structured Data
     const schemaId = 'dynamic-page-jsonld';
     let scriptTag = document.getElementById(schemaId);
     if (!scriptTag) {
@@ -77,14 +101,46 @@ export default function SEO({
       // Default to Chanan Organization Schema
       scriptTag.textContent = JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'Organization',
-        'name': 'Chanan',
-        'url': 'https://www.madebychanan.com/',
-        'logo': 'https://www.madebychanan.com/logo.png',
-        'description': description,
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': 'https://www.madebychanan.com/#organization',
+            'name': 'Chanan',
+            'alternateName': 'Chanan Creative Digital Agency',
+            'url': 'https://www.madebychanan.com/',
+            'logo': {
+              '@type': 'ImageObject',
+              'url': 'https://www.madebychanan.com/logo.png',
+              'width': 512,
+              'height': 512
+            },
+            'description': description,
+            'email': 'hello@madebychanan.com',
+            'address': {
+              '@type': 'PostalAddress',
+              'addressLocality': 'London',
+              'addressCountry': 'GB'
+            },
+            'areaServed': 'Worldwide',
+            'sameAs': [
+              'https://twitter.com/madebychanan',
+              'https://instagram.com/madebychanan',
+              'https://linkedin.com/company/madebychanan'
+            ]
+          },
+          {
+            '@type': 'WebPage',
+            '@id': `${canonicalUrl}#webpage`,
+            'url': canonicalUrl,
+            'name': title,
+            'description': description,
+            'isPartOf': { '@id': 'https://www.madebychanan.com/#website' },
+            'inLanguage': 'en-GB',
+          }
+        ]
       });
     }
-  }, [title, description, canonicalUrl, ogImage, ogType, schemaData]);
+  }, [title, description, canonicalUrl, ogImage, ogImageAlt, ogType, schemaData, articlePublishedTime, articleModifiedTime]);
 
   return null;
 }

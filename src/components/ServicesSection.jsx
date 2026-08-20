@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Minus, ArrowUpRight, Cpu, Layers, Sparkles, Code2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function ServicesSection({ onOpenInquiry }) {
   const [openIndex, setOpenIndex] = useState(0);

@@ -113,7 +113,7 @@ export default function Hero({ onOpenInquiry }) {
           : { r: 0.749, g: 0.843, b: 1.0 };
       };
 
-      const rgb = hexToRgb('#bfd7ff');
+      const rgb = hexToRgb('#0002b5');
       const geometry = new THREE.PlaneGeometry(2, 2);
       material = new THREE.ShaderMaterial({
         vertexShader,
@@ -166,14 +166,14 @@ export default function Hero({ onOpenInquiry }) {
           setSeqProgress(self.progress);
         },
         onLeave: () => {
-          if (renderer) renderer.setClearColor(new THREE.Color('#bfd7ff'), 1);
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
+          if (renderer) renderer.setClearColor(new THREE.Color('#0002b5'), 1);
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
           if (creamOverlayRef.current) creamOverlayRef.current.style.opacity = '1';
         },
         onEnterBack: () => {
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #bfd7ff)';
+          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
+          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
         }
       }
     });
@@ -229,7 +229,7 @@ export default function Hero({ onOpenInquiry }) {
       }, 0);
     }
 
-    // --- STAGE 3: WebGL Liquid Noise Cream Dissolve (0.75 -> 1.0) ---
+    // --- STAGE 3: WebGL Liquid Noise Dissolve (0.75 -> 1.0) ---
     if (material) {
       tl.to(material.uniforms.uProgress, {
         value: 3.0,
@@ -240,9 +240,9 @@ export default function Hero({ onOpenInquiry }) {
 
     const clearObj = { r: 0.0, g: 0.05, b: 0.35, a: 0 };
     tl.to(clearObj, {
-      r: 0.749,
-      g: 0.843,
-      b: 1.0,
+      r: 0.0,
+      g: 0.008,
+      b: 0.71,
       a: 1,
       ease: 'power1.inOut',
       duration: 0.25,
@@ -266,7 +266,7 @@ export default function Hero({ onOpenInquiry }) {
 
     if (heroInnerRef.current) {
       tl.to(heroInnerRef.current, {
-        backgroundColor: '#bfd7ff',
+        backgroundColor: '#0002b5',
         ease: 'power1.inOut',
         duration: 0.25
       }, 0.75);
@@ -408,37 +408,7 @@ export default function Hero({ onOpenInquiry }) {
           <canvas className="hero-canvas" ref={canvasRef}></canvas>
         </div>
       </section>
-
-      {/* Pure CSS Shimmer Shine Beam Animation */}
-      <style>{`
-        @keyframes shineSweep {
-          0% {
-            background-position: 180% 0;
-          }
-          100% {
-            background-position: -180% 0;
-          }
-        }
-
-        .shine-sweep-text {
-          background: linear-gradient(
-            90deg, 
-            rgba(191, 215, 255, 0.45) 0%, 
-            rgba(191, 215, 255, 0.45) 35%, 
-            #ffffff 50%, 
-            #bfd7ff 55%, 
-            #ffffff 60%, 
-            rgba(191, 215, 255, 0.45) 75%, 
-            rgba(191, 215, 255, 0.45) 100%
-          );
-          background-size: 200% 100%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shineSweep 2.8s infinite linear;
-          display: inline-block;
-          font-weight: 600;
-        }
-      `}</style>
     </>
   );
 }
+

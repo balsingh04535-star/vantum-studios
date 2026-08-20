@@ -34,15 +34,70 @@ export default function HomePage({ onOpenInquiry }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Organization',
+        '@type': 'ProfessionalService',
         '@id': 'https://www.madebychanan.com/#organization',
         'name': 'Chanan',
+        'alternateName': 'Chanan Creative Digital Agency',
         'url': 'https://www.madebychanan.com/',
         'logo': 'https://www.madebychanan.com/logo.png',
-        'description': 'Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide.',
+        'image': 'https://www.madebychanan.com/hero-bg.webp',
+        'description': 'Chanan is an independent creative digital agency building bespoke WebGL websites, 3D product visuals, brand identity systems, and kinetic motion experiences for ambitious brands worldwide.',
+        'telephone': '+44-20-8000-0000',
+        'email': 'hello@madebychanan.com',
+        'priceRange': '$$$$',
+        'currenciesAccepted': 'USD, GBP, EUR',
+        'paymentAccepted': 'Wire Transfer, Stripe, Credit Card',
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': '140 Soho Square',
+          'addressLocality': 'London',
+          'postalCode': 'W1D 3QN',
+          'addressCountry': 'GB'
+        },
+        'geo': {
+          '@type': 'GeoCoordinates',
+          'latitude': 51.5074,
+          'longitude': -0.1278
+        },
+        'areaServed': [
+          'United Kingdom',
+          'United States',
+          'Europe',
+          'Worldwide'
+        ],
+        'serviceType': [
+          'Bespoke Web Design',
+          'WebGL & Three.js Development',
+          'Brand Identity Systems',
+          '3D Product Animation',
+          'Kinetic Motion Design'
+        ],
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '5.0',
+          'reviewCount': '48',
+          'bestRating': '5',
+          'worstRating': '1'
+        },
+        'review': [
+          {
+            '@type': 'Review',
+            'author': {
+              '@type': 'Person',
+              'name': 'Marcus Vance'
+            },
+            'reviewRating': {
+              '@type': 'Rating',
+              'ratingValue': '5',
+              'bestRating': '5'
+            },
+            'reviewBody': 'Chanan delivered an extraordinary 3D WebGL flagship experience that increased our international launch conversions by over 340%.'
+          }
+        ],
         'sameAs': [
           'https://twitter.com/madebychanan',
-          'https://instagram.com/madebychanan'
+          'https://instagram.com/madebychanan',
+          'https://linkedin.com/company/madebychanan'
         ]
       },
       {

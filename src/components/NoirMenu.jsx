@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 import TransitionLink from './TransitionLink';
@@ -10,7 +10,8 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
   const itemsRef = useRef(null);
   const lineInnersRef = useRef([]);
   const tlRef = useRef(null);
-  const location = useLocation();
+  const router = useRouter();
+
 
   useEffect(() => {
     const menuEl = menuRef.current;
@@ -85,43 +86,15 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
     if (isOpen) {
       onClose();
     }
-  }, [location.pathname]);
-
-  const socialLinks = [
-    { label: 'Bluesky', href: 'https://bsky.app' },
-    { label: 'Pinterest', href: 'https://pinterest.com' },
-    { label: 'YouTube', href: 'https://youtube.com' },
-    { label: 'Instagram', href: 'https://instagram.com' },
-    { label: 'LinkedIn', href: 'https://linkedin.com' },
-    { label: 'X', href: 'https://x.com' },
-  ];
-
-  const legalLinks = [
-    { label: 'Cookie Policy', href: '#' },
-    { label: 'Accessibility', href: '#' },
-    { label: 'Data Rights', href: '#' },
-    { label: 'Disclosures', href: '#' },
-  ];
+  }, [router.pathname]);
 
   const primaryNav = [
     { label: 'Home', path: '/' },
-    { label: 'Work', path: '/work' },
     { label: 'Global Network', path: '/clients' },
     { label: 'Services', path: '/services' },
     { label: 'About', path: '/about' },
     { label: 'Contact', path: '/contact' },
   ];
-
-  const secondaryNav = [
-    { label: 'Web Design', path: '/web-design' },
-    { label: 'Creative Dev', path: '/web-development' },
-    { label: 'Brand Identity', path: '/branding' },
-    { label: '3D & CGI', path: '/3d-product-animation' },
-    { label: 'Motion Design', path: '/motion-design' },
-    { label: 'Start a Project', action: onOpenInquiry },
-  ];
-
-  let lineIdx = 0;
 
   return (
     <div className="overlay-nav-menu" ref={menuRef} aria-hidden={!isOpen}>
@@ -143,117 +116,34 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
           <X size={18} />
         </button>
 
-        <div className="overlay-nav-items" ref={itemsRef}>
-          {/* Column 1: Socials & Legal */}
-          <div className="overlay-nav-col">
-            <div className="overlay-nav-socials">
-              {socialLinks.map((item, idx) => {
-                const currentIdx = lineIdx++;
-                return (
-                  <a
-                    key={idx}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-line-mask"
-                  >
-                    <span
-                      className="nav-line-inner"
-                      ref={(el) => (lineInnersRef.current[currentIdx] = el)}
-                    >
-                      {item.label}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-
-            <div className="overlay-nav-legal">
-              {legalLinks.map((item, idx) => {
-                const currentIdx = lineIdx++;
-                return (
-                  <a key={idx} href={item.href} className="nav-line-mask">
-                    <span
-                      className="nav-line-inner"
-                      ref={(el) => (lineInnersRef.current[currentIdx] = el)}
-                    >
-                      {item.label}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Column 2: Primary & Secondary Links */}
-          <div className="overlay-nav-col">
-            <div className="overlay-nav-primary">
-              {primaryNav.map((item, idx) => {
-                const currentIdx = lineIdx++;
-                return (
-                  <TransitionLink
-                    key={idx}
-                    to={item.path}
-                    onClick={onClose}
-                    className="nav-line-mask"
-                  >
-                    <span
-                      className="nav-line-inner"
-                      ref={(el) => (lineInnersRef.current[currentIdx] = el)}
-                    >
-                      {item.label}
-                    </span>
-                  </TransitionLink>
-                );
-              })}
-            </div>
-
-            <div className="overlay-nav-secondary">
-              {secondaryNav.map((item, idx) => {
-                const currentIdx = lineIdx++;
-                if (item.action) {
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        onClose();
-                        item.action();
-                      }}
-                      className="nav-line-mask"
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        padding: 0
-                      }}
-                    >
-                      <span
-                        className="nav-line-inner"
-                        ref={(el) => (lineInnersRef.current[currentIdx] = el)}
-                      >
-                        {item.label}
-                      </span>
-                    </button>
-                  );
-                }
-                return (
-                  <TransitionLink
-                    key={idx}
-                    to={item.path}
-                    onClick={onClose}
-                    className="nav-line-mask"
-                  >
-                    <span
-                      className="nav-line-inner"
-                      ref={(el) => (lineInnersRef.current[currentIdx] = el)}
-                    >
-                      {item.label}
-                    </span>
-                  </TransitionLink>
-                );
-              })}
-            </div>
+        <div
+          className="overlay-nav-items"
+          ref={itemsRef}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            padding: '4rem 2rem'
+          }}
+        >
+          <div className="overlay-nav-primary" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'center', textAlign: 'center' }}>
+            {primaryNav.map((item, idx) => (
+              <TransitionLink
+                key={idx}
+                to={item.path}
+                onClick={onClose}
+                className="nav-line-mask"
+              >
+                <span
+                  className="nav-line-inner"
+                  ref={(el) => (lineInnersRef.current[idx] = el)}
+                >
+                  {item.label}
+                </span>
+              </TransitionLink>
+            ))}
           </div>
         </div>
       </div>

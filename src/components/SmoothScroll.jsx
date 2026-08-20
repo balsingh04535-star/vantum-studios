@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -8,10 +8,10 @@ const LenisContext = createContext(null);
 
 export default function SmoothScroll({ children, isLoading }) {
   const lenisRef = useRef(null);
-  const location = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
-    // Only disable smooth wheel interpolation on narrow mobile screens (<768px) where native touch momentum is preferred
+    // Only disable smooth wheel interpolation on narrow mobile screens (<768px)
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
       return;
@@ -20,12 +20,12 @@ export default function SmoothScroll({ children, isLoading }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.35, // Extended deceleration curve for buttery cinematic inertia
+      duration: 1.35,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.95, // Calibrated so each scroll wheel step glides softly
+      wheelMultiplier: 0.95,
       touchMultiplier: 1.2,
       infinite: false,
     });
@@ -62,9 +62,9 @@ export default function SmoothScroll({ children, isLoading }) {
       ScrollTrigger.refresh();
     }, 100);
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [router.pathname]);
 
-  // Pause / resume scroll during preloader or full overlay states and refresh on unlock
+  // Pause / resume scroll during preloader
   useEffect(() => {
     if (lenisRef.current) {
       if (isLoading) {

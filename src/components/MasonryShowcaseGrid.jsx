@@ -131,7 +131,7 @@ export default function MasonryShowcaseGrid({ onOpenInquiry }) {
           fontWeight: 300,
           letterSpacing: '-0.03em',
           lineHeight: 1.05,
-          color: '#020b4d',
+          color: '#ffffff',
           marginBottom: '0.85rem',
           textTransform: 'uppercase',
         }}>
@@ -139,13 +139,13 @@ export default function MasonryShowcaseGrid({ onOpenInquiry }) {
             fontStyle: 'italic',
             fontFamily: 'var(--font-luxury-slim)',
             fontWeight: 400,
-            color: '#001db8'
+            color: '#dbe7ff'
           }}>Archive</span>
         </h2>
 
         <p style={{
           fontSize: 'clamp(0.85rem, 1.25vw, 1.1rem)',
-          color: '#001db8',
+          color: '#bfd7ff',
           maxWidth: '700px',
           lineHeight: 1.5,
           fontWeight: 600,
@@ -234,178 +234,8 @@ export default function MasonryShowcaseGrid({ onOpenInquiry }) {
 
         </div>
       </div>
-
-      {/* ── Pure Aesthetic Styles ── */}
-      <style>{`
-        .sharp-parallax-wall-section {
-          position: relative;
-          width: 100%;
-          min-height: auto;
-          background-color: #bfd7ff;
-          color: #020b4d;
-          padding: 1rem 0.5rem 6rem 0.5rem;
-          box-sizing: border-box;
-          overflow: hidden;
-        }
-
-        /* Full-Bleed Expansive Bounded Showcase Viewport */
-        .showcase-grid-wrapper {
-          position: relative;
-          width: 100%;
-          max-width: 100%;
-          height: clamp(920px, 112vh, 1550px);
-          margin: 0 auto;
-          box-sizing: border-box;
-          overflow: hidden;
-          border-radius: 32px;
-          border: 2px solid rgba(0, 29, 184, 0.25);
-          box-shadow: 0 32px 90px rgba(0, 29, 184, 0.25);
-          background: #020b4d;
-        }
-
-        /* 3-Column Aligned Grid Wall */
-        .sharp-columns-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
-          width: 100%;
-          height: 100%;
-          padding: 20px;
-          box-sizing: border-box;
-          align-items: flex-start;
-        }
-
-        .sharp-col {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          will-change: transform;
-        }
-
-        /* Sharp Rectangular Block Cards with Hover Elevation */
-        .sharp-card-block {
-          position: relative;
-          width: 100%;
-          border-radius: 20px;
-          overflow: hidden;
-          background: #00127a;
-          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-          flex-shrink: 0;
-          cursor: pointer;
-        }
-
-        .sharp-card-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .sharp-card-block:hover .sharp-card-img {
-          transform: scale(1.04);
-        }
-
-        /* Card Hover Overlay Info */
-        .card-hover-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, transparent 40%, rgba(2, 11, 77, 0.92) 100%);
-          opacity: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 1.5rem;
-          box-sizing: border-box;
-          transition: opacity 0.35s ease;
-          pointer-events: none;
-        }
-
-        .sharp-card-block:hover .card-hover-overlay {
-          opacity: 1;
-        }
-
-        .card-cat-badge {
-          font-family: monospace, sans-serif;
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: #bfd7ff;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          margin-bottom: 0.35rem;
-        }
-
-        .card-title-text {
-          font-family: var(--font-heading, 'Outfit', sans-serif);
-          font-size: 1.25rem;
-          font-weight: 600;
-          color: #ffffff;
-          margin: 0;
-          letter-spacing: -0.01em;
-        }
-
-        /* ── MOBILE & TABLET RESPONSIVE BREAKPOINT (<900px) ── */
-        @media (max-width: 900px) {
-          .showcase-grid-wrapper {
-            height: clamp(620px, 85vh, 740px);
-            border-radius: 20px;
-          }
-          .sharp-columns-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-            padding: 12px !important;
-          }
-          .sharp-col {
-            gap: 12px !important;
-          }
-          .col-right {
-            display: none !important;
-          }
-          .sharp-parallax-wall-section {
-            padding: 1rem 0.25rem 3rem 0.25rem;
-          }
-          .sharp-card-block {
-            border-radius: 14px;
-          }
-          .card-title-text {
-            font-size: 1rem;
-          }
-          .card-cat-badge {
-            font-size: 0.62rem;
-          }
-        }
-
-        @media (max-width: 600px) {
-          .showcase-grid-wrapper {
-            height: clamp(580px, 82vh, 700px);
-            border-radius: 16px;
-          }
-          .sharp-columns-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 10px !important;
-            padding: 10px !important;
-          }
-          .sharp-col {
-            gap: 10px !important;
-          }
-          .col-right {
-            display: none !important;
-          }
-          .sharp-card-block {
-            border-radius: 12px;
-          }
-          .card-hover-overlay {
-            padding: 0.85rem;
-          }
-          .card-title-text {
-            font-size: 0.88rem;
-          }
-          .card-cat-badge {
-            font-size: 0.58rem;
-          }
-        }
-      `}</style>
     </section>
   );
 }
+
 

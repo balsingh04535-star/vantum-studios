@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useRef, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 
@@ -37,12 +37,12 @@ export function useTransitionNavigate() {
 }
 
 export function TransitionProvider({ children }) {
-  const navigate   = useNavigate();
+  const router    = useRouter();
   const overlayRef = useRef(null);
   const [label, setLabel] = useState('');
 
   const transitionTo = useCallback((path) => {
-    if (!overlayRef.current) { navigate(path); return; }
+    if (!overlayRef.current) { router.push(path); return; }
 
     const dest = PAGE_LABELS[path] ?? 'Chanan';
     setLabel(dest);
@@ -51,7 +51,7 @@ export function TransitionProvider({ children }) {
     const layer1 = el.querySelector('.tc-layer-1');
     const labelEl = el.querySelector('.tc-label');
     const counterEl = el.querySelector('.tc-counter');
-    const currentContainer = document.querySelector('main') || document.querySelector('#root');
+    const currentContainer = document.querySelector('main') || document.querySelector('#__next');
 
     const tl = gsap.timeline({
       onComplete() {
@@ -62,7 +62,7 @@ export function TransitionProvider({ children }) {
       }
     });
 
-    // 1. Current Page shrinks, fades, and moves up (-30vh) like demo-main
+    // 1. Current Page shrinks, fades, and moves up (-30vh)
     if (currentContainer) {
       tl.to(currentContainer, {
         y: '-30vh',
@@ -74,7 +74,7 @@ export function TransitionProvider({ children }) {
       }, 0);
     }
 
-    // 2. Incoming curtain unclips upwards from bottom (clipPath: inset(100% 0 0 0) -> inset(0 0 0 0))
+    // 2. Incoming curtain unclips upwards from bottom
     tl.set(el, { pointerEvents: 'all', visibility: 'visible', clipPath: 'inset(100% 0% 0% 0%)' }, 0)
       .set(labelEl, { opacity: 0, y: 35 })
       .set(counterEl, { opacity: 0 })
@@ -88,9 +88,9 @@ export function TransitionProvider({ children }) {
       .to(counterEl, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.42)
 
       // 3. Switch route at peak of curtain coverage
-      .call(() => navigate(path), [], 0.78)
+      .call(() => router.push(path), [], 0.78)
 
-      // 4. Reveal new page: Curtain unclips off to top (clipPath: inset(0 0 100% 0))
+      // 4. Reveal new page: Curtain unclips off to top
       .to(labelEl, { opacity: 0, y: -25, duration: 0.25, ease: 'power2.in' }, 0.85)
       .to(counterEl, { opacity: 0, duration: 0.2 }, 0.85)
       .to(el, {
@@ -101,13 +101,13 @@ export function TransitionProvider({ children }) {
       }, 0.95)
       .set(el, { pointerEvents: 'none', visibility: 'hidden' });
 
-  }, [navigate]);
+  }, [router]);
 
   return (
     <TransitionContext.Provider value={{ transitionTo }}>
       {children}
 
-      {/* ── Transition Overlay DOM (Matching demo-main clipPath animation) ── */}
+      {/* ── Transition Overlay DOM (GSAP curtain animation) ── */}
       <div
         ref={overlayRef}
         style={{

@@ -39,7 +39,7 @@ export const servicesData = {
       'Accessibility & WCAG Compliance',
       'Dark & Light Mode Adaptation'
     ],
-    featuredSlugs: ['voltlites', 'chronos', 'luxeforma'],
+    featuredSlugs: ['lumina', 'amplo', 'aurelis'],
     ctaText: 'Start a Web Design Project'
   },
 
@@ -78,7 +78,7 @@ export const servicesData = {
       'Dynamic Asset Lazy-Loading Pipelines',
       'Strict Zero-Layout-Shift (CLS) Guarantee'
     ],
-    featuredSlugs: ['voltlites', 'aether', 'hyperion'],
+    featuredSlugs: ['lumina', 'moodtalk', 'data-jungle'],
     ctaText: 'Discuss Technical Architecture'
   },
 
@@ -117,7 +117,7 @@ export const servicesData = {
       'Comprehensive Brand Documentation',
       'Interactive Design System Deliverables'
     ],
-    featuredSlugs: ['chronos', 'solaris', 'luxeforma'],
+    featuredSlugs: ['amplo', 'voltaria', 'velora'],
     ctaText: 'Build a Distinct Brand'
   },
 
@@ -156,7 +156,7 @@ export const servicesData = {
       '4K & 8K CGI Render Capabilities',
       'Cross-Platform WebGL Optimization'
     ],
-    featuredSlugs: ['chronos', 'hyperion', 'voltlites'],
+    featuredSlugs: ['aurelis', 'voltaria', 'verde'],
     ctaText: 'Commission a 3D Visual'
   },
 
@@ -195,7 +195,7 @@ export const servicesData = {
       'Interactive Cursor Following Physics',
       'Optimized prefers-reduced-motion Support'
     ],
-    featuredSlugs: ['hyperion', 'aether', 'solaris'],
+    featuredSlugs: ['moodtalk', 'velora', 'verde'],
     ctaText: 'Choreograph Your Brand'
   }
 };

@@ -11,8 +11,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-cream, #bfd7ff)',
-        color: '#020b4d',
+        backgroundColor: 'var(--bg-cream, #0002b5)',
+        color: '#ffffff',
         padding: 0,
         boxSizing: 'border-box',
         display: 'flex',
@@ -21,10 +21,10 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         overflow: 'hidden',
       }}
     >
-      {/* ── LIVE VOLUMETRIC LIGHT RAYS BACKGROUND (from files-5) ── */}
+      {/* ── LIVE VOLUMETRIC LIGHT RAYS BACKGROUND ── */}
       <LightRaysBackground
         origin="top-center"
-        color="#001db8"
+        color="#bfd7ff"
         speed={1.0}
         spread={0.65}
         length={3.0}
@@ -45,3 +45,4 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
     </section>
   );
 }
+
