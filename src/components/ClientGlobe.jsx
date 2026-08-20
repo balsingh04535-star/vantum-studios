@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import createGlobe from "cobe";
+import { getMaxDPR, getGlobeMapSamples } from "../utils/perf";
 
 // Static Single Client Marker & Arc matching target mockup 1:1
 const GLOBE_MARKERS = [
@@ -99,7 +100,7 @@ function ClientGlobeComponent({
       const width = canvas.offsetWidth || canvas.parentElement?.offsetWidth || 600;
       if (globe) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const dpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
       globe = createGlobe(canvas, {
         devicePixelRatio: dpr,
         width: width * dpr,
@@ -108,7 +109,7 @@ function ClientGlobeComponent({
         theta,
         dark,
         diffuse,
-        mapSamples,
+        mapSamples: getGlobeMapSamples(),
         mapBrightness,
         baseColor,
         markerColor,

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { getMaxDPR, getDeviceTier } from '../utils/perf';
 
 const vertexShader = `
   varying vec2 vUv;
@@ -138,7 +139,7 @@ export default function LightRaysBackground({
       return;
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
     renderer.setSize(width, height);
     renderer.setPixelRatio(dpr);
     renderer.setClearColor(0x000000, 0);
@@ -146,6 +147,11 @@ export default function LightRaysBackground({
     const outside = 0.2;
     const anchor = [0.5 * (width * dpr), -outside * (height * dpr)];
     const dir = [0, 1];
+
+    // On low-tier devices, disable mouse influence to reduce per-frame work
+    const tier = getDeviceTier();
+    const effectiveFollowMouse = followMouse && tier !== 'low';
+    const effectiveMouseInfluence = tier === 'low' ? 0 : mouseInfluence;
 
     const uniforms = {
       iTime: { value: 0 },
@@ -160,7 +166,7 @@ export default function LightRaysBackground({
       fadeDistance: { value: fadeDistance },
       saturation: { value: saturation },
       mousePos: { value: new THREE.Vector2(0.5, 0.5) },
-      mouseInfluence: { value: mouseInfluence },
+      mouseInfluence: { value: effectiveMouseInfluence },
       noiseAmount: { value: noiseAmount },
       distortion: { value: distortion }
     };
@@ -196,7 +202,7 @@ export default function LightRaysBackground({
       if (!container || !renderer) return;
       const w = container.clientWidth || window.innerWidth;
       const h = container.clientHeight || window.innerHeight;
-      const currentDpr = Math.min(window.devicePixelRatio || 1, 2);
+      const currentDpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
       renderer.setSize(w, h);
       renderer.setPixelRatio(currentDpr);
       uniforms.iResolution.value.set(w * currentDpr, h * currentDpr);
@@ -204,26 +210,36 @@ export default function LightRaysBackground({
     };
 
     window.addEventListener('resize', handleResize);
-    if (followMouse) {
+    if (effectiveFollowMouse) {
       window.addEventListener('mousemove', onMouse);
       window.addEventListener('touchmove', onTouch, { passive: true });
     }
+
+    // Pause RAF when off-screen to save GPU cycles
+    let isVisible = true;
+    const io = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0.01 }
+    );
+    io.observe(container);
 
     const clock = new THREE.Clock();
     let reqId = null;
 
     const tick = () => {
-      const elapsed = clock.getElapsedTime();
-      uniforms.iTime.value = elapsed;
+      if (isVisible) {
+        const elapsed = clock.getElapsedTime();
+        uniforms.iTime.value = elapsed;
 
-      if (followMouse && uniforms.mouseInfluence.value > 0) {
-        const s = 0.92;
-        smooth.x = smooth.x * s + mouse.x * (1 - s);
-        smooth.y = smooth.y * s + mouse.y * (1 - s);
-        uniforms.mousePos.value.set(smooth.x, smooth.y);
+        if (effectiveFollowMouse && uniforms.mouseInfluence.value > 0) {
+          const s = 0.92;
+          smooth.x = smooth.x * s + mouse.x * (1 - s);
+          smooth.y = smooth.y * s + mouse.y * (1 - s);
+          uniforms.mousePos.value.set(smooth.x, smooth.y);
+        }
+
+        renderer.render(scene, camera);
       }
-
-      renderer.render(scene, camera);
       reqId = requestAnimationFrame(tick);
     };
 
@@ -231,10 +247,11 @@ export default function LightRaysBackground({
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (followMouse) {
+      if (effectiveFollowMouse) {
         window.removeEventListener('mousemove', onMouse);
         window.removeEventListener('touchmove', onTouch);
       }
+      io.disconnect();
       if (reqId) cancelAnimationFrame(reqId);
       geometry.dispose();
       material.dispose();

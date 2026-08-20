@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getLenisDurationMultiplier } from '../utils/perf';
 
 const LenisContext = createContext(null);
 
@@ -20,7 +21,7 @@ export default function SmoothScroll({ children, isLoading }) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({
-      duration: 1.35,
+      duration: 1.35 * getLenisDurationMultiplier(),
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { getMaxDPR, getFBMOctaves } from '../utils/perf';
 
 const MAX_CLICKS = 10;
 
@@ -11,7 +12,7 @@ void main() {
 }
 `;
 
-const FRAGMENT_SRC = `
+const buildFragmentSrc = (fbmOctaves) => `
 precision highp float;
 
 uniform vec3  uColor;
@@ -47,7 +48,7 @@ float Bayer2(vec2 a) {
 #define Bayer4(a) (Bayer2(.5*(a))*0.25 + Bayer2(a))
 #define Bayer8(a) (Bayer4(.5*(a))*0.25 + Bayer2(a))
 
-#define FBM_OCTAVES     5
+#define FBM_OCTAVES     ${fbmOctaves}
 #define FBM_LACUNARITY  1.25
 #define FBM_GAIN        1.0
 
@@ -212,7 +213,7 @@ export default function PixelBlastBg({
 
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, getMaxDPR()));
     renderer.setClearAlpha(0);
 
     container.innerHTML = '';
@@ -246,7 +247,7 @@ export default function PixelBlastBg({
 
     const material = new THREE.ShaderMaterial({
       vertexShader: VERTEX_SRC,
-      fragmentShader: FRAGMENT_SRC,
+      fragmentShader: buildFragmentSrc(getFBMOctaves()),
       uniforms,
       transparent: true,
       depthTest: false,

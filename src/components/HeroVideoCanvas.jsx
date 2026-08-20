@@ -1,6 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { getMaxDPR } from '../utils/perf';
 
 const DEFAULT_FRAME_COUNT = 201;
+// How many frames to load eagerly before the user can interact
+const EAGER_FRAMES = 20;
+// Batch size for deferred loading via requestIdleCallback
+const BATCH_SIZE = 20;
 
 export default function HeroVideoCanvas({
   scrollProgress = 0,
@@ -83,7 +88,7 @@ export default function HeroVideoCanvas({
       const parent = canvas.parentElement;
       const w = parent ? parent.offsetWidth : width;
       const h = parent ? parent.offsetHeight : height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       renderFrame(currentFrameRef.current);
@@ -92,28 +97,51 @@ export default function HeroVideoCanvas({
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // In-memory cache preloading
+    // Allocate the full array upfront but only fill slots as images load
     const images = new Array(frameCount);
     imagesRef.current = images;
 
-    // Draw first frame immediately
-    const firstImg = new Image();
-    firstImg.src = getFrameSrc(0, isMobile);
-    firstImg.onload = () => {
-      renderFrame(0);
-    };
-    images[0] = firstImg;
-
-    // Preload remaining frames
-    for (let i = 1; i < frameCount; i++) {
+    // --- Eager load: first EAGER_FRAMES frames immediately for interactivity ---
+    for (let i = 0; i < Math.min(EAGER_FRAMES, frameCount); i++) {
       const img = new Image();
       img.src = getFrameSrc(i, isMobile);
+      if (i === 0) img.onload = () => renderFrame(0);
       images[i] = img;
     }
+
+    // --- Deferred load: remaining frames in idle-time batches ---
+    const idleCallbackIds = [];
+    const scheduleNextBatch = (startIdx) => {
+      if (startIdx >= frameCount) return;
+      const id = (typeof requestIdleCallback === 'function')
+        ? requestIdleCallback(() => loadBatch(startIdx), { timeout: 2000 })
+        : setTimeout(() => loadBatch(startIdx), 200);
+      idleCallbackIds.push({ id, isIdle: typeof requestIdleCallback === 'function' });
+    };
+
+    const loadBatch = (startIdx) => {
+      const end = Math.min(startIdx + BATCH_SIZE, frameCount);
+      for (let i = startIdx; i < end; i++) {
+        if (!images[i]) {
+          const img = new Image();
+          img.src = getFrameSrc(i, isMobile);
+          images[i] = img;
+        }
+      }
+      scheduleNextBatch(end);
+    };
+
+    // Start deferred loading after eager frames
+    scheduleNextBatch(EAGER_FRAMES);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      // Cancel any pending idle/timeout callbacks
+      idleCallbackIds.forEach(({ id, isIdle }) => {
+        if (isIdle && typeof cancelIdleCallback === 'function') cancelIdleCallback(id);
+        else clearTimeout(id);
+      });
     };
   }, [folder, mobileFolder, frameCount, width, height]);
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { getMaxDPR } from '../utils/perf';
 
 const coverVertexShader = `
   varying vec2 vUv;
@@ -259,7 +260,7 @@ export default function HeroShaderAnimation({ scrollProgress = 0 }) {
       powerPreference: 'high-performance'
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, getMaxDPR()));
     rendererRef.current = renderer;
 
     const geometry = new THREE.PlaneGeometry(2, 2);
@@ -336,7 +337,7 @@ export default function HeroShaderAnimation({ scrollProgress = 0 }) {
       const h = container.clientHeight || container.offsetHeight || window.innerHeight;
       if (w === 0 || h === 0) return;
       renderer.setSize(w, h);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, getMaxDPR()));
 
       if (materialsRef.current.material1) {
         materialsRef.current.material1.uniforms.uResolution.value.set(w, h);
@@ -351,17 +352,26 @@ export default function HeroShaderAnimation({ scrollProgress = 0 }) {
     window.addEventListener('resize', handleResize);
     setTimeout(handleResize, 100);
 
+    // Pause RAF when the component is scrolled off-screen
+    let isVisible = true;
+    const io = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0.01 }
+    );
+    io.observe(container);
+
     let animationFrameId;
     const renderLoop = (time) => {
-      const timeInSeconds = time * 0.001;
-      if (materialsRef.current.material1) {
-        materialsRef.current.material1.uniforms.uTime.value = timeInSeconds;
+      if (isVisible) {
+        const timeInSeconds = time * 0.001;
+        if (materialsRef.current.material1) {
+          materialsRef.current.material1.uniforms.uTime.value = timeInSeconds;
+        }
+        if (materialsRef.current.material2) {
+          materialsRef.current.material2.uniforms.uTime.value = timeInSeconds;
+        }
+        renderer.render(scene, camera);
       }
-      if (materialsRef.current.material2) {
-        materialsRef.current.material2.uniforms.uTime.value = timeInSeconds;
-      }
-
-      renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(renderLoop);
     };
 
@@ -369,6 +379,7 @@ export default function HeroShaderAnimation({ scrollProgress = 0 }) {
 
     return () => {
       ro.disconnect();
+      io.disconnect();
       window.removeEventListener('resize', handleResize);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       renderer.dispose();

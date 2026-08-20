@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { getMaxDPR } from '../utils/perf';
 
 const TOTAL_FRAMES = 201;
+const EAGER_FRAMES = 15;
+const BATCH_SIZE = 20;
 
 export default function ManifestoBackgroundCanvas({ scrollProgress = 0, opacity = 1 }) {
   const canvasRef = useRef(null);
@@ -76,7 +79,7 @@ export default function ManifestoBackgroundCanvas({ scrollProgress = 0, opacity 
       const parent = canvas.parentElement;
       const w = parent ? parent.offsetWidth : window.innerWidth;
       const h = parent ? parent.offsetHeight : window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       renderFrame(currentFrameRef.current);
@@ -85,26 +88,62 @@ export default function ManifestoBackgroundCanvas({ scrollProgress = 0, opacity 
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // In-memory frame preloading
     const images = new Array(TOTAL_FRAMES);
     imagesRef.current = images;
 
-    const firstImg = new Image();
-    firstImg.src = getFrameSrc(0, isMobile);
-    firstImg.onload = () => {
-      renderFrame(0);
-    };
-    images[0] = firstImg;
+    const idleCallbackIds = [];
 
-    for (let i = 1; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = getFrameSrc(i, isMobile);
-      images[i] = img;
-    }
+    const scheduleNextBatch = (startIdx) => {
+      if (startIdx >= TOTAL_FRAMES) return;
+      const id = (typeof requestIdleCallback === 'function')
+        ? requestIdleCallback(() => loadBatch(startIdx), { timeout: 2000 })
+        : setTimeout(() => loadBatch(startIdx), 200);
+      idleCallbackIds.push({ id, isIdle: typeof requestIdleCallback === 'function' });
+    };
+
+    const loadBatch = (startIdx) => {
+      const end = Math.min(startIdx + BATCH_SIZE, TOTAL_FRAMES);
+      for (let i = startIdx; i < end; i++) {
+        if (!images[i]) {
+          const img = new Image();
+          img.src = getFrameSrc(i, isMobile);
+          images[i] = img;
+        }
+      }
+      scheduleNextBatch(end);
+    };
+
+    // Only start loading frames when the canvas enters the viewport
+    // to avoid hammering the network for a section the user hasn't reached
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+
+        // Eager: first EAGER_FRAMES for immediate playback when entering view
+        for (let i = 0; i < Math.min(EAGER_FRAMES, TOTAL_FRAMES); i++) {
+          if (!images[i]) {
+            const img = new Image();
+            img.src = getFrameSrc(i, isMobile);
+            if (i === 0) img.onload = () => renderFrame(0);
+            images[i] = img;
+          }
+        }
+        // Deferred: rest in idle batches
+        scheduleNextBatch(EAGER_FRAMES);
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(canvas.parentElement || canvas);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      io.disconnect();
+      idleCallbackIds.forEach(({ id, isIdle }) => {
+        if (isIdle && typeof cancelIdleCallback === 'function') cancelIdleCallback(id);
+        else clearTimeout(id);
+      });
     };
   }, []);
 

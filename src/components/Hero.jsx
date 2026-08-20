@@ -72,6 +72,7 @@ export default function Hero({ onOpenInquiry }) {
   const titleLogoRef = useRef(null);
   const subTitleRef = useRef(null);
   const buttonRef = useRef(null);
+  const rendererRef = useRef(null); // holds { renderer, scene, camera } for on-demand render
   const [seqProgress, setSeqProgress] = useState(0);
 
   useEffect(() => {
@@ -139,16 +140,19 @@ export default function Hero({ onOpenInquiry }) {
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         material.uniforms.uResolution.value.set(width, height);
+        // Re-render after resize since we no longer have a continuous loop
+        renderer.render(scene, camera);
       };
 
       resizeWebGL();
       window.addEventListener('resize', resizeWebGL);
 
-      const renderLoop = () => {
-        renderer.render(scene, camera);
-        animationFrameId = requestAnimationFrame(renderLoop);
-      };
-      renderLoop();
+      // Render once on mount — no continuous loop needed since uTime isn't used
+      // GSAP will update uProgress and trigger a re-render via the onUpdate callback below
+      renderer.render(scene, camera);
+
+      // Store a render function so GSAP's onUpdate can trigger re-renders on demand
+      rendererRef.current = { renderer, scene, camera };
     }
 
     // Extended 4.5x Viewport Scroll Runway
@@ -164,6 +168,11 @@ export default function Hero({ onOpenInquiry }) {
         refreshPriority: 2,
         onUpdate: (self) => {
           setSeqProgress(self.progress);
+          // Render the WebGL canvas on-demand instead of via a continuous RAF loop
+          if (rendererRef.current) {
+            const { renderer, scene, camera } = rendererRef.current;
+            renderer.render(scene, camera);
+          }
         },
         onLeave: () => {
           if (renderer) renderer.setClearColor(new THREE.Color('#0002b5'), 1);
@@ -275,7 +284,6 @@ export default function Hero({ onOpenInquiry }) {
     return () => {
       tl.kill();
       if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       if (renderer) renderer.dispose();
     };
   }, []);

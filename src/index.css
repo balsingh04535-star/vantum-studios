@@ -74,6 +74,45 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* ============================================================
+   PERFORMANCE: GPU compositing layer hints
+   Promote animated canvases and WebGL elements to their own
+   compositing layers so the browser doesn't have to repaint
+   surrounding content on every frame.
+   ============================================================ */
+
+/* WebGL canvas wrappers — hero, shader animations, light rays */
+.hero-canvas,
+canvas {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Hero spotlight gallery items — scale-animated via GSAP */
+.hero-spotlight-item,
+.hero-spotlight-item img {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Hero gallery grid — scale animation target */
+.hero-spotlight-gallery {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Section containers — limit browser reflow scope */
+section {
+  contain: layout style;
+}
+
+/* Animated overlay divs (dissolve, cream transition) */
+[style*="opacity"] {
+  will-change: opacity;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
