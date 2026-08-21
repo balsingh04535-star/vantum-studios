@@ -64,9 +64,10 @@ export default function AnimateSVGTextPath({
     });
     observer.observe(svgEl);
 
+    let lastBlur = 0;
     const update = () => {
       const currentOffset = computeOffset();
-      startOffsetVal = !entered ? currentOffset : lerp(startOffsetVal, currentOffset, 0.16);
+      startOffsetVal = !entered ? currentOffset : lerp(startOffsetVal, currentOffset, 0.18);
       textPath.setAttribute('startOffset', `${startOffsetVal}px`);
 
       // Calculate scroll speed distance for cinematic motion blur
@@ -76,7 +77,10 @@ export default function AnimateSVGTextPath({
 
       if (blurFilterRef.current) {
         const blurAmount = clamp(mapVal(distance, 0, 300, 0, 8), 0, 8);
-        blurFilterRef.current.setAttribute('stdDeviation', blurAmount.toFixed(1));
+        if (Math.abs(lastBlur - blurAmount) > 0.4 || (blurAmount === 0 && lastBlur !== 0)) {
+          blurFilterRef.current.setAttribute('stdDeviation', blurAmount.toFixed(1));
+          lastBlur = blurAmount;
+        }
       }
 
       if (!entered) entered = true;

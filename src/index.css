@@ -103,15 +103,12 @@ canvas {
   will-change: transform;
 }
 
-/* Section containers — limit browser reflow scope */
-section {
-  contain: layout style;
+/* SVG animated path strokes — hardware acceleration */
+.anim-stroke {
+  will-change: stroke-dashoffset;
+  transform: translateZ(0);
 }
 
-/* Animated overlay divs (dissolve, cream transition) */
-[style*="opacity"] {
-  will-change: opacity;
-}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {

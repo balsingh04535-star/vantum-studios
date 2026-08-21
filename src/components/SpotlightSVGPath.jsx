@@ -32,7 +32,7 @@ export default function SpotlightSVGPath() {
             trigger: section,
             start: 'top 65%',
             end: 'bottom 40%',
-            scrub: 1.2,
+            scrub: 0.4,
             invalidateOnRefresh: true,
           },
         });
@@ -46,15 +46,15 @@ export default function SpotlightSVGPath() {
         if (card) {
           gsap.fromTo(
             card,
-            { y: 80 },
+            { y: 60 },
             {
-              y: -80,
+              y: -60,
               ease: 'none',
               scrollTrigger: {
                 trigger: row,
                 start: 'top bottom',
                 end: 'bottom top',
-                scrub: 1,
+                scrub: 0.4,
               },
             }
           );
@@ -63,16 +63,16 @@ export default function SpotlightSVGPath() {
         if (img) {
           gsap.fromTo(
             img,
-            { y: -60, scale: 0.96 },
+            { y: -40, scale: 0.97 },
             {
-              y: 60,
-              scale: 1.04,
+              y: 40,
+              scale: 1.03,
               ease: 'none',
               scrollTrigger: {
                 trigger: row,
                 start: 'top bottom',
                 end: 'bottom top',
-                scrub: 1.6,
+                scrub: 0.5,
               },
             }
           );
@@ -97,7 +97,7 @@ export default function SpotlightSVGPath() {
             trigger: section,
             start: 'top 75%',
             end: 'bottom 45%',
-            scrub: 0.8,
+            scrub: 0.4,
             invalidateOnRefresh: true,
           },
         });
@@ -199,11 +199,6 @@ export default function SpotlightSVGPath() {
             style={{ overflow: 'visible' }}
           >
             <defs>
-              {/* Soft Diffusion Blur Filter for Ambient Aura */}
-              <filter id="desktop-ribbon-blur" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="24" result="blur" />
-              </filter>
-
               {/* Ambient Glow Gradient */}
               <linearGradient id="desktop-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#0038ff" stopOpacity="0.8" />
@@ -236,13 +231,13 @@ export default function SpotlightSVGPath() {
 
             {/* Layer 1: Ambient Glow Aura */}
             <path
-              className="anim-stroke"
+              className="anim-stroke anim-stroke-glow"
               d="M639.668 100C639.668 100 105.669 100 199.669 601.503C293.669 1103.01 1277.17 691.502 1277.17 1399.5C1277.17 2107.5 -155.332 1968 140.168 1438.5C435.669 909.002 1442.66 2093.5 713.168 2659.5"
               stroke="url(#desktop-glow-grad)"
               strokeWidth="240"
               strokeLinecap="round"
-              filter="url(#desktop-ribbon-blur)"
               opacity="0.6"
+              style={{ filter: 'blur(20px)' }}
             />
 
             {/* Layer 2: Main Vivid Gradient Ribbon */}
@@ -277,11 +272,6 @@ export default function SpotlightSVGPath() {
             style={{ overflow: 'visible' }}
           >
             <defs>
-              {/* Soft Diffusion Blur Filter for Mobile Aura */}
-              <filter id="mobile-ribbon-blur" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="16" result="blur" />
-              </filter>
-
               {/* Mobile Ambient Glow Gradient */}
               <linearGradient id="mobile-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#0038ff" stopOpacity="0.8" />
@@ -314,14 +304,14 @@ export default function SpotlightSVGPath() {
 
             {/* Layer 1: Ambient Glow Aura */}
             <path
-              className="anim-stroke"
+              className="anim-stroke anim-stroke-glow"
               d="M 200 40 C 40 240, 20 480, 40 700 C 60 940, 360 980, 360 1250 C 360 1520, 40 1680, 40 2000 C 40 2320, 360 2420, 360 2750 C 360 3080, 160 3320, 200 3560"
               stroke="url(#mobile-glow-grad)"
               strokeWidth="140"
               strokeLinecap="round"
               strokeLinejoin="round"
-              filter="url(#mobile-ribbon-blur)"
               opacity="0.55"
+              style={{ filter: 'blur(14px)' }}
             />
 
             {/* Layer 2: Core Gradient Ribbon */}

@@ -97,15 +97,23 @@ export default function AnimateSVGFullPage() {
             const minDev = parseFloat(filterPrimitiveEl.dataset.minDeviation || 0);
             const maxDev = parseFloat(filterPrimitiveEl.dataset.maxDeviation || 10);
             const dev = clamp(mapVal(distance, 0, 400, minDev, maxDev), minDev, maxDev);
-            filterPrimitiveEl.setAttribute('stdDeviation', dev.toFixed(1));
+            const formatted = dev.toFixed(1);
+            if (filterPrimitiveEl.getAttribute('stdDeviation') !== formatted) {
+              filterPrimitiveEl.setAttribute('stdDeviation', formatted);
+            }
           } else if (filterType === 'distortion') {
             const minScale = parseFloat(filterPrimitiveEl.dataset.minScale || 0);
             const maxScale = parseFloat(filterPrimitiveEl.dataset.maxScale || 100);
             const sc = clamp(mapVal(distance, 0, 200, minScale, maxScale), minScale, maxScale);
             if (filterPrimitiveEl.scale) {
-              filterPrimitiveEl.scale.baseVal = sc;
+              if (Math.abs(filterPrimitiveEl.scale.baseVal - sc) > 0.5) {
+                filterPrimitiveEl.scale.baseVal = sc;
+              }
             } else {
-              filterPrimitiveEl.setAttribute('scale', sc);
+              const formatted = sc.toFixed(1);
+              if (filterPrimitiveEl.getAttribute('scale') !== formatted) {
+                filterPrimitiveEl.setAttribute('scale', formatted);
+              }
             }
           }
         }
