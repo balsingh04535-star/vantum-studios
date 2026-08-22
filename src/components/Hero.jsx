@@ -25,6 +25,10 @@ export default function Hero({ onOpenInquiry }) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
+      const cornerOffset = isMobile ? '1.25rem' : '2.5rem';
+      const cornerSideOffset = isMobile ? '1.25rem' : '3rem';
+
       // 1. Letters appear in initial center-shifted positions
       tl.from('.awwwards-letter', {
         y: -30,
@@ -33,11 +37,11 @@ export default function Hero({ onOpenInquiry }) {
         ease: 'power3.inOut',
         stagger: 0.12,
       })
-        // 2. Letters move to corners, starting 1.5s into timeline
+        // 2. Letters move from center to corners, starting 1.5s into timeline
         .to(
           '.awwwards-top-left, .awwwards-top-right',
           {
-            top: '2.5rem',
+            top: cornerOffset,
             duration: 1.8,
             ease: 'power3.inOut',
           },
@@ -46,7 +50,7 @@ export default function Hero({ onOpenInquiry }) {
         .to(
           '.awwwards-bottom-right',
           {
-            bottom: '2.5rem',
+            bottom: cornerOffset,
             duration: 1.8,
             ease: 'power3.inOut',
           },
@@ -55,7 +59,7 @@ export default function Hero({ onOpenInquiry }) {
         .to(
           '.awwwards-top-left',
           {
-            left: '3rem',
+            left: cornerSideOffset,
             duration: 1.8,
             ease: 'power3.inOut',
           },
@@ -64,7 +68,7 @@ export default function Hero({ onOpenInquiry }) {
         .to(
           '.awwwards-top-right',
           {
-            right: '3rem',
+            right: cornerSideOffset,
             duration: 1.8,
             ease: 'power3.inOut',
           },
@@ -73,7 +77,7 @@ export default function Hero({ onOpenInquiry }) {
         .to(
           '.awwwards-bottom-right',
           {
-            right: '3rem',
+            right: cornerSideOffset,
             duration: 1.8,
             ease: 'power3.inOut',
           },
@@ -388,29 +392,27 @@ export default function Hero({ onOpenInquiry }) {
 
         @media (max-width: 900px) {
           .awwwards-letter {
-            font-size: clamp(3rem, 12vw, 4.5rem);
+            font-size: clamp(3.2rem, 13vw, 4.8rem);
           }
 
           .awwwards-top-left {
-            top: 1.5rem !important;
-            left: 1.5rem !important;
+            top: 36%;
+            left: 36%;
           }
 
           .awwwards-top-right {
-            top: 1.5rem !important;
-            right: 1.5rem !important;
+            top: 36%;
+            right: 36%;
           }
 
           .awwwards-bottom-right {
-            bottom: 1.5rem !important;
-            right: 1.5rem !important;
+            bottom: 36%;
+            right: 36%;
           }
 
           .awwwards-copy {
             font-size: 0.75rem;
-            flex-direction: column;
-            gap: 1rem;
-            top: 40%;
+            padding: 0 4vw;
           }
 
           .awwwards-brand-logo-svg {
