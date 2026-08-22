@@ -133,7 +133,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
 
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .agency-faq-section {
           position: relative;
           width: 100%;
@@ -362,7 +362,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
             justify-content: center;
           }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

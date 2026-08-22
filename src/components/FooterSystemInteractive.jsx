@@ -257,7 +257,7 @@ export default function FooterSystemInteractive() {
       </section>
 
       {/* ── 1:1 CSS Styles from style.css ── */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .footer-system-interactive-root {
           --base-100: #0f0f0f;
           --base-200: #e8e6df;
@@ -516,7 +516,7 @@ export default function FooterSystemInteractive() {
             font-size: 0.7rem;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

@@ -475,7 +475,7 @@ export default function AnimateSVGFullPage() {
       </main>
 
       {/* ── CSS Styles 1:1 from base.css ── */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .animate-svg-fullpage-root {
           width: 100%;
           min-height: 100vh;
@@ -758,7 +758,7 @@ export default function AnimateSVGFullPage() {
             padding: 0 !important;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

@@ -345,7 +345,7 @@ export default function SpotlightSVGPath() {
       </section>
 
       {/* ===== CSS Styles ===== */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .spotlight-component-root {
           --base-100: #0002b5;
           --base-200: #00127a;
@@ -590,7 +590,7 @@ export default function SpotlightSVGPath() {
             color: #dbe7ff;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

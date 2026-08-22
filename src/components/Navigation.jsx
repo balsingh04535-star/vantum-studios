@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import NoirMenu from './NoirMenu';
 import TransitionLink from './TransitionLink';
 
 export default function Navigation({ onOpenInquiry }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  if (router && router.pathname === '/chanan-one') {
+    return null;
+  }
 
   return (
     <>

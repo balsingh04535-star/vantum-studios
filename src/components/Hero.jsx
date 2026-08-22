@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDownRight } from 'lucide-react';
 import HeroVideoCanvas from './HeroVideoCanvas';
+import MiniDesktopEnclosure from './MiniDesktopEnclosure';
+import { useTransitionNavigate } from './TransitionProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +66,9 @@ const fragmentShader = `
 `;
 
 export default function Hero({ onOpenInquiry }) {
+  const router = useRouter();
+  const transitionTo = useTransitionNavigate();
+
   const heroRef = useRef(null);
   const heroInnerRef = useRef(null);
   const galleryRef = useRef(null);
@@ -72,8 +78,17 @@ export default function Hero({ onOpenInquiry }) {
   const titleLogoRef = useRef(null);
   const subTitleRef = useRef(null);
   const buttonRef = useRef(null);
+  const cornerWidgetRef = useRef(null);
   const rendererRef = useRef(null); // holds { renderer, scene, camera } for on-demand render
   const [seqProgress, setSeqProgress] = useState(0);
+
+  const handleEnclosureClick = () => {
+    try {
+      transitionTo('/chanan-one');
+    } catch {
+      router.push('/chanan-one');
+    }
+  };
 
   useEffect(() => {
     const spotlightImages = galleryRef.current?.querySelectorAll('.hero-spotlight-item img') || [];
@@ -83,6 +98,7 @@ export default function Hero({ onOpenInquiry }) {
     // Initial state setup: Logo & Subtitle 100% visible on load
     if (titleLogo) gsap.set(titleLogo, { opacity: 1, y: 0 });
     if (subTitle) gsap.set(subTitle, { opacity: 1, y: 0 });
+    if (cornerWidgetRef.current) gsap.set(cornerWidgetRef.current, { opacity: 1, y: 0, scale: 1 });
     if (buttonRef.current) gsap.set(buttonRef.current, { opacity: 0, y: 60 });
     if (creamOverlayRef.current) gsap.set(creamOverlayRef.current, { opacity: 0 });
     if (galleryRef.current) gsap.set(galleryRef.current, { scale: 0.78 });
@@ -208,13 +224,23 @@ export default function Hero({ onOpenInquiry }) {
       }, 0);
     }
 
-    // Hide the scroll indicator as soon as user begins scrolling
+    // Hide the scroll indicator and corner widget as soon as user begins scrolling
     if (heroFooterRef.current) {
       tl.to(heroFooterRef.current, {
         opacity: 0,
         y: 20,
         ease: 'power1.out',
         duration: 0.1
+      }, 0);
+    }
+
+    if (cornerWidgetRef.current) {
+      tl.to(cornerWidgetRef.current, {
+        opacity: 0,
+        y: 40,
+        scale: 0.9,
+        ease: 'power2.inOut',
+        duration: 0.25
       }, 0);
     }
 
@@ -410,6 +436,22 @@ export default function Hero({ onOpenInquiry }) {
             >
               An archive of the unreal
             </h2>
+          </div>
+
+          {/* Bottom Left Corner 3D Enclosure */}
+          <div
+            ref={cornerWidgetRef}
+            className="hero-corner-3d-enclosure"
+            onClick={handleEnclosureClick}
+            role="button"
+            tabIndex={0}
+            aria-label="Explore Chanan One"
+          >
+            <MiniDesktopEnclosure onClick={handleEnclosureClick} />
+            <div className="hero-3d-hint-pill">
+              <span>CHANAN ONE</span>
+              <span className="hero-3d-hint-arrow">↗</span>
+            </div>
           </div>
 
           {/* WebGL Dissolve Shader Canvas Overlay */}

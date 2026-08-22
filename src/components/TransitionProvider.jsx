@@ -24,6 +24,7 @@ export const PAGE_LABELS = {
   '/branding':              'Brand Identity',
   '/3d-product-animation':  '3D & CGI',
   '/motion-design':         'Motion Design',
+  '/chanan-one':            'Chanan One',
   '/about':                 'About Chanan',
   '/contact':               'Direct Line',
 };
