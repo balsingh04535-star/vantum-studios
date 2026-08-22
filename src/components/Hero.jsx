@@ -141,7 +141,7 @@ export default function Hero({ onOpenInquiry }) {
         className="awwwards-hero-video"
       >
         <source
-          src="https://videos.pexels.com/video-files/3403228/3403228-uhd_2732_1440_25fps.mp4"
+          src="/hero-bg.mp4"
           type="video/mp4"
         />
       </video>
