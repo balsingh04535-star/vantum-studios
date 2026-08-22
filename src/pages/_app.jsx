@@ -8,12 +8,19 @@ import '../index.css';
 
 // Client-only components — use window/canvas/Lenis
 const SmoothScroll = dynamic(() => import('../components/SmoothScroll'), { ssr: false });
+const GlitchPreloader = dynamic(() => import('../components/GlitchPreloader'), { ssr: false });
 
 export default function App({ Component, pageProps }) {
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [preloaderDone, setPreloaderDone] = useState(false);
 
   return (
     <TransitionProvider>
+      {/* Glitch preloader — only on first load */}
+      {!preloaderDone && (
+        <GlitchPreloader onComplete={() => setPreloaderDone(true)} />
+      )}
+
       <SmoothScroll isLoading={false}>
         <Navigation onOpenInquiry={() => setIsInquiryOpen(true)} />
         <LuxuryScrollIndicator />
@@ -26,4 +33,5 @@ export default function App({ Component, pageProps }) {
     </TransitionProvider>
   );
 }
+
 
