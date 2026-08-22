@@ -1092,11 +1092,7 @@ export default function ChananOnePage({ onOpenInquiry }) {
 
         @media (max-width: 768px) {
           .chanan-mediums-section {
-            padding: 3rem 1.5rem 4.5rem 1.5rem;
-          }
-
-          .chanan-mediums-card {
-            border-radius: 16px;
+            display: none !important;
           }
         }
 
