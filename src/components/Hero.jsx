@@ -350,12 +350,11 @@ export default function Hero({ onOpenInquiry }) {
         }
 
         .awwwards-brand-logo-svg {
-          max-width: min(85vw, 680px);
-          max-height: 32vh;
-          width: auto;
+          width: clamp(380px, 48vw, 780px);
+          max-height: 40vh;
           height: auto;
           object-fit: contain;
-          filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.7));
+          filter: drop-shadow(0 6px 35px rgba(0, 0, 0, 0.75));
           user-select: none;
         }
 
@@ -366,7 +365,7 @@ export default function Hero({ onOpenInquiry }) {
           font-style: italic;
           letter-spacing: 0.04em;
           color: #fff8ed;
-          margin: 0.75rem 0 0 0;
+          margin: 0.25rem 0 0 0;
           text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
@@ -416,8 +415,8 @@ export default function Hero({ onOpenInquiry }) {
           }
 
           .awwwards-brand-logo-svg {
-            max-width: 82vw;
-            max-height: 22vh;
+            width: clamp(280px, 78vw, 420px);
+            max-height: 30vh;
           }
         }
       `}</style>
