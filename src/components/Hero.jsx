@@ -1,84 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDownRight } from 'lucide-react';
 import MiniDesktopEnclosure from './MiniDesktopEnclosure';
 import { useTransitionNavigate } from './TransitionProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const vertexShader = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  uniform float uProgress;
-  uniform vec2 uResolution;
-  uniform vec3 uColor;
-  uniform float uSpread;
-  varying vec2 vUv;
-
-  float Hash(vec2 p) {
-    vec3 p2 = vec3(p.xy, 1.0);
-    return fract(sin(dot(p2, vec3(37.1, 61.7, 12.4))) * 3758.5453123);
-  }
-
-  float noise(in vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f *= f * (3.0 - 2.0 * f);
-    return mix(
-      mix(Hash(i + vec2(0.0, 0.0)), Hash(i + vec2(1.0, 0.0)), f.x),
-      mix(Hash(i + vec2(0.0, 1.0)), Hash(i + vec2(1.0, 1.0)), f.x),
-      f.y
-    );
-  }
-
-  float fbm(vec2 p) {
-    float v = 0.0;
-    v += noise(p * 1.0) * 0.5;
-    v += noise(p * 2.0) * 0.25;
-    v += noise(p * 4.0) * 0.125;
-    return v;
-  }
-
-  void main() {
-    vec2 uv = vUv;
-    float aspect = uResolution.x / uResolution.y;
-    vec2 centeredUv = (uv - 0.5) * vec2(aspect, 1.0);
-    
-    float dissolveEdge = uv.y - uProgress * 1.2;
-    float noiseValue = fbm(centeredUv * 15.0);
-    float d = dissolveEdge + noiseValue * uSpread;
-    
-    float pixelSize = 1.0 / uResolution.y;
-    float alpha = 1.0 - smoothstep(-pixelSize, pixelSize, d);
-    
-    gl_FragColor = vec4(uColor, alpha);
-  }
-`;
-
 export default function Hero({ onOpenInquiry }) {
   const router = useRouter();
   const transitionTo = useTransitionNavigate();
-
   const heroRef = useRef(null);
-  const heroInnerRef = useRef(null);
-  const galleryRef = useRef(null);
-  const canvasRef = useRef(null);
-  const creamOverlayRef = useRef(null);
-  const heroFooterRef = useRef(null);
-  const titleLogoRef = useRef(null);
-  const subTitleRef = useRef(null);
-  const buttonRef = useRef(null);
-  const cornerWidgetRef = useRef(null);
-  const rendererRef = useRef(null); // holds { renderer, scene, camera } for on-demand render
+  const videoRef = useRef(null);
 
   const handleEnclosureClick = () => {
     try {
@@ -89,364 +22,401 @@ export default function Hero({ onOpenInquiry }) {
   };
 
   useEffect(() => {
-    const spotlightImages = galleryRef.current?.querySelectorAll('.hero-spotlight-item img') || [];
-    const titleLogo = titleLogoRef.current;
-    const subTitle = subTitleRef.current;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-    // Initial state setup: Logo & Subtitle 100% visible on load
-    if (titleLogo) gsap.set(titleLogo, { opacity: 1, y: 0 });
-    if (subTitle) gsap.set(subTitle, { opacity: 1, y: 0 });
-    if (cornerWidgetRef.current) gsap.set(cornerWidgetRef.current, { opacity: 1, y: 0, scale: 1 });
-    if (buttonRef.current) gsap.set(buttonRef.current, { opacity: 0, y: 60 });
-    if (creamOverlayRef.current) gsap.set(creamOverlayRef.current, { opacity: 0 });
-    if (galleryRef.current) gsap.set(galleryRef.current, { scale: 0.78 });
-    if (spotlightImages.length > 0) gsap.set(spotlightImages, { scale: 1.25 });
-
-    // Initialize Three.js WebGL Dissolve Canvas
-    const canvas = canvasRef.current;
-    const heroEl = heroRef.current;
-
-    let renderer, material, scene, camera, animationFrameId;
-
-    if (canvas && heroEl) {
-      scene = new THREE.Scene();
-      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-      renderer = new THREE.WebGLRenderer({
-        canvas,
-        alpha: true,
-        antialias: false,
-      });
-
-      const hexToRgb = (hex) => {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result
-          ? {
-              r: parseInt(result[1], 16) / 255,
-              g: parseInt(result[2], 16) / 255,
-              b: parseInt(result[3], 16) / 255,
-            }
-          : { r: 0.749, g: 0.843, b: 1.0 };
-      };
-
-      const rgb = hexToRgb('#0002b5');
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      material = new THREE.ShaderMaterial({
-        vertexShader,
-        fragmentShader,
-        uniforms: {
-          uProgress: { value: 0 },
-          uResolution: {
-            value: new THREE.Vector2(heroEl.offsetWidth, heroEl.offsetHeight),
+      // 1. Letters appear in initial center-shifted positions
+      tl.from('.awwwards-letter', {
+        y: -30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.inOut',
+        stagger: 0.12,
+      })
+        // 2. Letters move to corners, starting 1.5s into timeline
+        .to(
+          '.awwwards-top-left, .awwwards-top-right',
+          {
+            top: '2.5rem',
+            duration: 1.8,
+            ease: 'power3.inOut',
           },
-          uColor: { value: new THREE.Vector3(rgb.r, rgb.g, rgb.b) },
-          uSpread: { value: 0.5 },
-        },
-        transparent: true,
-      });
+          1.5
+        )
+        .to(
+          '.awwwards-bottom-right',
+          {
+            bottom: '2.5rem',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          '<'
+        )
+        .to(
+          '.awwwards-top-left',
+          {
+            left: '3rem',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          '<'
+        )
+        .to(
+          '.awwwards-top-right',
+          {
+            right: '3rem',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          '<'
+        )
+        .to(
+          '.awwwards-bottom-right',
+          {
+            right: '3rem',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          '<'
+        )
+        // 3. White split curtain blocks slide away, revealing video underneath
+        .to(
+          '.awwwards-block-left',
+          {
+            left: '-50%',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          3.2
+        )
+        .to(
+          '.awwwards-block-right',
+          {
+            right: '-50%',
+            duration: 1.8,
+            ease: 'power3.inOut',
+          },
+          '<'
+        )
+        // 4. Hero copy & interactive cues fade in
+        .from(
+          '.awwwards-copy',
+          {
+            opacity: 0,
+            y: 20,
+            duration: 1.2,
+            ease: 'power2.out',
+          },
+          3.5
+        )
+        .from(
+          '.awwwards-center-brand, .hero-corner-3d-enclosure, .awwwards-scroll-hint',
+          {
+            opacity: 0,
+            scale: 0.95,
+            duration: 1.2,
+            stagger: 0.15,
+            ease: 'power3.out',
+          },
+          3.8
+        );
+    }, heroRef);
 
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-
-      const resizeWebGL = () => {
-        if (!heroEl || !renderer) return;
-        const width = heroEl.offsetWidth;
-        const height = heroEl.offsetHeight;
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        material.uniforms.uResolution.value.set(width, height);
-        // Re-render after resize since we no longer have a continuous loop
-        renderer.render(scene, camera);
-      };
-
-      resizeWebGL();
-      window.addEventListener('resize', resizeWebGL);
-
-      // Render once on mount — no continuous loop needed since uTime isn't used
-      // GSAP will update uProgress and trigger a re-render via the onUpdate callback below
-      renderer.render(scene, camera);
-
-      // Store a render function so GSAP's onUpdate can trigger re-renders on demand
-      rendererRef.current = { renderer, scene, camera };
-    }
-
-    // Extended 4.5x Viewport Scroll Runway
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: 'top top',
-        end: `+=${window.innerHeight * 4.5}px`,
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-        anticipatePin: 1,
-        refreshPriority: 2,
-        onUpdate: (self) => {
-          // Render the WebGL canvas on-demand instead of via a continuous RAF loop
-          if (rendererRef.current) {
-            const { renderer, scene, camera } = rendererRef.current;
-            renderer.render(scene, camera);
-          }
-        },
-        onLeave: () => {
-          if (renderer) renderer.setClearColor(new THREE.Color('#0002b5'), 1);
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
-          if (creamOverlayRef.current) creamOverlayRef.current.style.opacity = '1';
-        },
-        onEnterBack: () => {
-          if (heroRef.current) heroRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
-          if (heroInnerRef.current) heroInnerRef.current.style.backgroundColor = 'var(--bg-cream, #0002b5)';
-        }
-      }
-    });
-
-    // --- STAGE 1: As user scrolls, Hero Logo & Subtitle move up and out (0.0 -> 0.25) ---
-    if (titleLogoRef.current) {
-      tl.to(titleLogoRef.current, {
-        y: -140,
-        opacity: 0,
-        scale: 0.9,
-        ease: 'power2.inOut',
-        duration: 0.25
-      }, 0);
-    }
-
-    if (subTitleRef.current) {
-      tl.to(subTitleRef.current, {
-        y: -90,
-        opacity: 0,
-        scale: 0.9,
-        ease: 'power2.inOut',
-        duration: 0.25
-      }, 0);
-    }
-
-    // Hide the scroll indicator and corner widget as soon as user begins scrolling
-    if (heroFooterRef.current) {
-      tl.to(heroFooterRef.current, {
-        opacity: 0,
-        y: 20,
-        ease: 'power1.out',
-        duration: 0.1
-      }, 0);
-    }
-
-    if (cornerWidgetRef.current) {
-      tl.to(cornerWidgetRef.current, {
-        opacity: 0,
-        y: 40,
-        scale: 0.9,
-        ease: 'power2.inOut',
-        duration: 0.25
-      }, 0);
-    }
-
-    // --- STAGE 2: 3x3 Grid Zoom-Out Reveal (0.25 -> 0.75) ---
-    if (galleryRef.current) {
-      tl.to(galleryRef.current, {
-        scale: 1.0,
-        opacity: 1,
-        ease: 'power2.inOut',
-        duration: 0.5
-      }, 0.25);
-    }
-
-    // Fade out outer columns slightly before the cream dissolve hits
-    const cols = galleryRef.current ? galleryRef.current.querySelectorAll('.hero-spotlight-col') : [];
-    if (cols.length >= 3) {
-      tl.to([cols[0], cols[2]], {
-        opacity: 0.4,
-        ease: 'power1.inOut',
-        duration: 0.25
-      }, 0);
-    }
-
-    // --- STAGE 3: WebGL Liquid Noise Dissolve (0.75 -> 1.0) ---
-    if (material) {
-      tl.to(material.uniforms.uProgress, {
-        value: 3.0,
-        ease: 'power1.inOut',
-        duration: 0.25
-      }, 0.75);
-    }
-
-    const clearObj = { r: 0.0, g: 0.05, b: 0.35, a: 0 };
-    tl.to(clearObj, {
-      r: 0.0,
-      g: 0.008,
-      b: 0.71,
-      a: 1,
-      ease: 'power1.inOut',
-      duration: 0.25,
-      onUpdate: () => {
-        if (renderer) {
-          renderer.setClearColor(
-            new THREE.Color(clearObj.r, clearObj.g, clearObj.b),
-            clearObj.a
-          );
-        }
-      }
-    }, 0.75);
-
-    if (creamOverlayRef.current) {
-      tl.to(creamOverlayRef.current, {
-        opacity: 1,
-        ease: 'power1.inOut',
-        duration: 0.25
-      }, 0.75);
-    }
-
-    if (heroInnerRef.current) {
-      tl.to(heroInnerRef.current, {
-        backgroundColor: '#0002b5',
-        ease: 'power1.inOut',
-        duration: 0.25
-      }, 0.75);
-    }
-
-    return () => {
-      tl.kill();
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      if (renderer) renderer.dispose();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      <section className="hero-section" ref={heroRef}>
-        <div className="hero-inner" ref={heroInnerRef}>
-          {/* Solid Light Blue Overlay for seamless transition */}
-          <div
-            ref={creamOverlayRef}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundColor: 'var(--bg-cream, #bfd7ff)',
-              opacity: 0,
-              zIndex: 24,
-              pointerEvents: 'none'
-            }}
-          />
+    <section id="hero" ref={heroRef} className="awwwards-hero-container">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        muted
+        loop
+        className="awwwards-hero-video"
+      >
+        <source
+          src="https://videos.pexels.com/video-files/3403228/3403228-uhd_2732_1440_25fps.mp4"
+          type="video/mp4"
+        />
+      </video>
 
-          {/* 3x3 Spotlight Gallery Grid */}
-          <div className="hero-spotlight-gallery" ref={galleryRef}>
-            <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/grid-new-1.png" alt="Chanan interactive product experience" /></div>
-              <div className="hero-spotlight-item"><img src="/img2.jpg" alt="Chanan 3D spatial visual" /></div>
-              <div className="hero-spotlight-item"><img src="/img3.jpg" alt="Chanan orbital interface design" /></div>
-            </div>
-            <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Chanan luxury digital flagship" /></div>
-              <div className="hero-spotlight-item" style={{ position: 'relative' }}>
-                <img src="/hero-sequence/frame_0001.webp" alt="Chanan creative visual" />
+      {/* Hero Ambient Video Overlay Tint */}
+      <div className="awwwards-video-tint" />
 
-                {/* Centered Shimmer Shine SCROLL TO EXPLORE Text at Bottom of Main Center Grid Card */}
-                <div
-                  ref={heroFooterRef}
-                  style={{
-                    position: 'absolute',
-                    bottom: '1.2rem',
-                    left: 0,
-                    right: 0,
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    boxSizing: 'border-box',
-                    zIndex: 10,
-                    pointerEvents: 'none',
-                    fontFamily: '"Outfit", "Plus Jakarta Sans", sans-serif',
-                    fontSize: 'clamp(0.6rem, 0.95vw, 0.8rem)',
-                    fontWeight: 500,
-                    letterSpacing: '0.14em',
-                    textTransform: 'uppercase',
-                    textAlign: 'center',
-                    textShadow: '0 2px 10px rgba(0,0,0,0.8)'
-                  }}
-                >
-                  <span className="shine-sweep-text">
-                    SCROLL TO EXPLORE ↓
-                  </span>
-                </div>
-              </div>
-              <div className="hero-spotlight-item"><img src="/img6.jpg" alt="Chanan kinetic UI dashboard" /></div>
-            </div>
-            <div className="hero-spotlight-col">
-              <div className="hero-spotlight-item"><img src="/img7.jpg" alt="Chanan brand identity showcase" /></div>
-              <div className="hero-spotlight-item"><img src="/img8.jpg" alt="Chanan 3D telemetry simulation" /></div>
-              <div className="hero-spotlight-item"><img src="/grid-new-2.png" alt="Chanan digital design system" /></div>
-            </div>
-          </div>
-
-          {/* Center Hero Title & Subtitle Stack */}
-          <div className="hero-title-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            {/* Chanan SVG Logo */}
-            <div
-              ref={titleLogoRef}
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                pointerEvents: 'auto'
-              }}
-            >
-              <img
-                src="/hero-logo.svg"
-                alt="Chanan"
-                style={{
-                  maxWidth: 'min(85vw, 750px)',
-                  maxHeight: '38vh',
-                  width: 'auto',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.7))'
-                }}
-              />
-            </div>
-
-            {/* Subtitle directly beneath Chanan logo in warm ivory cream */}
-            <h2
-              ref={subTitleRef}
-              style={{
-                fontFamily: '"Cormorant Garamond", "Garamond", "Georgia", serif',
-                fontSize: 'clamp(1.1rem, 2.2vw, 2.2rem)',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                letterSpacing: '0.04em',
-                color: '#fff8ed',
-                margin: '0.6rem 0 0 0',
-                textAlign: 'center',
-                lineHeight: 1.2,
-                pointerEvents: 'auto',
-                textShadow: '0 4px 20px rgba(0,0,0,0.8)'
-              }}
-            >
-              An archive of the unreal
-            </h2>
-          </div>
-
-          {/* Bottom Left Corner 3D Enclosure */}
-          <div
-            ref={cornerWidgetRef}
-            className="hero-corner-3d-enclosure"
-            onClick={handleEnclosureClick}
-            role="button"
-            tabIndex={0}
-            aria-label="Explore Chanan One"
-          >
-            <MiniDesktopEnclosure onClick={handleEnclosureClick} />
-            <div className="hero-3d-hint-pill">
-              <span>CHANAN ONE</span>
-              <span className="hero-3d-hint-arrow">↗</span>
-            </div>
-          </div>
-
-          {/* WebGL Dissolve Shader Canvas Overlay */}
-          <canvas className="hero-canvas" ref={canvasRef}></canvas>
+      <div className="awwwards-wrapper">
+        {/* Ambient Top Copy Metadata */}
+        <div className="awwwards-copy">
+          <p>
+            LDN 51.5°, <br /> NYC 40.7°
+          </p>
+          <p className="awwwards-agency-name">CHANAN CREATIVE STUDIO</p>
+          <p>
+            ENTER <br /> UNIVERSE®
+          </p>
         </div>
-      </section>
-    </>
+
+        {/* Split Opening Curtain Blocks */}
+        <div className="awwwards-blocks">
+          <div className="awwwards-block awwwards-block-left" />
+          <div className="awwwards-block awwwards-block-right" />
+        </div>
+
+        {/* Kinetic Corner Letters with mix-blend-mode difference */}
+        <div className="awwwards-letters">
+          <div className="awwwards-row">
+            <div className="awwwards-letter awwwards-top-left">C</div>
+            <div className="awwwards-letter awwwards-top-right">H</div>
+          </div>
+          <div className="awwwards-row">
+            <div className="awwwards-letter awwwards-bottom-right">01</div>
+          </div>
+        </div>
+
+        {/* Center Hero Brand Reveal */}
+        <div className="awwwards-center-brand">
+          <h1 className="awwwards-brand-title">CHANAN</h1>
+          <p className="awwwards-brand-subtitle">An archive of the unreal</p>
+        </div>
+
+        {/* Bottom Left Corner 3D Enclosure Portal */}
+        <div
+          className="hero-corner-3d-enclosure"
+          onClick={handleEnclosureClick}
+          role="button"
+          tabIndex={0}
+          aria-label="Explore Chanan One"
+        >
+          <MiniDesktopEnclosure onClick={handleEnclosureClick} />
+          <div className="hero-3d-hint-pill">
+            <span>CHANAN ONE</span>
+            <span className="hero-3d-hint-arrow">↗</span>
+          </div>
+        </div>
+
+        {/* Bottom Scroll Explore Cue */}
+        <div className="awwwards-scroll-hint">
+          <span className="awwwards-scroll-text">SCROLL TO EXPLORE ↓</span>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .awwwards-hero-container {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          background: #0002b5;
+          font-family: var(--font-heading, "Outfit", sans-serif);
+        }
+
+        .awwwards-hero-video {
+          width: 100vw;
+          height: 100vh;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+
+        .awwwards-video-tint {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            circle at center,
+            rgba(0, 2, 181, 0.25) 0%,
+            rgba(2, 11, 77, 0.65) 100%
+          );
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .awwwards-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          z-index: 5;
+        }
+
+        .awwwards-copy {
+          position: absolute;
+          top: 45%;
+          transform: translateY(-50%);
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          color: #ffffff;
+          text-transform: uppercase;
+          font-size: clamp(0.75rem, 1.2vw, 1.1rem);
+          letter-spacing: 0.12em;
+          font-weight: 600;
+          z-index: 4;
+          padding: 0 4vw;
+          box-sizing: border-box;
+          pointer-events: none;
+          text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+        }
+
+        .awwwards-agency-name {
+          letter-spacing: 0.25em;
+          font-weight: 700;
+        }
+
+        .awwwards-blocks {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100vh;
+          z-index: 10;
+          pointer-events: none;
+        }
+
+        .awwwards-block {
+          position: absolute;
+          top: 0;
+          width: 50%;
+          height: 100vh;
+          background: #f1f0ee;
+        }
+
+        .awwwards-block-left {
+          left: 0;
+        }
+
+        .awwwards-block-right {
+          right: 0;
+        }
+
+        .awwwards-letters {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100vh;
+          z-index: 20;
+          pointer-events: none;
+        }
+
+        .awwwards-letter {
+          position: absolute;
+          font-family: var(--font-heading, "Outfit", sans-serif);
+          font-size: clamp(4rem, 10vw, 10rem);
+          font-weight: 900;
+          color: #ffffff;
+          mix-blend-mode: difference;
+          line-height: 1;
+          user-select: none;
+          z-index: 30;
+          letter-spacing: -0.04em;
+        }
+
+        .awwwards-row {
+          width: 100%;
+          height: 50vh;
+          position: relative;
+        }
+
+        .awwwards-top-left {
+          top: 32%;
+          left: 42%;
+        }
+
+        .awwwards-top-right {
+          top: 32%;
+          right: 42%;
+        }
+
+        .awwwards-bottom-right {
+          bottom: 32%;
+          right: 42%;
+        }
+
+        .awwwards-center-brand {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          z-index: 6;
+          pointer-events: none;
+        }
+
+        .awwwards-brand-title {
+          font-family: var(--font-heading, "Outfit", sans-serif);
+          font-size: clamp(3.5rem, 9vw, 9.5rem);
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          line-height: 0.95;
+          color: #ffffff;
+          margin: 0;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .awwwards-brand-subtitle {
+          font-family: "Cormorant Garamond", "Garamond", serif;
+          font-size: clamp(1.2rem, 2.4vw, 2.4rem);
+          font-weight: 300;
+          font-style: italic;
+          letter-spacing: 0.04em;
+          color: #fff8ed;
+          margin: 0.75rem 0 0 0;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .awwwards-scroll-hint {
+          position: absolute;
+          bottom: 2.2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 6;
+          pointer-events: none;
+        }
+
+        .awwwards-scroll-text {
+          font-family: var(--font-heading, "Outfit", sans-serif);
+          font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #ffffff;
+          opacity: 0.9;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 900px) {
+          .awwwards-letter {
+            font-size: clamp(3rem, 12vw, 4.5rem);
+          }
+
+          .awwwards-top-left {
+            top: 1.5rem !important;
+            left: 1.5rem !important;
+          }
+
+          .awwwards-top-right {
+            top: 1.5rem !important;
+            right: 1.5rem !important;
+          }
+
+          .awwwards-bottom-right {
+            bottom: 1.5rem !important;
+            right: 1.5rem !important;
+          }
+
+          .awwwards-copy {
+            font-size: 0.75rem;
+            flex-direction: column;
+            gap: 1rem;
+            top: 40%;
+          }
+        }
+      `}</style>
+    </section>
   );
 }
-
