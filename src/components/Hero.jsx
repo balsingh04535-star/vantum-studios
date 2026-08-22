@@ -79,7 +79,7 @@ export default function Hero({ onOpenInquiry }) {
           },
           '<'
         )
-        // 3. White split curtain blocks slide away, revealing video underneath
+        // 3. Blue split curtain blocks slide away, revealing video underneath
         .to(
           '.awwwards-block-left',
           {
@@ -151,19 +151,18 @@ export default function Hero({ onOpenInquiry }) {
           <p>
             LDN 51.5°, <br /> NYC 40.7°
           </p>
-          <p className="awwwards-agency-name">CHANAN CREATIVE STUDIO</p>
           <p>
             ENTER <br /> UNIVERSE®
           </p>
         </div>
 
-        {/* Split Opening Curtain Blocks */}
+        {/* Split Opening Curtain Blocks (Rich Blue) */}
         <div className="awwwards-blocks">
           <div className="awwwards-block awwwards-block-left" />
           <div className="awwwards-block awwwards-block-right" />
         </div>
 
-        {/* Kinetic Corner Letters with mix-blend-mode difference */}
+        {/* Kinetic Corner Letters (Light Blue) */}
         <div className="awwwards-letters">
           <div className="awwwards-row">
             <div className="awwwards-letter awwwards-top-left">C</div>
@@ -174,9 +173,13 @@ export default function Hero({ onOpenInquiry }) {
           </div>
         </div>
 
-        {/* Center Hero Brand Reveal */}
+        {/* Center Hero Brand Reveal with SVG Logo */}
         <div className="awwwards-center-brand">
-          <h1 className="awwwards-brand-title">CHANAN</h1>
+          <img
+            src="/hero-logo.svg"
+            alt="Chanan"
+            className="awwwards-brand-logo-svg"
+          />
           <p className="awwwards-brand-subtitle">An archive of the unreal</p>
         </div>
 
@@ -242,27 +245,22 @@ export default function Hero({ onOpenInquiry }) {
 
         .awwwards-copy {
           position: absolute;
-          top: 45%;
+          top: 50%;
           transform: translateY(-50%);
           width: 100%;
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           align-items: center;
-          color: #ffffff;
+          color: #dbe7ff;
           text-transform: uppercase;
           font-size: clamp(0.75rem, 1.2vw, 1.1rem);
           letter-spacing: 0.12em;
           font-weight: 600;
           z-index: 4;
-          padding: 0 4vw;
+          padding: 0 5vw;
           box-sizing: border-box;
           pointer-events: none;
           text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
-        }
-
-        .awwwards-agency-name {
-          letter-spacing: 0.25em;
-          font-weight: 700;
         }
 
         .awwwards-blocks {
@@ -279,7 +277,7 @@ export default function Hero({ onOpenInquiry }) {
           top: 0;
           width: 50%;
           height: 100vh;
-          background: #f1f0ee;
+          background: #0002b5;
         }
 
         .awwwards-block-left {
@@ -304,12 +302,12 @@ export default function Hero({ onOpenInquiry }) {
           font-family: var(--font-heading, "Outfit", sans-serif);
           font-size: clamp(4rem, 10vw, 10rem);
           font-weight: 900;
-          color: #ffffff;
-          mix-blend-mode: difference;
+          color: #bfd7ff;
           line-height: 1;
           user-select: none;
           z-index: 30;
           letter-spacing: -0.04em;
+          text-shadow: 0 4px 25px rgba(0, 2, 181, 0.5);
         }
 
         .awwwards-row {
@@ -347,15 +345,14 @@ export default function Hero({ onOpenInquiry }) {
           pointer-events: none;
         }
 
-        .awwwards-brand-title {
-          font-family: var(--font-heading, "Outfit", sans-serif);
-          font-size: clamp(3.5rem, 9vw, 9.5rem);
-          font-weight: 900;
-          letter-spacing: -0.04em;
-          line-height: 0.95;
-          color: #ffffff;
-          margin: 0;
-          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+        .awwwards-brand-logo-svg {
+          max-width: min(85vw, 680px);
+          max-height: 32vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.7));
+          user-select: none;
         }
 
         .awwwards-brand-subtitle {
@@ -414,6 +411,11 @@ export default function Hero({ onOpenInquiry }) {
             flex-direction: column;
             gap: 1rem;
             top: 40%;
+          }
+
+          .awwwards-brand-logo-svg {
+            max-width: 82vw;
+            max-height: 22vh;
           }
         }
       `}</style>
