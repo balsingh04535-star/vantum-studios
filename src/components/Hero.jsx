@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDownRight } from 'lucide-react';
-import HeroVideoCanvas from './HeroVideoCanvas';
 import MiniDesktopEnclosure from './MiniDesktopEnclosure';
 import { useTransitionNavigate } from './TransitionProvider';
 
@@ -80,7 +79,6 @@ export default function Hero({ onOpenInquiry }) {
   const buttonRef = useRef(null);
   const cornerWidgetRef = useRef(null);
   const rendererRef = useRef(null); // holds { renderer, scene, camera } for on-demand render
-  const [seqProgress, setSeqProgress] = useState(0);
 
   const handleEnclosureClick = () => {
     try {
@@ -183,7 +181,6 @@ export default function Hero({ onOpenInquiry }) {
         anticipatePin: 1,
         refreshPriority: 2,
         onUpdate: (self) => {
-          setSeqProgress(self.progress);
           // Render the WebGL canvas on-demand instead of via a continuous RAF loop
           if (rendererRef.current) {
             const { renderer, scene, camera } = rendererRef.current;
@@ -341,16 +338,7 @@ export default function Hero({ onOpenInquiry }) {
             <div className="hero-spotlight-col">
               <div className="hero-spotlight-item"><img src="/img4.jpg" alt="Chanan luxury digital flagship" /></div>
               <div className="hero-spotlight-item" style={{ position: 'relative' }}>
-                <div className="hero-canvas-seq">
-                  <HeroVideoCanvas
-                    scrollProgress={seqProgress}
-                    folder="hero-sequence"
-                    mobileFolder="hero-sequence-mobile"
-                    frameCount={201}
-                    width={1280}
-                    height={720}
-                  />
-                </div>
+                <img src="/hero-sequence/frame_0001.webp" alt="Chanan creative visual" />
 
                 {/* Centered Shimmer Shine SCROLL TO EXPLORE Text at Bottom of Main Center Grid Card */}
                 <div
