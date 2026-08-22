@@ -102,27 +102,17 @@ export default function Hero({ onOpenInquiry }) {
           },
           '<'
         )
-        // 4. Hero copy & interactive cues fade in
-        .from(
-          '.awwwards-copy',
-          {
-            opacity: 0,
-            y: 20,
-            duration: 1.2,
-            ease: 'power2.out',
-          },
-          3.5
-        )
+        // 4. Hero brand & interactive cues fade in
         .from(
           '.awwwards-center-brand, .hero-corner-3d-enclosure, .awwwards-scroll-hint',
           {
             opacity: 0,
             scale: 0.95,
-            duration: 1.2,
+            duration: 1.3,
             stagger: 0.15,
             ease: 'power3.out',
           },
-          3.8
+          3.4
         );
     }, heroRef);
 
@@ -150,16 +140,6 @@ export default function Hero({ onOpenInquiry }) {
       <div className="awwwards-video-tint" />
 
       <div className="awwwards-wrapper">
-        {/* Ambient Top Copy Metadata */}
-        <div className="awwwards-copy">
-          <p>
-            LDN 51.5°, <br /> NYC 40.7°
-          </p>
-          <p>
-            ENTER <br /> UNIVERSE®
-          </p>
-        </div>
-
         {/* Split Opening Curtain Blocks (Rich Blue) */}
         <div className="awwwards-blocks">
           <div className="awwwards-block awwwards-block-left" />
@@ -247,26 +227,6 @@ export default function Hero({ onOpenInquiry }) {
           z-index: 5;
         }
 
-        .awwwards-copy {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: #dbe7ff;
-          text-transform: uppercase;
-          font-size: clamp(0.75rem, 1.2vw, 1.1rem);
-          letter-spacing: 0.12em;
-          font-weight: 600;
-          z-index: 4;
-          padding: 0 5vw;
-          box-sizing: border-box;
-          pointer-events: none;
-          text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
-        }
-
         .awwwards-blocks {
           position: absolute;
           inset: 0;
@@ -347,25 +307,29 @@ export default function Hero({ onOpenInquiry }) {
           text-align: center;
           z-index: 6;
           pointer-events: none;
+          width: 100%;
+          max-width: 1200px;
+          padding: 0 1.5rem;
+          box-sizing: border-box;
         }
 
         .awwwards-brand-logo-svg {
-          width: clamp(380px, 48vw, 780px);
-          max-height: 40vh;
+          width: clamp(480px, 64vw, 1000px);
+          max-height: 52vh;
           height: auto;
           object-fit: contain;
-          filter: drop-shadow(0 6px 35px rgba(0, 0, 0, 0.75));
+          filter: drop-shadow(0 8px 40px rgba(0, 0, 0, 0.85));
           user-select: none;
         }
 
         .awwwards-brand-subtitle {
           font-family: "Cormorant Garamond", "Garamond", serif;
-          font-size: clamp(1.2rem, 2.4vw, 2.4rem);
+          font-size: clamp(1.3rem, 2.6vw, 2.6rem);
           font-weight: 300;
           font-style: italic;
           letter-spacing: 0.04em;
           color: #fff8ed;
-          margin: 0.25rem 0 0 0;
+          margin: 0.5rem 0 0 0;
           text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
@@ -409,14 +373,13 @@ export default function Hero({ onOpenInquiry }) {
             right: 36%;
           }
 
-          .awwwards-copy {
-            font-size: 0.75rem;
-            padding: 0 4vw;
+          .awwwards-brand-logo-svg {
+            width: clamp(320px, 88vw, 560px);
+            max-height: 42vh;
           }
 
-          .awwwards-brand-logo-svg {
-            width: clamp(280px, 78vw, 420px);
-            max-height: 30vh;
+          .awwwards-brand-subtitle {
+            font-size: clamp(1.1rem, 4.2vw, 1.4rem);
           }
         }
       `}</style>
