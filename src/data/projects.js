@@ -38,7 +38,7 @@ export const projects = [
       '3D Product Visuals',
       'Design System & Guidelines'
     ],
-    gallery: ['/work/nebbi-ai.jpg', '/grid-photos/grid10.png', '/grid-photos/grid9.png'],
+    gallery: ['/work/nebbi-ai-1.jpg', '/work/nebbi-ai-2.jpg', '/work/nebbi-ai-3.jpg'],
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Web Design', path: '/web-design' },
@@ -78,7 +78,7 @@ export const projects = [
       'Concept Brand Identity',
       'Launch Visual System'
     ],
-    gallery: ['/work/drift.jpg', '/showcase-extra-1.png', '/grid-photos/grid2.png'],
+    gallery: ['/work/drift-1.jpg', '/work/drift-2.jpg', '/work/drift-3.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Motion Design', path: '/motion-design' },
@@ -118,7 +118,7 @@ export const projects = [
       'Brand Identity & Palette',
       'Launch Web Design'
     ],
-    gallery: ['/work/codevantum.jpg', '/grid-photos/grid10.png', '/grid-photos/grid5.png'],
+    gallery: ['/work/codevantum-1.jpg', '/work/codevantum-2.jpg', '/work/codevantum-3.jpg'],
     relatedServices: [
       { name: 'Motion Design', path: '/motion-design' },
       { name: 'Branding', path: '/branding' },
@@ -158,7 +158,7 @@ export const projects = [
       'Packaging & Garment Labelling',
       'Launch Campaign Assets'
     ],
-    gallery: ['/work/tee-bloc.jpg', '/work/work1.jpg', '/untitled-design-7.png'],
+    gallery: ['/work/tee-bloc-1.jpg', '/work/tee-bloc-2.jpg', '/work/tee-bloc-3.jpg'],
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Web Design', path: '/web-design' },
@@ -198,7 +198,7 @@ export const projects = [
       'Macro Still Library',
       'Launch Motion Assets'
     ],
-    gallery: ['/work/flava.jpg', '/showcase-extra-1.png', '/grid-photos/grid2.png'],
+    gallery: ['/work/flava-1.jpg', '/work/flava-2.jpg', '/work/flava-3.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Motion Design', path: '/motion-design' },
