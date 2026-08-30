@@ -6,9 +6,9 @@
 export const servicesData = {
   'web-design': {
     slug: 'web-design',
-    title: 'Web Design Agency | Creative Websites by Chanan',
+    title: 'Web Design Agency | Made by Chanan',
     h1: 'Websites built to be remembered.',
-    metaDescription: 'Chanan is an award-winning web design agency crafting bespoke, high-impact digital flagships, luxury UX/UI, and memorable interactive websites.',
+    metaDescription: 'Made by Chanan is a web design agency crafting bespoke digital flagships, refined UX/UI systems, and memorable interactive websites.',
     canonicalUrl: 'https://www.madebychanan.com/web-design',
     accentColor: '#00f0ff',
     badge: 'Discipline · Web Design',
@@ -45,7 +45,7 @@ export const servicesData = {
 
   'web-development': {
     slug: 'web-development',
-    title: 'Creative Web Development Agency | Chanan',
+    title: 'Creative Web Development | Made by Chanan',
     h1: 'Creative ideas, engineered properly.',
     metaDescription: 'Creative web development agency specializing in WebGL, GSAP animations, React architectures, and ultra-high-performance 120 FPS web systems.',
     canonicalUrl: 'https://www.madebychanan.com/web-development',
@@ -84,7 +84,7 @@ export const servicesData = {
 
   'branding': {
     slug: 'branding',
-    title: 'Brand Identity & Creative Branding Agency | Chanan',
+    title: 'Brand Identity Agency | Made by Chanan',
     h1: 'Brands with a point of view.',
     metaDescription: 'Chanan builds distinctive brand identities, generative typography systems, art direction, and digital brand execution for ambitious global brands.',
     canonicalUrl: 'https://www.madebychanan.com/branding',
@@ -123,7 +123,7 @@ export const servicesData = {
 
   '3d-product-animation': {
     slug: '3d-product-animation',
-    title: '3D Product Animation & CGI Studio | Chanan',
+    title: '3D Product Animation Studio | Made by Chanan',
     h1: 'Products made impossible to ignore.',
     metaDescription: '3D product animation and CGI studio crafting photorealistic product films, WebGL 3D configurators, and hyper-detailed campaign renders.',
     canonicalUrl: 'https://www.madebychanan.com/3d-product-animation',
@@ -162,9 +162,9 @@ export const servicesData = {
 
   'motion-design': {
     slug: 'motion-design',
-    title: 'Motion Design & Product Animation Studio | Chanan',
+    title: 'Motion Design Studio | Made by Chanan',
     h1: 'Motion that makes the idea hit harder.',
-    metaDescription: 'Bespoke motion design and animation studio by Chanan. Fluid UI motion, kinetic typography, brand launch films, and interactive choreographies.',
+    metaDescription: 'Bespoke motion design and animation by Made by Chanan: fluid UI motion, kinetic typography, brand launch films, and interactive choreography.',
     canonicalUrl: 'https://www.madebychanan.com/motion-design',
     accentColor: '#38bdf8',
     badge: 'Discipline · Motion Design',

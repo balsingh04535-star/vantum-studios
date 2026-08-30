@@ -128,6 +128,8 @@ export default function Hero({ onOpenInquiry }) {
         playsInline
         muted
         loop
+        poster="/og-chanan.webp"
+        preload="metadata"
         className="awwwards-hero-video"
       >
         <source
@@ -161,10 +163,10 @@ export default function Hero({ onOpenInquiry }) {
         <div className="awwwards-center-brand">
           <img
             src="/hero-logo.svg"
-            alt="Chanan"
+            alt="Made by Chanan"
             className="awwwards-brand-logo-svg"
           />
-          <p className="awwwards-brand-subtitle">An archive of the unreal</p>
+          <p className="awwwards-brand-subtitle">Made by Chanan · An archive of the unreal</p>
         </div>
 
         {/* Bottom Left Corner 3D Enclosure Portal */}
@@ -194,7 +196,7 @@ export default function Hero({ onOpenInquiry }) {
           width: 100vw;
           height: 100vh;
           overflow: hidden;
-          background: #0002b5;
+          background: #000000;
           font-family: var(--font-heading, "Outfit", sans-serif);
         }
 
@@ -213,8 +215,8 @@ export default function Hero({ onOpenInquiry }) {
           inset: 0;
           background: radial-gradient(
             circle at center,
-            rgba(0, 2, 181, 0.25) 0%,
-            rgba(2, 11, 77, 0.65) 100%
+            rgba(0, 0, 0, 0.25) 0%,
+            rgba(10, 10, 10, 0.65) 100%
           );
           z-index: 2;
           pointer-events: none;
@@ -241,7 +243,7 @@ export default function Hero({ onOpenInquiry }) {
           top: 0;
           width: 50%;
           height: 100vh;
-          background: #0002b5;
+          background: #000000;
         }
 
         .awwwards-block-left {
@@ -271,7 +273,7 @@ export default function Hero({ onOpenInquiry }) {
           user-select: none;
           z-index: 30;
           letter-spacing: -0.04em;
-          text-shadow: 0 4px 25px rgba(0, 2, 181, 0.5);
+          text-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
         }
 
         .awwwards-row {

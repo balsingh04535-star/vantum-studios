@@ -137,7 +137,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
         .agency-faq-section {
           position: relative;
           width: 100%;
-          background-color: #0002b5;
+          background-color: #000000;
           color: #ffffff;
           padding: 6rem 1.5rem;
           box-sizing: border-box;
@@ -162,7 +162,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
           padding: 0.4rem 1.2rem;
           border-radius: 24px;
           border: 1px solid rgba(255, 255, 255, 0.25);
-          background: #020b4d;
+          background: #0a0a0a;
           color: #bfd7ff;
           font-size: 0.72rem;
           font-family: monospace, sans-serif;
@@ -204,7 +204,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
         }
 
         .faq-item {
-          background: #020b4d;
+          background: #0a0a0a;
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 20px;
           padding: 1.75rem 2.25rem;
@@ -221,7 +221,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
 
         .faq-item.is-open {
           border-color: #bfd7ff;
-          background: rgba(2, 11, 77, 0.95);
+          background: rgba(10, 10, 10, 0.95);
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
         }
 
@@ -273,7 +273,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
 
         .faq-item.is-open .faq-icon-pill {
           background: #bfd7ff;
-          color: #020b4d;
+          color: #0a0a0a;
           border-color: #ffffff;
         }
 
@@ -292,7 +292,7 @@ export default function AgencyFAQ({ onOpenInquiry }) {
 
         /* Bottom Card */
         .faq-bottom-card {
-          background: #020b4d;
+          background: #0a0a0a;
           border: 1px solid rgba(255, 255, 255, 0.25);
           border-radius: 24px;
           padding: 3rem;

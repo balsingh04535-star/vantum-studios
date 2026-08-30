@@ -12,9 +12,10 @@ export default function NotFoundPage({ onOpenInquiry }) {
   return (
     <div style={{ paddingTop: '8rem', backgroundColor: '#070709', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="404 — Page Not Found | Chanan"
-        description="The requested page could not be found. Return to the Chanan homepage or explore our selected creative work."
-        canonicalUrl="https://www.madebychanan.com/404"
+        title="Page Not Found | Made by Chanan"
+        description="The requested page could not be found. Return to Made by Chanan or explore our selected creative work."
+        canonicalUrl={null}
+        noIndex
       />
 
       <main className="section-padding" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>

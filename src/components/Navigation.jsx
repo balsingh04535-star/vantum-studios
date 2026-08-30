@@ -13,10 +13,10 @@ export default function Navigation({ onOpenInquiry }) {
 
   return (
     <>
-      {/* Global Fixed Chanan Brand Logo (Always visible on every page at top left) */}
+      {/* Global fixed Made by Chanan brand logo */}
       <TransitionLink
         to="/"
-        aria-label="Chanan Home"
+        aria-label="Made by Chanan home"
         style={{
           position: 'fixed',
           top: '1.5rem',
@@ -31,7 +31,7 @@ export default function Navigation({ onOpenInquiry }) {
       >
         <img
           src="/hero-logo.svg"
-          alt="Chanan"
+          alt="Made by Chanan"
           style={{
             height: '36px',
             width: 'auto',
@@ -57,7 +57,7 @@ export default function Navigation({ onOpenInquiry }) {
           padding: '6px 6px 6px 16px',
           borderRadius: '999px',
           border: '1px solid rgba(255, 255, 255, 0.25)',
-          background: 'rgba(2, 11, 77, 0.9)',
+          background: 'rgba(10, 10, 10, 0.9)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           boxShadow: '0 8px 32px rgba(0, 29, 184, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2)',

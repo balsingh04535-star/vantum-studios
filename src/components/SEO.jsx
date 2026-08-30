@@ -1,146 +1,89 @@
-import React, { useEffect } from 'react';
+import Head from 'next/head';
+
+export const SITE_URL = 'https://www.madebychanan.com';
+
+const DEFAULT_TITLE = 'Made by Chanan | Creative Digital Agency';
+const DEFAULT_DESCRIPTION =
+  'Made by Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide.';
+const DEFAULT_IMAGE = `${SITE_URL}/og-chanan.webp`;
+const INDEX_ROBOTS = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+
+function safeJsonLd(data) {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
 
 /**
- * Production-Grade Dynamic SEO Component for Chanan
- * Updates document title, meta tags, canonical link, OpenGraph, Twitter Cards,
- * and injects dynamic JSON-LD structured data per page.
+ * Server-rendered metadata shared by every indexable page.
+ * Keeping these tags in next/head makes them available to crawlers, link
+ * unfurlers and users even before client-side JavaScript runs.
  */
 export default function SEO({
-  title = 'Chanan — Creative Digital Agency | Web Design, Branding & 3D',
-  description = 'Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide.',
-  canonicalUrl = 'https://www.madebychanan.com/',
-  ogImage = 'https://www.madebychanan.com/hero-bg.webp',
-  ogImageAlt = 'Chanan Creative Digital Agency',
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  canonicalUrl = `${SITE_URL}/`,
+  ogImage = DEFAULT_IMAGE,
+  ogImageAlt = 'Made by Chanan creative digital agency',
+  ogImageWidth,
+  ogImageHeight,
   ogType = 'website',
   schemaData = null,
   articlePublishedTime = null,
   articleModifiedTime = null,
+  noIndex = false,
 }) {
-  useEffect(() => {
-    // 1. Document Title
-    document.title = title;
+  const robots = noIndex ? 'noindex, nofollow, noarchive' : INDEX_ROBOTS;
+  const resolvedImageWidth = ogImageWidth ?? (ogImage === DEFAULT_IMAGE ? 1200 : null);
+  const resolvedImageHeight = ogImageHeight ?? (ogImage === DEFAULT_IMAGE ? 630 : null);
 
-    // Helper to get or create meta tag
-    const setMeta = (attrName, attrValue, content) => {
-      let element = document.querySelector(`meta[${attrName}="${attrValue}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attrName, attrValue);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
+  return (
+    <Head>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="author" content="Made by Chanan" />
+      <meta name="robots" content={robots} />
+      <meta name="googlebot" content={robots} />
 
-    const removeMeta = (attrName, attrValue) => {
-      const el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
-      if (el) el.remove();
-    };
+      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+      {canonicalUrl && <link rel="alternate" hrefLang="en-GB" href={canonicalUrl} />}
+      {canonicalUrl && <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />}
 
-    // 2. Standard Meta Tags
-    setMeta('name', 'description', description);
-    setMeta('name', 'title', title);
-    setMeta('name', 'author', 'Chanan');
-    setMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      <meta property="og:site_name" content="Made by Chanan" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+      <meta property="og:type" content={ogType} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:secure_url" content={ogImage} />
+      {resolvedImageWidth && <meta property="og:image:width" content={String(resolvedImageWidth)} />}
+      {resolvedImageHeight && <meta property="og:image:height" content={String(resolvedImageHeight)} />}
+      <meta property="og:image:alt" content={ogImageAlt} />
+      <meta property="og:locale" content="en_GB" />
 
-    // 3. Open Graph Tags
-    setMeta('property', 'og:site_name', 'Chanan');
-    setMeta('property', 'og:title', title);
-    setMeta('property', 'og:description', description);
-    setMeta('property', 'og:url', canonicalUrl);
-    setMeta('property', 'og:type', ogType);
-    setMeta('property', 'og:image', ogImage);
-    setMeta('property', 'og:image:width', '1200');
-    setMeta('property', 'og:image:height', '630');
-    setMeta('property', 'og:image:alt', ogImageAlt);
-    setMeta('property', 'og:image:type', 'image/webp');
-    setMeta('property', 'og:locale', 'en_GB');
+      {articlePublishedTime && (
+        <meta property="article:published_time" content={articlePublishedTime} />
+      )}
+      {articleModifiedTime && (
+        <meta property="article:modified_time" content={articleModifiedTime} />
+      )}
+      {articlePublishedTime && (
+        <meta property="article:author" content={`${SITE_URL}/`} />
+      )}
 
-    // 4. Article dates (for case studies)
-    if (articlePublishedTime) {
-      setMeta('property', 'article:published_time', articlePublishedTime);
-      setMeta('property', 'article:modified_time', articleModifiedTime || articlePublishedTime);
-      setMeta('property', 'article:author', 'https://www.madebychanan.com/');
-    } else {
-      removeMeta('property', 'article:published_time');
-      removeMeta('property', 'article:modified_time');
-    }
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@madebychanan" />
+      <meta name="twitter:creator" content="@madebychanan" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    // 5. Twitter Card Tags
-    setMeta('name', 'twitter:card', 'summary_large_image');
-    setMeta('name', 'twitter:title', title);
-    setMeta('name', 'twitter:description', description);
-    setMeta('name', 'twitter:image', ogImage);
-    setMeta('name', 'twitter:image:alt', ogImageAlt);
-    setMeta('name', 'twitter:site', '@madebychanan');
-    setMeta('name', 'twitter:creator', '@madebychanan');
-
-    // 6. Canonical URL
-    if (canonicalUrl) {
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (!linkCanonical) {
-        linkCanonical = document.createElement('link');
-        linkCanonical.rel = 'canonical';
-        document.head.appendChild(linkCanonical);
-      }
-      linkCanonical.setAttribute('href', canonicalUrl);
-    }
-
-    // 7. Dynamic JSON-LD Structured Data
-    const schemaId = 'dynamic-page-jsonld';
-    let scriptTag = document.getElementById(schemaId);
-    if (!scriptTag) {
-      scriptTag = document.createElement('script');
-      scriptTag.id = schemaId;
-      scriptTag.type = 'application/ld+json';
-      document.head.appendChild(scriptTag);
-    }
-
-    if (schemaData) {
-      scriptTag.textContent = JSON.stringify(schemaData);
-    } else {
-      // Default to Chanan Organization Schema
-      scriptTag.textContent = JSON.stringify({
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'Organization',
-            '@id': 'https://www.madebychanan.com/#organization',
-            'name': 'Chanan',
-            'alternateName': 'Chanan Creative Digital Agency',
-            'url': 'https://www.madebychanan.com/',
-            'logo': {
-              '@type': 'ImageObject',
-              'url': 'https://www.madebychanan.com/logo.png',
-              'width': 512,
-              'height': 512
-            },
-            'description': description,
-            'email': 'hello@madebychanan.com',
-            'address': {
-              '@type': 'PostalAddress',
-              'addressLocality': 'London',
-              'addressCountry': 'GB'
-            },
-            'areaServed': 'Worldwide',
-            'sameAs': [
-              'https://twitter.com/madebychanan',
-              'https://instagram.com/madebychanan',
-              'https://linkedin.com/company/madebychanan'
-            ]
-          },
-          {
-            '@type': 'WebPage',
-            '@id': `${canonicalUrl}#webpage`,
-            'url': canonicalUrl,
-            'name': title,
-            'description': description,
-            'isPartOf': { '@id': 'https://www.madebychanan.com/#website' },
-            'inLanguage': 'en-GB',
-          }
-        ]
-      });
-    }
-  }, [title, description, canonicalUrl, ogImage, ogImageAlt, ogType, schemaData, articlePublishedTime, articleModifiedTime]);
-
-  return null;
+      {schemaData && (
+        <script
+          id="page-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaData) }}
+        />
+      )}
+    </Head>
+  );
 }

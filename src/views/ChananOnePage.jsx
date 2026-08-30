@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Head from 'next/head';
+import SEO from '../components/SEO';
 import Link from 'next/link';
 import Lenis from 'lenis';
 import { ArrowUpRight } from 'lucide-react';
@@ -140,13 +140,36 @@ export default function ChananOnePage({ onOpenInquiry }) {
 
   return (
     <>
-      <Head>
-        <title>Chanan One — Light, Engineered.</title>
-        <meta
-          name="description"
-          content="A compact creative computer. Anodized aluminum desktop enclosure, silent acoustic design, high-performance WebGL engineering."
-        />
-      </Head>
+      <SEO
+        title="Chanan One | Made by Chanan"
+        description="Meet Chanan One: a compact creative computer with an anodized aluminium enclosure, silent acoustic design, and high-performance engineering."
+        canonicalUrl="https://www.madebychanan.com/chanan-one"
+        ogImage="https://www.madebychanan.com/mobile-hero.png"
+        ogImageAlt="Chanan One compact creative computer"
+        schemaData={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Product',
+              '@id': 'https://www.madebychanan.com/chanan-one#product',
+              name: 'Chanan One',
+              description: 'A compact creative computer with an anodized aluminium enclosure, silent acoustic design, and high-performance engineering.',
+              image: 'https://www.madebychanan.com/mobile-hero.png',
+              url: 'https://www.madebychanan.com/chanan-one',
+              brand: { '@type': 'Brand', name: 'Chanan' },
+            },
+            {
+              '@type': 'WebPage',
+              '@id': 'https://www.madebychanan.com/chanan-one#webpage',
+              url: 'https://www.madebychanan.com/chanan-one',
+              name: 'Chanan One | Made by Chanan',
+              mainEntity: { '@id': 'https://www.madebychanan.com/chanan-one#product' },
+              isPartOf: { '@id': 'https://www.madebychanan.com/#website' },
+              inLanguage: 'en-GB',
+            },
+          ],
+        }}
+      />
       <div className="chanan-one-root">
         {/* Top Navigation Bar */}
         <header className="chanan-one-nav">

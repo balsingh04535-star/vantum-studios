@@ -38,26 +38,22 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
         'description': project.summary,
         'image': {
           '@type': 'ImageObject',
-          'url': project.seo.ogImage,
-          'width': 1200,
-          'height': 630
+          'url': project.seo.ogImage
         },
         'author': {
           '@type': 'Organization',
           '@id': 'https://www.madebychanan.com/#organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
           'url': 'https://www.madebychanan.com/'
         },
         'publisher': {
           '@type': 'Organization',
           '@id': 'https://www.madebychanan.com/#organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
           'url': 'https://www.madebychanan.com/',
           'logo': {
             '@type': 'ImageObject',
-            'url': 'https://www.madebychanan.com/logo.png',
-            'width': 512,
-            'height': 512
+            'url': 'https://www.madebychanan.com/logo.png'
           }
         },
         'datePublished': `${project.year}-01-01`,
@@ -111,13 +107,13 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
   };
 
   return (
-    <div style={{ paddingTop: '7.5rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <div style={{ paddingTop: '7.5rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
         title={project.seo.title}
         description={project.seo.description}
         canonicalUrl={project.seo.canonicalUrl}
         ogImage={project.seo.ogImage}
-        ogImageAlt={`${project.title} — Case Study by Chanan`}
+        ogImageAlt={`${project.title} — Case study by Made by Chanan`}
         ogType="article"
         schemaData={schemaData}
         articlePublishedTime={`${project.year}-01-01T00:00:00+00:00`}
@@ -125,7 +121,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
       />
 
 
-      <article className="section-padding" style={{ backgroundColor: '#0002b5', minHeight: '60vh', paddingBottom: '6rem' }}>
+      <article className="section-padding" style={{ backgroundColor: '#000000', minHeight: '60vh', paddingBottom: '6rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           {/* Breadcrumb & Back Navigation */}
@@ -172,7 +168,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
             padding: '0.45rem 1.2rem',
             borderRadius: '24px',
             border: '1px solid rgba(255, 255, 255, 0.3)',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             color: '#ffffff',
             fontSize: '0.75rem',
             letterSpacing: '0.12em',
@@ -233,7 +229,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
             gap: '1.5rem',
             padding: '2rem 2.5rem',
             borderRadius: '20px',
-            background: 'rgba(2, 11, 77, 0.75)',
+            background: 'rgba(10, 10, 10, 0.75)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255, 255, 255, 0.18)',
             boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)',
@@ -289,7 +285,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginBottom: '2.5rem' }}>
             {/* Chapter 01 */}
             <div style={{
-              background: '#020b4d',
+              background: '#0a0a0a',
               border: '1px solid rgba(255, 255, 255, 0.18)',
               borderRadius: '24px',
               padding: '2.8rem',
@@ -308,7 +304,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
 
             {/* Chapter 02 */}
             <div style={{
-              background: '#020b4d',
+              background: '#0a0a0a',
               border: '1px solid rgba(255, 255, 255, 0.18)',
               borderRadius: '24px',
               padding: '2.8rem',
@@ -329,7 +325,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', marginBottom: '5rem' }}>
             {/* Chapter 03 */}
             <div style={{
-              background: '#020b4d',
+              background: '#0a0a0a',
               border: '1px solid rgba(255, 255, 255, 0.18)',
               borderRadius: '24px',
               padding: '2.8rem',
@@ -348,7 +344,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
 
             {/* Chapter 04 */}
             <div style={{
-              background: '#020b4d',
+              background: '#0a0a0a',
               border: '1px solid rgba(255, 255, 255, 0.18)',
               borderRadius: '24px',
               padding: '2.8rem',
@@ -368,7 +364,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
 
           {/* Outcome & Deliverables Banner */}
           <div style={{
-            background: 'linear-gradient(135deg, #020b4d 0%, #00127a 100%)',
+            background: 'linear-gradient(135deg, #0a0a0a 0%, #00127a 100%)',
             border: '1px solid rgba(255, 255, 255, 0.25)',
             borderRadius: '24px',
             padding: '3.5rem',
@@ -453,7 +449,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
           <div style={{
             padding: '3rem',
             borderRadius: '24px',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             border: '1px solid rgba(255, 255, 255, 0.18)',
             marginBottom: '4rem',
             boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)'
@@ -496,7 +492,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
             padding: '4rem 3.5rem',
             textAlign: 'center',
             borderRadius: '24px',
-            background: 'linear-gradient(135deg, #020b4d 0%, #0002b5 100%)',
+            background: 'linear-gradient(135deg, #0a0a0a 0%, #000000 100%)',
             border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.45)'
           }}>
@@ -512,7 +508,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
                 style={{
                   padding: '1.05rem 2.4rem',
                   backgroundColor: '#ffffff',
-                  color: '#0002b5',
+                  color: '#000000',
                   borderRadius: '28px',
                   fontWeight: 700,
                   textDecoration: 'none',

@@ -90,9 +90,10 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
 
   const primaryNav = [
     { label: 'Home', path: '/' },
-    { label: 'Global Network', path: '/clients' },
+    { label: 'Work', path: '/work' },
     { label: 'Services', path: '/services' },
     { label: 'About', path: '/about' },
+    { label: 'Clients', path: '/clients' },
     { label: 'Contact', path: '/contact' },
   ];
 

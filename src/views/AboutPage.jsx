@@ -32,7 +32,8 @@ export default function AboutPage({ onOpenInquiry }) {
         'url': 'https://www.madebychanan.com/about',
         'mainEntity': {
           '@type': 'Organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
+          'alternateName': 'Chanan',
           'url': 'https://www.madebychanan.com/',
           'logo': 'https://www.madebychanan.com/logo.png',
           'foundingLocation': {
@@ -70,16 +71,16 @@ export default function AboutPage({ onOpenInquiry }) {
   };
 
   return (
-    <main style={{ paddingTop: '8rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ paddingTop: '8rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="About Us | Chanan — Independent Creative Digital Agency"
-        description="Chanan is an independent creative agency based in London, building standout digital experiences, 3D WebGL websites, and brand identities for ambitious worldwide brands."
+        title="About | Made by Chanan"
+        description="Learn about Made by Chanan, an independent creative digital agency building distinctive websites, WebGL experiences, and brand identities."
         canonicalUrl="https://www.madebychanan.com/about"
         ogType="website"
         schemaData={aboutSchema}
       />
 
-      <div className="section-padding" style={{ backgroundColor: '#0002b5' }}>
+      <div className="section-padding" style={{ backgroundColor: '#000000' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           <div style={{
@@ -89,7 +90,7 @@ export default function AboutPage({ onOpenInquiry }) {
             padding: '0.4rem 1rem',
             borderRadius: '20px',
             border: '1px solid rgba(255,255,255,0.25)',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             color: '#bfd7ff',
             fontSize: '0.75rem',
             letterSpacing: '0.15em',
@@ -120,7 +121,7 @@ export default function AboutPage({ onOpenInquiry }) {
                 <div
                   key={idx}
                   style={{
-                    background: '#020b4d',
+                    background: '#0a0a0a',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '20px',
                     padding: '2.5rem',
@@ -145,7 +146,7 @@ export default function AboutPage({ onOpenInquiry }) {
                 <div
                   key={idx}
                   style={{
-                    background: '#020b4d',
+                    background: '#0a0a0a',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '20px',
                     padding: '1.5rem',

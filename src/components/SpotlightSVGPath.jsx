@@ -199,65 +199,42 @@ export default function SpotlightSVGPath() {
             style={{ overflow: 'visible' }}
           >
             <defs>
-              {/* Ambient Glow Gradient */}
+              {/* Soft aura sitting under the ribbon */}
               <linearGradient id="desktop-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0038ff" stopOpacity="0.8" />
-                <stop offset="30%" stopColor="#00c8ff" stopOpacity="0.9" />
-                <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.95" />
-                <stop offset="85%" stopColor="#7dd3fc" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#0055ff" stopOpacity="0.8" />
+                <stop offset="0%" stopColor="#001db8" stopOpacity="0" />
+                <stop offset="35%" stopColor="#0047d6" stopOpacity="0.85" />
+                <stop offset="70%" stopColor="#2f6bd8" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#001db8" stopOpacity="0" />
               </linearGradient>
 
-              {/* Core High-Def Gradient Ribbon */}
+              {/* The ribbon itself. Both ends fade to zero opacity so it
+                  dissolves into the page rather than stopping on a cap. */}
               <linearGradient id="desktop-core-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0022cc" />
-                <stop offset="15%" stopColor="#0066ff" />
-                <stop offset="35%" stopColor="#00d2ff" />
-                <stop offset="55%" stopColor="#38bdf8" />
-                <stop offset="75%" stopColor="#7dd3fc" />
-                <stop offset="90%" stopColor="#bae6fd" />
-                <stop offset="100%" stopColor="#0066ff" />
-              </linearGradient>
-
-              {/* Specular Fiber-Optic Core Highlight */}
-              <linearGradient id="desktop-shine-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.3" />
-                <stop offset="25%" stopColor="#ffffff" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.95" />
-                <stop offset="75%" stopColor="#ffffff" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#001db8" stopOpacity="0" />
+                <stop offset="22%" stopColor="#0047d6" stopOpacity="0.95" />
+                <stop offset="62%" stopColor="#3b7ae4" stopOpacity="1" />
+                <stop offset="100%" stopColor="#001db8" stopOpacity="0" />
               </linearGradient>
             </defs>
 
-            {/* Layer 1: Ambient Glow Aura */}
+            {/* Aura */}
             <path
               className="anim-stroke anim-stroke-glow"
               d="M639.668 100C639.668 100 105.669 100 199.669 601.503C293.669 1103.01 1277.17 691.502 1277.17 1399.5C1277.17 2107.5 -155.332 1968 140.168 1438.5C435.669 909.002 1442.66 2093.5 713.168 2659.5"
               stroke="url(#desktop-glow-grad)"
-              strokeWidth="240"
+              strokeWidth="120"
               strokeLinecap="round"
-              opacity="0.6"
-              style={{ filter: 'blur(20px)' }}
+              opacity="0.3"
+              style={{ filter: 'blur(30px)' }}
             />
 
-            {/* Layer 2: Main Vivid Gradient Ribbon */}
+            {/* Ribbon */}
             <path
               className="anim-stroke"
               d="M639.668 100C639.668 100 105.669 100 199.669 601.503C293.669 1103.01 1277.17 691.502 1277.17 1399.5C1277.17 2107.5 -155.332 1968 140.168 1438.5C435.669 909.002 1442.66 2093.5 713.168 2659.5"
               stroke="url(#desktop-core-grad)"
-              strokeWidth="190"
+              strokeWidth="60"
               strokeLinecap="round"
-              opacity="0.95"
-            />
-
-            {/* Layer 3: Center Light Spine Specular Highlight */}
-            <path
-              className="anim-stroke"
-              d="M639.668 100C639.668 100 105.669 100 199.669 601.503C293.669 1103.01 1277.17 691.502 1277.17 1399.5C1277.17 2107.5 -155.332 1968 140.168 1438.5C435.669 909.002 1442.66 2093.5 713.168 2659.5"
-              stroke="url(#desktop-shine-grad)"
-              strokeWidth="32"
-              strokeLinecap="round"
-              opacity="0.85"
             />
           </svg>
         </div>
@@ -272,68 +249,43 @@ export default function SpotlightSVGPath() {
             style={{ overflow: 'visible' }}
           >
             <defs>
-              {/* Mobile Ambient Glow Gradient */}
+              {/* Soft aura sitting under the ribbon */}
               <linearGradient id="mobile-glow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0038ff" stopOpacity="0.8" />
-                <stop offset="25%" stopColor="#00c8ff" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.95" />
-                <stop offset="75%" stopColor="#7dd3fc" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#0055ff" stopOpacity="0.8" />
+                <stop offset="0%" stopColor="#001db8" stopOpacity="0" />
+                <stop offset="35%" stopColor="#0047d6" stopOpacity="0.85" />
+                <stop offset="70%" stopColor="#2f6bd8" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#001db8" stopOpacity="0" />
               </linearGradient>
 
-              {/* Mobile Core High-Def Gradient */}
+              {/* Ribbon, fading out at both ends */}
               <linearGradient id="mobile-core-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0022cc" />
-                <stop offset="15%" stopColor="#0066ff" />
-                <stop offset="35%" stopColor="#00d2ff" />
-                <stop offset="55%" stopColor="#38bdf8" />
-                <stop offset="75%" stopColor="#7dd3fc" />
-                <stop offset="90%" stopColor="#bae6fd" />
-                <stop offset="100%" stopColor="#0066ff" />
-              </linearGradient>
-
-              {/* Mobile Specular Center Highlight */}
-              <linearGradient id="mobile-shine-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.3" />
-                <stop offset="25%" stopColor="#ffffff" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.95" />
-                <stop offset="75%" stopColor="#ffffff" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#001db8" stopOpacity="0" />
+                <stop offset="22%" stopColor="#0047d6" stopOpacity="0.95" />
+                <stop offset="62%" stopColor="#3b7ae4" stopOpacity="1" />
+                <stop offset="100%" stopColor="#001db8" stopOpacity="0" />
               </linearGradient>
             </defs>
 
-            {/* Layer 1: Ambient Glow Aura */}
+            {/* Aura */}
             <path
               className="anim-stroke anim-stroke-glow"
               d="M 200 40 C 40 240, 20 480, 40 700 C 60 940, 360 980, 360 1250 C 360 1520, 40 1680, 40 2000 C 40 2320, 360 2420, 360 2750 C 360 3080, 160 3320, 200 3560"
               stroke="url(#mobile-glow-grad)"
-              strokeWidth="140"
+              strokeWidth="66"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.55"
-              style={{ filter: 'blur(14px)' }}
+              opacity="0.3"
+              style={{ filter: 'blur(18px)' }}
             />
 
-            {/* Layer 2: Core Gradient Ribbon */}
+            {/* Ribbon */}
             <path
               className="anim-stroke"
               d="M 200 40 C 40 240, 20 480, 40 700 C 60 940, 360 980, 360 1250 C 360 1520, 40 1680, 40 2000 C 40 2320, 360 2420, 360 2750 C 360 3080, 160 3320, 200 3560"
               stroke="url(#mobile-core-grad)"
-              strokeWidth="105"
+              strokeWidth="32"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.95"
-            />
-
-            {/* Layer 3: Specular Spine Light Highlight */}
-            <path
-              className="anim-stroke"
-              d="M 200 40 C 40 240, 20 480, 40 700 C 60 940, 360 980, 360 1250 C 360 1520, 40 1680, 40 2000 C 40 2320, 360 2420, 360 2750 C 360 3080, 160 3320, 200 3560"
-              stroke="url(#mobile-shine-grad)"
-              strokeWidth="20"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.85"
             />
           </svg>
         </div>
@@ -347,10 +299,10 @@ export default function SpotlightSVGPath() {
       {/* ===== CSS Styles ===== */}
       <style dangerouslySetInnerHTML={{ __html: `
         .spotlight-component-root {
-          --base-100: #0002b5;
+          --base-100: #000000;
           --base-200: #00127a;
-          --base-300: #020b4d;
-          background-color: #0002b5;
+          --base-300: #0a0a0a;
+          background-color: #000000;
           background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
           background-size: 28px 28px;
           color: #ffffff;
@@ -388,7 +340,7 @@ export default function SpotlightSVGPath() {
           padding: 2.5rem 3rem;
           border: 2px dashed rgba(255, 255, 255, 0.35);
           border-radius: 24px;
-          background: #020b4d;
+          background: #0a0a0a;
           backdrop-filter: blur(12px);
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
         }
@@ -440,7 +392,7 @@ export default function SpotlightSVGPath() {
           letter-spacing: 0.18em;
           text-transform: uppercase;
           font-weight: 700;
-          color: #bfd7ff;
+          color: #ffffff;
           margin-bottom: 0.5rem;
         }
 
@@ -452,7 +404,7 @@ export default function SpotlightSVGPath() {
           padding: 48px;
           gap: 16px;
           border-radius: 20px;
-          background-color: #020b4d;
+          background-color: #0a0a0a;
           backdrop-filter: blur(14px);
           border: 2px dashed rgba(255, 255, 255, 0.25);
           box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
@@ -576,7 +528,7 @@ export default function SpotlightSVGPath() {
             width: 100%;
             padding: 24px 20px;
             border-radius: 18px;
-            background-color: #020b4d;
+            background-color: #0a0a0a;
             border: 2px dashed rgba(255, 255, 255, 0.25);
           }
 

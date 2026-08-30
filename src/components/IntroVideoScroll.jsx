@@ -211,7 +211,7 @@ export default function IntroVideoScroll() {
         position: 'relative',
         width: '100%',
         height: '100vh',
-        backgroundColor: '#020b4d',
+        backgroundColor: '#0a0a0a',
         overflow: 'hidden',
         zIndex: 10
       }}
@@ -225,7 +225,7 @@ export default function IntroVideoScroll() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#020b4d'
+          backgroundColor: '#0a0a0a'
         }}
       >
         {/* Main Scrubbing Canvas */}
@@ -245,7 +245,7 @@ export default function IntroVideoScroll() {
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
-            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(2, 11, 77, 0.45) 85%, rgba(2, 11, 77, 0.8) 100%)',
+            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(10, 10, 10, 0.45) 85%, rgba(10, 10, 10, 0.8) 100%)',
             zIndex: 2
           }}
         />
@@ -256,7 +256,7 @@ export default function IntroVideoScroll() {
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundColor: 'var(--bg-dark, #020b4d)',
+            backgroundColor: 'var(--bg-dark, #0a0a0a)',
             opacity: 0,
             pointerEvents: 'none',
             zIndex: 3
@@ -283,7 +283,7 @@ export default function IntroVideoScroll() {
             style={{
               padding: '6px 18px',
               borderRadius: '999px',
-              backgroundColor: 'rgba(2, 11, 77, 0.75)',
+              backgroundColor: 'rgba(10, 10, 10, 0.75)',
               border: '1px solid rgba(191, 215, 255, 0.3)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',

@@ -46,12 +46,12 @@ export default function ServicesPage({ onOpenInquiry }) {
       {
         '@type': 'Service',
         '@id': 'https://www.madebychanan.com/services#service',
-        'name': 'Creative Digital Services & Technical Capabilities | Chanan',
-        'description': 'Full-service technical capabilities from Chanan: Bespoke Web Design, WebGL Development, Brand Identity, 3D Product Visuals and Motion Design.',
+        'name': 'Creative Services | Made by Chanan',
+        'description': 'Creative services from Made by Chanan: bespoke web design, WebGL development, brand identity, 3D product visuals, and motion design.',
         'url': 'https://www.madebychanan.com/services',
         'provider': {
           '@type': 'Organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
           'url': 'https://www.madebychanan.com/'
         },
         'hasOfferCatalog': {
@@ -91,16 +91,16 @@ export default function ServicesPage({ onOpenInquiry }) {
   };
 
   return (
-    <main style={{ paddingTop: '8rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ paddingTop: '8rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="Agency Capabilities &amp; Services | Chanan — Web Design, 3D &amp; Motion"
-        description="Discover Chanan's full range of creative services: Bespoke Web Design, WebGL 3D Environments, Brand Systems, and Kinetic Motion Development."
+        title="Creative Services | Made by Chanan"
+        description="Explore Made by Chanan's services across web design, creative development, brand identity, 3D product animation, and motion design."
         canonicalUrl="https://www.madebychanan.com/services"
         ogType="website"
         schemaData={servicesSchema}
       />
 
-      <div className="section-padding" style={{ backgroundColor: '#0002b5' }}>
+      <div className="section-padding" style={{ backgroundColor: '#000000' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           <div style={{
@@ -110,7 +110,7 @@ export default function ServicesPage({ onOpenInquiry }) {
             padding: '0.4rem 1rem',
             borderRadius: '20px',
             border: '1px solid rgba(255,255,255,0.25)',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             color: '#bfd7ff',
             fontSize: '0.75rem',
             letterSpacing: '0.15em',
@@ -133,7 +133,7 @@ export default function ServicesPage({ onOpenInquiry }) {
               <div
                 key={idx}
                 style={{
-                  background: '#020b4d',
+                  background: '#0a0a0a',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '20px',
                   padding: '3rem',
@@ -188,7 +188,7 @@ export default function ServicesPage({ onOpenInquiry }) {
             style={{
               padding: '4rem',
               textAlign: 'center',
-              background: '#020b4d',
+              background: '#0a0a0a',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               borderRadius: '24px',
               boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)'

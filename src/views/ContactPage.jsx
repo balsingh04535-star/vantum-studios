@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Mail, MapPin } from 'lucide-react';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 
@@ -29,10 +29,10 @@ export default function ContactPage() {
         'url': 'https://www.madebychanan.com/contact',
         'mainEntity': {
           '@type': 'Organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
+          'alternateName': 'Chanan',
           'url': 'https://www.madebychanan.com/',
           'email': 'hello@madebychanan.com',
-          'telephone': '+44-20-8000-0000',
           'address': {
             '@type': 'PostalAddress',
             'streetAddress': '140 Soho Square',
@@ -64,16 +64,16 @@ export default function ContactPage() {
   };
 
   return (
-    <main style={{ paddingTop: '8rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ paddingTop: '8rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="Contact Us &amp; Book a Discovery Call | Chanan"
-        description="Initiate a project inquiry with Chanan. Partner directly with senior creative directors on bespoke 3D WebGL websites, branding, and motion design."
+        title="Contact | Made by Chanan"
+        description="Start a project with Made by Chanan. Partner on a distinctive website, brand identity, 3D product experience, or motion design system."
         canonicalUrl="https://www.madebychanan.com/contact"
         ogType="website"
         schemaData={contactSchema}
       />
 
-      <div className="section-padding" style={{ backgroundColor: '#0002b5' }}>
+      <div className="section-padding" style={{ backgroundColor: '#000000' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           <div style={{
@@ -83,7 +83,7 @@ export default function ContactPage() {
             padding: '0.4rem 1rem',
             borderRadius: '20px',
             border: '1px solid rgba(255,255,255,0.25)',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             color: '#bfd7ff',
             fontSize: '0.75rem',
             letterSpacing: '0.15em',
@@ -106,7 +106,7 @@ export default function ContactPage() {
             <div>
               <div
                 style={{
-                  background: '#020b4d',
+                  background: '#0a0a0a',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '20px',
                   padding: '3rem',
@@ -138,21 +138,12 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                    <Phone size={24} color="#bfd7ff" style={{ marginTop: '0.2rem' }} />
-                    <div>
-                      <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', color: '#ffffff' }}>Direct Line</h4>
-                      <p style={{ color: '#dbe7ff', fontSize: '0.95rem' }}>
-                        +44 (0) 20 8000 0000
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div
                 style={{
-                  background: '#020b4d',
+                  background: '#0a0a0a',
                   border: '1px solid rgba(255, 255, 255, 0.25)',
                   borderRadius: '20px',
                   padding: '2rem',
@@ -174,7 +165,7 @@ export default function ContactPage() {
             {/* Direct Form */}
             <div
               style={{
-                background: '#020b4d',
+                background: '#0a0a0a',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '20px',
                 padding: '3rem',

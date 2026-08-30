@@ -39,13 +39,11 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
         'provider': {
           '@type': 'Organization',
           '@id': 'https://www.madebychanan.com/#organization',
-          'name': 'Chanan',
+          'name': 'Made by Chanan',
           'url': 'https://www.madebychanan.com/',
           'logo': {
             '@type': 'ImageObject',
-            'url': 'https://www.madebychanan.com/logo.png',
-            'width': 512,
-            'height': 512
+            'url': 'https://www.madebychanan.com/logo.png'
           }
         },
         'serviceType': service.badge.split('·')[1].trim(),
@@ -105,18 +103,18 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
   };
 
   return (
-    <div style={{ paddingTop: '7.5rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <div style={{ paddingTop: '7.5rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
         title={service.title}
         description={service.metaDescription}
         canonicalUrl={service.canonicalUrl}
-        ogImage="https://www.madebychanan.com/hero-bg.webp"
-        ogImageAlt={`${service.badge.split('·')[1].trim()} Services — Chanan Creative Agency`}
+        ogImage="https://www.madebychanan.com/og-chanan.webp"
+        ogImageAlt={`${service.badge.split('·')[1].trim()} services by Made by Chanan`}
         schemaData={schemaData}
       />
 
 
-      <article className="section-padding" style={{ backgroundColor: '#0002b5', paddingBottom: '6rem' }}>
+      <article className="section-padding" style={{ backgroundColor: '#000000', paddingBottom: '6rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           {/* Breadcrumbs */}
@@ -138,7 +136,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
             padding: '0.45rem 1.2rem',
             borderRadius: '24px',
             border: '1px solid rgba(255, 255, 255, 0.3)',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             color: '#ffffff',
             fontSize: '0.75rem',
             letterSpacing: '0.12em',
@@ -196,7 +194,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
                 <div
                   key={idx}
                   style={{
-                    background: '#020b4d',
+                    background: '#0a0a0a',
                     border: '1px solid rgba(255, 255, 255, 0.18)',
                     borderRadius: '24px',
                     padding: '2.5rem',
@@ -226,7 +224,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
 
           {/* Technical Specifications Matrix */}
           <section style={{
-            background: 'linear-gradient(135deg, #020b4d 0%, #00127a 100%)',
+            background: 'linear-gradient(135deg, #0a0a0a 0%, #00127a 100%)',
             border: '1px solid rgba(255, 255, 255, 0.22)',
             borderRadius: '24px',
             padding: '3.5rem',
@@ -300,7 +298,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
                 <div
                   key={project.id}
                   style={{
-                    background: '#020b4d',
+                    background: '#0a0a0a',
                     border: '1px solid rgba(255, 255, 255, 0.18)',
                     borderRadius: '24px',
                     padding: '2rem',
@@ -341,7 +339,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.5rem',
-                      color: '#0002b5',
+                      color: '#000000',
                       textDecoration: 'none',
                       fontSize: '0.85rem',
                       fontWeight: 700,
@@ -353,7 +351,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
                     }}
                   >
                     <span>Read Case Study</span>
-                    <ArrowUpRight size={15} color="#0002b5" />
+                    <ArrowUpRight size={15} color="#000000" />
                   </TransitionLink>
                 </div>
               ))}
@@ -364,7 +362,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
           <section style={{
             padding: '3rem',
             borderRadius: '24px',
-            backgroundColor: '#020b4d',
+            backgroundColor: '#0a0a0a',
             border: '1px solid rgba(255, 255, 255, 0.18)',
             marginBottom: '5rem',
             boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)'
@@ -407,7 +405,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
             padding: '4.5rem 2.5rem',
             textAlign: 'center',
             borderRadius: '24px',
-            background: 'linear-gradient(135deg, #020b4d 0%, #0002b5 100%)',
+            background: 'linear-gradient(135deg, #0a0a0a 0%, #000000 100%)',
             border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.45)'
           }}>
@@ -424,7 +422,7 @@ export default function ServiceDetailPage({ serviceKey, onOpenInquiry }) {
                 fontSize: '1.05rem',
                 padding: '1.1rem 2.6rem',
                 background: '#ffffff',
-                color: '#0002b5',
+                color: '#000000',
                 border: 'none',
                 borderRadius: '30px',
                 fontWeight: 700,

@@ -34,19 +34,15 @@ export default function HomePage({ onOpenInquiry }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'ProfessionalService',
+        '@type': 'Organization',
         '@id': 'https://www.madebychanan.com/#organization',
-        'name': 'Chanan',
-        'alternateName': 'Chanan Creative Digital Agency',
+        'name': 'Made by Chanan',
+        'alternateName': 'Chanan',
         'url': 'https://www.madebychanan.com/',
         'logo': 'https://www.madebychanan.com/logo.png',
-        'image': 'https://www.madebychanan.com/hero-bg.webp',
-        'description': 'Chanan is an independent creative digital agency building bespoke WebGL websites, 3D product visuals, brand identity systems, and kinetic motion experiences for ambitious brands worldwide.',
-        'telephone': '+44-20-8000-0000',
+        'image': 'https://www.madebychanan.com/og-chanan.webp',
+        'description': 'Made by Chanan is an independent creative digital agency building bespoke WebGL websites, 3D product visuals, brand identity systems, and kinetic motion experiences for ambitious brands worldwide.',
         'email': 'hello@madebychanan.com',
-        'priceRange': '$$$$',
-        'currenciesAccepted': 'USD, GBP, EUR',
-        'paymentAccepted': 'Wire Transfer, Stripe, Credit Card',
         'address': {
           '@type': 'PostalAddress',
           'streetAddress': '140 Soho Square',
@@ -72,28 +68,6 @@ export default function HomePage({ onOpenInquiry }) {
           '3D Product Animation',
           'Kinetic Motion Design'
         ],
-        'aggregateRating': {
-          '@type': 'AggregateRating',
-          'ratingValue': '5.0',
-          'reviewCount': '48',
-          'bestRating': '5',
-          'worstRating': '1'
-        },
-        'review': [
-          {
-            '@type': 'Review',
-            'author': {
-              '@type': 'Person',
-              'name': 'Marcus Vance'
-            },
-            'reviewRating': {
-              '@type': 'Rating',
-              'ratingValue': '5',
-              'bestRating': '5'
-            },
-            'reviewBody': 'Chanan delivered an extraordinary 3D WebGL flagship experience that increased our international launch conversions by over 340%.'
-          }
-        ],
         'sameAs': [
           'https://twitter.com/madebychanan',
           'https://instagram.com/madebychanan',
@@ -104,11 +78,13 @@ export default function HomePage({ onOpenInquiry }) {
         '@type': 'WebSite',
         '@id': 'https://www.madebychanan.com/#website',
         'url': 'https://www.madebychanan.com/',
-        'name': 'Chanan',
-        'description': 'Creative Digital Agency specializing in Web Design, Branding, 3D Product Visuals & Motion.',
+        'name': 'Made by Chanan',
+        'alternateName': 'Chanan',
+        'description': 'Made by Chanan is a creative digital agency specializing in web design, branding, 3D product visuals, and motion.',
         'publisher': {
           '@id': 'https://www.madebychanan.com/#organization'
-        }
+        },
+        'inLanguage': 'en-GB'
       }
     ]
   };
@@ -116,8 +92,8 @@ export default function HomePage({ onOpenInquiry }) {
   return (
     <main>
       <SEO
-        title="Chanan — Creative Digital Agency | Web Design, Branding & 3D"
-        description="Chanan is a creative digital agency building standout websites, brand identities, 3D product visuals and motion experiences for ambitious brands worldwide."
+        title="Made by Chanan | Creative Digital Agency"
+        description="Made by Chanan is a creative digital agency creating distinctive websites, brand identities, 3D product visuals, and motion experiences for ambitious brands."
         canonicalUrl="https://www.madebychanan.com/"
         schemaData={homepageSchema}
       />

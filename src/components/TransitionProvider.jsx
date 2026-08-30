@@ -174,7 +174,7 @@ export function TransitionProvider({ children }) {
             lineHeight: 0.9,
             letterSpacing: '-0.04em',
             textTransform: 'uppercase',
-            color: '#020b4d',
+            color: '#0a0a0a',
             fontFamily: 'var(--font-heading)',
           }}>
             {label}

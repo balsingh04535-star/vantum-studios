@@ -20,8 +20,8 @@ export default function WorkPage({ onOpenInquiry }) {
       {
         '@type': 'CollectionPage',
         '@id': 'https://www.madebychanan.com/work#collection',
-        'name': 'Portfolio & Selected Works | Chanan',
-        'description': 'Explore curated case studies in bespoke WebGL websites, 3D interactive product experiences, and brand identity systems by Chanan.',
+        'name': 'Selected Work | Made by Chanan',
+        'description': 'Explore case studies in bespoke WebGL websites, 3D interactive product experiences, and brand identity systems by Made by Chanan.',
         'url': 'https://www.madebychanan.com/work',
         'isPartOf': {
           '@type': 'WebSite',
@@ -29,7 +29,7 @@ export default function WorkPage({ onOpenInquiry }) {
         },
         'about': {
           '@type': 'Organization',
-          'name': 'Chanan'
+          'name': 'Made by Chanan'
         },
         'mainEntity': {
           '@type': 'ItemList',
@@ -63,16 +63,16 @@ export default function WorkPage({ onOpenInquiry }) {
   };
 
   return (
-    <main style={{ paddingTop: '8rem', backgroundColor: '#0002b5', color: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ paddingTop: '8rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
       <SEO
-        title="Portfolio &amp; Selected Works | Chanan — Creative Digital Agency"
-        description="Explore award-winning case studies in 3D WebGL experiences, brand identity design, and kinetic web development created by Chanan for visionary global brands."
+        title="Selected Work | Made by Chanan"
+        description="Explore selected case studies in 3D WebGL experiences, brand identity design, and kinetic web development created by Made by Chanan."
         canonicalUrl="https://www.madebychanan.com/work"
         ogType="website"
         schemaData={workSchema}
       />
 
-      <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#0002b5' }}>
+      <div className="section-padding" style={{ minHeight: '60vh', backgroundColor: '#000000' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           <h1 style={{
@@ -119,7 +119,7 @@ export default function WorkPage({ onOpenInquiry }) {
                     borderRadius: '24px',
                     border: filter === cat ? '1px solid #ffffff' : '1px solid rgba(255,255,255,0.25)',
                     backgroundColor: filter === cat ? '#ffffff' : 'rgba(255,255,255,0.08)',
-                    color: filter === cat ? '#0002b5' : '#dbe7ff',
+                    color: filter === cat ? '#000000' : '#dbe7ff',
                     fontWeight: 700,
                     fontSize: '0.85rem',
                     letterSpacing: '0.05em',
@@ -140,7 +140,7 @@ export default function WorkPage({ onOpenInquiry }) {
               <div
                 key={project.id}
                 style={{
-                  background: '#020b4d',
+                  background: '#0a0a0a',
                   border: '1px solid rgba(255, 255, 255, 0.18)',
                   borderRadius: '20px',
                   padding: '2rem',
@@ -170,7 +170,7 @@ export default function WorkPage({ onOpenInquiry }) {
                       position: 'absolute',
                       top: '1rem',
                       right: '1rem',
-                      background: 'rgba(0, 2, 181, 0.85)',
+                      background: 'rgba(0, 0, 0, 0.85)',
                       backdropFilter: 'blur(8px)',
                       border: '1px solid rgba(255,255,255,0.3)',
                       color: '#ffffff',
@@ -206,7 +206,7 @@ export default function WorkPage({ onOpenInquiry }) {
                       height: 'auto',
                       padding: '0.85rem 1.5rem',
                       backgroundColor: '#ffffff',
-                      color: '#0002b5',
+                      color: '#000000',
                       fontWeight: 700
                     }}
                   >

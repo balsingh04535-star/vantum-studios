@@ -3,6 +3,6 @@
 
 User-agent: *
 Allow: /
+Disallow: /api/
 
-# Production Sitemap
 Sitemap: https://www.madebychanan.com/sitemap.xml

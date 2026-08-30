@@ -1,6 +1,6 @@
 import React from 'react';
 import LightRaysBackground from './LightRaysBackground';
-import MasonryShowcaseGrid from './MasonryShowcaseGrid';
+import EditorialWorkShowcase from './EditorialWorkShowcase';
 import SpotlightSVGPath from './SpotlightSVGPath';
 import Footer from './Footer';
 
@@ -11,14 +11,16 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: 'var(--bg-cream, #0002b5)',
+        backgroundColor: 'var(--bg-cream, #000000)',
         color: '#ffffff',
         padding: 0,
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        overflow: 'hidden',
+        /* 'clip' keeps the full-bleed canvases contained without creating a
+           scroll container, which would break the sticky work column. */
+        overflow: 'clip',
       }}
     >
       {/* ── LIVE VOLUMETRIC LIGHT RAYS BACKGROUND ── */}
@@ -34,8 +36,8 @@ export default function SchemeSpatialGallery({ onOpenInquiry }) {
         fadeDistance={1.2}
       />
 
-      {/* ── MASONRY SHOWCASE GRID (Parallax Columns) ── */}
-      <MasonryShowcaseGrid onOpenInquiry={onOpenInquiry} />
+      {/* ── EDITORIAL WORK SHOWCASE (Case-study blocks) ── */}
+      <EditorialWorkShowcase />
 
       {/* ── SPOTLIGHT SVG PATH COMPONENT ── */}
       <SpotlightSVGPath />

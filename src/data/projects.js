@@ -6,6 +6,206 @@
 
 export const projects = [
   {
+    id: 'nebbi-ai',
+    slug: 'nebbi-ai',
+    title: 'Nebbi AI — Creative Intelligence Studio',
+    client: 'Nebbi AI',
+    industry: 'Artificial Intelligence & Creative Tooling',
+    services: ['Brand Identity', 'Web Design', 'Motion Design', '3D Product Animation'],
+    year: '2026',
+    image: '/work/nebbi-ai.jpg',
+    video: '/work/nebbi-ai.mp4',
+    category: 'Brand Systems',
+    rotation: -5,
+    metric: 'Full Brand & Product Launch',
+    summary: 'Brand identity, motion language and product site for an AI creative studio.',
+    seo: {
+      title: 'Nebbi AI — Creative Intelligence Studio Case Study | Made by Chanan',
+      description: 'How Chanan built the brand identity, motion language and product site for Nebbi AI, a creative intelligence studio.',
+      canonicalUrl: 'https://www.madebychanan.com/work/nebbi-ai',
+      ogImage: 'https://www.madebychanan.com/work/nebbi-ai.jpg',
+    },
+    intro: 'Nebbi AI partnered with Chanan to define how a creative intelligence studio should look, move and feel. We built the identity system, the motion language and the product site as a single connected piece of work.',
+    challenge: 'Giving an AI product a identity that reads as crafted rather than generated, in a category where every competitor leans on the same visual shorthand.',
+    creativeDirection: 'Restrained, tactile and confident — deep neutral grounds, precise typography and motion that suggests intelligence without resorting to the usual neon-and-particles cliché.',
+    designApproach: 'We built the identity around a flexible mark and a motion grammar that carries across the product UI, the site and social, so every surface feels like the same studio made it.',
+    technicalApproach: 'The flagship site runs a WebGL-backed motion layer with scroll-driven sequencing, kept lightweight enough to hold frame rate on mid-range mobile hardware.',
+    outcome: 'Nebbi AI launched with a coherent brand system spanning product, web and social, and a visual language the team can extend without redrawing it each time.',
+    deliverables: [
+      'Brand Identity & Logo System',
+      'Motion Design Language',
+      'Product & Marketing Site',
+      '3D Product Visuals',
+      'Design System & Guidelines'
+    ],
+    gallery: ['/work/nebbi-ai.jpg', '/grid-photos/grid10.png', '/grid-photos/grid9.png'],
+    relatedServices: [
+      { name: 'Branding', path: '/branding' },
+      { name: 'Web Design', path: '/web-design' },
+      { name: 'Motion Design', path: '/motion-design' }
+    ]
+  },
+  {
+    id: 'drift',
+    slug: 'drift',
+    title: 'Drift — Concept Handheld',
+    client: 'Chanan Labs',
+    industry: 'Industrial Design & Concept Hardware',
+    services: ['Industrial Design', '3D Product Animation', 'Motion Design', 'Brand Identity'],
+    year: '2026',
+    image: '/work/drift.jpg',
+    video: '/work/drift.mp4',
+    category: 'Brand Systems',
+    rotation: 7,
+    metric: 'In-House Concept',
+    summary: 'An in-house concept handheld — industrial design, 3D product film and the identity around it.',
+    seo: {
+      title: 'Drift — Concept Handheld Case Study | Made by Chanan',
+      description: 'Drift is an in-house concept handheld: industrial design, 3D product animation and the brand language built around it.',
+      canonicalUrl: 'https://www.madebychanan.com/work/drift',
+      ogImage: 'https://www.madebychanan.com/work/drift.jpg',
+    },
+    intro: 'Drift is our own concept handheld — a self-initiated project to design a device end to end, from the industrial form through to the product film and the language used to sell it.',
+    challenge: 'Designing a device with no existing brand to lean on, and making a concept object read as a real product rather than a render exercise.',
+    creativeDirection: 'Tactile and restrained. Honest materials, considered proportions and lighting that treats the object like product photography rather than a CG showcase.',
+    designApproach: 'We modelled the form first and let the identity follow from it, so the graphic language and the physical object share the same proportions and detailing.',
+    technicalApproach: 'Physically-based materials and studio lighting rigs rendered out as a short product film, cut to loop cleanly as a web hero.',
+    outcome: 'A complete concept product — form, film and identity — that doubles as a demonstration of how we take hardware ideas from sketch to launch-ready visuals.',
+    deliverables: [
+      'Industrial Design & CAD Form',
+      '3D Product Film',
+      'Material & Lighting Studies',
+      'Concept Brand Identity',
+      'Launch Visual System'
+    ],
+    gallery: ['/work/drift.jpg', '/showcase-extra-1.png', '/grid-photos/grid2.png'],
+    relatedServices: [
+      { name: '3D Product Animation', path: '/3d-product-animation' },
+      { name: 'Motion Design', path: '/motion-design' },
+      { name: 'Branding', path: '/branding' }
+    ]
+  },
+  {
+    id: 'codevantum',
+    slug: 'codevantum',
+    title: 'CodeVantum — AI Development Companion',
+    client: 'CodeVantum',
+    industry: 'Developer Tools & Artificial Intelligence',
+    services: ['Motion Design', 'Illustration', 'Brand Identity', 'Web Design'],
+    year: '2026',
+    image: '/work/codevantum.jpg',
+    video: '/work/codevantum.mp4',
+    category: 'Kinetic Apps',
+    rotation: -4,
+    metric: 'Animated Brand Film',
+    summary: 'Illustrated motion film and brand language for an AI development companion.',
+    seo: {
+      title: 'CodeVantum — AI Development Companion Case Study | Made by Chanan',
+      description: 'Chanan built the illustrated motion film and brand language for CodeVantum, an AI companion for developers.',
+      canonicalUrl: 'https://www.madebychanan.com/work/codevantum',
+      ogImage: 'https://www.madebychanan.com/work/codevantum.jpg',
+    },
+    intro: 'CodeVantum asked Chanan to explain an AI development companion without a single screenshot. We built an illustrated motion film that follows a developer through a late-night session, and the brand language that grew out of it.',
+    challenge: 'Making a prompt-driven developer tool feel warm and human, in a category that defaults to dark terminals and abstract particle work.',
+    creativeDirection: 'Flat illustration with a deep violet ground and warm amber accents — late-night light, generous negative space, and characters shown from over the shoulder so the viewer sits in the seat.',
+    designApproach: 'We wrote the film around a single relatable moment rather than a feature list, then pulled the palette, type and iconography back out of it so the brand and the film share one vocabulary.',
+    technicalApproach: 'Frame-by-frame and rigged 2D animation composited at 60fps, with the interface moments animated as real UI so the product reads as something that exists.',
+    outcome: 'A brand film that carries the product without demoing it, plus an illustration and motion system the team reuses across launch, docs and social.',
+    deliverables: [
+      'Illustrated Brand Film',
+      'Motion Design System',
+      'Illustration Library',
+      'Brand Identity & Palette',
+      'Launch Web Design'
+    ],
+    gallery: ['/work/codevantum.jpg', '/grid-photos/grid10.png', '/grid-photos/grid5.png'],
+    relatedServices: [
+      { name: 'Motion Design', path: '/motion-design' },
+      { name: 'Branding', path: '/branding' },
+      { name: 'Web Design', path: '/web-design' }
+    ]
+  },
+  {
+    id: 'tee-bloc',
+    slug: 'tee-bloc',
+    title: 'The Tee Bloc — Streetwear Brand & Storefront',
+    client: 'The Tee Bloc',
+    industry: 'Streetwear & E-Commerce',
+    services: ['Brand Identity', 'Art Direction', 'E-Commerce Design', 'Web Development'],
+    year: '2026',
+    image: '/work/tee-bloc.jpg',
+    video: '/work/tee-bloc.mp4',
+    category: 'Brand Systems',
+    rotation: 5,
+    metric: 'Brand & Storefront Launch',
+    summary: 'Identity, art direction and storefront for a streetwear label built on hip-hop and community.',
+    seo: {
+      title: 'The Tee Bloc — Streetwear Brand & Storefront Case Study | Made by Chanan',
+      description: 'Chanan built the identity, art direction and e-commerce storefront for The Tee Bloc, a streetwear label rooted in hip-hop and community.',
+      canonicalUrl: 'https://www.madebychanan.com/work/tee-bloc',
+      ogImage: 'https://www.madebychanan.com/work/tee-bloc.jpg',
+    },
+    intro: 'The Tee Bloc started with two childhood friends from Ludhiana, an ocean between them, and a shared obsession with hip-hop and streetwear. Chanan built the identity, art direction and storefront that carry that story onto the product and the page.',
+    challenge: 'Launching a streetwear label into a saturated market where the garment is the easy part and the story is what people actually buy into.',
+    creativeDirection: 'Quiet confidence over loud branding. Restrained type, honest product photography and a tone that reads as a community rather than a catalogue — built around the brand’s own line, ‘Bloc to the World.’',
+    designApproach: 'We treated the name as the brief: ‘Tee’ as the timeless essential and ‘Bloc’ as the community around it, so the identity works on a woven label and a storefront banner alike.',
+    technicalApproach: 'A storefront built around fast product pages and clean size and care guidance, with the imagery given room to carry the weight rather than competing with UI.',
+    outcome: 'A brand system that scales from a single drop to a full range, and a storefront the founders can run themselves.',
+    deliverables: [
+      'Brand Identity & Wordmark',
+      'Art Direction & Product Photography',
+      'E-Commerce Storefront',
+      'Packaging & Garment Labelling',
+      'Launch Campaign Assets'
+    ],
+    gallery: ['/work/tee-bloc.jpg', '/work/work1.jpg', '/untitled-design-7.png'],
+    relatedServices: [
+      { name: 'Branding', path: '/branding' },
+      { name: 'Web Design', path: '/web-design' },
+      { name: 'Web Development', path: '/web-development' }
+    ]
+  },
+  {
+    id: 'flava',
+    slug: 'flava',
+    title: 'Flava — 3D Product Film',
+    client: 'Flava',
+    industry: 'Consumer Hardware & Product Visualisation',
+    services: ['3D Product Animation', 'Motion Design', 'Art Direction', 'CGI Rendering'],
+    year: '2026',
+    image: '/work/flava.jpg',
+    video: '/work/flava.mp4',
+    category: '3D Web',
+    rotation: -6,
+    metric: 'Full CGI Product Film',
+    summary: 'A fully CGI product film — macro detail, physical materials and daylight rendering.',
+    seo: {
+      title: 'Flava — 3D Product Film Case Study | Made by Chanan',
+      description: 'Chanan produced a fully CGI product film for Flava: macro hardware detail, physically-based materials and daylight rendering.',
+      canonicalUrl: 'https://www.madebychanan.com/work/flava',
+      ogImage: 'https://www.madebychanan.com/work/flava.jpg',
+    },
+    intro: 'Flava came to Chanan for a product film with no product to shoot. We built the hardware in CGI and lit it like a real set, so the film could run before a single unit existed.',
+    challenge: 'Selling the tactility of a device that had never been photographed — every material cue had to be earned in the render rather than borrowed from a real shoot.',
+    creativeDirection: 'Daylight and clean sky rather than a dark studio. Soft blues against warm copper, shot in macro so the eye reads finish and weight before it reads the whole object.',
+    designApproach: 'We storyboarded around detail beats — dial, edge, seam — letting the camera move slowly enough that the surfaces do the talking.',
+    technicalApproach: 'Physically-based materials with measured roughness and anisotropy on the metal, rendered against an HDRI sky with depth of field resolved in-camera rather than in post.',
+    outcome: 'A launch film and a library of macro stills, both delivered before manufacturing — so marketing ran ahead of the production line instead of behind it.',
+    deliverables: [
+      'CGI Product Film',
+      'Hard-Surface Modelling',
+      'Material & Lighting Development',
+      'Macro Still Library',
+      'Launch Motion Assets'
+    ],
+    gallery: ['/work/flava.jpg', '/showcase-extra-1.png', '/grid-photos/grid2.png'],
+    relatedServices: [
+      { name: '3D Product Animation', path: '/3d-product-animation' },
+      { name: 'Motion Design', path: '/motion-design' },
+      { name: 'Branding', path: '/branding' }
+    ]
+  },
+  {
     id: 'lumina',
     slug: 'lumina',
     title: 'Lumina — Spatial WebGL Operating System',
@@ -19,7 +219,7 @@ export const projects = [
     metric: '+340% User Engagement',
     summary: 'Interactive WebGL spatial interface featuring real-time 3D environments, custom GLSL shaders, and sub-16ms GPU rendering.',
     seo: {
-      title: 'Lumina — Spatial WebGL OS Case Study | Chanan',
+      title: 'Lumina — Spatial WebGL OS Case Study | Made by Chanan',
       description: 'Discover how Chanan engineered Lumina Spatial OS with real-time WebGL shaders, 3D spatial viewport, and 120fps fluid physics.',
       canonicalUrl: 'https://www.madebychanan.com/work/lumina',
       ogImage: 'https://www.madebychanan.com/experience_laptop.png',
@@ -58,7 +258,7 @@ export const projects = [
     metric: 'Sub-12ms Telemetry',
     summary: 'High-speed AI model training and agent telemetry platform with real-time reactive charting and kinetic UI.',
     seo: {
-      title: 'MoodTalk — AI Neural Command Center Case Study | Chanan',
+      title: 'MoodTalk — AI Neural Command Center Case Study | Made by Chanan',
       description: 'Case study of MoodTalk AI dashboard engineered by Chanan. Real-time agent telemetry, kinetic UI, and high-density canvas charts.',
       canonicalUrl: 'https://www.madebychanan.com/work/moodtalk',
       ogImage: 'https://www.madebychanan.com/moodtalk_dashboard.png',
@@ -97,7 +297,7 @@ export const projects = [
     metric: '$24M Series-A Rebrand',
     summary: 'Comprehensive generative brand identity system, typographic design tokens, and digital flagship for a global venture firm.',
     seo: {
-      title: 'Amplo — Global Brand Architecture Case Study | Chanan',
+      title: 'Amplo — Global Brand Architecture Case Study | Made by Chanan',
       description: 'Discover how Chanan created the brand identity system and digital flagship for Amplo Capital.',
       canonicalUrl: 'https://www.madebychanan.com/work/amplo',
       ogImage: 'https://www.madebychanan.com/amplo_brand.png',
@@ -136,7 +336,7 @@ export const projects = [
     metric: '+280% E-Commerce Conversion',
     summary: 'Interactive 3D product showcase and luxury e-commerce experience with custom physically-based shaders.',
     seo: {
-      title: 'Aurelis — Kinetic 3D Skincare Case Study | Chanan',
+      title: 'Aurelis — Kinetic 3D Skincare Case Study | Made by Chanan',
       description: 'Chanan case study on Aurelis luxury skincare: 3D interactive product visualization and headless e-commerce flagship.',
       canonicalUrl: 'https://www.madebychanan.com/work/aurelis',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid1.png',
@@ -175,7 +375,7 @@ export const projects = [
     metric: 'Awwwards Studio Winner',
     summary: 'High-density multi-cluster analytics canvas with GPU-accelerated stream visualization and kinetic interactions.',
     seo: {
-      title: 'Data Jungle — Real-Time Telemetry Case Study | Chanan',
+      title: 'Data Jungle — Real-Time Telemetry Case Study | Made by Chanan',
       description: 'Explore Chanan’s case study on Data Jungle: an interactive real-time telemetry engine with GPU-accelerated canvas visualization.',
       canonicalUrl: 'https://www.madebychanan.com/work/data-jungle',
       ogImage: 'https://www.madebychanan.com/data_jungle.png',
@@ -214,7 +414,7 @@ export const projects = [
     metric: 'FWA Site of the Day',
     summary: 'Futuristic industrial design showcase and interactive 3D product configurator for next-gen magnetic hardware.',
     seo: {
-      title: 'Voltaria — Magnetic Hardware Systems Case Study | Chanan',
+      title: 'Voltaria — Magnetic Hardware Systems Case Study | Made by Chanan',
       description: 'Case study on Voltaria industrial hardware by Chanan. 3D magnetic mechanics, interactive product configurator, and brand systems.',
       canonicalUrl: 'https://www.madebychanan.com/work/voltaria',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid2.png',
@@ -253,7 +453,7 @@ export const projects = [
     metric: '1.2M Active Users',
     summary: 'Fluid kinetic mobile and web application engineered with 120fps gesture physics and generative design systems.',
     seo: {
-      title: 'Velora — Kinetic Mobile Platform Case Study | Chanan',
+      title: 'Velora — Kinetic Mobile Platform Case Study | Made by Chanan',
       description: 'Chanan case study on Velora: generative typography matrix, 120fps gesture physics, and kinetic mobile application.',
       canonicalUrl: 'https://www.madebychanan.com/work/velora',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid6.png',
@@ -292,7 +492,7 @@ export const projects = [
     metric: 'Global Innovation Award',
     summary: 'Experimental spatial computing interface designed for generative art workflows and spatial canvas manipulation.',
     seo: {
-      title: 'Verde — Dual Core Generative OS Case Study | Chanan',
+      title: 'Verde — Dual Core Generative OS Case Study | Made by Chanan',
       description: 'Explore the Verde Dual Core OS case study by Chanan. Experimental spatial computing, generative canvas, and WebGL shaders.',
       canonicalUrl: 'https://www.madebychanan.com/work/verde',
       ogImage: 'https://www.madebychanan.com/showcase-extra-2.png',
@@ -331,7 +531,7 @@ export const projects = [
     metric: '+310% Brand Recall',
     summary: 'Tactile WebGL visual canvas highlighting organic ingredients through real-time procedural lighting and botanical shaders.',
     seo: {
-      title: 'Botanical — Organic Skincare Canvas Case Study | Chanan',
+      title: 'Botanical — Organic Skincare Canvas Case Study | Made by Chanan',
       description: 'Discover how Chanan crafted the tactile 3D botanical web experience for Botanical Living.',
       canonicalUrl: 'https://www.madebychanan.com/work/botanical',
       ogImage: 'https://www.madebychanan.com/skincare_leaf.png',
@@ -368,7 +568,7 @@ export const projects = [
     metric: 'Sub-10ms Live Execution',
     summary: 'High-frequency institutional trading dashboard featuring multi-chart canvas grids and real-time order books.',
     seo: {
-      title: 'Nexus — Neural Analytics Dashboard Case Study | Chanan',
+      title: 'Nexus — Neural Analytics Dashboard Case Study | Made by Chanan',
       description: 'Read the Nexus Data institutional trading dashboard case study engineered by Chanan.',
       canonicalUrl: 'https://www.madebychanan.com/work/nexus',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid4.png',
@@ -405,7 +605,7 @@ export const projects = [
     metric: 'Top AI Tool 2025',
     summary: 'Spatial 3D knowledge graph visualizer mapping complex multi-modal decision vectors in real-time WebGL.',
     seo: {
-      title: 'Clarity — 3D Decision Engine Case Study | Chanan',
+      title: 'Clarity — 3D Decision Engine Case Study | Made by Chanan',
       description: 'Chanan case study on Clarity 3D Decision Engine: multi-dimensional spatial graph visualization and WebGL shaders.',
       canonicalUrl: 'https://www.madebychanan.com/work/clarity',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid5.png',
@@ -442,7 +642,7 @@ export const projects = [
     metric: '400k+ App Installs',
     summary: 'Modular mobile interface architecture with gesture-driven kinetic cards and micro-animations.',
     seo: {
-      title: 'Nova Flow — Kinetic Interaction Suite Case Study | Chanan',
+      title: 'Nova Flow — Kinetic Interaction Suite Case Study | Made by Chanan',
       description: 'Explore how Chanan designed Nova Flow’s gesture-driven mobile interaction suite and kinetic UI physics.',
       canonicalUrl: 'https://www.madebychanan.com/work/nova-flow',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid3.png',
@@ -479,7 +679,7 @@ export const projects = [
     metric: 'Red Dot Design Award',
     summary: 'Precision industrial design showcase and interactive 3D exploded hardware explorer.',
     seo: {
-      title: 'Chanan Hardware Core Case Study | Chanan',
+      title: 'Chanan Hardware Core Case Study | Made by Chanan',
       description: 'Chanan industrial hardware showcase: 3D exploded view rendering, physical materials, and luxury industrial branding.',
       canonicalUrl: 'https://www.madebychanan.com/work/chanan-hardware',
       ogImage: 'https://www.madebychanan.com/showcase-extra-1.png',
@@ -516,7 +716,7 @@ export const projects = [
     metric: 'Enterprise Leader 2025',
     summary: 'Modern SaaS operations dashboard with kinetic cards, real-time alerting, and automated anomaly detection.',
     seo: {
-      title: 'AmberPulse — Real-Time SaaS Analytics Case Study | Chanan',
+      title: 'AmberPulse — Real-Time SaaS Analytics Case Study | Made by Chanan',
       description: 'Case study on AmberPulse SaaS analytics dashboard designed and engineered by Chanan.',
       canonicalUrl: 'https://www.madebychanan.com/work/amber-pulse',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid8.png',
@@ -553,7 +753,7 @@ export const projects = [
     metric: 'FWA of the Month',
     summary: 'Editorial creative agency flagship featuring 3D liquid transitions and typography physics.',
     seo: {
-      title: 'Persona — Digital Studio Flagship Case Study | Chanan',
+      title: 'Persona — Digital Studio Flagship Case Study | Made by Chanan',
       description: 'Chanan case study on Persona Digital Studio flagship: liquid WebGL transitions, editorial art direction, and 3D web motion.',
       canonicalUrl: 'https://www.madebychanan.com/work/persona-studio',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid9.png',
@@ -590,7 +790,7 @@ export const projects = [
     metric: 'Global Design Award',
     summary: 'Complete brand identity architecture, generative typography scales, and tokenized design system.',
     seo: {
-      title: 'Velora — Brand Identity System Case Study | Chanan',
+      title: 'Velora — Brand Identity System Case Study | Made by Chanan',
       description: 'Discover how Chanan built the generative brand identity system and typographic standards for Velora Systems.',
       canonicalUrl: 'https://www.madebychanan.com/work/velora-brand',
       ogImage: 'https://www.madebychanan.com/grid-photos/grid7.png',
