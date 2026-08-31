@@ -7,6 +7,7 @@ const capabilities = [
   { label: 'Apps & Product', to: '/web-development' },
   { label: 'Brand & Logos', to: '/branding' },
   { label: 'Motion & 3D', to: '/motion-design' },
+  { label: '3D Product Animation', to: '/3d-product-animation' },
   { label: 'Automations', to: '/services' },
 ];
 
@@ -14,6 +15,8 @@ const studioLinks = [
   { label: 'Work', to: '/work' },
   { label: 'Services', to: '/services' },
   { label: 'About', to: '/about' },
+  { label: 'Clients', to: '/clients' },
+  { label: 'Chanan One', to: '/chanan-one' },
   { label: 'Contact', to: '/contact' },
 ];
 
