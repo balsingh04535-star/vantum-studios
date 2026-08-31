@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true, // Using raw img tags throughout the project
   },
   // Transpile packages that use ES module syntax
-  transpilePackages: ['gsap', 'lenis', 'three'],
+  transpilePackages: ['gsap', 'three'],
   async redirects() {
     return [
       {

@@ -53,6 +53,40 @@ export function getMaxDPR() {
 }
 
 /**
+ * Total backing-store pixels a full-bleed background effect may use.
+ *
+ * getMaxDPR alone isn't enough: it scales a canvas relative to its CSS size,
+ * so an element sized to a tall section rather than the viewport still ends
+ * up enormous. The light-ray background sits in a 7000px-tall section, which
+ * at DPR 2 is a 23 megapixel buffer — roughly 88MB of GPU memory for one soft
+ * gradient. This caps the buffer regardless of how tall the element is.
+ */
+export function getPixelBudget() {
+  const tier = getDeviceTier();
+  if (tier === 'low') return 1.2e6;
+  if (tier === 'mid') return 2.2e6;
+  return 4.0e6;
+}
+
+/**
+ * Pixel ratio to render a w x h CSS-pixel surface at: the device ratio,
+ * clamped by tier, then reduced further if the surface would blow the
+ * budget. Low-frequency effects (gradients, rays, glows) survive being
+ * rendered below 1x and scaled back up — the GPU's own filtering hides it.
+ */
+export function getBudgetedDPR(cssWidth, cssHeight) {
+  const cap = Math.min(
+    (typeof window !== 'undefined' && window.devicePixelRatio) || 1,
+    getMaxDPR()
+  );
+  const area = cssWidth * cssHeight;
+  if (!area || area <= 0) return cap;
+  const fit = Math.sqrt(getPixelBudget() / area);
+  // Never go below 0.4x — past that even a soft gradient starts to band.
+  return Math.max(0.4, Math.min(cap, fit));
+}
+
+/**
  * Returns the recommended number of FBM octaves for noise shaders.
  * - low:  3
  * - mid:  4
@@ -78,18 +112,6 @@ export function getGlobeMapSamples() {
   return 65000;
 }
 
-/**
- * Returns the recommended Lenis scroll duration multiplier.
- * - low:  0.7  (shorter easing = less interpolation per frame)
- * - mid:  0.85
- * - high: 1.0
- */
-export function getLenisDurationMultiplier() {
-  const tier = getDeviceTier();
-  if (tier === 'low') return 0.7;
-  if (tier === 'mid') return 0.85;
-  return 1.0;
-}
 
 /**
  * Returns whether the user prefers reduced motion.

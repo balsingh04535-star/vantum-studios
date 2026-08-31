@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { getMaxDPR, getDeviceTier } from '../utils/perf';
+import { getBudgetedDPR, getDeviceTier } from '../utils/perf';
 
 const vertexShader = `
   varying vec2 vUv;
@@ -139,7 +139,10 @@ export default function LightRaysBackground({
       return;
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
+    /* This canvas is sized to its section, not the viewport, and that
+       section runs thousands of pixels tall — so the ratio has to respect a
+       total pixel budget, not just the device ratio. */
+    const dpr = getBudgetedDPR(width, height);
     renderer.setSize(width, height);
     renderer.setPixelRatio(dpr);
     renderer.setClearColor(0x000000, 0);
@@ -202,7 +205,7 @@ export default function LightRaysBackground({
       if (!container || !renderer) return;
       const w = container.clientWidth || window.innerWidth;
       const h = container.clientHeight || window.innerHeight;
-      const currentDpr = Math.min(window.devicePixelRatio || 1, getMaxDPR());
+      const currentDpr = getBudgetedDPR(w, h);
       renderer.setSize(w, h);
       renderer.setPixelRatio(currentDpr);
       uniforms.iResolution.value.set(w * currentDpr, h * currentDpr);

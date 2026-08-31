@@ -159,6 +159,15 @@ export const projects = [
       'Launch Campaign Assets'
     ],
     gallery: ['/work/tee-bloc-1.jpg', '/work/tee-bloc-2.jpg', '/work/tee-bloc-3.jpg'],
+    /* A process board rather than a still: it carries its own header, a 3x3
+       step grid and a notes row, so it has to run at its native ratio.
+       Anything that crops it cuts the title and the notes off. */
+    processBoard: {
+      src: '/work/tee-bloc-process.jpg',
+      eyebrow: 'Process',
+      caption: 'The TB monogram from rough sketches through vector construction, spline import, blockout, topology and material studies to the final render.',
+      alt: 'The Tee Bloc 3D logo making process — nine steps from rough monogram sketches to the final polished render',
+    },
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Web Design', path: '/web-design' },
@@ -213,7 +222,7 @@ export const projects = [
     industry: 'Spatial Computing & WebGL Platform',
     services: ['Web Design', 'WebGL Architecture', 'Generative Shaders', 'Creative Development'],
     year: '2026',
-    image: '/experience_laptop.png',
+    image: '/experience_laptop.jpg',
     category: '3D Web',
     rotation: -8,
     metric: '+340% User Engagement',
@@ -222,7 +231,7 @@ export const projects = [
       title: 'Lumina — Spatial WebGL OS Case Study | Made by Chanan',
       description: 'Discover how Chanan engineered Lumina Spatial OS with real-time WebGL shaders, 3D spatial viewport, and 120fps fluid physics.',
       canonicalUrl: 'https://www.madebychanan.com/work/lumina',
-      ogImage: 'https://www.madebychanan.com/experience_laptop.png',
+      ogImage: 'https://www.madebychanan.com/experience_laptop.jpg',
     },
     intro: 'Lumina Systems commissioned Chanan to architect their premier digital flagship and interactive WebGL spatial interface. We engineered a GPU-accelerated canvas environment that allows users to manipulate multi-dimensional spatial layouts directly within the browser.',
     challenge: 'Achieving sub-16ms frame times while rendering real-time volumetric lighting and complex 3D meshes across both mobile and high-DPI desktop viewports.',
@@ -237,7 +246,7 @@ export const projects = [
       'Web Audio API Integration',
       'Responsive Web Architecture'
     ],
-    gallery: ['/experience_laptop.png', '/grid-photos/grid11.png', '/grid-photos/grid5.png'],
+    gallery: ['/experience_laptop.jpg', '/grid-photos/grid11.png', '/grid-photos/grid5.jpg'],
     relatedServices: [
       { name: 'Web Design', path: '/web-design' },
       { name: 'Web Development', path: '/web-development' },
@@ -252,7 +261,7 @@ export const projects = [
     industry: 'Artificial Intelligence & Agent Telemetry',
     services: ['Web Design', 'Kinetic UI', 'Web Development', 'Design Systems'],
     year: '2026',
-    image: '/moodtalk_dashboard.png',
+    image: '/moodtalk_dashboard.jpg',
     category: 'Kinetic Apps',
     rotation: 6,
     metric: 'Sub-12ms Telemetry',
@@ -261,7 +270,7 @@ export const projects = [
       title: 'MoodTalk — AI Neural Command Center Case Study | Made by Chanan',
       description: 'Case study of MoodTalk AI dashboard engineered by Chanan. Real-time agent telemetry, kinetic UI, and high-density canvas charts.',
       canonicalUrl: 'https://www.madebychanan.com/work/moodtalk',
-      ogImage: 'https://www.madebychanan.com/moodtalk_dashboard.png',
+      ogImage: 'https://www.madebychanan.com/moodtalk_dashboard.jpg',
     },
     intro: 'MoodTalk AI develops multi-agent LLM systems. They partnered with Chanan to architect their complete web application, real-time command dashboard, and brand design language.',
     challenge: 'Visualizing thousands of concurrent AI agent workflows and latency metrics simultaneously without causing main thread jank.',
@@ -276,7 +285,7 @@ export const projects = [
       'WebSocket Realtime Protocol',
       'Modular Dark Theme'
     ],
-    gallery: ['/moodtalk_dashboard.png', '/grid-photos/grid4.png', '/grid-photos/grid3.png'],
+    gallery: ['/moodtalk_dashboard.jpg', '/grid-photos/grid4.jpg', '/grid-photos/grid3.jpg'],
     relatedServices: [
       { name: 'Web Development', path: '/web-development' },
       { name: 'Web Design', path: '/web-design' },
@@ -291,7 +300,7 @@ export const projects = [
     industry: 'Venture Capital & Technology Innovation',
     services: ['Brand Identity', 'Generative Design', 'Web Development', 'Creative Direction'],
     year: '2026',
-    image: '/amplo_brand.png',
+    image: '/amplo_brand.jpg',
     category: 'Brand Systems',
     rotation: -4,
     metric: '$24M Series-A Rebrand',
@@ -300,7 +309,7 @@ export const projects = [
       title: 'Amplo — Global Brand Architecture Case Study | Made by Chanan',
       description: 'Discover how Chanan created the brand identity system and digital flagship for Amplo Capital.',
       canonicalUrl: 'https://www.madebychanan.com/work/amplo',
-      ogImage: 'https://www.madebychanan.com/amplo_brand.png',
+      ogImage: 'https://www.madebychanan.com/amplo_brand.jpg',
     },
     intro: 'Amplo Capital backs transformative tech pioneers globally. Chanan was commissioned to redefine their visual identity, brand guidelines, and digital flagship from the ground up.',
     challenge: 'Creating a brand identity that communicates institutional gravitas while embodying futuristic technological disruption.',
@@ -315,7 +324,7 @@ export const projects = [
       'Custom Typography Scales',
       'Comprehensive Design Tokens'
     ],
-    gallery: ['/amplo_brand.png', '/grid-photos/grid7.png', '/grid-new-2.png'],
+    gallery: ['/amplo_brand.jpg', '/grid-photos/grid7.jpg', '/grid-new-2.jpg'],
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Web Design', path: '/web-design' },
@@ -330,7 +339,7 @@ export const projects = [
     industry: 'High-Luxury Botanical Skincare',
     services: ['3D Web', 'Creative Development', 'Motion Design', 'E-Commerce'],
     year: '2025',
-    image: '/grid-photos/grid1.png',
+    image: '/grid-photos/grid1.jpg',
     category: '3D Web',
     rotation: 8,
     metric: '+280% E-Commerce Conversion',
@@ -339,7 +348,7 @@ export const projects = [
       title: 'Aurelis — Kinetic 3D Skincare Case Study | Made by Chanan',
       description: 'Chanan case study on Aurelis luxury skincare: 3D interactive product visualization and headless e-commerce flagship.',
       canonicalUrl: 'https://www.madebychanan.com/work/aurelis',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid1.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid1.jpg',
     },
     intro: 'Aurelis creates organic bio-active luxury skincare formulations. They selected Chanan to build a sensory digital flagship that mirrors the organic purity and scientific precision of their products.',
     challenge: 'Simulating tactile glass bottle refractions, liquid viscosity, and organic botanical leaf textures in real time in WebGL.',
@@ -354,7 +363,7 @@ export const projects = [
       'Editorial Art Direction',
       'Mobile Performance Calibration'
     ],
-    gallery: ['/grid-photos/grid1.png', '/skincare_leaf.png', '/untitled-design-7.png'],
+    gallery: ['/grid-photos/grid1.jpg', '/skincare_leaf.jpg', '/untitled-design-7.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Web Design', path: '/web-design' },
@@ -369,7 +378,7 @@ export const projects = [
     industry: 'Enterprise Data Infrastructure & Observability',
     services: ['Web Design', 'Kinetic UI', 'Web Development', 'WebGL Visualizer'],
     year: '2025',
-    image: '/data_jungle.png',
+    image: '/data_jungle.jpg',
     category: 'Kinetic Apps',
     rotation: -6,
     metric: 'Awwwards Studio Winner',
@@ -378,7 +387,7 @@ export const projects = [
       title: 'Data Jungle — Real-Time Telemetry Case Study | Made by Chanan',
       description: 'Explore Chanan’s case study on Data Jungle: an interactive real-time telemetry engine with GPU-accelerated canvas visualization.',
       canonicalUrl: 'https://www.madebychanan.com/work/data-jungle',
-      ogImage: 'https://www.madebychanan.com/data_jungle.png',
+      ogImage: 'https://www.madebychanan.com/data_jungle.jpg',
     },
     intro: 'Data Jungle provides enterprise-grade observability pipelines for distributed cloud systems. Chanan engineered their public marketing site and interactive telemetry canvas.',
     challenge: 'Transforming dense cloud telemetry metrics into an engaging, interactive visual story that resonates with enterprise CTOs and lead architects.',
@@ -393,7 +402,7 @@ export const projects = [
       'Kinetic Micro-Interactions',
       'Cross-Device Performance Tuning'
     ],
-    gallery: ['/data_jungle.png', '/showcase-extra-2.png', '/grid-photos/grid8.png'],
+    gallery: ['/data_jungle.jpg', '/showcase-extra-2.jpg', '/grid-photos/grid8.jpg'],
     relatedServices: [
       { name: 'Web Development', path: '/web-development' },
       { name: 'Motion Design', path: '/motion-design' },
@@ -408,7 +417,7 @@ export const projects = [
     industry: 'Advanced Robotics & Industrial Hardware',
     services: ['Brand Identity', '3D Product Animation', 'Web Development', 'Creative Direction'],
     year: '2025',
-    image: '/grid-photos/grid2.png',
+    image: '/grid-photos/grid2.jpg',
     category: 'Brand Systems',
     rotation: 5,
     metric: 'FWA Site of the Day',
@@ -417,7 +426,7 @@ export const projects = [
       title: 'Voltaria — Magnetic Hardware Systems Case Study | Made by Chanan',
       description: 'Case study on Voltaria industrial hardware by Chanan. 3D magnetic mechanics, interactive product configurator, and brand systems.',
       canonicalUrl: 'https://www.madebychanan.com/work/voltaria',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid2.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid2.jpg',
     },
     intro: 'Voltaria designs magnetic levitation couplings and robotic actuation components. Chanan was hired to develop their full brand identity and interactive 3D product showcase.',
     challenge: 'Demonstrating internal magnetic field physics and exploded mechanical assemblies in an intuitive, high-speed 3D web experience.',
@@ -432,7 +441,7 @@ export const projects = [
       'Interactive Product Configurator',
       'Full Responsive Flagship'
     ],
-    gallery: ['/grid-photos/grid2.png', '/showcase-extra-1.png', '/grid-photos/grid6.png'],
+    gallery: ['/grid-photos/grid2.jpg', '/showcase-extra-1.jpg', '/grid-photos/grid6.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Branding', path: '/branding' },
@@ -447,7 +456,7 @@ export const projects = [
     industry: 'Digital Lifestyle & Mobile Applications',
     services: ['Brand Identity', 'Kinetic UI', 'Mobile Development', 'Design System'],
     year: '2025',
-    image: '/grid-photos/grid6.png',
+    image: '/grid-photos/grid6.jpg',
     category: 'Kinetic Apps',
     rotation: -5,
     metric: '1.2M Active Users',
@@ -456,7 +465,7 @@ export const projects = [
       title: 'Velora — Kinetic Mobile Platform Case Study | Made by Chanan',
       description: 'Chanan case study on Velora: generative typography matrix, 120fps gesture physics, and kinetic mobile application.',
       canonicalUrl: 'https://www.madebychanan.com/work/velora',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid6.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid6.jpg',
     },
     intro: 'Velora is a next-generation lifestyle platform for digital creators. Chanan designed and engineered the mobile app design system, web flagship, and kinetic motion guidelines.',
     challenge: 'Designing a typographic and motion system that scales effortlessly across diverse mobile screen aspect ratios while sustaining 120fps interaction physics.',
@@ -471,7 +480,7 @@ export const projects = [
       'Custom Typographic Matrix',
       'Interactive Prototype Suites'
     ],
-    gallery: ['/grid-photos/grid6.png', '/grid-photos/grid7.png', '/work/work3.jpg'],
+    gallery: ['/grid-photos/grid6.jpg', '/grid-photos/grid7.jpg', '/work/work3.jpg'],
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Motion Design', path: '/motion-design' },
@@ -486,7 +495,7 @@ export const projects = [
     industry: 'Generative Design & Spatial Canvas',
     services: ['Web Design', 'WebGL 3D Engine', 'Creative Direction', 'Web Development'],
     year: '2026',
-    image: '/showcase-extra-2.png',
+    image: '/showcase-extra-2.jpg',
     category: '3D Web',
     rotation: 4,
     metric: 'Global Innovation Award',
@@ -495,7 +504,7 @@ export const projects = [
       title: 'Verde — Dual Core Generative OS Case Study | Made by Chanan',
       description: 'Explore the Verde Dual Core OS case study by Chanan. Experimental spatial computing, generative canvas, and WebGL shaders.',
       canonicalUrl: 'https://www.madebychanan.com/work/verde',
-      ogImage: 'https://www.madebychanan.com/showcase-extra-2.png',
+      ogImage: 'https://www.madebychanan.com/showcase-extra-2.jpg',
     },
     intro: 'Verde builds spatial computing environments for generative artists and creative technologists. Chanan designed and developed their experimental web portal and interactive spatial workspace.',
     challenge: 'Constructing a multi-layered canvas workspace supporting simultaneous 3D object rendering, node graph manipulation, and real-time shader compiling.',
@@ -510,7 +519,7 @@ export const projects = [
       'Generative Design Standards',
       'Full Production Deployment'
     ],
-    gallery: ['/showcase-extra-2.png', '/grid-new-1.png', '/work/work2.jpg'],
+    gallery: ['/showcase-extra-2.jpg', '/grid-new-1.jpg', '/work/work2.jpg'],
     relatedServices: [
       { name: 'Web Development', path: '/web-development' },
       { name: 'Web Design', path: '/web-design' },
@@ -525,7 +534,7 @@ export const projects = [
     industry: 'Luxury Wellness & Direct-to-Consumer',
     services: ['Web Design', 'WebGL 3D Rendering', 'Brand Identity', 'Creative Direction'],
     year: '2025',
-    image: '/skincare_leaf.png',
+    image: '/skincare_leaf.jpg',
     category: '3D Web',
     rotation: -3,
     metric: '+310% Brand Recall',
@@ -534,7 +543,7 @@ export const projects = [
       title: 'Botanical — Organic Skincare Canvas Case Study | Made by Chanan',
       description: 'Discover how Chanan crafted the tactile 3D botanical web experience for Botanical Living.',
       canonicalUrl: 'https://www.madebychanan.com/work/botanical',
-      ogImage: 'https://www.madebychanan.com/skincare_leaf.png',
+      ogImage: 'https://www.madebychanan.com/skincare_leaf.jpg',
     },
     intro: 'Botanical Living crafts wild-harvested botanical skincare formulas. Chanan built an atmospheric web flagship celebrating the living texture of raw botanical ingredients.',
     challenge: 'Recreating realistic leaf translucency and light scattering in real-time WebGL on mobile devices.',
@@ -548,7 +557,7 @@ export const projects = [
       'Tactile Interactive Canvas',
       'Mobile Performance Optimization'
     ],
-    gallery: ['/skincare_leaf.png', '/grid-photos/grid1.png', '/untitled-design-7.png'],
+    gallery: ['/skincare_leaf.jpg', '/grid-photos/grid1.jpg', '/untitled-design-7.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Web Design', path: '/web-design' }
@@ -562,7 +571,7 @@ export const projects = [
     industry: 'Fintech & Quantitative Trading',
     services: ['Web Development', 'Kinetic UI', 'Web Design', 'Design Systems'],
     year: '2026',
-    image: '/grid-photos/grid4.png',
+    image: '/grid-photos/grid4.jpg',
     category: 'Kinetic Apps',
     rotation: 5,
     metric: 'Sub-10ms Live Execution',
@@ -571,7 +580,7 @@ export const projects = [
       title: 'Nexus — Neural Analytics Dashboard Case Study | Made by Chanan',
       description: 'Read the Nexus Data institutional trading dashboard case study engineered by Chanan.',
       canonicalUrl: 'https://www.madebychanan.com/work/nexus',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid4.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid4.jpg',
     },
     intro: 'Nexus provides algorithmic execution infrastructure for quant funds. Chanan built their ultra-low latency command terminal and marketing portal.',
     challenge: 'Rendering dozens of active depth charts and live price feeds without dropped frames.',
@@ -585,7 +594,7 @@ export const projects = [
       'Dark Mode Terminal Ergonomics',
       'WebSocket Data Synchronization'
     ],
-    gallery: ['/grid-photos/grid4.png', '/grid-photos/grid3.png', '/data_jungle.png'],
+    gallery: ['/grid-photos/grid4.jpg', '/grid-photos/grid3.jpg', '/data_jungle.jpg'],
     relatedServices: [
       { name: 'Web Development', path: '/web-development' },
       { name: 'Web Design', path: '/web-design' }
@@ -599,7 +608,7 @@ export const projects = [
     industry: 'Enterprise AI & Spatial Graph Visualization',
     services: ['3D Web', 'WebGL Architecture', 'Creative Development', 'Brand Systems'],
     year: '2025',
-    image: '/grid-photos/grid5.png',
+    image: '/grid-photos/grid5.jpg',
     category: '3D Web',
     rotation: -7,
     metric: 'Top AI Tool 2025',
@@ -608,7 +617,7 @@ export const projects = [
       title: 'Clarity — 3D Decision Engine Case Study | Made by Chanan',
       description: 'Chanan case study on Clarity 3D Decision Engine: multi-dimensional spatial graph visualization and WebGL shaders.',
       canonicalUrl: 'https://www.madebychanan.com/work/clarity',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid5.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid5.jpg',
     },
     intro: 'Clarity Intelligence visualizes deep enterprise knowledge graphs. Chanan crafted their 3D interactive web environment and spatial analytics sandbox.',
     challenge: 'Graphing 50,000+ interconnected vector nodes with force-directed physics running at 60 FPS in WebGL.',
@@ -622,7 +631,7 @@ export const projects = [
       'Interactive WebGL Sandbox',
       'Technical Brand Guidelines'
     ],
-    gallery: ['/grid-photos/grid5.png', '/grid-photos/grid11.png', '/experience_laptop.png'],
+    gallery: ['/grid-photos/grid5.jpg', '/grid-photos/grid11.png', '/experience_laptop.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Web Development', path: '/web-development' }
@@ -636,7 +645,7 @@ export const projects = [
     industry: 'Mobile UX & Design Tooling',
     services: ['Kinetic UI', 'Web Design', 'Web Development', 'Design System'],
     year: '2025',
-    image: '/grid-photos/grid3.png',
+    image: '/grid-photos/grid3.jpg',
     category: 'Kinetic Apps',
     rotation: 4,
     metric: '400k+ App Installs',
@@ -645,7 +654,7 @@ export const projects = [
       title: 'Nova Flow — Kinetic Interaction Suite Case Study | Made by Chanan',
       description: 'Explore how Chanan designed Nova Flow’s gesture-driven mobile interaction suite and kinetic UI physics.',
       canonicalUrl: 'https://www.madebychanan.com/work/nova-flow',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid3.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid3.jpg',
     },
     intro: 'Nova Interactive builds mobile workflow suites for creative teams. Chanan developed their core design system and kinetic web portal.',
     challenge: 'Creating natural, tactile physics that make touch gestures feel weightless yet physically tangible.',
@@ -659,7 +668,7 @@ export const projects = [
       'Component Design System',
       'Micro-Animation Library'
     ],
-    gallery: ['/grid-photos/grid3.png', '/grid-photos/grid4.png', '/work/work3.jpg'],
+    gallery: ['/grid-photos/grid3.jpg', '/grid-photos/grid4.jpg', '/work/work3.jpg'],
     relatedServices: [
       { name: 'Motion Design', path: '/motion-design' },
       { name: 'Web Design', path: '/web-design' }
@@ -673,7 +682,7 @@ export const projects = [
     industry: 'Next-Gen Computing & Physical Hardware',
     services: ['Brand Identity', '3D Product Animation', 'Web Development', 'Creative Direction'],
     year: '2026',
-    image: '/showcase-extra-1.png',
+    image: '/showcase-extra-1.jpg',
     category: 'Brand Systems',
     rotation: -6,
     metric: 'Red Dot Design Award',
@@ -682,7 +691,7 @@ export const projects = [
       title: 'Chanan Hardware Core Case Study | Made by Chanan',
       description: 'Chanan industrial hardware showcase: 3D exploded view rendering, physical materials, and luxury industrial branding.',
       canonicalUrl: 'https://www.madebychanan.com/work/chanan-hardware',
-      ogImage: 'https://www.madebychanan.com/showcase-extra-1.png',
+      ogImage: 'https://www.madebychanan.com/showcase-extra-1.jpg',
     },
     intro: 'Chanan Labs crafts bespoke physical computing accessories. We designed the complete hardware branding and interactive 3D product showcase.',
     challenge: 'Capturing microscopic aluminum milling details and magnetic coupling interactions in the browser.',
@@ -696,7 +705,7 @@ export const projects = [
       'Brand Identity System',
       'Packaging Architecture'
     ],
-    gallery: ['/showcase-extra-1.png', '/grid-photos/grid2.png', '/grid-new-1.png'],
+    gallery: ['/showcase-extra-1.jpg', '/grid-photos/grid2.jpg', '/grid-new-1.jpg'],
     relatedServices: [
       { name: '3D Product Animation', path: '/3d-product-animation' },
       { name: 'Branding', path: '/branding' }
@@ -710,7 +719,7 @@ export const projects = [
     industry: 'SaaS & Enterprise Operations',
     services: ['Web Design', 'Kinetic UI', 'Web Development', 'Design System'],
     year: '2025',
-    image: '/grid-photos/grid8.png',
+    image: '/grid-photos/grid8.jpg',
     category: 'Kinetic Apps',
     rotation: 6,
     metric: 'Enterprise Leader 2025',
@@ -719,7 +728,7 @@ export const projects = [
       title: 'AmberPulse — Real-Time SaaS Analytics Case Study | Made by Chanan',
       description: 'Case study on AmberPulse SaaS analytics dashboard designed and engineered by Chanan.',
       canonicalUrl: 'https://www.madebychanan.com/work/amber-pulse',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid8.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid8.jpg',
     },
     intro: 'AmberPulse provides live operations intelligence for high-traffic platforms. Chanan designed and developed their flagship portal.',
     challenge: 'Simplifying complex operational metrics into actionable visual intelligence.',
@@ -733,7 +742,7 @@ export const projects = [
       'Design Token Hierarchy',
       'Responsive Touch Controls'
     ],
-    gallery: ['/grid-photos/grid8.png', '/grid-photos/grid9.png', '/data_jungle.png'],
+    gallery: ['/grid-photos/grid8.jpg', '/grid-photos/grid9.jpg', '/data_jungle.jpg'],
     relatedServices: [
       { name: 'Web Development', path: '/web-development' },
       { name: 'Web Design', path: '/web-design' }
@@ -747,7 +756,7 @@ export const projects = [
     industry: 'Creative Media & High-Fashion Portfolio',
     services: ['Web Design', '3D Web', 'Creative Direction', 'WebGL Motion'],
     year: '2025',
-    image: '/grid-photos/grid9.png',
+    image: '/grid-photos/grid9.jpg',
     category: '3D Web',
     rotation: -4,
     metric: 'FWA of the Month',
@@ -756,7 +765,7 @@ export const projects = [
       title: 'Persona — Digital Studio Flagship Case Study | Made by Chanan',
       description: 'Chanan case study on Persona Digital Studio flagship: liquid WebGL transitions, editorial art direction, and 3D web motion.',
       canonicalUrl: 'https://www.madebychanan.com/work/persona-studio',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid9.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid9.jpg',
     },
     intro: 'Persona is a high-fashion creative agency in Paris. Chanan was commissioned to craft their international portfolio flagship.',
     challenge: 'Creating high-concept liquid distort shaders that run at a locked 60fps on mobile Safari.',
@@ -770,7 +779,7 @@ export const projects = [
       'Custom Motion Choreography',
       'Full Responsive Deployment'
     ],
-    gallery: ['/grid-photos/grid9.png', '/work/work1.jpg', '/grid-photos/grid10.png'],
+    gallery: ['/grid-photos/grid9.jpg', '/work/work1.jpg', '/grid-photos/grid10.jpg'],
     relatedServices: [
       { name: 'Web Design', path: '/web-design' },
       { name: 'Motion Design', path: '/motion-design' }
@@ -784,7 +793,7 @@ export const projects = [
     industry: 'Generative Typography & Design Tokens',
     services: ['Brand Identity', 'Creative Direction', 'Design System', 'Print & Digital'],
     year: '2025',
-    image: '/grid-photos/grid7.png',
+    image: '/grid-photos/grid7.jpg',
     category: 'Brand Systems',
     rotation: 5,
     metric: 'Global Design Award',
@@ -793,7 +802,7 @@ export const projects = [
       title: 'Velora — Brand Identity System Case Study | Made by Chanan',
       description: 'Discover how Chanan built the generative brand identity system and typographic standards for Velora Systems.',
       canonicalUrl: 'https://www.madebychanan.com/work/velora-brand',
-      ogImage: 'https://www.madebychanan.com/grid-photos/grid7.png',
+      ogImage: 'https://www.madebychanan.com/grid-photos/grid7.jpg',
     },
     intro: 'Velora Systems needed a unified brand architecture to support their expanding suite of software applications. Chanan engineered their visual identity and design system.',
     challenge: 'Harmonizing diverse sub-brand applications under a cohesive, recognizable visual language.',
@@ -807,7 +816,7 @@ export const projects = [
       'Figma Component Library',
       'Generative Typographic Grid'
     ],
-    gallery: ['/grid-photos/grid7.png', '/grid-photos/grid6.png', '/grid-new-2.png'],
+    gallery: ['/grid-photos/grid7.jpg', '/grid-photos/grid6.jpg', '/grid-new-2.jpg'],
     relatedServices: [
       { name: 'Branding', path: '/branding' },
       { name: 'Web Design', path: '/web-design' }

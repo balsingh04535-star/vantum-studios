@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
 import Link from 'next/link';
-import Lenis from 'lenis';
 import { ArrowUpRight } from 'lucide-react';
 import ChananOneStudio3D from '../components/ChananOneStudio3D';
 import FaultyTerminalBackground from '../components/FaultyTerminalBackground';
@@ -12,51 +11,33 @@ export default function ChananOnePage({ onOpenInquiry }) {
   const footerRef = useRef(null);
   const scrollBodyRef = useRef(null);
 
+  /* In-page anchor navigation. This used to run its own Lenis instance
+     purely so anchor jumps eased rather than snapped; native smooth
+     scrolling does the same thing without the library or the rAF loop.
+     Honours prefers-reduced-motion, which the old version did not. */
   useEffect(() => {
-    let lenis;
-    let rafId;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    try {
-      lenis = new Lenis({
-        duration: 1.85,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 0.85,
-        touchMultiplier: 1.5,
-        infinite: false,
-        syncTouch: true,
-      });
-
-      function raf(time) {
-        lenis.raf(time);
-        rafId = requestAnimationFrame(raf);
-      }
-      rafId = requestAnimationFrame(raf);
-
-      const handleAnchorClick = (e) => {
-        const targetAttr = e.currentTarget.getAttribute('data-target') || e.currentTarget.getAttribute('href');
-        if (targetAttr && targetAttr.startsWith('#')) {
-          const targetEl = document.querySelector(targetAttr);
-          if (targetEl) {
-            e.preventDefault();
-            lenis.scrollTo(targetEl, { offset: 0, duration: 1.8 });
-          }
+    const handleAnchorClick = (e) => {
+      const targetAttr = e.currentTarget.getAttribute('data-target') || e.currentTarget.getAttribute('href');
+      if (targetAttr && targetAttr.startsWith('#')) {
+        const targetEl = document.querySelector(targetAttr);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({
+            behavior: prefersReduced ? 'auto' : 'smooth',
+            block: 'start',
+          });
         }
-      };
+      }
+    };
 
-      const anchors = document.querySelectorAll('.chanan-nav-item, .chanan-bottom-left, a[href^="#"]');
-      anchors.forEach((el) => el.addEventListener('click', handleAnchorClick));
+    const anchors = document.querySelectorAll('.chanan-nav-item, .chanan-bottom-left, a[href^="#"]');
+    anchors.forEach((el) => el.addEventListener('click', handleAnchorClick));
 
-      return () => {
-        if (rafId) cancelAnimationFrame(rafId);
-        anchors.forEach((el) => el.removeEventListener('click', handleAnchorClick));
-        if (lenis) lenis.destroy();
-      };
-    } catch (err) {
-      console.warn('Lenis init error:', err);
-    }
+    return () => {
+      anchors.forEach((el) => el.removeEventListener('click', handleAnchorClick));
+    };
   }, []);
 
   // Parallax scroll effect for Section 03 image
@@ -144,7 +125,7 @@ export default function ChananOnePage({ onOpenInquiry }) {
         title="Chanan One | Made by Chanan"
         description="Meet Chanan One: a compact creative computer with an anodized aluminium enclosure, silent acoustic design, and high-performance engineering."
         canonicalUrl="https://www.madebychanan.com/chanan-one"
-        ogImage="https://www.madebychanan.com/mobile-hero.png"
+        ogImage="https://www.madebychanan.com/mobile-hero.jpg"
         ogImageAlt="Chanan One compact creative computer"
         schemaData={{
           '@context': 'https://schema.org',
@@ -154,7 +135,7 @@ export default function ChananOnePage({ onOpenInquiry }) {
               '@id': 'https://www.madebychanan.com/chanan-one#product',
               name: 'Chanan One',
               description: 'A compact creative computer with an anodized aluminium enclosure, silent acoustic design, and high-performance engineering.',
-              image: 'https://www.madebychanan.com/mobile-hero.png',
+              image: 'https://www.madebychanan.com/mobile-hero.jpg',
               url: 'https://www.madebychanan.com/chanan-one',
               brand: { '@type': 'Brand', name: 'Chanan' },
             },
@@ -466,7 +447,7 @@ export default function ChananOnePage({ onOpenInquiry }) {
           height: 100vh;
           overflow: hidden;
           background-color: #f1eeea;
-          background-image: url('/bg.png');
+          background-image: url('/bg.jpg');
           background-repeat: no-repeat;
           background-position: center center;
           background-size: cover;

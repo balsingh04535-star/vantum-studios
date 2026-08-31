@@ -225,6 +225,29 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
             </React.Fragment>
           ))}
 
+          {/* Process board, where the project carries one. Rendered at its
+              own ratio rather than in a 16:9 still frame — these boards are
+              built to be read, and cover-cropping one cuts its header and
+              notes away. */}
+          {project.processBoard && (
+            <section className="cs-process">
+              <p className="cs-chapter-eyebrow">{project.processBoard.eyebrow || 'Process'}</p>
+              <figure className="cs-process-figure">
+                <div className="cs-process-frame">
+                  <img
+                    src={project.processBoard.src}
+                    alt={project.processBoard.alt || ''}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                {project.processBoard.caption && (
+                  <figcaption>{project.processBoard.caption}</figcaption>
+                )}
+              </figure>
+            </section>
+          )}
+
           {/* Credits */}
           <section className="cs-credits">
             <div className="cs-credit-col">

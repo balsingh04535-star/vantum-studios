@@ -301,7 +301,7 @@ export default function HeroShaderAnimation({ scrollProgress = 0 }) {
     });
 
     // Load top layer: art-1.png (Creation of Adam hands with dissolve)
-    textureLoader.load('/art-1.png', (texture) => {
+    textureLoader.load('/art-1.jpg', (texture) => {
       material1 = new THREE.ShaderMaterial({
         uniforms: {
           uTexture: { value: texture },
