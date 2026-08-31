@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import Navigation from '../components/Navigation';
+import TopBar from '../components/TopBar';
 import InquiryModal from '../components/InquiryModal';
 import LuxuryScrollIndicator from '../components/LuxuryScrollIndicator';
 import { TransitionProvider } from '../components/TransitionProvider';
@@ -15,8 +15,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <TransitionProvider>
+      <TopBar onOpenInquiry={() => setIsInquiryOpen(true)} />
+
       <SmoothScroll isLoading={false}>
-        <Navigation onOpenInquiry={() => setIsInquiryOpen(true)} />
         <LuxuryScrollIndicator />
       </SmoothScroll>
 

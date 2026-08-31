@@ -1133,7 +1133,12 @@ textarea.form-input {
 }
 
 .nav-bg-layer:nth-child(4) {
-  background-color: #0a0a0a; /* Midnight Navy */
+  /* The panel the wipe settles on. Translucent rather than solid so the page
+     stays visible underneath — the menu reads as a layer over where you
+     already are, not a screen that replaced it. */
+  background-color: rgba(8, 8, 10, 0.84);
+  backdrop-filter: blur(30px) saturate(135%);
+  -webkit-backdrop-filter: blur(30px) saturate(135%);
 }
 
 .overlay-nav-content {
@@ -1143,20 +1148,22 @@ textarea.form-input {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-y: auto;
 }
 
 .overlay-nav-items {
   width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  gap: 3rem;
-  padding: 8rem 8rem 4rem 8rem;
-  background-color: #0a0a0a; /* Deep Midnight Navy */
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(2rem, 6vh, 4rem);
+  padding: clamp(6rem, 14vh, 9rem) clamp(1.5rem, 5vw, 5rem) clamp(1.75rem, 4vh, 3rem);
+  box-sizing: border-box;
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
   will-change: clip-path;
-  align-items: center;
 }
 
 .overlay-nav-col:nth-child(1) {
@@ -3785,5 +3792,364 @@ textarea.form-input {
   }
   .cs-next:hover .cs-next-media img {
     transform: none;
+  }
+}
+
+/* ── Top bar ──────────────────────────────────────────────────────────
+   Two floating corner groups rather than a full-width band, so the page
+   art runs edge to edge underneath. The controls are flat glass: 2px
+   radius, no border, no glow — the fill is a 5% white wash over whatever
+   the page happens to be showing through them. */
+
+.topbar-mark {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding-left: 4px;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.topbar-mark img {
+  display: block;
+  /* Koto's mark is a wide wordmark and reads fine at 30px; ours is a 4:3
+     block, so it needs the extra height to carry the same weight. The
+     shadow does for the logo what the dark chip does for the buttons —
+     keeps it legible where it crosses a bright still. */
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.7));
+}
+
+.topbar-actions {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  border: 0;
+  border-radius: 2px;
+  /* Koto washes these in white/5 because their pages are black throughout.
+     Ours sit over full-bleed cream stills as often as over black, and a 5%
+     white wash vanishes on the light ones — so the fill is dark instead.
+     On black the chip reads as almost nothing and the label carries it; on
+     a bright still it gives that same label a ground to sit on. */
+  background-color: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 167ms linear;
+}
+
+.topbar-btn:hover {
+  background-color: rgba(10, 10, 10, 0.78);
+}
+
+.topbar-btn:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+.topbar-btn-menu {
+  padding: 0 16px;
+  font-family: var(--font-heading, "Outfit", sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.topbar-btn-icon {
+  width: 46px;
+  padding: 0;
+}
+
+.topbar-dots {
+  display: grid;
+  grid-template-columns: repeat(2, 3px);
+  gap: 3px;
+}
+
+.topbar-dots i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+/* Koto tightens the whole group down a notch once there's room for it */
+@media (min-width: 640px) {
+  .topbar-mark {
+    top: 20px;
+    left: 20px;
+    height: 40px;
+  }
+
+  .topbar-actions {
+    top: 20px;
+    right: 20px;
+  }
+
+  .topbar-btn {
+    height: 40px;
+  }
+
+  .topbar-btn-icon {
+    width: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar-btn {
+    transition: none;
+  }
+}
+
+/* ── Menu index ───────────────────────────────────────────────────────
+   The menu is a site index rather than a door: the nav on the left,
+   everything a visitor might actually want on the right, legal on a
+   rail underneath. Left-aligned throughout — a centred stack of six
+   words is the one thing that dates an overlay menu fastest. */
+
+.menu-index {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.menu-eyebrow {
+  margin: 0 0 1.4rem 0;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-link {
+  position: relative;
+  display: block;
+  padding: clamp(0.3rem, 0.9vh, 0.6rem) 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* The rule draws in from the left under the line being pointed at. */
+.menu-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.55);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-link:hover::after,
+.menu-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-line-inner {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+}
+
+.menu-num {
+  flex-shrink: 0;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.32);
+  transition: color 320ms ease;
+}
+
+.menu-label {
+  font-family: var(--font-heading, "Outfit", sans-serif);
+  font-size: clamp(2rem, 5.4vw, 4.25rem);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 320ms ease;
+}
+
+.menu-link:hover .menu-label,
+.menu-link:focus-visible .menu-label,
+.menu-link.is-current .menu-label {
+  color: #ffffff;
+}
+
+.menu-link:hover .menu-num,
+.menu-link:focus-visible .menu-num {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* The page you're already on is marked, not hidden */
+.menu-link.is-current .menu-num {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-link.is-current::after {
+  transform: scaleX(1);
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Right-hand detail column ── */
+.menu-aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 4vh, 2.75rem);
+  padding-top: 0.4rem;
+}
+
+.menu-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.menu-group .menu-eyebrow {
+  margin-bottom: 0.55rem;
+}
+
+.menu-meta-link,
+.menu-meta {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: none;
+  transition: color 240ms ease;
+}
+
+.menu-meta-link:hover,
+.menu-meta-link:focus-visible {
+  color: #ffffff;
+}
+
+.menu-inquiry {
+  margin-top: 0.7rem;
+  padding: 0.6rem 1.1rem;
+  border: 0;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-heading, "Outfit", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.menu-inquiry:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.menu-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0.5rem 0 0 0;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.menu-clock-time {
+  color: rgba(255, 255, 255, 0.82);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Legal rail ── */
+.menu-footrail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: clamp(1.25rem, 3vh, 2rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.34);
+}
+
+@media (max-width: 900px) {
+  .menu-index {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .menu-aside {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-link::after {
+    transition: none;
+  }
+}
+
+/* ── No-backdrop-filter fallback ──────────────────────────────────────
+   backdrop-filter is Baseline (Chrome 76+, Firefox 103+, Safari 9+), so
+   Android and Windows carry it — but it renders as nothing whenever the
+   GPU path is unavailable: software rendering, a blocklisted driver, a VM
+   or Remote Desktop session, or graphics acceleration switched off. In
+   that case a translucent panel stays translucent with no blur behind it,
+   which is worse than not having tried. Where the browser can't do it,
+   these surfaces go near-solid instead — same design, legible either way.
+
+   The audited risk is separate and already clear: any ancestor carrying
+   transform / filter / will-change / contain / opacity < 1 silently kills
+   a descendant's backdrop-filter. Neither surface below has one. Keep it
+   that way when editing their parents. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-bg-layer:nth-child(4) {
+    background-color: rgba(8, 8, 10, 0.97);
+  }
+
+  .topbar-btn {
+    background-color: rgba(10, 10, 10, 0.86);
+  }
+
+  .topbar-btn:hover {
+    background-color: rgba(10, 10, 10, 0.94);
   }
 }
