@@ -5,7 +5,6 @@ import TransitionLink from './TransitionLink';
 
 const PRIMARY_NAV = [
   { label: 'Home', path: '/' },
-  { label: 'Work', path: '/work' },
   { label: 'Services', path: '/services' },
   { label: 'About', path: '/about' },
   { label: 'Clients', path: '/clients' },

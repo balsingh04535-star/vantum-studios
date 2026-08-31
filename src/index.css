@@ -3299,27 +3299,6 @@ textarea.form-input {
   pointer-events: none;
 }
 
-/* Final "view all" card */
-.ews-card-all-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  height: 158px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 2px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #ffffff;
-  transition: border-color 260ms ease, background-color 260ms ease, gap 260ms ease;
-}
-
-.ews-card-all:hover .ews-card-all-inner {
-  border-color: rgba(255, 255, 255, 0.55);
-  background-color: rgba(255, 255, 255, 0.03);
-  gap: 1rem;
-}
-
 /* ── Responsive: single column, compact pinned header ── */
 @media (max-width: 900px) {
   .ews-col-left,
@@ -3341,10 +3320,6 @@ textarea.form-input {
   /* Body copy and meta row are desktop-only, as on the reference */
   .ews-detail {
     display: none;
-  }
-
-  .ews-card-all-inner {
-    height: 120px;
   }
 }
 

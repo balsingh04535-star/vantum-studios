@@ -300,21 +300,6 @@ export default function EditorialWorkShowcase({ limit = 5 }) {
               </span>
             </TransitionLink>
           ))}
-
-          <TransitionLink
-            to="/work"
-            className="ews-card ews-card-all"
-            style={{ opacity: active === featured.length ? 1 : DIMMED_OPACITY }}
-          >
-            <span
-              className="ews-card-all-inner"
-              data-index={featured.length}
-              ref={(el) => { cardRefs.current[featured.length] = el; }}
-            >
-              View all work
-              <span aria-hidden="true">&#8594;</span>
-            </span>
-          </TransitionLink>
         </div>
 
       </div>
