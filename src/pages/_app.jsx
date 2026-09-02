@@ -6,6 +6,7 @@ import LuxuryScrollIndicator from '../components/LuxuryScrollIndicator';
 import { TransitionProvider } from '../components/TransitionProvider';
 import ProgressiveBlur from '../components/ProgressiveBlur';
 import '../index.css';
+import '../codevantum-case-study.css';
 
 // Client-only components — touch window/canvas at module scope
 const SmoothScroll = dynamic(() => import('../components/SmoothScroll'), { ssr: false });
@@ -31,4 +32,3 @@ export default function App({ Component, pageProps }) {
     </TransitionProvider>
   );
 }
-

@@ -88,41 +88,42 @@ export const projects = [
   {
     id: 'codevantum',
     slug: 'codevantum',
-    title: 'CodeVantum — AI Development Companion',
+    title: 'CodeVantum — AI-Guided Learning Platform',
     client: 'CodeVantum',
-    industry: 'Developer Tools & Artificial Intelligence',
-    services: ['Motion Design', 'Illustration', 'Brand Identity', 'Web Design'],
+    industry: 'AI Education & Learning Technology',
+    services: ['AI Product Strategy', 'Product Design', 'Brand Identity', 'Motion Design', 'Web Design & Development'],
     year: '2026',
     image: '/work/codevantum.jpg',
     video: '/work/codevantum.mp4',
-    category: 'Kinetic Apps',
+    category: 'AI Learning Platform',
     rotation: -4,
-    metric: 'Animated Brand Film',
-    summary: 'Illustrated motion film and brand language for an AI development companion.',
+    metric: 'Product, Brand & Website Transformation',
+    summary: 'Transforming a fixed course library into an AI-guided learning product with a new identity, mascot system and website.',
     seo: {
-      title: 'CodeVantum — AI Development Companion Case Study | Made by Chanan',
-      description: 'Chanan built the illustrated motion film and brand language for CodeVantum, an AI companion for developers.',
+      title: 'CodeVantum — AI-Guided Learning Platform Case Study | Made by Chanan',
+      description: 'How Chanan transformed CodeVantum from a fixed course app into an AI-guided learning platform, spanning product strategy, identity, mascot motion and website design.',
       canonicalUrl: 'https://www.madebychanan.com/work/codevantum',
       ogImage: 'https://www.madebychanan.com/work/codevantum.jpg',
     },
-    intro: 'CodeVantum asked Chanan to explain an AI development companion without a single screenshot. We built an illustrated motion film that follows a developer through a late-night session, and the brand language that grew out of it.',
-    challenge: 'Making a prompt-driven developer tool feel warm and human, in a category that defaults to dark terminals and abstract particle work.',
-    creativeDirection: 'Flat illustration with a deep violet ground and warm amber accents — late-night light, generous negative space, and characters shown from over the shoulder so the viewer sits in the seat.',
-    designApproach: 'We wrote the film around a single relatable moment rather than a feature list, then pulled the palette, type and iconography back out of it so the brand and the film share one vocabulary.',
-    technicalApproach: 'Frame-by-frame and rigged 2D animation composited at 60fps, with the interface moments animated as real UI so the product reads as something that exists.',
-    outcome: 'A brand film that carries the product without demoing it, plus an illustration and motion system the team reuses across launch, docs and social.',
+    intro: 'CodeVantum already taught people about AI through short, gamified lessons. We helped turn that course experience into an AI-guided product that begins with the learner’s own goal.',
+    challenge: 'The original product had an extensive learning library, but every learner entered through the same fixed roadmap. The identity and interface also felt fragmented, making the experience read as a set of features rather than one coherent guide.',
+    creativeDirection: 'Friendly intelligence over technical intimidation: a soft lowercase wordmark, warm editorial typography, an expressive purple mascot and a product world that feels ambitious without becoming clinical.',
+    designApproach: 'We made Vantum Guide the front door. Learners describe what they want to learn, the AI checks their experience and then assembles a relevant path from CodeVantum’s existing lesson library.',
+    technicalApproach: 'The product system connects conversational onboarding, adaptive content matching, voice interaction, gamified lessons and reusable Lottie mascot states across the app and marketing website.',
+    outcome: 'A unified product, brand and website built around an AI guide—moving CodeVantum from a static course roadmap to a more personal way to learn, build, ship and grow.',
     deliverables: [
-      'Illustrated Brand Film',
-      'Motion Design System',
-      'Illustration Library',
-      'Brand Identity & Palette',
-      'Launch Web Design'
+      'AI Product Strategy',
+      'Conversational Product Experience',
+      'Mobile UI & Gamification',
+      'Brand Identity & Wordmark',
+      'Mascot & Lottie Motion System',
+      'Website Design & Development'
     ],
     gallery: ['/work/codevantum-1.jpg', '/work/codevantum-2.jpg', '/work/codevantum-3.jpg'],
     relatedServices: [
-      { name: 'Motion Design', path: '/motion-design' },
       { name: 'Branding', path: '/branding' },
-      { name: 'Web Design', path: '/web-design' }
+      { name: 'Web Design', path: '/web-design' },
+      { name: 'Motion Design', path: '/motion-design' }
     ]
   },
   {
@@ -827,5 +828,4 @@ export const projects = [
 export const getProjectBySlug = (slug) => {
   return projects.find((p) => p.slug === slug || p.id === slug);
 };
-
 

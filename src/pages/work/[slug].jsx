@@ -1,8 +1,13 @@
 import { projects, getProjectBySlug } from '../../data/projects';
 import CaseStudyPage from '../../views/CaseStudyPage';
+import CodeVantumCaseStudyPage from '../../views/CodeVantumCaseStudyPage';
 
-export default function WorkSlugPage({ project }) {
-  return <CaseStudyPage project={project} />;
+export default function WorkSlugPage({ project, onOpenInquiry }) {
+  if (project.slug === 'codevantum') {
+    return <CodeVantumCaseStudyPage project={project} onOpenInquiry={onOpenInquiry} />;
+  }
+
+  return <CaseStudyPage project={project} onOpenInquiry={onOpenInquiry} />;
 }
 
 export async function getStaticPaths() {
