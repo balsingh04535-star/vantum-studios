@@ -194,7 +194,7 @@ export default function CaseStudyPage({ project, onOpenInquiry }) {
         <div className="cs-content">
 
           {/* Hero */}
-          <div className="cs-hero">
+          <div className="cs-hero case-study-transition-target">
             {project.video ? (
               <video src={project.video} poster={project.image} autoPlay muted loop playsInline />
             ) : (

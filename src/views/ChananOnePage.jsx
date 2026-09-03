@@ -11,35 +11,6 @@ export default function ChananOnePage({ onOpenInquiry }) {
   const footerRef = useRef(null);
   const scrollBodyRef = useRef(null);
 
-  /* In-page anchor navigation. This used to run its own Lenis instance
-     purely so anchor jumps eased rather than snapped; native smooth
-     scrolling does the same thing without the library or the rAF loop.
-     Honours prefers-reduced-motion, which the old version did not. */
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const handleAnchorClick = (e) => {
-      const targetAttr = e.currentTarget.getAttribute('data-target') || e.currentTarget.getAttribute('href');
-      if (targetAttr && targetAttr.startsWith('#')) {
-        const targetEl = document.querySelector(targetAttr);
-        if (targetEl) {
-          e.preventDefault();
-          targetEl.scrollIntoView({
-            behavior: prefersReduced ? 'auto' : 'smooth',
-            block: 'start',
-          });
-        }
-      }
-    };
-
-    const anchors = document.querySelectorAll('.chanan-nav-item, .chanan-bottom-left, a[href^="#"]');
-    anchors.forEach((el) => el.addEventListener('click', handleAnchorClick));
-
-    return () => {
-      anchors.forEach((el) => el.removeEventListener('click', handleAnchorClick));
-    };
-  }, []);
-
   // Parallax scroll effect for Section 03 image
   useEffect(() => {
     const section = sectionRef.current;
@@ -368,7 +339,7 @@ export default function ChananOnePage({ onOpenInquiry }) {
         </div>{/* end chanan-scroll-body */}
 
         {/* ── Footer: Rising Sheet ── */}
-        <footer className="chanan-footer" ref={footerRef}>
+        <footer className="chanan-footer" ref={footerRef} data-lenis-prevent>
           {/* Top content row */}
           <div className="chanan-footer-top">
             {/* Left: headline + subtitle + CTA */}

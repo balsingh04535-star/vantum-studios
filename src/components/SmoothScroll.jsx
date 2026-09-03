@@ -1,60 +1,115 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+const refreshDelays = [80, 400, 1200];
+
 /**
- * Scroll lifecycle manager.
+ * One global, desktop-only Lenis instance.
  *
- * Previously wrapped Lenis. The page now uses native scrolling, so this only
- * does the things that still need doing around it: registering ScrollTrigger,
- * resetting position across route changes, refreshing measurements once the
- * page has settled, and locking scroll while the preloader is up.
- *
- * ScrollTrigger reads native scroll by default, so it needs no wiring here —
- * the old lenis.on('scroll', ScrollTrigger.update) bridge is what's gone.
+ * It shares GSAP's ticker instead of starting a second animation loop, keeps
+ * ScrollTrigger synchronized, and leaves touch/reduced-motion users on the
+ * browser's native scroll path. Nested overlays opt out with
+ * `data-lenis-prevent`.
  */
 export default function SmoothScroll({ children, isLoading }) {
   const router = useRouter();
+  const lenisRef = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.ticker.lagSmoothing(500, 33);
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const usesCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (prefersReducedMotion || usesCoarsePointer) {
+      ScrollTrigger.refresh();
+      return undefined;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.08,
+      easing: (time) => Math.min(1, 1.001 - Math.pow(2, -10 * time)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      syncTouch: false,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1,
+      anchors: {
+        duration: 0.9,
+        offset: 0,
+      },
+      overscroll: true,
+      autoResize: true,
+      autoRaf: false,
+      stopInertiaOnNavigate: true,
+      prevent: (node) => Boolean(node?.closest?.('[data-lenis-prevent]')),
+    });
+
+    lenisRef.current = lenis;
+    window.lenis = lenis;
+
+    const updateScrollTrigger = () => ScrollTrigger.update();
+    const tick = (time) => lenis.raf(time * 1000);
+
+    lenis.on('scroll', updateScrollTrigger);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
     ScrollTrigger.refresh();
+
+    return () => {
+      lenis.off('scroll', updateScrollTrigger);
+      gsap.ticker.remove(tick);
+      lenis.destroy();
+      lenisRef.current = null;
+
+      if (window.lenis === lenis) delete window.lenis;
+      gsap.ticker.lagSmoothing(500, 33);
+    };
   }, []);
 
-  // Reset scroll position on route change and refresh ScrollTrigger
   useEffect(() => {
-    /* Explicitly instant. `html` carries scroll-behavior: smooth so in-page
-       anchors ease, but a route change must snap — otherwise the outgoing
-       page visibly glides upward while the new one mounts. This is the
-       native equivalent of Lenis's scrollTo(0, { immediate: true }). */
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-    return () => clearTimeout(timer);
+    const lenis = lenisRef.current;
+
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+      lenis.resize();
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+
+    const timer = window.setTimeout(() => ScrollTrigger.refresh(), 100);
+    return () => window.clearTimeout(timer);
   }, [router.pathname]);
 
-  // Pause / resume scroll during preloader
   useEffect(() => {
-    /* Lenis had stop()/start(); the native equivalent is locking the
-       document itself. Guarded so it can't strand the page unscrollable. */
     const root = document.documentElement;
+    const lenis = lenisRef.current;
+
     if (isLoading) {
+      lenis?.stop();
       root.style.overflow = 'hidden';
-      return () => { root.style.overflow = ''; };
+
+      return () => {
+        root.style.overflow = '';
+        lenis?.start();
+      };
     }
 
     root.style.overflow = '';
-    const t1 = setTimeout(() => ScrollTrigger.refresh(), 80);
-    const t2 = setTimeout(() => ScrollTrigger.refresh(), 400);
-    const t3 = setTimeout(() => ScrollTrigger.refresh(), 1200);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
+    lenis?.start();
+
+    const timers = refreshDelays.map((delay) => (
+      window.setTimeout(() => {
+        lenis?.resize();
+        ScrollTrigger.refresh();
+      }, delay)
+    ));
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [isLoading]);
 
   return <>{children}</>;

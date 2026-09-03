@@ -37,10 +37,12 @@ export default function LuxuryScrollIndicator() {
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
     const targetY = Math.max(0, Math.min(totalHeight, ratio * totalHeight));
 
-    window.scrollTo({
-      top: targetY,
-      behavior: 'smooth'
-    });
+    if (window.lenis) {
+      window.lenis.scrollTo(targetY, { duration: 0.72, force: true });
+      return;
+    }
+
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   };
 
   const handleTrackClick = (e) => {
@@ -138,4 +140,3 @@ export default function LuxuryScrollIndicator() {
     </aside>
   );
 }
-

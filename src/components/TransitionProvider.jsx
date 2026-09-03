@@ -1,33 +1,5 @@
-import React, { createContext, useContext, useRef, useState, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useRef } from 'react';
 import { useRouter } from 'next/router';
-import gsap from 'gsap';
-import { CustomEase } from 'gsap/CustomEase';
-
-gsap.registerPlugin(CustomEase);
-
-// Exact custom ease curves from demo-main
-const pageEase = CustomEase.create(
-  'pageTransition',
-  'M0,0 C0.38,0.05 0.48,0.58 0.65,0.82 0.82,1 1,1 1,1'
-);
-
-/* ─────────────────────────────────────────────────────────
-   PAGE META — labels & numbers shown during transition
-───────────────────────────────────────────────────────── */
-export const PAGE_LABELS = {
-  '/':                      'Home',
-  '/work':                  'Selected Work',
-  '/clients':               'Global Network',
-  '/services':              'Capabilities',
-  '/web-design':            'Web Design',
-  '/web-development':       'Creative Dev',
-  '/branding':              'Brand Identity',
-  '/3d-product-animation':  '3D & CGI',
-  '/motion-design':         'Motion Design',
-  '/chanan-one':            'Chanan One',
-  '/about':                 'About Chanan',
-  '/contact':               'Direct Line',
-};
 
 const TransitionContext = createContext(null);
 
@@ -37,150 +9,104 @@ export function useTransitionNavigate() {
   return ctx.transitionTo;
 }
 
+const FADE_OUT_MS = 120;
+const FADE_IN_MS = 180;
+
+function nextPaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resolve));
+  });
+}
+
 export function TransitionProvider({ children }) {
-  const router    = useRouter();
-  const overlayRef = useRef(null);
-  const [label, setLabel] = useState('');
+  const router = useRouter();
+  const isTransitioning = useRef(false);
 
-  const transitionTo = useCallback((path) => {
-    if (!overlayRef.current) { router.push(path); return; }
+  const transitionTo = useCallback(async (path, options = {}) => {
+    if (isTransitioning.current || path === router.asPath) return;
 
-    const dest = PAGE_LABELS[path] ?? 'Chanan';
-    setLabel(dest);
+    const page = document.querySelector('[data-page-transition-root]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const el = overlayRef.current;
-    const layer1 = el.querySelector('.tc-layer-1');
-    const labelEl = el.querySelector('.tc-label');
-    const counterEl = el.querySelector('.tc-counter');
-    const currentContainer = document.querySelector('main') || document.querySelector('#__next');
+    if (
+      options.type === 'case-study' &&
+      options.source instanceof HTMLElement &&
+      typeof document.startViewTransition === 'function' &&
+      !prefersReducedMotion
+    ) {
+      isTransitioning.current = true;
+      page?.style.setProperty('pointer-events', 'none');
+      options.source.style.setProperty('view-transition-name', 'case-study-media');
+      document.documentElement.classList.add('case-study-transition-active');
 
-    const tl = gsap.timeline({
-      onComplete() {
-        window.scrollTo(0, 0);
-        if (currentContainer) {
-          gsap.set(currentContainer, { clearProps: 'transform,opacity,scale' });
-        }
+      try {
+        const transition = document.startViewTransition(async () => {
+          const didNavigate = await router.push(path);
+          if (didNavigate) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        });
+
+        await transition.finished;
+      } finally {
+        options.source.style.removeProperty('view-transition-name');
+        document.documentElement.classList.remove('case-study-transition-active');
+        page?.style.removeProperty('pointer-events');
+        isTransitioning.current = false;
       }
-    });
 
-    // 1. Current Page shrinks, fades, and moves up (-30vh)
-    if (currentContainer) {
-      tl.to(currentContainer, {
-        y: '-30vh',
-        scale: 0.82,
-        opacity: 0.35,
-        duration: 0.75,
-        ease: pageEase,
-        force3D: true,
-      }, 0);
+      return;
     }
 
-    // 2. Incoming curtain unclips upwards from bottom
-    tl.set(el, { pointerEvents: 'all', visibility: 'visible', clipPath: 'inset(100% 0% 0% 0%)' }, 0)
-      .set(labelEl, { opacity: 0, y: 35 })
-      .set(counterEl, { opacity: 0 })
-      .to(el, {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 0.75,
-        ease: pageEase,
-        force3D: true,
-      }, 0)
-      .to(labelEl, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0.35)
-      .to(counterEl, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.42)
+    if (!page || prefersReducedMotion) {
+      await router.push(path);
+      return;
+    }
 
-      // 3. Switch route at peak of curtain coverage
-      .call(() => router.push(path), [], 0.78)
+    isTransitioning.current = true;
+    page.style.pointerEvents = 'none';
+    page.style.willChange = 'opacity';
 
-      // 4. Reveal new page: Curtain unclips off to top
-      .to(labelEl, { opacity: 0, y: -25, duration: 0.25, ease: 'power2.in' }, 0.85)
-      .to(counterEl, { opacity: 0, duration: 0.2 }, 0.85)
-      .to(el, {
-        clipPath: 'inset(0% 0% 100% 0%)',
-        duration: 0.72,
-        ease: pageEase,
-        force3D: true,
-      }, 0.95)
-      .set(el, { pointerEvents: 'none', visibility: 'hidden' });
+    try {
+      const fadeOut = page.animate(
+        [{ opacity: 1 }, { opacity: 0 }],
+        {
+          duration: FADE_OUT_MS,
+          easing: 'cubic-bezier(0.4, 0, 1, 1)',
+          fill: 'forwards',
+        }
+      );
 
+      await fadeOut.finished;
+      page.style.opacity = '0';
+      fadeOut.cancel();
+
+      const didNavigate = await router.push(path);
+      if (!didNavigate) return;
+
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      await nextPaint();
+
+      const fadeIn = page.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        {
+          duration: FADE_IN_MS,
+          easing: 'cubic-bezier(0, 0, 0.2, 1)',
+          fill: 'forwards',
+        }
+      );
+
+      await fadeIn.finished;
+      fadeIn.cancel();
+    } finally {
+      page.style.removeProperty('opacity');
+      page.style.removeProperty('pointer-events');
+      page.style.removeProperty('will-change');
+      isTransitioning.current = false;
+    }
   }, [router]);
 
   return (
     <TransitionContext.Provider value={{ transitionTo }}>
       {children}
-
-      {/* ── Transition Overlay DOM (GSAP curtain animation) ── */}
-      <div
-        ref={overlayRef}
-        style={{
-          position: 'fixed', inset: 0,
-          zIndex: 9999,
-          pointerEvents: 'none',
-          visibility: 'hidden',
-          overflow: 'hidden',
-          backgroundColor: '#bfd7ff',
-          clipPath: 'inset(100% 0% 0% 0%)',
-        }}
-      >
-        <div className="tc-layer-1" style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, #bfd7ff 0%, #a2c6ff 100%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'flex-end',
-          padding: 'clamp(2.5rem, 5vw, 5rem)',
-          overflow: 'hidden',
-        }}>
-          {/* Giant ghost index number */}
-          <div className="tc-counter" style={{
-            position: 'absolute',
-            top: '-0.15em', right: '-0.05em',
-            fontSize: 'clamp(28vw, 38vw, 52vw)',
-            fontWeight: 900,
-            lineHeight: 0.85,
-            color: 'transparent',
-            WebkitTextStroke: '1px rgba(0, 29, 184, 0.15)',
-            fontFamily: 'var(--font-heading)',
-            letterSpacing: '-0.05em',
-            userSelect: 'none',
-            pointerEvents: 'none',
-          }}>
-            {String(Object.keys(PAGE_LABELS).indexOf(
-              Object.keys(PAGE_LABELS).find(k => PAGE_LABELS[k] === label) ?? '/'
-            ) + 1).padStart(2, '0')}
-          </div>
-
-          <div style={{
-            width: '3rem', height: '1.5px',
-            background: '#001db8',
-            marginBottom: '1.2rem',
-          }} />
-
-          <p style={{
-            fontSize: '0.7rem',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            color: '#001db8',
-            fontFamily: 'var(--font-main)',
-            fontWeight: 700,
-            marginBottom: '0.6rem',
-          }}>
-            Chanan Transition Engine
-          </p>
-
-          <h2 className="tc-label" style={{
-            fontSize: 'clamp(3.5rem, 9vw, 10rem)',
-            fontWeight: 300,
-            lineHeight: 0.9,
-            letterSpacing: '-0.04em',
-            textTransform: 'uppercase',
-            color: '#0a0a0a',
-            fontFamily: 'var(--font-heading)',
-          }}>
-            {label}
-          </h2>
-        </div>
-      </div>
     </TransitionContext.Provider>
   );
 }

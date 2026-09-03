@@ -1,44 +1,132 @@
 import React, { useEffect } from 'react';
-import { ArrowUpRight, CheckCircle2, Sparkles, Layers, Cpu, Palette, Film } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Box,
+  Clapperboard,
+  Palette,
+  PanelsTopLeft,
+} from 'lucide-react';
 import SEO from '../components/SEO';
 import Footer from '../components/Footer';
 import TransitionLink from '../components/TransitionLink';
+import { getProjectBySlug } from '../data/projects';
+
+const SERVICE_WORLDS = [
+  {
+    id: 'brand-systems',
+    number: '01',
+    icon: Palette,
+    glow: ['#a76bd6', '#e38eaf', '#e5b364'],
+    pretitle: 'We make',
+    title: 'Brand systems',
+    description: 'Distinct identities with a real point of view—built to stay coherent from the smallest product detail to the biggest launch moment.',
+    links: [
+      { label: 'Explore branding', to: '/branding' },
+    ],
+    capabilities: [
+      'Strategy & positioning',
+      'Visual identity',
+      'Art direction',
+      'Brand guidelines',
+    ],
+    projects: ['nebbi-ai', 'tee-bloc'],
+  },
+  {
+    id: 'digital-products',
+    number: '02',
+    icon: PanelsTopLeft,
+    glow: ['#6259d6', '#7ea9dd', '#9bd1ba'],
+    pretitle: 'We build',
+    title: 'Digital products',
+    description: 'Websites and products where sharp thinking, memorable design and clean engineering all pull in the same direction.',
+    links: [
+      { label: 'Web design', to: '/web-design' },
+      { label: 'Creative development', to: '/web-development' },
+    ],
+    capabilities: [
+      'Product strategy & UX',
+      'Interface design',
+      'Creative development',
+      'Design systems',
+    ],
+    projects: ['codevantum', 'tee-bloc'],
+  },
+  {
+    id: 'interactive-worlds',
+    number: '03',
+    icon: Box,
+    glow: ['#5b7dbf', '#7bb6b3', '#e49557'],
+    pretitle: 'We shape',
+    title: 'Interactive worlds',
+    description: 'Cinematic CGI and real-time 3D experiences that make products feel tangible before anyone can hold them.',
+    links: [
+      { label: 'Explore 3D & CGI', to: '/3d-product-animation' },
+    ],
+    capabilities: [
+      '3D product films',
+      'CGI campaigns',
+      'WebGL experiences',
+      'Material & lighting design',
+    ],
+    projects: ['drift', 'flava'],
+  },
+  {
+    id: 'motion-systems',
+    number: '04',
+    icon: Clapperboard,
+    glow: ['#d85c78', '#9368d5', '#5e8bc9'],
+    pretitle: 'We choreograph',
+    title: 'Motion systems',
+    description: 'Movement with purpose—from a single tactile interaction to a complete motion language that makes the whole brand feel alive.',
+    links: [
+      { label: 'Explore motion design', to: '/motion-design' },
+    ],
+    capabilities: [
+      'Motion direction',
+      'Kinetic typography',
+      'UI choreography',
+      'Launch films',
+    ],
+    projects: ['nebbi-ai', 'flava'],
+  },
+];
+
+const SERVICE_LINKS = SERVICE_WORLDS.flatMap((world) => world.links);
+
+function ProjectProof({ slug }) {
+  const project = getProjectBySlug(slug);
+
+  if (!project) return null;
+
+  return (
+    <TransitionLink
+      to={`/work/${project.slug}`}
+      className="services-proof"
+      transitionType="case-study"
+      aria-label={`View ${project.client} case study`}
+    >
+      <span className="services-proof-media" data-transition-source>
+        <img src={project.image} alt="" loading="lazy" />
+      </span>
+      <span className="services-proof-meta">
+        <span>
+          <small>Selected work</small>
+          <strong>{project.client}</strong>
+        </span>
+        <ArrowUpRight size={19} strokeWidth={1.7} aria-hidden="true" />
+      </span>
+    </TransitionLink>
+  );
+}
 
 export default function ServicesPage({ onOpenInquiry }) {
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    document.body.classList.add('services-light-chrome');
 
-  const capabilities = [
-    {
-      title: 'Real-Time 3D & WebGL Environments',
-      link: '/3d-product-animation',
-      icon: <Sparkles size={28} color="#bfd7ff" />,
-      description: 'Custom shader pipelines, Three.js canvas animations, 3D model optimizers, procedural particle systems.',
-      features: ['GPU Acceleration', 'GLSL Custom Shaders', 'Dynamic Camera Math', '60-120 FPS Guarantee']
-    },
-    {
-      title: 'Generative Brand & Visual Identity',
-      link: '/branding',
-      icon: <Palette size={28} color="#bfd7ff" />,
-      description: 'Generative typography systems, motion design guidelines, high-res CGI renders, luxury digital design languages.',
-      features: ['Design System Tokens', 'Figma Component Libraries', 'CGI Art Direction', 'Brand Guidelines']
-    },
-    {
-      title: 'Kinetic Web Systems & Development',
-      link: '/web-development',
-      icon: <Cpu size={28} color="#bfd7ff" />,
-      description: 'Modern Vite + React applications, headless CMS integrations, micro-frontend modules, sub-100ms global latency.',
-      features: ['Jamstack Architecture', 'Clean URL Routing', 'Edge CDN Deployment', 'Strict TypeScript/JS']
-    },
-    {
-      title: 'Motion Design & Kinetic Physics',
-      link: '/motion-design',
-      icon: <Film size={28} color="#bfd7ff" />,
-      description: 'GSAP ScrollTrigger integrations, Lenis smooth inertia scroll, word-by-word typography reveals, liquid morphing.',
-      features: ['Smooth Inertia Scrolling', 'Word/Line Split Animations', 'Hardware Accelerated CSS', 'Touch Support']
-    }
-  ];
+    return () => document.body.classList.remove('services-light-chrome');
+  }, []);
 
   const servicesSchema = {
     '@context': 'https://schema.org',
@@ -47,7 +135,7 @@ export default function ServicesPage({ onOpenInquiry }) {
         '@type': 'Service',
         '@id': 'https://www.madebychanan.com/services#service',
         'name': 'Creative Services | Made by Chanan',
-        'description': 'Creative services from Made by Chanan: bespoke web design, WebGL development, brand identity, 3D product visuals, and motion design.',
+        'description': 'Creative services from Made by Chanan across brand identity, digital products, 3D experiences, and motion design.',
         'url': 'https://www.madebychanan.com/services',
         'provider': {
           '@type': 'Organization',
@@ -56,15 +144,14 @@ export default function ServicesPage({ onOpenInquiry }) {
         },
         'hasOfferCatalog': {
           '@type': 'OfferCatalog',
-          'name': 'Agency Capabilities',
-          'itemListElement': capabilities.map((cap, idx) => ({
+          'name': 'Creative services',
+          'itemListElement': SERVICE_LINKS.map((service, index) => ({
             '@type': 'Offer',
-            'position': idx + 1,
+            'position': index + 1,
             'itemOffered': {
               '@type': 'Service',
-              'name': cap.title,
-              'description': cap.description,
-              'url': `https://www.madebychanan.com${cap.link}`
+              'name': service.label,
+              'url': `https://www.madebychanan.com${service.to}`
             }
           }))
         }
@@ -91,7 +178,7 @@ export default function ServicesPage({ onOpenInquiry }) {
   };
 
   return (
-    <main style={{ paddingTop: '8rem', backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh' }}>
+    <main className="services-editorial-root">
       <SEO
         title="Creative Services | Made by Chanan"
         description="Explore Made by Chanan's services across web design, creative development, brand identity, 3D product animation, and motion design."
@@ -100,123 +187,125 @@ export default function ServicesPage({ onOpenInquiry }) {
         schemaData={servicesSchema}
       />
 
-      <div className="section-padding" style={{ backgroundColor: '#000000' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.4rem 1rem',
-            borderRadius: '20px',
-            border: '1px solid rgba(255,255,255,0.25)',
-            backgroundColor: '#0a0a0a',
-            color: '#bfd7ff',
-            fontSize: '0.75rem',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            fontWeight: 700,
-            marginBottom: '1.5rem'
-          }}>
-            Full Technical Capabilities
-          </div>
+      <header className="services-editorial-hero">
+        <div className="services-hero-topline">
+          <span className="services-overline">Chanan / Services</span>
 
-          <h1 style={{ marginBottom: '1.5rem', maxWidth: '900px', color: '#ffffff', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontFamily: 'var(--font-heading)' }}>
-            Capabilities Built for Digital Visionaries
-          </h1>
-          <p style={{ fontSize: '1.25rem', color: '#dbe7ff', maxWidth: '800px', marginBottom: '4rem', lineHeight: '1.6', fontWeight: 400 }}>
-            We combine high-concept creative direction with uncompromising software engineering. Every line of code is hand-crafted for extreme speed and visual impact.
-          </p>
-
-          <div className="grid-2" style={{ gap: '2.5rem', marginBottom: '5rem' }}>
-            {capabilities.map((cap, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: '#0a0a0a',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '20px',
-                  padding: '3rem',
-                  boxShadow: '0 16px 45px rgba(0, 0, 0, 0.35)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                    {cap.icon}
-                    <h3 style={{ fontSize: '1.5rem', color: '#ffffff' }}>{cap.title}</h3>
-                  </div>
-
-                  <p style={{ color: '#dbe7ff', fontSize: '1.05rem', marginBottom: '2rem', lineHeight: '1.6' }}>
-                    {cap.description}
-                  </p>
-
-                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.15)', paddingTop: '1.5rem', marginBottom: '2rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                      Technical Specifications
-                    </span>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginTop: '1rem' }}>
-                      {cap.features.map((f, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#ffffff', fontWeight: 500 }}>
-                          <CheckCircle2 size={16} color="#bfd7ff" /> {f}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <TransitionLink
-                  to={cap.link}
-                  className="btn-volt"
-                  style={{
-                    width: '100%',
-                    justifyContent: 'center',
-                    height: 'auto',
-                    padding: '0.85rem 1.5rem'
-                  }}
-                >
-                  <span>Explore Discipline</span>
-                  <ArrowUpRight size={18} />
-                </TransitionLink>
-              </div>
-            ))}
-          </div>
-
-          <div
-            style={{
-              padding: '4rem',
-              textAlign: 'center',
-              background: '#0a0a0a',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              borderRadius: '24px',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)'
-            }}
-          >
-            <h2 style={{ marginBottom: '1rem', color: '#ffffff', fontSize: '2.2rem' }}>Ready to Elevate Your Digital Architecture?</h2>
-            <p style={{ maxWidth: '600px', margin: '0 auto 2.5rem auto', color: '#dbe7ff', fontSize: '1.05rem' }}>
-              Our engineering team responds to project inquiries within 24 hours. Reserve your production slot.
-            </p>
-            <button
-              onClick={onOpenInquiry}
-              className="btn-volt"
-              style={{
-                margin: '0 auto',
-                fontSize: '1rem',
-                padding: '0.9rem 2.5rem',
-                height: 'auto',
-              }}
-            >
-              <span>Book Capabilities Session</span>
-              <ArrowUpRight size={18} />
-            </button>
-          </div>
-
+          <nav className="services-jump" aria-label="Jump to a service">
+            <span>Jump ahead:</span>
+            <div>
+              {SERVICE_WORLDS.map((world) => (
+                <a key={world.id} href={`#${world.id}`}>{world.title}</a>
+              ))}
+            </div>
+          </nav>
         </div>
+
+        <h1>What we make</h1>
+
+        <div className="services-hero-bottom">
+          <a className="services-scroll-cue" href="#brand-systems">
+            <ArrowDown size={16} strokeWidth={1.7} aria-hidden="true" />
+            <span>Explore</span>
+          </a>
+          <p>
+            We turn ambitious ideas into identities, products and digital
+            experiences people remember.
+          </p>
+        </div>
+      </header>
+
+      <section className="services-card-section" aria-labelledby="services-card-title">
+        <div className="services-card-heading">
+          <span>What we can do together</span>
+          <h2 id="services-card-title">Four ways to make<br />the idea hit harder.</h2>
+        </div>
+
+        <div className="services-card-grid">
+          {SERVICE_WORLDS.map((world) => {
+            const Icon = world.icon;
+
+            return (
+              <a
+                key={world.id}
+                href={`#${world.id}`}
+                className="services-glow-card"
+                style={{
+                  '--service-glow-one': world.glow[0],
+                  '--service-glow-two': world.glow[1],
+                  '--service-glow-three': world.glow[2],
+                }}
+                aria-label={`Discover ${world.title}`}
+              >
+                <span className="services-glow-card-icon" aria-hidden="true">
+                  <Icon size={34} strokeWidth={1.45} />
+                </span>
+
+                <span className="services-glow-card-copy">
+                  <span className="services-glow-card-number">({world.number})</span>
+                  <strong>{world.title}</strong>
+                  <span className="services-glow-card-description">{world.description}</span>
+                  <span className="services-glow-card-action">
+                    Discover
+                    <ArrowDown size={15} strokeWidth={2} aria-hidden="true" />
+                  </span>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <div className="services-worlds">
+        {SERVICE_WORLDS.map((world) => (
+          <section key={world.id} id={world.id} className="services-world">
+            <div className="services-world-heading">
+              <span className="services-world-number">({world.number})</span>
+              <div className="services-world-title">
+                <span>{world.pretitle}</span>
+                <h2>{world.title}</h2>
+              </div>
+              <div className="services-world-copy">
+                <p>{world.description}</p>
+                <div className="services-world-links">
+                  {world.links.map((link) => (
+                    <TransitionLink key={link.to} to={link.to}>
+                      <span>{link.label}</span>
+                      <ArrowUpRight size={17} strokeWidth={1.7} aria-hidden="true" />
+                    </TransitionLink>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="services-capability-list" aria-label={`${world.title} capabilities`}>
+              {world.capabilities.map((capability, index) => (
+                <div key={capability}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <p>{capability}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="services-proof-grid">
+              {world.projects.map((slug) => (
+                <ProjectProof key={slug} slug={slug} />
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
+
+      <section className="services-editorial-cta">
+        <span>Have something in mind?</span>
+        <h2>Let’s make it<br /><em>impossible to ignore.</em></h2>
+        <button type="button" onClick={onOpenInquiry}>
+          Start a project
+          <ArrowUpRight size={20} strokeWidth={1.7} aria-hidden="true" />
+        </button>
+      </section>
+
       <Footer onOpenInquiry={onOpenInquiry} />
     </main>
   );
 }
-

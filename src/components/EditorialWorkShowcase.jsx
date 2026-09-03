@@ -258,11 +258,13 @@ export default function EditorialWorkShowcase({ limit = 5 }) {
               key={project.id}
               to={`/work/${project.slug}`}
               className="ews-card"
+              transitionType="case-study"
               style={{ opacity: i === active ? 1 : DIMMED_OPACITY }}
             >
               <span
                 className="ews-card-inner"
                 data-index={i}
+                data-transition-source
                 ref={(el) => { cardRefs.current[i] = el; }}
               >
                 {project.video ? (

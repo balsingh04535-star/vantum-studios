@@ -449,7 +449,7 @@ export default function CodeVantumCaseStudyPage({ project, onOpenInquiry }) {
         </aside>
 
         <main className="cvcs-content">
-          <figure className="cvcs-hero">
+          <figure className="cvcs-hero case-study-transition-target">
             <video src={project.video} poster={project.image} autoPlay muted loop playsInline />
             <figcaption>
               <span>CodeVantum brand film</span>

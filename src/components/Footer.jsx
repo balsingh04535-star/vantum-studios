@@ -2,22 +2,18 @@ import React, { useState } from 'react';
 import { ArrowUpRight, Check, Copy } from 'lucide-react';
 import TransitionLink from './TransitionLink';
 
-const capabilities = [
-  { label: 'Websites & UI/UX', to: '/web-design' },
-  { label: 'Apps & Product', to: '/web-development' },
-  { label: 'Brand & Logos', to: '/branding' },
-  { label: 'Motion & 3D', to: '/motion-design' },
-  { label: '3D Product Animation', to: '/3d-product-animation' },
-  { label: 'Automations', to: '/services' },
-];
-
-const studioLinks = [
+const exploreLinks = [
   { label: 'Work', to: '/work' },
   { label: 'Services', to: '/services' },
   { label: 'About', to: '/about' },
   { label: 'Clients', to: '/clients' },
-  { label: 'Chanan One', to: '/chanan-one' },
-  { label: 'Contact', to: '/contact' },
+];
+
+const capabilityLinks = [
+  { label: 'Websites & UI/UX', to: '/web-design' },
+  { label: 'Apps & Product', to: '/web-development' },
+  { label: 'Brand & Logos', to: '/branding' },
+  { label: 'Motion & 3D', to: '/motion-design' },
 ];
 
 export default function Footer({ onOpenInquiry }) {
@@ -30,78 +26,77 @@ export default function Footer({ onOpenInquiry }) {
   };
 
   return (
-    <footer id="contact" className="breedlove-footer-root footer-editorial-root">
-      <div className="footer-editorial-stage">
-        <header className="footer-editorial-header">
-          <TransitionLink to="/" className="footer-editorial-brand">
-            <img src="/logo.svg" alt="" aria-hidden="true" />
-            <span>Made by Chanan</span>
-          </TransitionLink>
+    <footer id="contact" className="footer-landscape-root">
+      <img
+        className="footer-landscape-art"
+        src="/footer-coastal-studio.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="footer-landscape-shade" aria-hidden="true" />
 
-          <nav className="footer-editorial-nav" aria-label="Footer navigation">
-            {studioLinks.map((item) => (
-              <TransitionLink key={item.label} to={item.to}>{item.label}</TransitionLink>
-            ))}
-          </nav>
+      <div className="footer-landscape-shell">
+        <header className="footer-landscape-header">
+          <div className="footer-landscape-intro">
+            <TransitionLink to="/" className="footer-landscape-brand">
+              <span className="footer-landscape-mark">
+                <img src="/logo.svg" alt="" aria-hidden="true" />
+              </span>
+              <span>Made by Chanan</span>
+            </TransitionLink>
+            <p>
+              An independent creative studio making bold brands,
+              digital products and experiences that move.
+            </p>
+          </div>
 
-          <button type="button" className="footer-round-cta" onClick={onOpenInquiry} aria-label="Start a project">
-            <ArrowUpRight size={18} strokeWidth={2.4} />
-          </button>
+          <div className="footer-landscape-link-grid">
+            <nav className="footer-landscape-column" aria-label="Explore">
+              <span>Explore</span>
+              {exploreLinks.map((item) => (
+                <TransitionLink key={item.label} to={item.to}>{item.label}</TransitionLink>
+              ))}
+            </nav>
+
+            <nav className="footer-landscape-column" aria-label="Capabilities">
+              <span>Capabilities</span>
+              {capabilityLinks.map((item) => (
+                <TransitionLink key={item.label} to={item.to}>{item.label}</TransitionLink>
+              ))}
+            </nav>
+
+            <div className="footer-landscape-column footer-landscape-connect">
+              <span>Connect</span>
+              <a href="mailto:hello@madebychanan.com">Email us</a>
+              <button type="button" onClick={onOpenInquiry}>Start a project</button>
+              <small>Lisbon · Working worldwide</small>
+            </div>
+          </div>
         </header>
 
-        <div className="footer-editorial-copy">
-          <span className="footer-editorial-kicker">Independent creative studio</span>
-          <h2 className="footer-editorial-title">
-            <strong>Welcome to the</strong>
-            <em>new generation of</em>
-            <strong className="footer-editorial-title-last">digital craft.</strong>
+        <div className="footer-landscape-cta">
+          <span className="footer-landscape-eyebrow">Have a good one in mind?</span>
+          <h2>
+            Let’s make something
+            <em>worth remembering.</em>
           </h2>
-          <p>
-            We design <strong>distinctive digital experiences</strong>—websites, apps,
-            identities and automations—for ambitious teams that care about how
-            their ideas feel in the world.
-          </p>
-          <div className="footer-editorial-actions">
-            <button type="button" className="footer-project-button" onClick={onOpenInquiry}>
-              Start a project <ArrowUpRight size={16} />
+          <div className="footer-landscape-actions">
+            <button type="button" className="footer-landscape-project" onClick={onOpenInquiry}>
+              Start a project <ArrowUpRight size={17} />
             </button>
-            <button type="button" className="footer-email-button" onClick={handleCopyEmail}>
+            <button type="button" className="footer-landscape-copy" onClick={handleCopyEmail}>
               {isCopied ? <Check size={15} /> : <Copy size={15} />}
-              {isCopied ? 'Email copied' : 'Copy our email'}
+              {isCopied ? 'Email copied' : 'Copy email'}
             </button>
           </div>
         </div>
 
-        <nav className="footer-editorial-services" aria-label="Creative services">
-          <span className="footer-services-rule" />
-          <span className="footer-services-label">What we do</span>
-          {capabilities.map((item) => (
-            <TransitionLink key={item.label} to={item.to}>{item.label}</TransitionLink>
-          ))}
-        </nav>
-
-        <div className="footer-sun-doodle" aria-hidden="true">
-          <span />
-          <i /><i /><i /><i /><i /><i /><i /><i />
-        </div>
-
-        <img
-          className="footer-editorial-plant"
-          src="/footer-plant-yellow.png"
-          alt=""
-          aria-hidden="true"
-        />
-        <img
-          className="footer-editorial-skater"
-          src="/footer-skater-blue-v2.png"
-          alt="A playful creative carrying a laptop while skateboarding"
-        />
-        <span className="footer-skate-trail" aria-hidden="true">⌁</span>
-
-        <div className="footer-editorial-ground" aria-hidden="true" />
-        <div className="footer-editorial-meta">
+        <div className="footer-landscape-meta">
           <span>© 2026 Made by Chanan</span>
           <a href="mailto:hello@madebychanan.com">hello@madebychanan.com</a>
+          <span>Built with care in Lisbon</span>
         </div>
       </div>
     </footer>

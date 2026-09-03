@@ -5,6 +5,7 @@ import InquiryModal from '../components/InquiryModal';
 import LuxuryScrollIndicator from '../components/LuxuryScrollIndicator';
 import { TransitionProvider } from '../components/TransitionProvider';
 import ProgressiveBlur from '../components/ProgressiveBlur';
+import 'lenis/dist/lenis.css';
 import '../index.css';
 import '../codevantum-case-study.css';
 
@@ -22,8 +23,10 @@ export default function App({ Component, pageProps }) {
         <LuxuryScrollIndicator />
       </SmoothScroll>
 
-      {/* Page content renders on server — outside the client-only SmoothScroll wrapper */}
-      <Component {...pageProps} onOpenInquiry={() => setIsInquiryOpen(true)} />
+      {/* The stable wrapper lets page content fade without animating fixed site chrome. */}
+      <div className="page-transition-root" data-page-transition-root>
+        <Component {...pageProps} onOpenInquiry={() => setIsInquiryOpen(true)} />
+      </div>
 
       {/* Gradient blur ramp along the bottom edge of the viewport */}
       <ProgressiveBlur />

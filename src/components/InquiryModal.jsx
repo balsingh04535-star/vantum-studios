@@ -1,194 +1,218 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, CheckCircle2, X } from 'lucide-react';
 
-export default function InquiryModal({ isOpen, onClose }) {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    service: 'Interactive 3D Web',
-    budget: '$25,000 - $50,000',
-    details: ''
-  });
+const projectTypes = ['Brand', 'Website', 'Product', 'Motion'];
 
+const initialFormData = {
+  name: '',
+  email: '',
+  service: 'Website',
+  budget: '',
+  details: '',
+};
+
+export default function InquiryModal({ isOpen, onClose }) {
+  const firstFieldRef = useRef(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const lenis = window.lenis;
+    document.body.style.overflow = 'hidden';
+    lenis?.stop();
+
+    const focusTimer = window.setTimeout(() => firstFieldRef.current?.focus(), 320);
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      lenis?.start();
+      window.clearTimeout(focusTimer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const updateField = (field, value) => {
+    setFormData((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setSubmitting(true);
     setSubmitError('');
 
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY || '981806c7-87b7-42d7-894b-2bf20a957760';
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || '981806c7-87b7-42d7-894b-2bf20a957760';
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           access_key: accessKey,
           name: formData.name,
           email: formData.email,
-          company: formData.company,
           service: formData.service,
           budget: formData.budget,
           message: formData.details,
-          subject: `🚀 New Project Inquiry from ${formData.name} (${formData.company || 'Brand'})`
-        })
+          subject: `New project inquiry from ${formData.name}`,
+        }),
       });
 
       const data = await response.json();
-      if (data.success) {
-        setSubmitted(true);
-        setTimeout(() => {
-          setSubmitted(false);
-          onClose();
-        }, 3000);
-      } else {
-        setSubmitError(data.message || 'Submission failed. Please try again.');
+
+      if (!data.success) {
+        throw new Error(data.message || 'Submission failed. Please try again.');
       }
-    } catch (err) {
-      console.error('Inquiry submission error:', err);
-      setSubmitError('Network error. Please try again.');
+
+      setSubmitted(true);
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Inquiry submission error:', error);
+      setSubmitError(error.message || 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={onClose}
-          style={{
-            position: 'absolute',
-            top: '1.5rem',
-            right: '1.5rem',
-            background: 'rgba(255,255,255,0.06)',
-            border: 'none',
-            color: '#fff',
-            width: '36px',
-            height: '36px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer'
-          }}
-        >
-          <X size={18} />
-        </button>
+    <div className="inquiry-overlay" onMouseDown={onClose}>
+      <section
+        className="inquiry-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inquiry-title"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <aside className="inquiry-illustration" aria-label="Creative messenger illustration">
+          <img
+            src="/contact-form-illustration.png"
+            alt="An illustrated creative sending a golden paper airplane"
+            decoding="async"
+          />
+        </aside>
 
-        {submitted ? (
-          <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-            <CheckCircle2 size={64} color="var(--accent-volt)" style={{ margin: '0 auto 1.5rem auto' }} />
-            <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Inquiry Received</h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
-              Thank you, {formData.name || 'Visionary'}. A partner from Chanan will review your project parameters and contact you within 24 hours.
-            </p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <span className="badge" style={{ marginBottom: '1rem' }}>Project Brief</span>
-            <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Initiate Agency Engagement</h2>
+        <div className="inquiry-form-panel" data-lenis-prevent>
+          <button type="button" className="inquiry-close" onClick={onClose} aria-label="Close project form">
+            <X size={19} strokeWidth={1.8} />
+          </button>
 
-            <div className="grid-2" style={{ gap: '1rem', marginBottom: '0' }}>
-              <div className="form-group">
-                <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Your Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Alex Mercer"
-                  className="form-input"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </div>
-
-              <div className="form-group">
-                <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Email Address</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="alex@company.com"
-                  className="form-input"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-              </div>
+          {submitted ? (
+            <div className="inquiry-success" role="status">
+              <span className="inquiry-success-icon"><CheckCircle2 size={28} /></span>
+              <span className="inquiry-kicker">Signal received</span>
+              <h2 id="inquiry-title">Thanks. We’ll be in touch.</h2>
+              <p>
+                Your project is officially on our radar. We’ll review the details
+                and reply within two business days.
+              </p>
+              <button type="button" onClick={onClose}>Back to the studio</button>
             </div>
+          ) : (
+            <form className="inquiry-form" onSubmit={handleSubmit}>
+              <header className="inquiry-form-header">
+                <span className="inquiry-kicker">Start a project</span>
+                <span className="inquiry-progress">01 / 01</span>
+                <h2 id="inquiry-title">Tell us what<br />you’re making.</h2>
+                <p>A few details and we’ll take it from there.</p>
+              </header>
 
-            <div className="grid-2" style={{ gap: '1rem', marginBottom: '0' }}>
-              <div className="form-group">
-                <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Company / Brand</label>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-name">Name</label>
                 <input
+                  ref={firstFieldRef}
+                  id="inquiry-name"
+                  name="name"
                   type="text"
-                  placeholder="Cybernetic Labs"
-                  className="form-input"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  autoComplete="name"
+                  required
+                  value={formData.name}
+                  onChange={(event) => updateField('name', event.target.value)}
                 />
               </div>
 
-              <div className="form-group">
-                <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Primary Capability Needed</label>
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-email">Email</label>
+                <input
+                  id="inquiry-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={formData.email}
+                  onChange={(event) => updateField('email', event.target.value)}
+                />
+              </div>
+
+              <fieldset className="inquiry-field inquiry-project-types">
+                <legend>Project type</legend>
+                <div className="inquiry-chip-row">
+                  {projectTypes.map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      className={formData.service === type ? 'is-selected' : ''}
+                      aria-pressed={formData.service === type}
+                      onClick={() => updateField('service', type)}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <div className="inquiry-field inquiry-select-wrap">
+                <label htmlFor="inquiry-budget">Budget</label>
                 <select
-                  className="form-input"
-                  value={formData.service}
-                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  style={{ background: '#00127a', color: '#ffffff' }}
+                  id="inquiry-budget"
+                  name="budget"
+                  required
+                  value={formData.budget}
+                  onChange={(event) => updateField('budget', event.target.value)}
                 >
-                  <option>Interactive 3D Web</option>
-                  <option>Generative Brand System</option>
-                  <option>Kinetic Web Application</option>
-                  <option>Full Digital Overhaul</option>
+                  <option value="" disabled>Select a range</option>
+                  <option>$15,000 – $30,000</option>
+                  <option>$30,000 – $60,000</option>
+                  <option>$60,000 – $120,000</option>
+                  <option>$120,000+</option>
+                  <option>Not sure yet</option>
                 </select>
               </div>
-            </div>
 
-            <div className="form-group">
-              <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Estimated Investment Budget</label>
-              <select
-                className="form-input"
-                value={formData.budget}
-                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                style={{ background: '#00127a', color: '#ffffff' }}
-              >
-                <option>$15,000 - $30,000</option>
-                <option>$30,000 - $60,000</option>
-                <option>$60,000 - $120,000</option>
-                <option>$120,000+</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label style={{ fontSize: '0.85rem', color: '#bfd7ff', fontWeight: 600 }}>Project Goals & Vision</label>
-              <textarea
-                placeholder="Tell us about your project objectives, timeline, or reference websites..."
-                className="form-input"
-                value={formData.details}
-                onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-              />
-            </div>
-
-            {submitError && (
-              <div style={{ fontSize: '0.85rem', color: '#ff4d4d', fontFamily: 'monospace', marginBottom: '1rem' }}>
-                {submitError}
+              <div className="inquiry-field">
+                <label htmlFor="inquiry-details">Tell us about it</label>
+                <textarea
+                  id="inquiry-details"
+                  name="details"
+                  rows="2"
+                  required
+                  value={formData.details}
+                  onChange={(event) => updateField('details', event.target.value)}
+                />
               </div>
-            )}
 
-            <button type="submit" disabled={submitting} className="btn-volt" style={{ width: '100%', justifyContent: 'center', opacity: submitting ? 0.7 : 1 }}>
-              <span>{submitting ? 'Transmitting Brief...' : 'Submit Project Parameters'}</span>
-              <ArrowUpRight size={20} />
-            </button>
-          </form>
-        )}
-      </div>
+              {submitError && <p className="inquiry-error" role="alert">{submitError}</p>}
+
+              <button type="submit" className="inquiry-submit" disabled={submitting}>
+                <span>{submitting ? 'Sending…' : 'Send the signal'}</span>
+                <ArrowUpRight size={22} strokeWidth={1.8} />
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

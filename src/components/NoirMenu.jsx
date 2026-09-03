@@ -146,7 +146,7 @@ export default function NoirMenu({ isOpen, onClose, onOpenInquiry }) {
       <div className="nav-bg-layer" ref={(el) => (bgsRef.current[2] = el)} />
       <div className="nav-bg-layer" ref={(el) => (bgsRef.current[3] = el)} />
 
-      <div className="overlay-nav-content">
+      <div className="overlay-nav-content" data-lenis-prevent>
         <div className="overlay-nav-items" ref={itemsRef}>
 
           <div className="menu-index">
