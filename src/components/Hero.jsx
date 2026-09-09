@@ -1,390 +1,324 @@
-import React, { useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import MiniDesktopEnclosure from './MiniDesktopEnclosure';
-import { useTransitionNavigate } from './TransitionProvider';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Pause, Play } from 'lucide-react';
+import TransitionLink from './TransitionLink';
+import {
+  CARDS_PER_SIDE, GALLERY_START, HERO_IMAGES, HERO_SCENES, INTRO_DURATION,
+  createCardPool, getCardFrame, getGalleryGeometry, getHeroFrame,
+} from './heroMotion';
+import { createHeroGallery } from './heroGallery';
+import styles from './Hero.module.css';
 
-gsap.registerPlugin(ScrollTrigger);
+const CARDS = [-1, 1].flatMap((side) =>
+  Array.from({ length: CARDS_PER_SIDE }, (_, index) => ({ side, index }))
+);
 
 export default function Hero({ onOpenInquiry }) {
-  const router = useRouter();
-  const transitionTo = useTransitionNavigate();
-  const heroRef = useRef(null);
-  const videoRef = useRef(null);
-
-  const handleEnclosureClick = () => {
-    try {
-      transitionTo('/chanan-one');
-    } catch {
-      router.push('/chanan-one');
-    }
-  };
+  const rootRef = useRef(null);
+  const canvasRef = useRef(null);
+  const galleryCanvasRef = useRef(null);
+  const wordRef = useRef(null);
+  const motionRef = useRef({ paused: false });
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
+    const root = rootRef.current;
+    const canvas = canvasRef.current;
+    const word = wordRef.current;
+    const ctx = canvas.getContext('2d');
+    const smallCanvas = document.createElement('canvas');
+    const smallCtx = smallCanvas.getContext('2d');
+    const sourceCanvas = document.createElement('canvas');
+    const sourceCtx = sourceCanvas.getContext('2d');
+    const cards = Array.from(root.querySelectorAll('[data-tunnel-card]'));
+    const heading = root.querySelector('[data-hero-heading]');
+    const content = root.querySelector('[data-hero-content]');
+    const ribbon = root.querySelector('[data-hero-ribbon]');
+    const prompt = root.querySelector('[data-hero-prompt]');
+    const cycleNumber = root.querySelector('[data-cycle-number]');
+    const progress = root.querySelector('[data-cycle-progress]');
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
-      const cornerOffset = isMobile ? '1.25rem' : '2.5rem';
-      const cornerSideOffset = isMobile ? '1.25rem' : '3rem';
+    let reduced = media.matches;
+    let disposed = false;
+    let inView = true;
+    let frameId = null;
+    let previousTime = null;
+    let elapsed = 0;
+    let currentScene = -1;
+    let lastDrawKey = '';
+    let geometry = getGalleryGeometry(root.clientWidth, root.clientHeight);
+    let galleryStart = Infinity;
+    let fontSize = 64;
+    let dpr = 1;
+    let wordWidth = 0;
+    let wordHeight = 0;
+    const getAges = createCardPool();
+    const gallery = createHeroGallery(galleryCanvasRef.current, HERO_IMAGES, CARDS);
+    if (gallery) root.dataset.gallery = 'webgl';
 
-      // 1. Letters appear in initial center-shifted positions
-      tl.from('.awwwards-letter', {
-        y: -30,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.inOut',
-        stagger: 0.12,
-      })
-        // 2. Letters move from center to corners, starting 1.5s into timeline
-        .to(
-          '.awwwards-top-left, .awwwards-top-right',
-          {
-            top: cornerOffset,
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          1.5
-        )
-        .to(
-          '.awwwards-bottom-right',
-          {
-            bottom: cornerOffset,
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          '<'
-        )
-        .to(
-          '.awwwards-top-left',
-          {
-            left: cornerSideOffset,
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          '<'
-        )
-        .to(
-          '.awwwards-top-right',
-          {
-            right: cornerSideOffset,
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          '<'
-        )
-        .to(
-          '.awwwards-bottom-right',
-          {
-            right: cornerSideOffset,
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          '<'
-        )
-        // 3. Blue split curtain blocks slide away, revealing video underneath
-        .to(
-          '.awwwards-block-left',
-          {
-            left: '-50%',
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          3.2
-        )
-        .to(
-          '.awwwards-block-right',
-          {
-            right: '-50%',
-            duration: 1.8,
-            ease: 'power3.inOut',
-          },
-          '<'
-        )
-        // 4. Hero brand & interactive cues fade in
-        .from(
-          '.awwwards-center-brand, .hero-corner-3d-enclosure, .awwwards-scroll-hint',
-          {
-            opacity: 0,
-            scale: 0.95,
-            duration: 1.3,
-            stagger: 0.15,
-            ease: 'power3.out',
-          },
-          3.4
-        );
-    }, heroRef);
+    const paintSourceWord = () => {
+      if (!sourceCtx || !ctx || !smallCtx) return;
+      sourceCanvas.width = Math.ceil(wordWidth * dpr);
+      sourceCanvas.height = Math.ceil(wordHeight * dpr);
+      sourceCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sourceCtx.clearRect(0, 0, wordWidth, wordHeight);
+      sourceCtx.fillStyle = '#eef4ff';
+      sourceCtx.font = `${fontSize}px "Chanan Hero Serif", Georgia, serif`;
+      sourceCtx.textAlign = 'center';
+      sourceCtx.textBaseline = 'middle';
+      sourceCtx.fillText(HERO_SCENES[Math.max(0, currentScene)].word, wordWidth / 2, wordHeight * 0.49);
+      lastDrawKey = '';
+    };
 
-    return () => ctx.revert();
+    const resize = () => {
+      geometry = getGalleryGeometry(root.clientWidth, root.clientHeight);
+      gallery?.resize(geometry.width, geometry.height);
+      fontSize = parseFloat(getComputedStyle(word).fontSize);
+      wordWidth = word.clientWidth;
+      wordHeight = word.clientHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.ceil(wordWidth * dpr);
+      canvas.height = Math.ceil(wordHeight * dpr);
+      paintSourceWord();
+      if (reduced || motionRef.current.paused) render();
+    };
+
+    const drawWord = (distortion) => {
+      if (!ctx || !smallCtx || !sourceCtx || !wordWidth) return;
+      const block = 1 + Math.round(Math.max(1, fontSize / 8 - 1) * distortion);
+      const key = `${currentScene}:${block}`;
+      if (key === lastDrawKey) return;
+      lastDrawKey = key;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (block === 1) {
+        ctx.drawImage(sourceCanvas, 0, 0);
+      } else {
+        // Downsample the actual letterforms, then reconstruct them with hard
+        // square pixels. The effect remains confined to the changing word.
+        smallCanvas.width = Math.max(1, Math.round(wordWidth / block));
+        smallCanvas.height = Math.max(1, Math.round(wordHeight / block));
+        smallCtx.imageSmoothingEnabled = true;
+        smallCtx.drawImage(sourceCanvas, 0, 0, smallCanvas.width, smallCanvas.height);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(smallCanvas, 0, 0, canvas.width, canvas.height);
+        ctx.imageSmoothingEnabled = true;
+      }
+    };
+
+    function render() {
+      const time = reduced ? INTRO_DURATION : elapsed;
+      const frame = getHeroFrame(time, reduced ? GALLERY_START : galleryStart);
+      // Let the surrounding words move as the changing word's width morphs.
+      if (sourceCtx) {
+        sourceCtx.font = `${fontSize}px "Chanan Hero Serif", Georgia, serif`;
+        const t = frame.transition;
+        const blend = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+        const fromWidth = sourceCtx.measureText(HERO_SCENES[frame.fromScene].word).width;
+        const toWidth = sourceCtx.measureText(HERO_SCENES[frame.toScene].word).width;
+        const nextWidth = Math.ceil(fromWidth + (toWidth - fromWidth) * blend + fontSize * 0.08);
+        if (nextWidth !== wordWidth) {
+          wordWidth = nextWidth;
+          word.style.width = `${wordWidth}px`;
+          canvas.width = Math.ceil(wordWidth * dpr);
+          paintSourceWord();
+        }
+      }
+      if (frame.scene !== currentScene) {
+        currentScene = frame.scene;
+        word.querySelector('[data-word-fallback]').textContent = HERO_SCENES[currentScene].word;
+        prompt.textContent = HERO_SCENES[currentScene].prompt;
+        cycleNumber.textContent = String(currentScene + 1).padStart(2, '0');
+        paintSourceWord();
+      }
+      drawWord(reduced ? 0 : frame.distortion);
+
+      heading.style.opacity = frame.headingReveal;
+      heading.style.transform = `scale(${1.2 - frame.headingReveal * 0.2})`;
+      content.style.opacity = frame.contentReveal;
+      content.style.transform = `scale(${1.2 - frame.contentReveal * 0.2})`;
+      ribbon.style.transform = `translate(-50%, -50%) scale(${frame.ribbonScale})`;
+      progress.style.transform = `scaleX(${frame.progress})`;
+      prompt.style.opacity = 1 - frame.distortion * 0.8;
+      prompt.style.transform = `translateY(${frame.distortion * (frame.transition < 0.5 ? -4 : 4)}px)`;
+
+      const ages = getAges(frame.galleryTime);
+      const positions = CARDS.map(({ index, side }) => getCardFrame(index, side, ages[index], geometry, frame));
+      if (gallery && root.dataset.gallery === 'webgl') {
+        gallery.render(positions, frame.cylinder);
+      } else {
+        cards.forEach((card, i) => {
+          const position = positions[i];
+          card.style.transform = `translate(-50%, -50%) translateX(${position.x}px) scale(${position.size / 100})`;
+          card.style.opacity = position.visible ? 1 : 0;
+          card.style.zIndex = Math.round(position.order * 1000);
+        });
+      }
+    }
+
+    const stop = () => {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = null;
+      previousTime = null;
+    };
+
+    const tick = (now) => {
+      frameId = null;
+      if (disposed) return;
+      if (previousTime !== null) elapsed += Math.min((now - previousTime) / 1000, 0.06);
+      previousTime = now;
+      render();
+      frameId = requestAnimationFrame(tick);
+    };
+
+    const sync = () => {
+      stop();
+      if (disposed) return;
+      if (reduced) {
+        render();
+      } else if (inView && !document.hidden && !motionRef.current.paused) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    motionRef.current.sync = sync;
+    const onMediaChange = (event) => {
+      reduced = event.matches;
+      if (reduced) elapsed = Math.max(elapsed, INTRO_DURATION);
+      sync();
+    };
+    const onContextLost = (event) => {
+      event.preventDefault();
+      root.dataset.gallery = 'fallback';
+      render();
+    };
+    const onContextRestored = () => {
+      root.dataset.gallery = 'webgl';
+      resize();
+      render();
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    }, { threshold: 0 });
+    const resizeObserver = new ResizeObserver(resize);
+    observer.observe(root);
+    resizeObserver.observe(root);
+    document.addEventListener('visibilitychange', sync);
+    media.addEventListener('change', onMediaChange);
+    const galleryCanvas = galleryCanvasRef.current;
+    galleryCanvas.addEventListener('webglcontextlost', onContextLost);
+    galleryCanvas.addEventListener('webglcontextrestored', onContextRestored);
+
+    // Grow the ribbon while assets load. Reveal the gallery as soon as it is
+    // ready, with a deadline so text and the project action always appear.
+    const assets = HERO_IMAGES.map((src) => new Promise((resolve) => {
+      const image = new window.Image();
+      image.onload = resolve;
+      image.onerror = resolve;
+      image.src = src;
+    }));
+    const font = document.fonts.load('64px "Chanan Hero Serif"');
+    let timeout;
+    const deadline = new Promise((resolve) => { timeout = setTimeout(resolve, 2000); });
+    Promise.race([Promise.allSettled([...assets, font, gallery?.ready]), deadline]).then(() => {
+      clearTimeout(timeout);
+      if (disposed) return;
+      galleryStart = Math.max(GALLERY_START, elapsed);
+      if (reduced || motionRef.current.paused) render();
+    });
+    root.dataset.enhanced = ctx && sourceCtx && smallCtx ? 'true' : 'fallback';
+    resize();
+    render();
+    sync();
+    font.then(() => { if (!disposed) { resize(); render(); } }).catch(() => {});
+
+    return () => {
+      disposed = true;
+      stop();
+      clearTimeout(timeout);
+      observer.disconnect();
+      resizeObserver.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+      media.removeEventListener('change', onMediaChange);
+      galleryCanvas.removeEventListener('webglcontextlost', onContextLost);
+      galleryCanvas.removeEventListener('webglcontextrestored', onContextRestored);
+      gallery?.dispose();
+      delete root.dataset.gallery;
+      delete motionRef.current.sync;
+    };
   }, []);
 
+  const toggleMotion = () => {
+    const next = !motionRef.current.paused;
+    motionRef.current.paused = next;
+    setPaused(next);
+    motionRef.current.sync?.();
+  };
+
   return (
-    <section id="hero" ref={heroRef} className="awwwards-hero-container">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        muted
-        loop
-        poster="/og-chanan.webp"
-        preload="metadata"
-        className="awwwards-hero-video"
-      >
-        <source
-          src="/hero-bg.mp4"
-          type="video/mp4"
-        />
-      </video>
+    <section id="hero" ref={rootRef} className={styles.hero} aria-labelledby="hero-heading">
+      <div className={styles.grid} aria-hidden="true" />
+      <div className={styles.ribbon} data-hero-ribbon aria-hidden="true">
+        <svg viewBox="0 0 1000 190" fill="currentColor">
+          <path d="M24 2C148 31 252 42 365 42H635C748 42 852 31 976 2Q1000 -4 1000 18V172Q1000 194 976 188C852 159 748 148 635 148H365C252 148 148 159 24 188Q0 194 0 172V18Q0 -4 24 2Z" />
+        </svg>
+      </div>
 
-      {/* Hero Ambient Video Overlay Tint */}
-      <div className="awwwards-video-tint" />
+      <div className={styles.heading} data-hero-heading>
+        <p className={styles.eyebrow}>Independent minds. Extraordinary things.</p>
+        <h1 id="hero-heading" className={styles.title}>
+          <span className={styles.srOnly}>We make brands, websites, products, campaigns and ideas impossible to ignore.</span>
+          <span aria-hidden="true" className={styles.headlineVisual}>
+            <span>We make </span>
+            <span ref={wordRef} className={styles.word}>
+              <span className={styles.wordFallback} data-word-fallback>brands</span>
+              <canvas ref={canvasRef} className={styles.wordCanvas} />
+            </span>
+            <span className={styles.headlineEnd}> impossible to ignore.</span>
+          </span>
+        </h1>
+      </div>
 
-      <div className="awwwards-wrapper">
-        {/* Split Opening Curtain Blocks (Rich Blue) */}
-        <div className="awwwards-blocks">
-          <div className="awwwards-block awwwards-block-left" />
-          <div className="awwwards-block awwwards-block-right" />
-        </div>
-
-        {/* Kinetic Corner Letters (Light Blue) */}
-        <div className="awwwards-letters">
-          <div className="awwwards-row">
-            <div className="awwwards-letter awwwards-top-left">C</div>
-            <div className="awwwards-letter awwwards-top-right">H</div>
-          </div>
-          <div className="awwwards-row">
-            <div className="awwwards-letter awwwards-bottom-right">01</div>
-          </div>
-        </div>
-
-        {/* Center Hero Brand Reveal with SVG Logo */}
-        <div className="awwwards-center-brand">
-          <img
-            src="/hero-logo.svg"
-            alt="Made by Chanan"
-            className="awwwards-brand-logo-svg"
-          />
-          <p className="awwwards-brand-subtitle">Made by Chanan · An archive of the unreal</p>
-        </div>
-
-        {/* Bottom Left Corner 3D Enclosure Portal */}
-        <div
-          className="hero-corner-3d-enclosure"
-          onClick={handleEnclosureClick}
-          role="button"
-          tabIndex={0}
-          aria-label="Explore Chanan One"
-        >
-          <MiniDesktopEnclosure onClick={handleEnclosureClick} />
-          <div className="hero-3d-hint-pill">
-            <span>CHANAN ONE</span>
-            <span className="hero-3d-hint-arrow">↗</span>
-          </div>
-        </div>
-
-        {/* Bottom Scroll Explore Cue */}
-        <div className="awwwards-scroll-hint">
-          <span className="awwwards-scroll-text">SCROLL TO EXPLORE ↓</span>
+      <div className={styles.gallery} aria-hidden="true">
+        <canvas ref={galleryCanvasRef} className={styles.galleryCanvas} />
+        <div className={styles.tunnel}>
+          {CARDS.map(({ side, index }) => (
+            <div className={styles.card} data-tunnel-card key={`${side}-${index}`}>
+              <img src={HERO_IMAGES[(index * 2 + (side === 1 ? 1 : 0)) % HERO_IMAGES.length]}
+                alt="" width="800" height="800" loading="eager" decoding="async" draggable="false" />
+            </div>
+          ))}
         </div>
       </div>
 
-      <style jsx>{`
-        .awwwards-hero-container {
-          position: relative;
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
-          background: #000000;
-          font-family: var(--font-heading, "Outfit", sans-serif);
-        }
+      <div className={styles.content} data-hero-content>
+        <p className={styles.description}>
+          A creative studio for ambitious brands.<br />
+          Identity, digital experiences and motion. Made by Chanan.
+        </p>
+        <button type="button" className={styles.brief} onClick={onOpenInquiry}
+          aria-label="Start a project with Made by Chanan">
+          <span className={styles.briefMark} aria-hidden="true">↳</span>
+          <span className={styles.briefText}>
+            <span className={styles.briefLabel}>Let’s make something</span>
+            <span className={styles.prompt} data-hero-prompt>{HERO_SCENES[0].prompt}</span>
+          </span>
+          <span className={styles.briefArrow} aria-hidden="true"><ArrowUpRight size={18} strokeWidth={1.5} /></span>
+        </button>
+      </div>
 
-        .awwwards-hero-video {
-          width: 100vw;
-          height: 100vh;
-          object-fit: cover;
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 1;
-        }
-
-        .awwwards-video-tint {
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(
-            circle at center,
-            rgba(0, 0, 0, 0.25) 0%,
-            rgba(10, 10, 10, 0.65) 100%
-          );
-          z-index: 2;
-          pointer-events: none;
-        }
-
-        .awwwards-wrapper {
-          position: relative;
-          width: 100%;
-          height: 100vh;
-          z-index: 5;
-        }
-
-        .awwwards-blocks {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100vh;
-          z-index: 10;
-          pointer-events: none;
-        }
-
-        .awwwards-block {
-          position: absolute;
-          top: 0;
-          width: 50%;
-          height: 100vh;
-          background: #000000;
-        }
-
-        .awwwards-block-left {
-          left: 0;
-        }
-
-        .awwwards-block-right {
-          right: 0;
-        }
-
-        .awwwards-letters {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100vh;
-          z-index: 20;
-          pointer-events: none;
-        }
-
-        .awwwards-letter {
-          position: absolute;
-          font-family: var(--font-heading, "Outfit", sans-serif);
-          font-size: clamp(4rem, 10vw, 10rem);
-          font-weight: 900;
-          color: #bfd7ff;
-          line-height: 1;
-          user-select: none;
-          z-index: 30;
-          letter-spacing: -0.04em;
-          text-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-        }
-
-        .awwwards-row {
-          width: 100%;
-          height: 50vh;
-          position: relative;
-        }
-
-        .awwwards-top-left {
-          top: 32%;
-          left: 42%;
-        }
-
-        .awwwards-top-right {
-          top: 32%;
-          right: 42%;
-        }
-
-        .awwwards-bottom-right {
-          bottom: 32%;
-          right: 42%;
-        }
-
-        .awwwards-center-brand {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          z-index: 6;
-          pointer-events: none;
-          width: 100%;
-          max-width: 1200px;
-          padding: 0 1.5rem;
-          box-sizing: border-box;
-        }
-
-        .awwwards-brand-logo-svg {
-          width: clamp(480px, 64vw, 1000px);
-          max-height: 52vh;
-          height: auto;
-          object-fit: contain;
-          filter: drop-shadow(0 8px 40px rgba(0, 0, 0, 0.85));
-          user-select: none;
-        }
-
-        .awwwards-brand-subtitle {
-          font-family: "Cormorant Garamond", "Garamond", serif;
-          font-size: clamp(1.3rem, 2.6vw, 2.6rem);
-          font-weight: 300;
-          font-style: italic;
-          letter-spacing: 0.04em;
-          color: #fff8ed;
-          margin: 0.5rem 0 0 0;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-        }
-
-        .awwwards-scroll-hint {
-          position: absolute;
-          bottom: 2.2rem;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 6;
-          pointer-events: none;
-        }
-
-        .awwwards-scroll-text {
-          font-family: var(--font-heading, "Outfit", sans-serif);
-          font-size: clamp(0.7rem, 0.9vw, 0.85rem);
-          font-weight: 700;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: #ffffff;
-          opacity: 0.9;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        @media (max-width: 900px) {
-          .awwwards-letter {
-            font-size: clamp(3.2rem, 13vw, 4.8rem);
-          }
-
-          .awwwards-top-left {
-            top: 36%;
-            left: 36%;
-          }
-
-          .awwwards-top-right {
-            top: 36%;
-            right: 36%;
-          }
-
-          .awwwards-bottom-right {
-            bottom: 36%;
-            right: 36%;
-          }
-
-          .awwwards-brand-logo-svg {
-            width: clamp(320px, 88vw, 560px);
-            max-height: 42vh;
-          }
-
-          .awwwards-brand-subtitle {
-            font-size: clamp(1.1rem, 4.2vw, 1.4rem);
-          }
-        }
-      `}</style>
+      <div className={styles.footnote}>
+        <TransitionLink to="/chanan-one" className={styles.archiveLink}>Chanan One <ArrowUpRight size={13} /></TransitionLink>
+        <a href="#manifesto" className={styles.explore}>Scroll to explore <span aria-hidden="true">↓</span></a>
+        <div className={styles.playback}>
+          <span data-cycle-number>01</span><span className={styles.track}><i data-cycle-progress /></span><span>05</span>
+          <button type="button" className={styles.pause} onClick={toggleMotion}
+            aria-label={paused ? 'Play hero animation' : 'Pause hero animation'} aria-pressed={paused}>
+            {paused ? <Play size={12} /> : <Pause size={12} />}
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
