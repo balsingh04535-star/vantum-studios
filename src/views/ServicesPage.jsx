@@ -30,7 +30,7 @@ const SERVICE_WORLDS = [
       'Art direction',
       'Brand guidelines',
     ],
-    projects: ['nebbi-ai', 'tee-bloc'],
+    projects: ['noorakar', 'tee-bloc'],
   },
   {
     id: 'digital-products',
@@ -88,7 +88,7 @@ const SERVICE_WORLDS = [
       'UI choreography',
       'Launch films',
     ],
-    projects: ['nebbi-ai', 'flava'],
+    projects: ['noorakar', 'flava'],
   },
 ];
 

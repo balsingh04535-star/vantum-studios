@@ -15,6 +15,12 @@ const nextConfig = {
         destination: 'https://www.madebychanan.com/:path*',
         permanent: true,
       },
+      // Nebbi AI was renamed Noorakar; keep the old case study URL working.
+      {
+        source: '/work/nebbi-ai',
+        destination: '/work/noorakar',
+        permanent: true,
+      },
     ];
   },
 };
