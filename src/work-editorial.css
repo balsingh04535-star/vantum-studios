@@ -1,0 +1,117 @@
+/* ── Work / editorial archive ─────────────────────────────────────────
+   Built on the Services page system (paper, serif display, mono labels,
+   fine rules). Only the pieces Services doesn't have live here: the
+   featured film frames and their captions. */
+
+.work-editorial-root {
+  --work-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Featured projects ─────────────────────────────────────────────── */
+.work-feature .services-world-title h2 {
+  max-width: none;
+}
+
+.work-feature-media {
+  position: relative;
+  display: block;
+  margin-top: clamp(3.5rem, 6vw, 6rem);
+}
+
+.work-feature-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #d9d4ca;
+}
+
+.work-feature-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(18, 17, 15, 0.09);
+}
+
+.work-feature-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.001);
+  transition: transform 1100ms var(--work-ease);
+}
+
+.work-feature-media:hover .work-feature-frame video,
+.work-feature-media:focus-visible .work-feature-frame video {
+  transform: scale(1.025);
+}
+
+.work-feature-cue {
+  position: absolute;
+  bottom: clamp(1rem, 1.6vw, 1.5rem);
+  left: clamp(1rem, 1.6vw, 1.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.72rem 1.05rem;
+  border-radius: 999px;
+  background: var(--services-paper);
+  color: var(--services-ink);
+  font-size: 0.67rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 320ms ease, transform 420ms var(--work-ease);
+}
+
+.work-feature-media:hover .work-feature-cue,
+.work-feature-media:focus-visible .work-feature-cue {
+  opacity: 1;
+  transform: none;
+}
+
+.work-feature-media:focus-visible {
+  outline: 2px solid var(--services-ink);
+  outline-offset: 6px;
+}
+
+.work-feature-facts.services-capability-list {
+  margin: clamp(1.5rem, 2.6vw, 2.5rem) 0 0;
+}
+
+.work-feature-facts.services-capability-list p {
+  max-width: 13em;
+  margin-top: 1.9rem;
+}
+
+/* ── Phone ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .work-feature-cue {
+    opacity: 1;
+    transform: none;
+  }
+
+  .work-feature-frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  .work-feature-facts.services-capability-list p {
+    margin-top: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-feature-frame video,
+  .work-feature-cue {
+    transition: none;
+  }
+
+  .work-feature-media:hover .work-feature-frame video {
+    transform: none;
+  }
+}

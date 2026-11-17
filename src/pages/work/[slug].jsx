@@ -1,7 +1,7 @@
 import { projects, getProjectBySlug } from '../../data/projects';
 import CaseStudyPage from '../../views/CaseStudyPage';
 import CodeVantumCaseStudyPage from '../../views/CodeVantumCaseStudyPage';
-import NoorakarCaseStudyPage from '../../views/NoorakarCaseStudyPage';
+import NoorakarCaseStudyPage from '../../views/NoorakarEditorialCaseStudy';
 
 export default function WorkSlugPage({ project, onOpenInquiry }) {
   if (project.slug === 'codevantum') {

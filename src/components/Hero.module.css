@@ -14,18 +14,9 @@
   min-height: 720px;
   overflow: clip;
   background:
-    radial-gradient(circle at 50% 48%, rgba(139, 174, 255, 0.96) 0%, rgba(76, 116, 239, 0.96) 28%, transparent 58%),
-    linear-gradient(145deg, #3159d8 0%, #2449c5 48%, #163693 100%);
-  color: #ffffff;
-}
-
-.grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.28) 0.8px, transparent 1px);
-  background-size: 20px 20px;
-  mask-image: radial-gradient(ellipse at 50% 42%, #000 12%, rgba(0, 0, 0, 0.38) 100%);
+    radial-gradient(circle at 50% 48%, rgba(14, 104, 82, 0.9) 0%, rgba(6, 86, 68, 0.9) 30%, transparent 60%),
+    linear-gradient(145deg, #05594a 0%, #034e3e 48%, #023a2e 100%);
+  color: #fbf6e6;
 }
 
 .ribbon {
@@ -34,7 +25,7 @@
   top: 50%;
   left: 50%;
   width: 120%;
-  color: #080c1d;
+  color: #01261d;
   transform: translate(-50%, -50%) scale(0);
   pointer-events: none;
   will-change: transform;
@@ -59,12 +50,12 @@
   font: 11px/1.3 ui-monospace, SFMono-Regular, monospace;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(251, 246, 230, 0.78);
 }
 
 .title {
   margin: 0;
-  color: #ffffff;
+  color: #fbf6e6;
   font-family: 'Chanan Hero Serif', Georgia, serif;
   font-size: clamp(48px, 5.1vw, 92px);
   font-weight: 400;
@@ -73,7 +64,7 @@
 }
 
 .headlineVisual { display: flex; align-items: baseline; justify-content: center; white-space: pre; }
-.word { display: inline-block; position: relative; width: 2.65em; height: 1.04em; flex-shrink: 0; color: #eef4ff; }
+.word { display: inline-block; position: relative; width: 2.65em; height: 1.04em; flex-shrink: 0; color: #fbf6e6; }
 .wordFallback { display: inline-block; width: 100%; text-align: center; }
 .wordCanvas { position: absolute; inset: -0.025em 0 0; width: 100%; height: 100%; opacity: 0; }
 .hero[data-enhanced='true'] .wordCanvas { opacity: 1; }
@@ -101,7 +92,7 @@
   overflow: hidden;
   opacity: 0;
   border-radius: 2px;
-  background: #101a48;
+  background: #023428;
   will-change: transform;
 }
 .card img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; }
@@ -120,8 +111,8 @@
   opacity: 0;
   transform: scale(1.2);
 }
-.description { margin: 0; font-size: 15px; line-height: 1.55; text-align: center; color: rgba(255, 255, 255, 0.82); text-wrap: balance; text-shadow: 0 2px 16px rgba(10, 25, 90, 0.3); }
-.description::first-line { color: #ffffff; }
+.description { margin: 0; font-size: 15px; line-height: 1.55; text-align: center; color: rgba(251, 246, 230, 0.84); text-wrap: balance; text-shadow: 0 2px 16px rgba(0, 30, 22, 0.3); }
+.description::first-line { color: #fbf6e6; }
 .brief {
   display: flex;
   align-items: center;
@@ -129,33 +120,33 @@
   width: 100%;
   min-height: 68px;
   padding: 12px 13px 12px 19px;
-  color: #f4f0e9;
-  background: #191b1f;
-  border: 1px solid #34373e;
+  color: #0d2b23;
+  background: #fbfaea;
+  border: 1px solid rgba(13, 43, 35, 0.12);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   text-align: left;
   cursor: pointer;
   transition: border-color 200ms, background-color 200ms;
 }
-.brief:hover { border-color: #8498b6; background: #20242b; }
-.brief:focus-visible, .footnote a:focus-visible, .pause:focus-visible { outline: 2px solid #bfd7ff; outline-offset: 5px; }
-.briefMark { color: #9ba9bc; font: 30px/1 Georgia, serif; }
+.brief:hover { border-color: #e6d3ff; background: #ffffff; }
+.brief:focus-visible, .footnote a:focus-visible, .pause:focus-visible { outline: 2px solid #e6d3ff; outline-offset: 5px; }
+.briefMark { color: #5f7a71; font: 30px/1 Georgia, serif; }
 .briefText { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 5px; }
-.briefLabel { font: 10px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #8f9bae; }
+.briefLabel { font: 10px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.1em; color: #5f7a71; }
 .prompt { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 13px/1.4 var(--font-main), sans-serif; }
-.briefArrow { display: grid; width: 38px; height: 38px; flex-shrink: 0; place-items: center; background: #bfd7ff; color: #111721; border-radius: 50%; transition: transform 220ms; }
+.briefArrow { display: grid; width: 38px; height: 38px; flex-shrink: 0; place-items: center; background: #e6d3ff; color: #0d2b23; border: 1px solid #0d2b23; border-radius: 50%; transition: transform 220ms; }
 .brief:hover .briefArrow { transform: rotate(45deg); }
 
-.footnote { position: absolute; z-index: 6; inset: auto 28px 92px; display: flex; align-items: center; justify-content: space-between; color: rgba(239, 245, 255, 0.74); font: 10px/1.2 ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+.footnote { position: absolute; z-index: 6; inset: auto 28px 92px; display: flex; align-items: center; justify-content: space-between; color: rgba(251, 246, 230, 0.74); font: 10px/1.2 ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; }
 .archiveLink, .explore { display: inline-flex; align-items: center; gap: 8px; min-height: 28px; }
 .archiveLink:hover, .explore:hover { color: #fff; }
 .explore { position: absolute; left: 50%; transform: translateX(-50%); }
 .playback { display: flex; align-items: center; gap: 8px; }
 .track { width: 42px; height: 1px; background: rgba(255, 255, 255, 0.28); overflow: hidden; }
 .track i { display: block; width: 100%; height: 100%; background: #ffffff; transform: scaleX(0); transform-origin: left; }
-.pause { display: grid; width: 32px; height: 32px; margin-left: 3px; place-items: center; color: #ffffff; background: rgba(18, 43, 137, 0.28); border: 1px solid rgba(255, 255, 255, 0.34); border-radius: 50%; cursor: pointer; }
-.pause:hover { border-color: #bfd7ff; color: #fff; }
+.pause { display: grid; width: 32px; height: 32px; margin-left: 3px; place-items: center; color: #ffffff; background: rgba(0, 40, 30, 0.32); border: 1px solid rgba(251, 246, 230, 0.34); border-radius: 50%; cursor: pointer; }
+.pause:hover { border-color: #e6d3ff; color: #fff; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 @media (max-width: 1050px) {

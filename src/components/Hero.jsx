@@ -62,7 +62,7 @@ export default function Hero({ onOpenInquiry }) {
       sourceCanvas.height = Math.ceil(wordHeight * dpr);
       sourceCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       sourceCtx.clearRect(0, 0, wordWidth, wordHeight);
-      sourceCtx.fillStyle = '#eef4ff';
+      sourceCtx.fillStyle = '#fbf6e6';
       sourceCtx.font = `${fontSize}px "Chanan Hero Serif", Georgia, serif`;
       sourceCtx.textAlign = 'center';
       sourceCtx.textBaseline = 'middle';
@@ -258,7 +258,6 @@ export default function Hero({ onOpenInquiry }) {
 
   return (
     <section id="hero" ref={rootRef} className={styles.hero} aria-labelledby="hero-heading">
-      <div className={styles.grid} aria-hidden="true" />
       <div className={styles.ribbon} data-hero-ribbon aria-hidden="true">
         <svg viewBox="0 0 1000 190" fill="currentColor">
           <path d="M24 2C148 31 252 42 365 42H635C748 42 852 31 976 2Q1000 -4 1000 18V172Q1000 194 976 188C852 159 748 148 635 148H365C252 148 148 159 24 188Q0 194 0 172V18Q0 -4 24 2Z" />

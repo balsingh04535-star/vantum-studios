@@ -13,17 +13,22 @@ export const HERO_SCENES = [
   { word: 'ideas', prompt: 'Let’s make the thing you can’t stop imagining.' },
 ];
 
+// 24 images for 24 cards, so no card repeats. Each side of the tunnel takes
+// every other image (left: even, right: odd), so new product screens and
+// studio work alternate in pairs to keep both sides mixed.
 export const HERO_IMAGES = [
-  '/hero-gallery/chanan-study-001.png',
-  '/hero-gallery/chanan-study-002.png',
-  '/hero-gallery/chanan-study-003.png',
-  '/hero-gallery/chanan-study-004.png',
-  '/work/codevantum.jpg',
-  '/work/codevantum-2.jpg',
-  '/work/codevantum-3.jpg',
-  ...Array.from({ length: 9 }, (_, i) =>
-    `/hero-gallery/${String(i + 8).padStart(2, '0')}.jpg`
-  ),
+  '/hero-gallery/noorakar-aangan-tiles.jpg', '/hero-gallery/chanan-study-001.png',
+  '/hero-gallery/chanan-study-002.png', '/hero-gallery/noorakar-roop-qubit.jpg',
+  '/hero-gallery/noorakar-aangan-safar.jpg', '/work/codevantum.jpg',
+  '/hero-gallery/08.jpg', '/hero-gallery/noorakar-aangan-bolo.jpg',
+  '/hero-gallery/noorakar-cowork-thinking.jpg', '/hero-gallery/chanan-study-003.png',
+  '/work/tee-bloc.jpg', '/hero-gallery/noorakar-aangan-board.jpg',
+  '/hero-gallery/noorakar-voice.jpg', '/work/codevantum-2.jpg',
+  '/hero-gallery/chanan-study-004.png', '/hero-gallery/noorakar-aangan-wallet.jpg',
+  '/hero-gallery/noorakar-cowork-tiles.jpg', '/hero-gallery/10.jpg',
+  '/hero-gallery/12.jpg', '/hero-gallery/noorakar-aangan-4x.jpg',
+  '/hero-gallery/noorakar-aangan-health.jpg', '/work/codevantum-3.jpg',
+  '/hero-gallery/14.jpg', '/hero-gallery/noorakar-roop-models.jpg',
 ];
 
 export const clamp = (n, min = 0, max = 1) => Math.min(max, Math.max(min, n));

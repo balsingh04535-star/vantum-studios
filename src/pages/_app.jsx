@@ -8,7 +8,9 @@ import ProgressiveBlur from '../components/ProgressiveBlur';
 import 'lenis/dist/lenis.css';
 import '../index.css';
 import '../codevantum-case-study.css';
-import '../noorakar-case-study.css';
+import '../noorakar-editorial.css';
+import '../work-editorial.css';
+import '../about-editorial.css';
 
 // Client-only components — touch window/canvas at module scope
 const SmoothScroll = dynamic(() => import('../components/SmoothScroll'), { ssr: false });

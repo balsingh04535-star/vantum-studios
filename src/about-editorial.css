@@ -1,0 +1,132 @@
+/* ── About / editorial ────────────────────────────────────────────────
+   Built on the Services page system. Only the studio image, the
+   principle cards' full copy and the leadership portraits live here. */
+
+.about-editorial-root {
+  --about-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-editorial-root .services-world-title h2 {
+  max-width: 7.5em;
+}
+
+/* ── Studio ────────────────────────────────────────────────────────── */
+.about-frame {
+  position: relative;
+  overflow: hidden;
+  margin: clamp(3.5rem, 6vw, 6rem) 0 0;
+  aspect-ratio: 16 / 9;
+  background: #d9d4ca;
+}
+
+.about-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(18, 17, 15, 0.09);
+}
+
+.about-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.about-facts.services-capability-list {
+  margin: clamp(1.5rem, 2.6vw, 2.5rem) 0 0;
+}
+
+.about-facts.services-capability-list p {
+  max-width: 12em;
+  margin-top: 1.9rem;
+}
+
+/* ── Principles: the cards carry information, not links ────────────── */
+.about-principles .services-glow-card {
+  cursor: default;
+}
+
+.about-principles .services-glow-card-description {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+
+/* ── Leadership ────────────────────────────────────────────────────── */
+.about-people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1vw, 0.9rem);
+  margin-top: clamp(4.5rem, 8vw, 8rem);
+}
+
+.about-person {
+  min-width: 0;
+  margin: 0;
+}
+
+.about-person-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #d9d4ca;
+}
+
+.about-person-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(18, 17, 15, 0.09);
+}
+
+.about-person-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.35);
+  transition: transform 900ms var(--about-ease), filter 400ms ease;
+}
+
+.about-person:hover .about-person-media img {
+  transform: scale(1.03);
+  filter: none;
+}
+
+/* ── Tablet ────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-people-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Phone ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .about-frame {
+    aspect-ratio: 4 / 5;
+  }
+
+  .about-facts.services-capability-list p {
+    margin-top: 1.4rem;
+  }
+
+  .about-people-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-person-media img {
+    transition: none;
+  }
+
+  .about-person:hover .about-person-media img {
+    transform: none;
+  }
+}

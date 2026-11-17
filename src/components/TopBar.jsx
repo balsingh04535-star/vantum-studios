@@ -67,8 +67,8 @@ export default function TopBar({ onOpenInquiry }) {
     return () => desktop.removeEventListener('change', closeMobileMenu);
   }, []);
 
-  // The Chanan One showcase carries its own chrome
-  if (router && router.pathname === '/chanan-one') {
+  // These showcases carry their own navigation and visual treatment.
+  if (router && (router.pathname === '/chanan-one' || (router.pathname === '/work/[slug]' && router.query.slug === 'noorakar'))) {
     return null;
   }
 
