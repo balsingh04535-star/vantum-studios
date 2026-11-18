@@ -1614,15 +1614,15 @@ textarea.form-input {
 }
 
 .nav-bg-layer:nth-child(1) {
-  background-color: #bfd7ff; /* Soft ice periwinkle blue */
+  background-color: #fbf6e6; /* Hero cream */
 }
 
 .nav-bg-layer:nth-child(2) {
-  background-color: #001db8; /* Electric Royal Cobalt */
+  background-color: #05594a; /* Hero green */
 }
 
 .nav-bg-layer:nth-child(3) {
-  background-color: #00127a; /* Deep Cobalt */
+  background-color: #023a2e; /* Hero deep green */
 }
 
 .nav-bg-layer:nth-child(4) {
@@ -4749,7 +4749,7 @@ html.case-study-transition-active::view-transition-new(root) {
      block, so it needs the extra height to carry the same weight. The
      shadow does for the logo what the dark chip does for the buttons —
      keeps it legible where it crosses a bright still. */
-  height: 36px;
+  height: 48px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.7));
@@ -4913,6 +4913,10 @@ html.case-study-transition-active::view-transition-new(root) {
     height: 40px;
   }
 
+  .topbar-mark img {
+    height: 60px;
+  }
+
   .topbar-actions {
     top: 20px;
     right: 20px;
@@ -4928,13 +4932,8 @@ html.case-study-transition-active::view-transition-new(root) {
 }
 
 @media (min-width: 901px) {
-  .topbar-desktop-nav,
   .topbar-clock {
     display: flex;
-  }
-
-  .topbar-btn-menu {
-    display: none;
   }
 }
 

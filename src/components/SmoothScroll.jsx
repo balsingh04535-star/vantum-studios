@@ -38,10 +38,8 @@ export default function SmoothScroll({ children, isLoading }) {
       syncTouch: false,
       wheelMultiplier: 0.9,
       touchMultiplier: 1,
-      anchors: {
-        duration: 0.9,
-        offset: 0,
-      },
+      // In-page anchors are handled below so the URL never gains a #fragment.
+      anchors: false,
       overscroll: true,
       autoResize: true,
       autoRaf: false,
@@ -70,6 +68,48 @@ export default function SmoothScroll({ children, isLoading }) {
       gsap.ticker.lagSmoothing(500, 33);
     };
   }, []);
+
+  // Keep URLs clean: same-page "#section" links scroll without writing the
+  // fragment, and any fragment arriving from an old link is scrolled to, then dropped.
+  useEffect(() => {
+    const scrollToId = (id, immediate = false) => {
+      const target = id && document.getElementById(decodeURIComponent(id));
+      if (!target) return false;
+      const lenis = lenisRef.current;
+      if (lenis) {
+        lenis.scrollTo(target, { duration: 0.9, immediate });
+      } else {
+        target.scrollIntoView({ behavior: immediate ? 'instant' : 'smooth', block: 'start' });
+      }
+      return true;
+    };
+
+    const onClick = (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target.closest?.('a[href*="#"]');
+      if (!link || link.target === '_blank') return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      event.preventDefault();
+      if (!scrollToId(url.hash.slice(1))) {
+        lenisRef.current ? lenisRef.current.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
+  useEffect(() => {
+    const { hash, pathname, search } = window.location;
+    if (!hash) return undefined;
+    window.history.replaceState(window.history.state, '', pathname + search);
+    const timer = window.setTimeout(() => {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      target?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }, 150);
+    return () => window.clearTimeout(timer);
+  }, [router.asPath]);
 
   useEffect(() => {
     const lenis = lenisRef.current;

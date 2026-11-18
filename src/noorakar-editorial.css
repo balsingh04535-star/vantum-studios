@@ -51,7 +51,7 @@
 .nkcs-root button:disabled { cursor: default; opacity: .4; }
 .nkcs-root :where(a, button):focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; }
 .nkcs-root section[id] { scroll-margin-top: 0; }
-.nkcs-root em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+.nkcs-root em { font-family: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; color: color-mix(in srgb, currentColor 46%, transparent); }
 .nkcs-root p em { font-size: 1.1em; line-height: 1; }
 /* The site-wide scroll indicator sets display inline, so this needs !important. */
 body:has(.nkcs-root) :is(.pblur, .luxury-scroller-root) { display: none !important; }
@@ -210,7 +210,7 @@ body:has(.nkcs-root) :is(.pblur, .luxury-scroller-root) { display: none !importa
 .nk-stat-title p em { font-size: 1em; color: var(--ember); }
 .nk-stat-bars { grid-column: 5 / 10; display: flex; align-items: flex-end; gap: 16px; height: clamp(240px, 26vw, 380px); }
 .nk-stat-bars > div { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
-.nk-stat-bars b { font: 400 clamp(44px, 5vw, 88px)/1 var(--serif); letter-spacing: -.02em; margin-bottom: 12px; }
+.nk-stat-bars b { font: 400 clamp(44px, 5vw, 88px)/1 var(--sans); letter-spacing: -.045em; margin-bottom: 12px; }
 .nk-stat-bars i { display: block; width: min(100%, 150px); height: calc(var(--h) * 72%); min-height: 10px; border-radius: 3px 3px 0 0; background: linear-gradient(to top, #c97a56, var(--ember) 40%, var(--ember-soft)); transform: scaleY(0); transform-origin: bottom; transition: transform 1.8s var(--ease) .25s; }
 .nk-stat-bars > div:nth-child(2) i { background: var(--ink-3); box-shadow: inset 0 0 0 1px var(--line-d); transition-delay: .45s; }
 .nk-stat[data-in] .nk-stat-bars i { transform: scaleY(1); }
@@ -347,7 +347,7 @@ body:has(.nkcs-root) :is(.pblur, .luxury-scroller-root) { display: none !importa
 .nk-model-art img { width: 80%; height: auto; filter: drop-shadow(0 24px 50px color-mix(in srgb, var(--glow) 40%, transparent)); animation: nk-float 7s ease-in-out infinite; animation-delay: calc(var(--d, 0ms) * -8); }
 @keyframes nk-float { 50% { transform: translate3d(0, -12px, 0) rotate(1.5deg); } }
 .nk-model figcaption { padding-top: 14px; border-top: 1px solid var(--line-d); }
-.nk-model h3 { font: italic 400 clamp(34px, 3.4vw, 60px)/1 var(--serif); letter-spacing: -.02em; }
+.nk-model h3 { font: 400 clamp(34px, 3.4vw, 60px)/1 var(--sans); letter-spacing: -.04em; }
 .nk-model p { margin-top: 8px; font-size: 13px; line-height: 1.4; color: var(--mute); }
 
 /* ── 07 Frames ──────────────────────────────────────────────────────────── */
